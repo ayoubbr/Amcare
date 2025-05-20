@@ -39,6 +39,9 @@
     @vite('resources/css/module-css/service.css')
     @vite('resources/css/module-css/feature.css')
     @vite('resources/css/module-css/funfact.css')
+    @vite('resources/css/module-css/testimonial.css')
+    @vite('resources/css/module-css/faq.css')
+    @vite('resources/css/module-css/team.css')
     @vite('resources/css/module-css/event.css')
     @vite('resources/css/module-css/process.css')
     @vite('resources/css/module-css/news.css')
@@ -98,6 +101,8 @@
 
 
         <div class="chat-icon"><button type="button" class="chat-toggler"><i class="icon-31"></i></button></div>
+        <div class="chat-icon whatsapp-icon"><button type="button" class="chat-toggler"><i
+                    class="fab fa-whatsapp"></i></button></div>
 
 
         <!--chat popup-->
@@ -198,14 +203,8 @@
                             <nav class="main-menu navbar-expand-md navbar-light clearfix">
                                 <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
-                                        <li class="current dropdown"><a href="#">Home</a>
-                                            <ul>
-                                                <li><a href="index.html">Home One</a></li>
-                                                <li><a href="index-2.html">Home Two</a></li>
-                                                <li><a href="index-3.html">Home Three</a></li>
-                                                <li><a href="index-4.html">Home Four</a></li>
-                                                <li><a href="index-5.html">Home Five</a></li>
-                                            </ul>
+                                        <li class="{{ request()->is('/') ? 'current' : '' }}"><a
+                                                href="{{ route('home') }}">Home</a>
                                         </li>
                                         <li class="dropdown"><a href="#">Services</a>
                                             <ul>
@@ -403,6 +402,53 @@
         </section>
         <!-- brand-style-two end -->
 
+        <!-- processing-style-two -->
+        <section class="processing-style-two pl_100 pr_100 centred">
+            <div class="auto-container">
+                <div class="inner-container pt_90 pb_90">
+                    <div class="sec-title mb_50">
+                        <span class="sub-title mb_12">Process</span>
+                        <h2>How to get Service</h2>
+                    </div>
+                    <div class="content-box">
+                        <div class="processing-block-two">
+                            <div class="inner-box">
+                                <div class="count-box">
+                                    <div class="inner">
+                                        <h4>01</h4><span>Step</span>
+                                    </div>
+                                </div>
+                                <h3>Call at Hotline</h3>
+                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
+                            </div>
+                        </div>
+                        <div class="processing-block-two">
+                            <div class="inner-box">
+                                <div class="count-box">
+                                    <div class="inner">
+                                        <h4>02</h4><span>Step</span>
+                                    </div>
+                                </div>
+                                <h3>Set Direction</h3>
+                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
+                            </div>
+                        </div>
+                        <div class="processing-block-two">
+                            <div class="inner-box">
+                                <div class="count-box">
+                                    <div class="inner">
+                                        <h4>03</h4><span>Step</span>
+                                    </div>
+                                </div>
+                                <h3>Get Ambulance</h3>
+                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- processing-style-two end -->
 
         <!-- about-style-two -->
         <section class="about-style-two pt_120 pb_120">
@@ -937,56 +983,7 @@
         <!-- event-section end -->
 
 
-        <!-- processing-style-two -->
-        <section class="processing-style-two pl_100 pr_100 centred">
-            <div class="auto-container">
-                <div class="inner-container pt_90 pb_90">
-                    <div class="sec-title mb_50">
-                        <span class="sub-title mb_12">Process</span>
-                        <h2>How to get Service</h2>
-                    </div>
-                    <div class="content-box">
-                        <div class="processing-block-two">
-                            <div class="inner-box">
-                                <div class="count-box">
-                                    <div class="inner">
-                                        <h4>01</h4><span>Step</span>
-                                    </div>
-                                </div>
-                                <h3>Call at Hotline</h3>
-                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
-                            </div>
-                        </div>
-                        <div class="processing-block-two">
-                            <div class="inner-box">
-                                <div class="count-box">
-                                    <div class="inner">
-                                        <h4>02</h4><span>Step</span>
-                                    </div>
-                                </div>
-                                <h3>Set Direction</h3>
-                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
-                            </div>
-                        </div>
-                        <div class="processing-block-two">
-                            <div class="inner-box">
-                                <div class="count-box">
-                                    <div class="inner">
-                                        <h4>03</h4><span>Step</span>
-                                    </div>
-                                </div>
-                                <h3>Get Ambulance</h3>
-                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- processing-style-two end -->
-
-
-        <!-- news-style-three -->
+        {{-- <!-- news-style-three -->
         <section class="news-style-three pl_100 pr_100 pt_120 pb_90">
             <div class="pattern-layer">
                 <div class="pattern-1"
@@ -1104,8 +1101,253 @@
                 </div>
             </div>
         </section>
-        <!-- news-style-three end -->
+        <!-- news-style-three end --> --}}
+        <!-- team-section -->
+        <section class="team-section style-two centred pt_120 pb_90">
+            <div class="auto-container">
+                <div class="sec-title centred mb_50">
+                    <span class="sub-title mb_12">Our Team</span>
+                    <h3>Our Trained Members</h3>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="00ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="assets/images/team/team-1.jpg" alt="">
+                                    </figure>
+                                    <ul class="social-links">
+                                        <li><a href="index-2.html"><i class="icon-4"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-5"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-6"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="lower-content">
+                                    <h4><a href="team-details.html">Brooklyn Simmons</a></h4>
+                                    <span class="designation">Head Nurse</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="200ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="assets/images/team/team-2.jpg" alt="">
+                                    </figure>
+                                    <ul class="social-links">
+                                        <li><a href="index-2.html"><i class="icon-4"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-5"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-6"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="lower-content">
+                                    <h4><a href="team-details.html">Robert Fox</a></h4>
+                                    <span class="designation">Care Taker</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="400ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="assets/images/team/team-3.jpg" alt="">
+                                    </figure>
+                                    <ul class="social-links">
+                                        <li><a href="index-2.html"><i class="icon-4"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-5"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-6"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="lower-content">
+                                    <h4><a href="team-details.html">Darlene Robertson</a></h4>
+                                    <span class="designation">Senior Doctor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="600ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="assets/images/team/team-4.jpg" alt="">
+                                    </figure>
+                                    <ul class="social-links">
+                                        <li><a href="index-2.html"><i class="icon-4"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-5"></i></a></li>
+                                        <li><a href="index-2.html"><i class="icon-6"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="lower-content">
+                                    <h4><a href="team-details.html">Albert Flores</a></h4>
+                                    <span class="designation">Emergency Doctor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- team-section end -->
 
+        <!-- faq-style-two -->
+        <section class="faq-style-two pt_120 pb_120">
+            <div class="bg-layer parallax-bg" data-parallax='{"y": 100}'
+                style="background-image: url('{{ asset('assets/images/background/faq-bg.jpg') }}');"></div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                        <div class="content-box">
+                            <div class="sec-title mb_50 light">
+                                <span class="sub-title mb_12">General FAQ’S</span>
+                                <h2>Most Asked Question</h2>
+                            </div>
+                            <div class="support-box">
+                                <div class="text-box">
+                                    <h4>Have more question?</h4>
+                                    <h2>Call us</h2>
+                                </div>
+                                <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 faq-column">
+                        <div class="content_block_six">
+                            <div class="faq-content">
+                                <ul class="accordion-box">
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <h4>How Can I Prepare for an Interview?</h4>
+                                            <div class="icon-box"><i class="icon-27"></i></div>
+                                        </div>
+                                        <div class="acc-content">
+                                            <div class="text">
+                                                <p>To prepare for an interview, research the company, understand the job
+                                                    role and responsibilities, and prepare questions to ask the
+                                                    interviewer.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block active-block">
+                                        <div class="acc-btn active">
+                                            <h4>Hiring Nursev and Candidates?</h4>
+                                            <div class="icon-box"><i class="icon-27"></i></div>
+                                        </div>
+                                        <div class="acc-content current">
+                                            <div class="text">
+                                                <p>To prepare for an interview, research the company, understand the job
+                                                    role and responsibilities, and prepare questions to ask the
+                                                    interviewer.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <h4>Clarifying Recruitment Concepts?</h4>
+                                            <div class="icon-box"><i class="icon-27"></i></div>
+                                        </div>
+                                        <div class="acc-content">
+                                            <div class="text">
+                                                <p>To prepare for an interview, research the company, understand the job
+                                                    role and responsibilities, and prepare questions to ask the
+                                                    interviewer.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <h4>Employers look for in candidates?</h4>
+                                            <div class="icon-box"><i class="icon-27"></i></div>
+                                        </div>
+                                        <div class="acc-content">
+                                            <div class="text">
+                                                <p>To prepare for an interview, research the company, understand the job
+                                                    role and responsibilities, and prepare questions to ask the
+                                                    interviewer.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <h4>Doctors look for in candidates?</h4>
+                                            <div class="icon-box"><i class="icon-27"></i></div>
+                                        </div>
+                                        <div class="acc-content">
+                                            <div class="text">
+                                                <p>To prepare for an interview, research the company, understand the job
+                                                    role and responsibilities, and prepare questions to ask the
+                                                    interviewer.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- faq-style-two end -->
+
+        <!-- testimonial-style-two -->
+        <section class="testimonial-style-two pt_120 pb_160">
+            <div class="auto-container">
+                <div class="sec-title centred mb_50">
+                    <span class="sub-title mb_12">Testimonials</span>
+                    <h2>What our clients say <br />about us</h2>
+                </div>
+                <div class="single-item-carousel owl-carousel owl-theme owl-nav-none">
+                    <div class="testimonial-content">
+                        <figure class="image-box"><img src="assets/images/resource/testimonial-1.jpg" alt="">
+                        </figure>
+                        <div class="content-box">
+                            <div class="icon-box"><i class="icon-45"></i></div>
+                            <h3>Absolutely wonderful Service!</h3>
+                            <p>Their state-of-the-art equipment and thorough knowledge made feel confident and reassured
+                                during a very stressful time. The seamless coordinations between the ambulance crew and
+                                the hospitals staff was impressive, ensuring my mother received immediate attention upon
+                                arrival.</p>
+                            <h4>Jack Nitzsche</h4>
+                            <span class="designation">Govt Employee</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <figure class="image-box"><img src="assets/images/resource/testimonial-1.jpg" alt="">
+                        </figure>
+                        <div class="content-box">
+                            <div class="icon-box"><i class="icon-45"></i></div>
+                            <h3>Absolutely wonderful Service!</h3>
+                            <p>Their state-of-the-art equipment and thorough knowledge made feel confident and reassured
+                                during a very stressful time. The seamless coordinations between the ambulance crew and
+                                the hospitals staff was impressive, ensuring my mother received immediate attention upon
+                                arrival.</p>
+                            <h4>Jack Nitzsche</h4>
+                            <span class="designation">Govt Employee</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <figure class="image-box"><img src="assets/images/resource/testimonial-1.jpg" alt="">
+                        </figure>
+                        <div class="content-box">
+                            <div class="icon-box"><i class="icon-45"></i></div>
+                            <h3>Absolutely wonderful Service!</h3>
+                            <p>Their state-of-the-art equipment and thorough knowledge made feel confident and reassured
+                                during a very stressful time. The seamless coordinations between the ambulance crew and
+                                the hospitals staff was impressive, ensuring my mother received immediate attention upon
+                                arrival.</p>
+                            <h4>Jack Nitzsche</h4>
+                            <span class="designation">Govt Employee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- testimonial-style-two end -->
 
         <!-- cta-section -->
         <section class="cta-section b_radius ml_100 mr_100">

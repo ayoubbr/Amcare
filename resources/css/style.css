@@ -969,7 +969,7 @@ button.ltr {
   width: 100%;
 }
 
-.chat-icon{
+.chat-icon, .whatsapp-icon {
   position: fixed;
   display: inline-block;
   right: 30px;
@@ -977,7 +977,12 @@ button.ltr {
   z-index: 99;
 }
 
-.chat-icon button{
+.whatsapp-icon {
+  right: 30px;
+  bottom: 170px;
+}
+
+.chat-icon button, .whatsapp-icon button{
   position: relative;
   display: inline-block;
   width: 50px;
