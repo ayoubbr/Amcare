@@ -39,3 +39,7 @@ Route::get('faqs', function () {
     return view('faqs');
 })->name('faqs');
 
+Route::get('not-found', function () {
+    return view('404');
+})->name('not-found');
+

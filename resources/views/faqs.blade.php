@@ -101,10 +101,10 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li>Faq's</li>
+                        <li><a href="/">Home</a></li>
+                        <li>FAQ's</li>
                     </ul>
-                    <h1>Faq's One</h1>
+                    <h1>FAQ's</h1>
                 </div>
             </div>
         </section>
