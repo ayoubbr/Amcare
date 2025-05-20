@@ -104,7 +104,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li>Service Details</li>
                     </ul>
                     <h1>Road Ambulance</h1>
@@ -306,35 +306,6 @@
             </div>
         </section>
         <!-- service-details end -->
-
-
-        <!-- subscribe-section -->
-        <section class="subscribe-section pt_45 pb_45">
-            <div class="pattern-layer">
-                <div class="pattern-1" style="background-image: url('{{asset('assets/images/shape/shape-4.png')}}');"></div>
-                <div class="pattern-2" style="background-image: url('{{asset('assets/images/shape/shape-5.png')}}');"></div>
-            </div>
-            <div class="auto-container">
-                <div class="row align-items-center">
-                    <div class="col-lg-7 col-md-12 col-sm-12 text-column">
-                        <div class="text-box">
-                            <h2>The Fastest & Secure Medical Service</h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-12 col-sm-12 form-column">
-                        <div class="form-inner ml_50">
-                            <form method="post" action="https://azim.hostlin.com/Amcare/contact.html">
-                                <div class="form-group">
-                                    <input type="email" name="email" placeholder="Your email" required>
-                                    <button type="submit">Subscribe</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- subscribe-section end -->
 
 
         @include('footer')

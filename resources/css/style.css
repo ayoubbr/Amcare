@@ -406,14 +406,15 @@ img {
 
 
 .parallax-bg{
-  position: absolute;
-  left: 0px;
-  top: -30%;
-  width: 100%;
-  height: calc(100% + 30%);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    position: absolute;
+    left: 100px;
+    top: -30%;
+    width: 86.79%;
+    height: calc(100% + 30%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 20px; */
 }
 
 
@@ -975,11 +976,6 @@ button.ltr {
   right: 30px;
   bottom: 100px;
   z-index: 99;
-}
-
-.whatsapp-icon {
-  right: 30px;
-  bottom: 170px;
 }
 
 .chat-icon button, .whatsapp-icon button{

@@ -1,9 +1,9 @@
   <!-- main-footer -->
   <footer class="main-footer home-3 pl_100 pr_100">
-      <div class="widget-section pt_110 pb_110">
+      <div class="widget-section pt_110 pb_110 pr_50 pl_50">
           <div class="auto-container">
               <div class="row clearfix">
-                  <div class="col-lg-5 col-md-12 col-sm-12 footer-column">
+                  <div class="col-lg-4 col-md-12 col-sm-12 footer-column">
                       <div class="footer-widget about-widget">
                           <div class="widget-content">
                               <h2>The Fastest and Secure Ambulance Service</h2>
@@ -32,7 +32,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="col-lg-2 col-md-4 col-sm-12 footer-column">
+                  <div class="col-lg-3 col-md-4 col-sm-12 footer-column">
                       <div class="footer-widget links-widget">
                           <div class="widget-title">
                               <h4>More Links</h4>
@@ -49,22 +49,11 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-12 footer-column">
-                      <div class="footer-widget subscribe-widget">
-                          <div class="widget-title">
-                              <h4>Subscribe for updates</h4>
-                          </div>
+                      <div class="footer-widget contact-widget">
                           <div class="widget-content">
-                              <form method="post" action="https://azim.hostlin.com/Amcare/index-3.html">
-                                  <div class="form-group">
-                                      <input type="text" name="name" placeholder="Name" required>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="email" name="email" placeholder="Email Address" required>
-                                  </div>
-                                  <div class="form-group">
-                                      <button type="submit" class="theme-btn btn-one">Subscribe Now</button>
-                                  </div>
-                              </form>
+                              <figure class="image-box mb_25"><img src="assets/images/resource/ambulance-3.png"
+                                      alt=""></figure>
+                              <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
                           </div>
                       </div>
                   </div>
@@ -91,4 +80,3 @@
           <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
       </svg>
   </div>
-

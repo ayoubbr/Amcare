@@ -143,8 +143,12 @@
 .faq-style-two{
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
-
+.faq-style-two .auto-container{
+  width: 78%;
+}
 .faq-style-two .bg-layer:before{
   position: absolute;
   content: '';

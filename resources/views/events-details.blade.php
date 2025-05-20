@@ -108,7 +108,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li>Event Details</li>
                     </ul>
                     <h1>Health Care Ideas</h1>

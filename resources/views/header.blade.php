@@ -5,24 +5,11 @@
         <div class="auto-container">
             <div class="top-inner">
                 <ul class="info-list">
-                    <li><i class="icon-48"></i>Call:<a href="tel:912345432">+91 (234) 5432</a></li>
+                    <li><i class="icon-48"></i>Appellez:<a href="tel:912345432">+91 (234) 5432</a></li>
                     <li><i class="icon-47"></i>Mail:<a href="mailto:info@example.com">info@example.com</a>
                     </li>
                 </ul>
                 <div class="right-column">
-                    <div class="language-box">
-                        <div class="language-dropdown">
-                            <button id="dropdown-btn"></button>
-                            <ul class="dropdown-content" id="dropdown-content"></ul>
-                        </div>
-                    </div>
-                    <ul class="social-links">
-                        <li><span>Share:</span></li>
-                        <li><a href="index.html"><i class="icon-4"></i></a></li>
-                        <li><a href="index.html"><i class="icon-5"></i></a></li>
-                        <li><a href="index.html"><i class="icon-6"></i></a></li>
-                        <li><a href="index.html"><i class="icon-7"></i></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -45,7 +32,7 @@
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
                                 <li class="{{ request()->is('/') ? 'current' : '' }}"><a
-                                        href="{{ route('home') }}">Home</a>
+                                        href="{{ route('home') }}">Acceuil</a>
                                 </li>
                                 <li class="dropdown {{ request()->is('services') ? 'current' : '' }}"><a
                                         href="{{ route('services') }}">Services</a>
@@ -66,6 +53,9 @@
                                         <li><a href="{{ url('events/1') }}">Nursing Care</a></li>
                                         <li><a href="{{ url('events/1') }}">Anesthesia Support</a></li>
                                     </ul>
+                                </li>
+                                <li class="{{ request()->is('blogs') ? 'current' : '' }}">
+                                    <a href="{{ url('blogs') }}">Blog</a>
                                 </li>
                                 <li class="dropdown"><a href="#">Pages</a>
                                     <ul>
@@ -91,14 +81,6 @@
                                         <li><a href="error.html">404</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">Blog</a>
-                                    <ul>
-                                        <li><a href="blog.html">Blog Grid One</a></li>
-                                        <li><a href="blog-2.html">Blog Grid Two</a></li>
-                                        <li><a href="blog-3.html">Blog Standard</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </div>
@@ -106,7 +88,7 @@
                 </div>
                 <div class="menu-right-content">
                     <div class="search-toggler"><i class="icon-8"></i></div>
-                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
+                    {{-- <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div> --}}
                 </div>
             </div>
         </div>
@@ -126,7 +108,7 @@
                 </div>
                 <div class="menu-right-content">
                     <div class="search-toggler"><i class="icon-8"></i></div>
-                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
+                    {{-- <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div> --}}
                 </div>
             </div>
         </div>
@@ -140,8 +122,8 @@
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
     <nav class="menu-box">
-        <div class="nav-logo"><a href="index.html"><img
-                    src="{{ Vite::asset('resources/assets/images/logo-2.png') }}" alt="" title=""></a>
+        <div class="nav-logo"><a href="index.html"><img src="{{ Vite::asset('resources/assets/images/logo-2.png') }}"
+                    alt="" title=""></a>
         </div>
         <div class="menu-outer">
             <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
@@ -167,41 +149,10 @@
 </div>
 <!-- End Mobile Menu -->
 
-<!-- page-direction -->
-<div class="page_direction">
-    <div class="demo-rtl direction_switch"><button class="rtl">RTL</button></div>
-    <div class="demo-ltr direction_switch"><button class="ltr">LTR</button></div>
-</div>
-<!-- page-direction end -->
-
-
-<div class="chat-icon"><button type="button" class="chat-toggler"><i class="icon-31"></i></button></div>
-<div class="chat-icon whatsapp-icon"><button type="button" class="chat-toggler"><i
-            class="fab fa-whatsapp"></i></button></div>
-
-
-<!--chat popup-->
-<div id="chat-popup" class="chat-popup">
-    <div class="popup-inner">
-        <div class="close-chat"><i class="far fa-times"></i></div>
-        <div class="chat-form">
-            <p>Please fill out the form below and we will get back to you as soon as possible.</p>
-            <form method="post" action="https://azim.hostlin.com/Amcare/index.html">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Your Text"></textarea>
-                </div>
-                <div class="form-group message-btn">
-                    <button type="submit" class="theme-btn btn-one">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="chat-icon whatsapp-icon">
+    <button type="button" class="chat-toggler">
+        <i class="fab fa-whatsapp"></i>
+    </button>
 </div>
 
 

@@ -103,7 +103,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li>Services</li>
                     </ul>
                     <h1>Our Services</h1>
@@ -114,7 +114,7 @@
 
 
         <!-- service-section -->
-        <section class="service-section pt_120 pb_120">
+        <section class="service-section pt_80 ">
             <div class="auto-container">
                 <div class="sec-title mb_50 centred">
                     <span class="sub-title mb_12">Our services</span>
@@ -251,7 +251,7 @@
 
 
         <!-- sevice-area -->
-        <section class="sevice-area centred pt_120 pb_90">
+        <section class="sevice-area centred pt_120 pb_90" style="width: 87%;margin: auto;">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-14.png);"></div>
             <div class="auto-container">
                 <div class="sec-title mb_50">

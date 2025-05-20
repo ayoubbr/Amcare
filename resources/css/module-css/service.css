@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.service-section .auto-container {
+  padding: 0;
+}
+
 .service-section .tab-btns {
   position: relative;
   display: block;

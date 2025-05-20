@@ -19,7 +19,6 @@
         rel="stylesheet">
 
     <!-- Stylesheets -->
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -104,7 +103,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li>Events</li>
                     </ul>
                     <h1>Events</h1>
@@ -129,7 +128,7 @@
                                 <h3><a href="event-details.html">Sports Events</a></h3>
                                 <p>On-site medical team ready to provide full medical attention, for Competitors,
                                     spectators & event</p>
-                                <div class="btn-box"><a href="event-details.html" class="theme-btn btn-one">Know
+                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">Know
                                         More</a></div>
                                 <figure class="image-box"><img src="assets/images/resource/event-1.jpg" alt="">
                                 </figure>
@@ -142,7 +141,7 @@
                                 <h3><a href="event-details.html">Community Events</a></h3>
                                 <p>Finding individuals who share your company's values and vision can contribute to a
                                     cohesive</p>
-                                <div class="btn-box"><a href="event-details.html" class="theme-btn btn-one">Know
+                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">Know
                                         More</a></div>
                                 <figure class="image-box"><img src="assets/images/resource/event-2.jpg" alt="">
                                 </figure>
