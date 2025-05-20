@@ -14,3 +14,13 @@ Route::get('services', function () {
 Route::get('services/{id}', function () {
     return view('services-details');
 })->name('services-details');
+
+
+Route::get('events', function () {
+    return view('events');
+})->name('events');
+
+
+Route::get('events/{id}', function () {
+    return view('events-details');
+})->name('events-details');

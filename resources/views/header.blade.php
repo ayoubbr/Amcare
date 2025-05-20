@@ -58,14 +58,13 @@
                                         <li><a href="{{ url('services/6') }}">ICU Ambulance</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">Events</a>
+                                <li class="dropdown"><a href="{{ url('events') }}">Events</a>
                                     <ul>
-                                        <li><a href="event.html">Events</a></li>
-                                        <li><a href="event-details.html">Health Care Ideas</a></li>
-                                        <li><a href="event-details-2.html">Real Heart Attack</a></li>
-                                        <li><a href="event-details-3.html">Blood Information</a></li>
-                                        <li><a href="event-details-4.html">Nursing Care</a></li>
-                                        <li><a href="event-details-5.html">Anesthesia Support</a></li>
+                                        <li><a href="{{ url('events/1') }}">Health Care Ideas</a></li>
+                                        <li><a href="{{ url('events/1') }}">Real Heart Attack</a></li>
+                                        <li><a href="{{ url('events/1') }}">Blood Information</a></li>
+                                        <li><a href="{{ url('events/1') }}">Nursing Care</a></li>
+                                        <li><a href="{{ url('events/1') }}">Anesthesia Support</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#">Pages</a>
