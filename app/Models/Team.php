@@ -5,27 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Team extends Model
 {
-    /** @use HasFactory<\Database\Factories\ServiceFactory> */
+    /** @use HasFactory<\Database\Factories\TeamFactory> */
     use HasFactory;
 
-
     protected $fillable = [
-        'title',
-        'icon',
-        'short_description',
-        'content', 
-        'image',
+        'name',
+        'position',
+        'photo',
+        'bio',
+        'social_links',
         'order',
-        'is_published'  
+        'is_published'
     ];
-
 
     protected $casts = [
         'is_published' => 'boolean',
+        'social_links' => 'array',
     ];
-
 
     public function published($query)
     {
@@ -36,5 +34,8 @@ class Service extends Model
     {
         return $query->orderBy('order', 'asc');
     }
+
+
+
 
 }
