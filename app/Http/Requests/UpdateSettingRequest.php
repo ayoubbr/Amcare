@@ -11,7 +11,7 @@ class UpdateSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'site_name' => 'required|string',
+            'phone' => 'required|string',
+            'logo' => 'nullable|string',
+            'footer_text'
         ];
     }
 }
