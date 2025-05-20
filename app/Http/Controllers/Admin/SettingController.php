@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
+use App\Http\Controllers\Controller;
+
 
 class SettingController extends Controller
 {
@@ -13,17 +15,9 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settings = Setting::getAllSettings();
+        return view('admin.settings.index', compact('settings'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -45,7 +39,8 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        //
+        $settings = Setting::first() ?? new Setting();
+        return view('admin.settings.edit', compact('settings'));
     }
 
     /**
@@ -53,7 +48,8 @@ class SettingController extends Controller
      */
     public function update(UpdateSettingRequest $request, Setting $setting)
     {
-        //
+        $request = $request->validated();
+        
     }
 
     /**

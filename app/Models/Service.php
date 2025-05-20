@@ -27,12 +27,12 @@ class Service extends Model
     ];
 
 
-    public function published($query)
+    public function scopePublished($query)
     {
         return $query->where('is_published', true);
     }
 
-    public function order($query)
+    public function scopeOrdered($query)
     {
         return $query->orderBy('order', 'asc');
     }
