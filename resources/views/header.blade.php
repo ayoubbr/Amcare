@@ -57,26 +57,11 @@
                                 <li class="{{ request()->is('blogs') ? 'current' : '' }}">
                                     <a href="{{ url('blogs') }}">Blog</a>
                                 </li>
+                                <li>
+                                    <a href="{{ url('faqs') }}">FAQ's</a>
+                                </li>
                                 <li class="dropdown"><a href="#">Pages</a>
                                     <ul>
-                                        <li class="dropdown"><a href="#">Team</a>
-                                            <ul>
-                                                <li><a href="team.html">Our Team</a></li>
-                                                <li><a href="team-details.html">Team Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown"><a href="#">Testimonials</a>
-                                            <ul>
-                                                <li><a href="testimonial.html">Testimonials One</a></li>
-                                                <li><a href="testimonial-2.html">Testimonials Two</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown"><a href="#">Faq's</a>
-                                            <ul>
-                                                <li><a href="faq.html">Faq's One</a></li>
-                                                <li><a href="faq-2.html">Faq's Two</a></li>
-                                            </ul>
-                                        </li>
                                         <li><a href="about.html">About Us</a></li>
                                         <li><a href="error.html">404</a></li>
                                     </ul>

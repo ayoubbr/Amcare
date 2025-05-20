@@ -34,3 +34,8 @@ Route::get('blogs', function () {
 Route::get('blogs/{id}', function () {
     return view('blogs-details');
 })->name('blogs-details');
+
+Route::get('faqs', function () {
+    return view('faqs');
+})->name('faqs');
+

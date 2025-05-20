@@ -106,7 +106,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li>Blog Details</li>
                     </ul>
                     <h1>Blog Details</h1>
@@ -117,7 +117,7 @@
 
 
         <!-- sidebar-page-container -->
-        <section class="sidebar-page-container pt_120 pb_120">
+        <section class="sidebar-page-container pt_120 pb_60">
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
@@ -203,21 +203,6 @@
                                     the efficiency and
                                     safety of air ambulance operations.</p>
                             </div>
-                            <div class="post-share-option pt_55 pb_30">
-                                <ul class="tags-list">
-                                    <li><span>Tags:</span></li>
-                                    <li><a href="blog-details.html">Air Ambulance</a></li>
-                                    <li><a href="blog-details.html">Emergency Transport</a></li>
-                                    <li><a href="blog-details.html">Ambulance</a></li>
-                                </ul>
-                                <ul class="social-links">
-                                    <li><span>Share This:</span></li>
-                                    <li><a href="blog-details.html"><i class="icon-4"></i></a></li>
-                                    <li><a href="blog-details.html"><i class="icon-5"></i></a></li>
-                                    <li><a href="blog-details.html"><i class="icon-6"></i></a></li>
-                                </ul>
-                            </div>
-                            
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
