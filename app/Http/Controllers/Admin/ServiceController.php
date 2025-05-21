@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +27,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.services.create');
+        $zones = Zone::where('is_active', true)->get();
+        return view('admin.services.create', compact('zones'));
     }
 
     /**
@@ -44,7 +46,11 @@ class ServiceController extends Controller
             $data['order'] = Service::max('order') + 1;
         }
         
-        Service::create($data);
+        $service = Service::create($data);
+
+        if (isset($validated['zones'])) {
+            $service->regions()->sync($data['zones']);
+        }
         return redirect()->route('admin.services.index')
             ->with('success', 'Service créé avec succès.');
     }

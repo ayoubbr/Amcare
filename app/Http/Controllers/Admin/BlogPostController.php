@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\BlogPost;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
-use App\Http\Controllers\Controller;  
+use App\Http\Controllers\Controller;
+use App\Models\Category;  
 
 class BlogPostController extends Controller
 {
@@ -14,7 +15,11 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = BlogPost::with('category')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+        
+        return view('admin.blog.index', compact('posts'));
     }
 
     /**
@@ -22,7 +27,8 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('name')->get();
+        return view('admin.blog.create', compact('categories'));
     }
 
     /**
@@ -30,8 +36,24 @@ class BlogPostController extends Controller
      */
     public function store(StoreBlogPostRequest $request)
     {
-        //
+        $validate = $request->validated();
+        $validate['slug'] = BlogPost::createUniqueSlug($validate['title']);
+
+        if ($validate->hasFile('image')) {
+            $path = $validate->file('image')->store('blog', 'public');
+            $validate['image'] = $path;
+        }
+
+        if (!isset($validate['published_at']) && isset($validate['is_published']) && $validate['is_published']) {
+            $validate['published_at'] = now();
+        }
+
+        BlogPost::create($validate);
+
+        return redirect()->route('admin.blog.index')
+            ->with('success', 'Article créé avec succès.');
     }
+
 
     /**
      * Display the specified resource.

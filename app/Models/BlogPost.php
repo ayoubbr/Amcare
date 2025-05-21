@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class BlogPost extends Model
 {
@@ -26,7 +27,7 @@ class BlogPost extends Model
         'published_at' => 'dateTime'
     ];
 
-    public function published($query)
+    public function scopePublished($query)
     {
         return $query->where('is_published', true)
                 ->where('published_at', '<=', now())
@@ -36,5 +37,14 @@ class BlogPost extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+
+    public static function createUniqueSlug($title)
+    {
+        $slug = Str::slug($title);
+        $count = self::where('slug', $slug)->count();
+
+        return $count ? "{$slug}-{$count}" : $slug;
     }
 }
