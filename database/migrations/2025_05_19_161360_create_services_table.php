@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('short_description');
             $table->longText('content');
             $table->string('image')->nullable();
+            $table->string('whatsapp_number')->nullable();
             $table->integer('order')->default(0);
             $table->boolean('is_published')->default(false);
             $table->timestamps();

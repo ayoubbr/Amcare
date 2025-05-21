@@ -28,7 +28,7 @@ class Event extends Model
     ];
 
 
-    public function published($query)
+    public function scopePublished($query)
     {
         return $query->where('is_published', true);
     }
@@ -40,7 +40,7 @@ class Event extends Model
                 ->orderBy('event_date', 'asc');
     }
 
-    public function finished($query)
+    public function past($query)
     {
         return $query->where('event_date', '<', now())
                 ->orderBy('event_date', 'desc');

@@ -27,7 +27,7 @@ class Page extends Model
     ];
 
 
-    public function published($query)
+    public function scopePublished($query)
     {
         return $query->where('is_published', true);
     }

@@ -17,6 +17,7 @@ class Service extends Model
         'short_description',
         'content', 
         'image',
+        'whatsapp_number',
         'order',
         'is_published'  
     ];
@@ -35,6 +36,11 @@ class Service extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('order', 'asc');
+    }
+
+    public function zones()
+    {
+        return $this->belongsToMany(Zone::class);
     }
 
 }
