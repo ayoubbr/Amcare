@@ -19,8 +19,6 @@
         rel="stylesheet">
 
     <!-- Stylesheets -->
-
-
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')

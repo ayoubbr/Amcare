@@ -35,11 +35,22 @@ Route::get('blogs/{id}', function () {
     return view('blogs-details');
 })->name('blogs-details');
 
+
 Route::get('faqs', function () {
     return view('faqs');
 })->name('faqs');
+
 
 Route::get('not-found', function () {
     return view('404');
 })->name('not-found');
 
+
+Route::get('about', function () {
+    return view('about');
+})->name('about');
+
+
+Route::get('contact', function () {
+    return view('contact');
+})->name('contact');
