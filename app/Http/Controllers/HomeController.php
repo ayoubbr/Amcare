@@ -85,10 +85,33 @@ class HomeController extends Controller
 
     public function events()
     {
-        $upcoming = Event::published()->upcoming()->get();
-        $past = Event::published()->past()->take(5)->get();
-        
-        return view('front.events', compact('upcoming', 'past'));
+        $upcomingEvents = Event::published()
+                        ->where('event_date', '>=', now())
+                        ->orderBy('event_date', 'asc')
+                        ->get();
+                        
+        $pastEvents = Event::published()
+                    ->where('event_date', '<', now())
+                    ->orderBy('event_date', 'desc')
+                    ->take(5)
+                    ->get();
+    
+        return view('front.events', compact('upcomingEvents', 'pastEvents'));
+    }
+
+    public function event($slug)
+    {
+        $event = Event::published()
+                ->where('slug', $slug)
+                ->firstOrFail();
+    
+        $relatedEvents = Event::published()
+                        ->where('id', '!=', $event->id)
+                        ->where('event_date', '>=', now())
+                        ->orderBy('event_date', 'asc')
+                        ->take(3)
+                        ->get();
+        return view('front.event', compact('event', 'relatedEvents'));
     }
 
 }

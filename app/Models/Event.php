@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Event extends Model
 {
@@ -34,7 +35,7 @@ class Event extends Model
     }
 
 
-    public function upComming($query)
+    public function scopeUpComming($query)
     {
         return $query->where('event_date', '>=', now())
                 ->orderBy('event_date', 'asc');
@@ -44,6 +45,14 @@ class Event extends Model
     {
         return $query->where('event_date', '<', now())
                 ->orderBy('event_date', 'desc');
+    }
+
+    public static function createUniqueSlug($title)
+    {
+        $slug = Str::slug($title);
+        $count = self::where('slug', $slug)->count();
+
+        return $count ? "{$slug}-{$count}" : $slug;
     }
 
 
