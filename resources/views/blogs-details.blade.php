@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from azim.hostlin.com/Amcare/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:15 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - HTML 5 Template Preview</title>
+    <title>Blog details - Amcare</title>
 
-    <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Google Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -56,14 +51,11 @@
 </head>
 
 
-<!-- page wrapper -->
-
 <body>
 
     <div class="boxed_wrapper ltr">
 
 
-        <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
                 <div id="handle-preloader" class="handle-preloader">
@@ -93,28 +85,21 @@
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
+        @include('shared.header')
 
-        @include('header')
-
-        <!-- page-title -->
         <section class="page-title centred">
             <div class="bg-layer"
                 style="background-image: url('{{ asset('assets/images/background/page-title-4.jpg') }}');"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="/">Home</a></li>
-                        <li>Blog Details</li>
+                        <li><a href="/">Accueil</a></li>
+                        <li>Détails du Blog</li>
                     </ul>
-                    <h1>Blog Details</h1>
+                    <h1>Détails du Blog</h1>
                 </div>
             </div>
         </section>
-        <!-- page-title end -->
-
-
-        <!-- sidebar-page-container -->
         <section class="sidebar-page-container pt_120 pb_60">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -129,38 +114,16 @@
                                     </div>
                                     <div class="lower-content">
                                         <ul class="post-info">
-                                            <li><span>Air Ambulance</span></li>
-                                            <li>May 16,2024</li>
+                                            <li><span>Ambulance aérienne</span></li>
+                                            <li>16 Mai 2024</li>
                                         </ul>
-                                        <h2>International air ambulance Long distance patient transport Ambulance
-                                            Innovations</h2>
+                                        <h2>Ambulance aérienne internationale Transport de patients longue distance Innovations en ambulance</h2>
                                         <div class="text-box">
-                                            <p class="mb_30">International air ambulance services have revolutionized
-                                                long-distance patient transport,
-                                                offering critical care during flights across vast distances and
-                                                international borders.
-                                                These services are essential for patients requiring urgent medical
-                                                attention or
-                                                specialized care not available locally. Air ambulances are equipped with
-                                                advanced medical
-                                                technologies such as portable ventilators, defibrillators, and intensive
-                                                care units,
-                                                ensuring patients receive continuous, high-level care throughout the
-                                                journey.</p>
-                                            <p class="mb_40">Innovations in this field include enhanced telemedicine
-                                                capabilities, allowing
-                                                ground-based medical teams to provide real-time support and
-                                                consultations during flights. Additionally,
-                                                advancements in aircraft design and medical equipment have improved the
-                                                efficiency
-                                                and safety of air ambulance operations.</p>
+                                            <p class="mb_30">Les services d'ambulance aérienne internationale ont révolutionné le transport de patients sur de longues distances, offrant des soins critiques pendant les vols à travers de vastes étendues et les frontières internationales. Ces services sont essentiels pour les patients nécessitant une attention médicale urgente ou des soins spécialisés non disponibles localement. Les ambulances aériennes sont équipées de technologies médicales avancées telles que des ventilateurs portables, des défibrillateurs et des unités de soins intensifs, garantissant que les patients reçoivent des soins continus de haut niveau tout au long du voyage.</p>
+                                            <p class="mb_40">Les innovations dans ce domaine incluent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un soutien et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
                                             <blockquote>
                                                 <div class="icon-box"><i class="icon-52"></i></div>
-                                                <p>"When my father fell critically ill while we were on vacation abroad,
-                                                    we were
-                                                    terrified. The international air ambulance service was a lifesaver.
-                                                    The medical
-                                                    team was professional"</p>
+                                                <p>"Lorsque mon père est tombé gravement malade alors que nous étions en vacances à l'étranger, nous étions terrifiés. Le service d'ambulance aérienne internationale a été une bouée de sauvetage. L'équipe médicale était professionnelle"</p>
                                                 <h6>Brooklyn Simmons</h6>
                                             </blockquote>
                                         </div>
@@ -168,18 +131,12 @@
                                 </div>
                             </div>
                             <div class="content-one">
-                                <h3>Latest News</h3>
-                                <p class="mb_55">Innovations in this field include enhanced telemedicine capabilities,
-                                    allowing ground-based medical
-                                    teams to provide real-time support and consultations during flights. Additionally,
-                                    advancements
-                                    in aircraft design and medical equipment have improved the efficiency and safety of
-                                    air
-                                    ambulance operations.</p>
+                                <h3>Dernières Nouvelles</h3>
+                                <p class="mb_55">Les innovations dans ce domaine incluent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un soutien et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
                                 <div class="video-content"
                                     style="background-image: url('{{ asset('assets/images/news/news-19.jpg') }}');">
                                     <div class="video-btn">
-                                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s"
+                                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&t=28s"
                                             class="lightbox-image" data-caption=""><i class="icon-49"></i><span
                                                 class="border-animation"></span><span
                                                 class="border-animation border-1"></span><span
@@ -187,19 +144,7 @@
                                                 class="border-animation border-3"></span></a>
                                     </div>
                                 </div>
-                                <p class="mt_55">These services are essential for patients requiring urgent medical
-                                    attention or specialized
-                                    not available locally. Air ambulances are equipped with advanced medical
-                                    technologies as portable
-                                    ventilators, defibrillators, intensive care units, ensuring patients receive
-                                    continuous, high-level
-                                    care throughout the journey. Innovations in this field include enhanced telemedicine
-                                    capabilities,
-                                    allowing ground-based medical teams to provide real-time support and consultations
-                                    during flights.
-                                    Additionally, advancements in aircraft design and medical equipment have improved
-                                    the efficiency and
-                                    safety of air ambulance operations.</p>
+                                <p class="mt_55">Ces services sont essentiels pour les patients nécessitant une attention médicale urgente ou des soins spécialisés non disponibles localement. Les ambulances aériennes sont équipées de technologies médicales avancées telles que des ventilateurs portables, des défibrillateurs, des unités de soins intensifs, garantissant que les patients reçoivent des soins continus de haut niveau tout au long du voyage. Les innovations dans ce domaine incluent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un soutien et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
                             </div>
                         </div>
                     </div>
@@ -207,13 +152,13 @@
                         <div class="blog-sidebar ml_30">
                             <div class="sidebar-widget search-widget mb_55">
                                 <div class="widget-title mb_25">
-                                    <h3>Search</h3>
+                                    <h3>Rechercher</h3>
                                 </div>
                                 <div class="search-form">
                                     <form action="https://azim.hostlin.com/Amcare/blog-details.html" method="get"
                                         class="default-form">
                                         <div class="form-group">
-                                            <input type="search" name="search-field" placeholder="Search..."
+                                            <input type="search" name="search-field" placeholder="Rechercher..."
                                                 required>
                                             <button type="submit"><i class="icon-8"></i></button>
                                         </div>
@@ -222,22 +167,22 @@
                             </div>
                             <div class="sidebar-widget category-widget mb_45">
                                 <div class="widget-title mb_20">
-                                    <h3>Categories</h3>
+                                    <h3>Catégories</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
-                                        <li><a href="blog-details.html">Emergency Ambulance</a></li>
-                                        <li><a href="blog-details.html">Air Ambulance</a></li>
-                                        <li><a href="blog-details.html">Emergency Transport</a></li>
-                                        <li><a href="blog-details.html">Air Ambulance</a></li>
-                                        <li><a href="blog-details.html">Ambulance Services</a></li>
-                                        <li><a href="blog-details.html">Neonatal and Pediatric</a></li>
+                                        <li><a href="blog-details.html">Ambulance d'urgence</a></li>
+                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
+                                        <li><a href="blog-details.html">Transport d'urgence</a></li>
+                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
+                                        <li><a href="blog-details.html">Services d'ambulance</a></li>
+                                        <li><a href="blog-details.html">Néonatal et Pédiatrique</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="sidebar-widget post-widget mb_55">
                                 <div class="widget-title mb_25">
-                                    <h3>Latest News</h3>
+                                    <h3>Dernières Nouvelles</h3>
                                 </div>
                                 <div class="post-inner">
                                     <div class="post">
@@ -245,8 +190,8 @@
                                                     src="{{ asset('assets/images/news/post-1.jpg') }}"
                                                     alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">International air ambulance Long</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>20 Aug, 2024</span>
+                                            <h5><a href="blog-details.html">Ambulance aérienne internationale Longue</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>20 Août 2024</span>
                                         </article>
                                     </div>
                                     <div class="post">
@@ -254,8 +199,8 @@
                                                     src="{{ asset('assets/images/news/post-2.jpg') }}"
                                                     alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">Mental health care after a medical</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>19 Aug, 2024</span>
+                                            <h5><a href="blog-details.html">Soins de santé mentale après un événement médical</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>19 Août 2024</span>
                                         </article>
                                     </div>
                                     <div class="post">
@@ -263,15 +208,15 @@
                                                     src="{{ asset('assets/images/news/post-3.jpg') }}"
                                                     alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">Transforming Organ Transport</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>18 Aug, 2024</span>
+                                            <h5><a href="blog-details.html">Transformer le transport d'organes</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>18 Août 2024</span>
                                         </article>
                                     </div>
                                 </div>
                             </div>
                             <div class="sidebar-widget gallery-widget mb_45">
                                 <div class="widget-title mb_25">
-                                    <h3>Photo Gallery</h3>
+                                    <h3>Galerie de Photos</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="image-list clearfix">
@@ -326,25 +271,25 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="archive-list clearfix">
-                                        <li><a href="blog-details.html">January, 2023</a></li>
-                                        <li><a href="blog-details.html">February, 2023</a></li>
-                                        <li><a href="blog-details.html">March, 2023</a></li>
-                                        <li><a href="blog-details.html">April, 2023</a></li>
-                                        <li><a href="blog-details.html">June, 2023</a></li>
+                                        <li><a href="blog-details.html">Janvier, 2023</a></li>
+                                        <li><a href="blog-details.html">Février, 2023</a></li>
+                                        <li><a href="blog-details.html">Mars, 2023</a></li>
+                                        <li><a href="blog-details.html">Avril, 2023</a></li>
+                                        <li><a href="blog-details.html">Juin, 2023</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="sidebar-widget tags-widget">
                                 <div class="widget-title mb_20">
-                                    <h3>Popular Tags</h3>
+                                    <h3>Tags Populaires</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="tags-list clearfix">
-                                        <li><a href="blog-details.html">Air Ambulance</a></li>
-                                        <li><a href="blog-details.html">Emergency ICU</a></li>
-                                        <li><a href="blog-details.html">Crewed Yachts</a></li>
+                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
+                                        <li><a href="blog-details.html">USI d'urgence</a></li>
+                                        <li><a href="blog-details.html">Yachts avec équipage</a></li>
                                         <li><a href="blog-details.html">Ambulance</a></li>
-                                        <li><a href="blog-details.html">Emergency Ambulance</a></li>
+                                        <li><a href="blog-details.html">Ambulance d'urgence</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -353,19 +298,12 @@
                 </div>
             </div>
         </section>
-        <!-- sidebar-page-container end -->
-
-
-        @include('footer')
+        @include('shared.footer')
 
 
     </div>
 
 
-    @include('js')
+    @include('shared.js')
 
-</body><!-- End of .page_wrapper -->
-
-<!-- Mirrored from azim.hostlin.com/Amcare/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:15 GMT -->
-
-</html>
+</body></html>

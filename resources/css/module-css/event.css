@@ -63,6 +63,7 @@
   max-width: 430px;
   margin: 0 auto;
   margin-bottom: 35px;
+  min-height: 100px;
 }
 
 .event-block-one .inner-box .btn-box .theme-btn{

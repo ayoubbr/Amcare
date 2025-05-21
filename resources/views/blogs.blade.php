@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from azim.hostlin.com/Amcare/blog-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:12 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - HTML 5 Template Preview</title>
+    <title>Blog - Amcare</title>
 
-    <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -56,14 +51,11 @@
 </head>
 
 
-<!-- page wrapper -->
-
 <body>
 
     <div class="boxed_wrapper ltr">
 
 
-        <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
                 <div id="handle-preloader" class="handle-preloader">
@@ -93,27 +85,20 @@
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
+        @include('shared.header')
 
-        @include('header')
-
-        <!-- page-title -->
         <section class="page-title centred">
             <div class="bg-layer" style="background-image: url(assets/images/background/page-title-4.jpg);"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Accueil</a></li>
                         <li>Blog</li>
                     </ul>
                     <h1>Blog</h1>
                 </div>
             </div>
         </section>
-        <!-- page-title end -->
-
-
-        <!-- sidebar-page-container -->
         <section class="sidebar-page-container pt_120 pb_120">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -127,12 +112,11 @@
                                         <div class="inner-box">
                                             <div class="bg-layer"
                                                 style="background-image: url(assets/images/news/news-4.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 19, 2025</span>
-                                            <h4><a href="{{ url('blogs/1') }}">Self-Guided Driving &amp; Tours Walk Of
-                                                    Greater City</a></h4>
+                                            <span class="post-date"><i class="icon-29"></i>19 Avr, 2025</span>
+                                            <h4><a href="{{ url('blogs/1') }}">Visites autoguidées et promenades dans la Grande Ville</a></h4>
                                             <ul class="post-info">
                                                 <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>0 Comment</span></li>
+                                                <li><i class="icon-31"></i><span>0 Commentaire</span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -144,13 +128,11 @@
                                         <div class="inner-box">
                                             <div class="bg-layer"
                                                 style="background-image: url(assets/images/news/news-5.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 18, 2025</span>
-                                            <h4><a href="{{ url('blogs/2') }}">Assistance For Homes &amp; Properties
-                                                    Real
-                                                    Estate</a></h4>
+                                            <span class="post-date"><i class="icon-29"></i>18 Avr, 2025</span>
+                                            <h4><a href="{{ url('blogs/2') }}">Assistance pour les maisons et les propriétés immobilières</a></h4>
                                             <ul class="post-info">
                                                 <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>6 Comment</span></li>
+                                                <li><i class="icon-31"></i><span>6 Commentaires</span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -307,12 +289,12 @@
                         <div class="blog-sidebar ml_30">
                             <div class="sidebar-widget search-widget mb_55">
                                 <div class="widget-title mb_25">
-                                    <h3>Search</h3>
+                                    <h3>Rechercher</h3>
                                 </div>
                                 <div class="search-form">
                                     <form action="" method="get" class="default-form">
                                         <div class="form-group">
-                                            <input type="search" name="search-field" placeholder="Search..."
+                                            <input type="search" name="search-field" placeholder="Rechercher..."
                                                 required>
                                             <button type="submit"><i class="icon-8"></i></button>
                                         </div>
@@ -321,22 +303,22 @@
                             </div>
                             <div class="sidebar-widget category-widget mb_45">
                                 <div class="widget-title mb_20">
-                                    <h3>Categories</h3>
+                                    <h3>Catégories</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
-                                        <li><a href="{{ url('categories/1/blogs') }}">Emergency Ambulance</a></li>
-                                        <li><a href="{{ url('categories/2/blogs') }}">Air Ambulance</a></li>
-                                        <li><a href="{{ url('categories/3/blogs') }}">Emergency Transport</a></li>
-                                        <li><a href="{{ url('categories/4/blogs') }}">Air Ambulance</a></li>
-                                        <li><a href="{{ url('categories/5/blogs') }}">Ambulance Services</a></li>
-                                        <li><a href="{{ url('categories/6/blogs') }}">Neonatal and Pediatric</a></li>
+                                        <li><a href="{{ url('categories/1/blogs') }}">Ambulance d'urgence</a></li>
+                                        <li><a href="{{ url('categories/2/blogs') }}">Ambulance aérienne</a></li>
+                                        <li><a href="{{ url('categories/3/blogs') }}">Transport d'urgence</a></li>
+                                        <li><a href="{{ url('categories/4/blogs') }}">Ambulance aérienne</a></li>
+                                        <li><a href="{{ url('categories/5/blogs') }}">Services d'ambulance</a></li>
+                                        <li><a href="{{ url('categories/6/blogs') }}">Néonatal et Pédiatrique</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="sidebar-widget post-widget mb_55">
                                 <div class="widget-title mb_25">
-                                    <h3>Latest News</h3>
+                                    <h3>Dernières Nouvelles</h3>
                                 </div>
                                 <div class="post-inner">
                                     <div class="post">
@@ -344,31 +326,31 @@
                                                     src="{{ asset('assets/images/news/post-1.jpg') }}"
                                                     alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">International air ambulance Long</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>20 Aug, 2024</span>
+                                            <h5><a href="blog-details.html">Ambulance aérienne internationale Longue</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>20 Août 2024</span>
                                         </article>
                                     </div>
                                     <div class="post">
                                         <figure class="post-thumb"><a href="blog-details.html"><img
                                                     src="assets/images/news/post-2.jpg" alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">Mental health care after a medical</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>19 Aug, 2024</span>
+                                            <h5><a href="blog-details.html">Soins de santé mentale après un événement médical</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>19 Août 2024</span>
                                         </article>
                                     </div>
                                     <div class="post">
                                         <figure class="post-thumb"><a href="blog-details.html"><img
                                                     src="assets/images/news/post-3.jpg" alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">Transforming Organ Transport</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>18 Aug, 2024</span>
+                                            <h5><a href="blog-details.html">Transformer le transport d'organes</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>18 Août 2024</span>
                                         </article>
                                     </div>
                                 </div>
                             </div>
                             <div class="sidebar-widget gallery-widget mb_45">
                                 <div class="widget-title mb_25">
-                                    <h3>Photo Gallery</h3>
+                                    <h3>Galerie de Photos</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="image-list clearfix">
@@ -417,25 +399,25 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="archive-list clearfix">
-                                        <li><a href="blog-details.html">January, 2023</a></li>
-                                        <li><a href="blog-details.html">February, 2023</a></li>
-                                        <li><a href="blog-details.html">March, 2023</a></li>
-                                        <li><a href="blog-details.html">April, 2023</a></li>
-                                        <li><a href="blog-details.html">June, 2023</a></li>
+                                        <li><a href="blog-details.html">Janvier, 2023</a></li>
+                                        <li><a href="blog-details.html">Février, 2023</a></li>
+                                        <li><a href="blog-details.html">Mars, 2023</a></li>
+                                        <li><a href="blog-details.html">Avril, 2023</a></li>
+                                        <li><a href="blog-details.html">Juin, 2023</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="sidebar-widget tags-widget">
                                 <div class="widget-title mb_20">
-                                    <h3>Popular Tags</h3>
+                                    <h3>Tags Populaires</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="tags-list clearfix">
-                                        <li><a href="blog-details.html">Air Ambulance</a></li>
-                                        <li><a href="blog-details.html">Emergency ICU</a></li>
-                                        <li><a href="blog-details.html">Crewed Yachts</a></li>
+                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
+                                        <li><a href="blog-details.html">USI d'urgence</a></li>
+                                        <li><a href="blog-details.html">Yachts avec équipage</a></li>
                                         <li><a href="blog-details.html">Ambulance</a></li>
-                                        <li><a href="blog-details.html">Emergency Ambulance</a></li>
+                                        <li><a href="blog-details.html">Ambulance d'urgence</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -444,18 +426,11 @@
                 </div>
             </div>
         </section>
-        <!-- sidebar-page-container end -->
-
-
-        @include('footer')
+        @include('shared.footer')
 
     </div>
 
 
-    @include('js')
+    @include('shared.js')
 
-</body><!-- End of .page_wrapper -->
-
-<!-- Mirrored from azim.hostlin.com/Amcare/blog-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:13 GMT -->
-
-</html>
+</body></html>

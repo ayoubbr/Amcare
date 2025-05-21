@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from azim.hostlin.com/Amcare/service-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:06:59 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - HTML 5 Template Preview</title>
+    <title>Service details - Amcare</title>
 
-    <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -56,14 +51,11 @@
 </head>
 
 
-<!-- page wrapper -->
-
 <body>
 
     <div class="boxed_wrapper ltr">
 
 
-        <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
                 <div id="handle-preloader" class="handle-preloader">
@@ -93,28 +85,21 @@
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
-
-        @include('header')
+        @include('shared.header')
 
 
-        <!-- page-title -->
         <section class="page-title centred">
             <div class="bg-layer" style="background-image: url('{{asset('assets/images/background/page-title.jpg')}}');"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="/">Home</a></li>
-                        <li>Service Details</li>
+                        <li><a href="/">Accueil</a></li>
+                        <li>Détails du service</li>
                     </ul>
-                    <h1>Road Ambulance</h1>
+                    <h1>Ambulance routière</h1>
                 </div>
             </div>
         </section>
-        <!-- page-title end -->
-
-
-        <!-- service-details -->
         <section class="service-details pt_120 pb_120">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -123,23 +108,23 @@
                             <div class="category-widget mb_60">
                                 <ul class="category-list clearfix">
                                     <li><a href="{{ url('services/1') }}"
-                                            class="{{ request()->is('services/1') ? 'current' : '' }}">Road
-                                            Ambulance</a></li>
+                                            class="{{ request()->is('services/1') ? 'current' : '' }}">Ambulance
+                                            routière</a></li>
                                     <li><a href="{{ url('services/2') }}"
-                                            class="{{ request()->is('services/2') ? 'current' : '' }}">Air
-                                            Ambulance</a></li>
+                                            class="{{ request()->is('services/2') ? 'current' : '' }}">Ambulance
+                                            aérienne</a></li>
                                     <li><a href="{{ url('services/3') }}"
-                                            class="{{ request()->is('services/3') ? 'current' : '' }}">Water
-                                            Ambulance</a></li>
+                                            class="{{ request()->is('services/3') ? 'current' : '' }}">Ambulance
+                                            nautique</a></li>
                                     <li><a href="{{ url('services/4') }}"
-                                            class="{{ request()->is('services/4') ? 'current' : '' }}">Emergency
-                                            Medical</a></li>
+                                            class="{{ request()->is('services/4') ? 'current' : '' }}">Urgence
+                                            médicale</a></li>
                                     <li><a href="{{ url('services/5') }}"
-                                            class="{{ request()->is('services/5') ? 'current' : '' }}">Road
-                                            Accident</a></li>
+                                            class="{{ request()->is('services/5') ? 'current' : '' }}">Accident
+                                            de la route</a></li>
                                     <li><a href="{{ url('services/6') }}"
-                                            class="{{ request()->is('services/6') ? 'current' : '' }}">ICU
-                                            Ambulance</a></li>
+                                            class="{{ request()->is('services/6') ? 'current' : '' }}">Ambulance
+                                            USI</a></li>
                                 </ul>
                             </div>
                             <div class="contact-widget centred">
@@ -147,7 +132,7 @@
                                     <div class="bg-layer"
                                         style="background-image: url('{{asset('assets/images/resource/sidebar-1.jpg')}}');"></div>
                                     <div class="text-box">
-                                        <h4>Emergency Suport?</h4>
+                                        <h4>Support d'urgence ?</h4>
                                         <a href="tel:12463330089">+ 1 (246) 333-0089</a>
                                     </div>
                                 </div>
@@ -161,18 +146,9 @@
                                         src="{{ asset('assets/images/service/service-15.jpg') }}" alt="">
                                 </figure>
                                 <div class="text-box">
-                                    <h2>Road Ambulances Enhance Emergency Medical Response</h2>
-                                    <p>International air ambulance services have revolutionized long-distance patient
-                                        transport, offering critical care during flights across vast distances and
-                                        international borders. These services are essential for patients requiring
-                                        urgent medical attention or specialized care not available locally. Road
-                                        ambulances are equipped with advanced medical technologies such as portable
-                                        ventilators, defibrillators, and intensive care units, ensuring patients receive
-                                        continuous, high-level care throughout the journey.</p>
-                                    <p>Innovations in this field include enhanced telemedicine capabilities, allowing
-                                        ground-based medical teams to provide real-time support and consultations during
-                                        flights. Additionally, advancements in aircraft design and medical equipment
-                                        have improved the efficiency and safety of air ambulance operations.</p>
+                                    <h2>Les ambulances routières améliorent la réponse médicale d'urgence</h2>
+                                    <p>Les services d'ambulance aérienne internationaux ont révolutionné le transport de patients sur de longues distances, offrant des soins critiques pendant les vols à travers de vastes distances et des frontières internationales. Ces services sont essentiels pour les patients nécessitant une attention médicale urgente ou des soins spécialisés non disponibles localement. Les ambulances routières sont équipées de technologies médicales avancées telles que des ventilateurs portables, des défibrillateurs et des unités de soins intensifs, garantissant que les patients reçoivent des soins continus de haut niveau tout au long du voyage.</p>
+                                    <p>Les innovations dans ce domaine comprennent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un support et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
                                 </div>
                             </div>
                             <div class="content-two mb_50">
@@ -180,41 +156,34 @@
                                     <div class="row clearfix">
                                         <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                             <div class="single-item">
-                                                <h3>Help us save a life</h3>
-                                                <p>By supporting ambulance services, we ensure that life-saving medical
-                                                    attention reaches those in critical need</p>
+                                                <h3>Aidez-nous à sauver une vie</h3>
+                                                <p>En soutenant les services d'ambulance, nous veillons à ce que l'attention médicale vitale atteigne ceux qui en ont un besoin critique</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                             <div class="single-item">
-                                                <h3>Join our big family</h3>
-                                                <p>Join our big family and become a part of a community dedicated to
-                                                    making a difference. Here, you will find a supportive</p>
+                                                <h3>Rejoignez notre grande famille</h3>
+                                                <p>Rejoignez notre grande famille et faites partie d'une communauté dédiée à faire la différence. Ici, vous trouverez un soutien</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-box">
-                                    <p>Innovations in this field include enhanced telemedicine capabilities, allowing
-                                        ground-based medical teams to provide real-time support and consultations during
-                                        flights. Additionally, advancements in aircraft design and medical equipment
-                                        have improved the efficiency and safety of air ambulance operations.</p>
+                                    <p>Les innovations dans ce domaine comprennent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un support et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
                                 </div>
                             </div>
                             <div class="content-three pb_20">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 text-column">
                                         <div class="text-box">
-                                            <h2>Service Benefits</h2>
-                                            <p>Lorem ipsum is a placeholder text commonly used to demonstrate the visual
-                                                form of a document or a typeface without relying on meaningful content.
-                                            </p>
+                                            <h2>Avantages du service</h2>
+                                            <p>Lorem ipsum est un texte de remplissage couramment utilisé pour démontrer la forme visuelle d'un document ou d'une police de caractères sans compter sur un contenu significatif.</p>
                                             <ul class="list-style-one clearfix">
-                                                <li>In id diam nec nisi congue tincidunt</li>
+                                                <li>En id diam nec nisi congue tincidunt</li>
                                                 <li>Sed tristique lorem non tesque</li>
-                                                <li>Innovations in this field include enhanced</li>
-                                                <li>Additionally advancements in aircraft</li>
-                                                <li>Lorem ipsum is a placeholder text</li>
+                                                <li>Les innovations dans ce domaine incluent des améliorations</li>
+                                                <li>De plus, les avancées dans les aéronefs</li>
+                                                <li>Lorem ipsum est un texte de remplissage</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -226,73 +195,63 @@
                             </div>
                             <div class="content-four">
                                 <div class="title-text pb_20">
-                                    <h2>General Questions</h2>
+                                    <h2>Questions générales</h2>
                                 </div>
                                 <div class="content_block_six">
                                     <div class="faq-content">
                                         <ul class="accordion-box">
                                             <li class="accordion block active-block">
                                                 <div class="acc-btn active">
-                                                    <h4>How Can I Prepare for an Interview?</h4>
+                                                    <h4>Comment puis-je me préparer à un entretien ?</h4>
                                                     <div class="icon-box"><i class="icon-27"></i></div>
                                                 </div>
                                                 <div class="acc-content current">
                                                     <div class="text">
-                                                        <p>To prepare for an interview, research the company, understand
-                                                            the job role and responsibilities, and prepare questions to
-                                                            ask the interviewer.</p>
+                                                        <p>Pour vous préparer à un entretien, faites des recherches sur l'entreprise, comprenez le rôle et les responsabilités du poste, et préparez des questions à poser à l'intervieweur.</p>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="accordion block">
                                                 <div class="acc-btn">
-                                                    <h4>Hiring Nursev and Candidates?</h4>
+                                                    <h4>Embaucher des infirmières et des candidats ?</h4>
                                                     <div class="icon-box"><i class="icon-27"></i></div>
                                                 </div>
                                                 <div class="acc-content">
                                                     <div class="text">
-                                                        <p>To prepare for an interview, research the company, understand
-                                                            the job role and responsibilities, and prepare questions to
-                                                            ask the interviewer.</p>
+                                                        <p>Pour vous préparer à un entretien, faites des recherches sur l'entreprise, comprenez le rôle et les responsabilités du poste, et préparez des questions à poser à l'intervieweur.</p>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="accordion block">
                                                 <div class="acc-btn">
-                                                    <h4>Clarifying Recruitment Concepts?</h4>
+                                                    <h4>Clarifier les concepts de recrutement ?</h4>
                                                     <div class="icon-box"><i class="icon-27"></i></div>
                                                 </div>
                                                 <div class="acc-content">
                                                     <div class="text">
-                                                        <p>To prepare for an interview, research the company, understand
-                                                            the job role and responsibilities, and prepare questions to
-                                                            ask the interviewer.</p>
+                                                        <p>Pour vous préparer à un entretien, faites des recherches sur l'entreprise, comprenez le rôle et les responsabilités du poste, et préparez des questions à poser à l'intervieweur.</p>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="accordion block">
                                                 <div class="acc-btn">
-                                                    <h4>Employers look for in candidates?</h4>
+                                                    <h4>Que recherchent les employeurs chez les candidats ?</h4>
                                                     <div class="icon-box"><i class="icon-27"></i></div>
                                                 </div>
                                                 <div class="acc-content">
                                                     <div class="text">
-                                                        <p>To prepare for an interview, research the company, understand
-                                                            the job role and responsibilities, and prepare questions to
-                                                            ask the interviewer.</p>
+                                                        <p>Pour vous préparer à un entretien, faites des recherches sur l'entreprise, comprenez le rôle et les responsabilités du poste, et préparez des questions à poser à l'intervieweur.</p>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="accordion block">
                                                 <div class="acc-btn">
-                                                    <h4>Doctors look for in candidates?</h4>
+                                                    <h4>Que recherchent les médecins chez les candidats ?</h4>
                                                     <div class="icon-box"><i class="icon-27"></i></div>
                                                 </div>
                                                 <div class="acc-content">
                                                     <div class="text">
-                                                        <p>To prepare for an interview, research the company, understand
-                                                            the job role and responsibilities, and prepare questions to
-                                                            ask the interviewer.</p>
+                                                        <p>Pour vous préparer à un entretien, faites des recherches sur l'entreprise, comprenez le rôle et les responsabilités du poste, et préparez des questions à poser à l'intervieweur.</p>
                                                     </div>
                                                 </div>
                                             </li>
@@ -305,18 +264,11 @@
                 </div>
             </div>
         </section>
-        <!-- service-details end -->
-
-
-        @include('footer')
+        @include('shared.footer')
 
     </div>
 
 
-    @include('js')
+    @include('shared.js')
 
-</body><!-- End of .page_wrapper -->
-
-<!-- Mirrored from azim.hostlin.com/Amcare/service-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:06:59 GMT -->
-
-</html>
+</body></html>

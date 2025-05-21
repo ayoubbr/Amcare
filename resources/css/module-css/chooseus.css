@@ -7,6 +7,10 @@
   overflow: hidden;
 }
 
+.chooseus-section .auto-container{
+  padding: 0 65px;
+}
+
 .chooseus-section .bg-layer:before{
   position: absolute;
   content: '';

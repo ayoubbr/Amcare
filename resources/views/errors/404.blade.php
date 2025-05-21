@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Mirrored from azim.hostlin.com/Amcare/error.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:07 GMT -->
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - HTML 5 Template Preview</title>
+    <title>Page non trouvée - Amcare</title>
 
-    <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -56,14 +51,11 @@
 </head>
 
 
-<!-- page wrapper -->
-
 <body>
 
     <div class="boxed_wrapper ltr">
 
 
-        <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
                 <div id="handle-preloader" class="handle-preloader">
@@ -93,27 +85,20 @@
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
-
         @include('header')
 
 
-        <!-- error-section -->
         <section class="error-section centred pt_180 pb_120">
             <div class="auto-container">
                 <div class="content-box">
                     <h1>404</h1>
                     <figure class="error-image"><img src="assets/images/icons/error-1.png" alt=""></figure>
-                    <h2>Page Not Found</h2>
-                    <p>This page doesn’t exist or was removed! We suggest you go <br /><a href="index.html">back to
-                            home.</a></p>
-                    <div class="btn-box"><a href="/" class="theme-btn btn-one">Back to Homepage</a></div>
+                    <h2>Page non trouvée</h2>
+                    <p>Cette page n'existe pas ou a été supprimée ! Nous vous suggérons de retourner à la <br /><a href="index.html">page d'accueil.</a></p>
+                    <div class="btn-box"><a href="/" class="theme-btn btn-one">Retour à la page d'accueil</a></div>
                 </div>
             </div>
         </section>
-        <!-- error-section end -->
-
-
         @include('footer')
 
     </div>
@@ -121,8 +106,4 @@
 
     @include('js')
 
-</body><!-- End of .page_wrapper -->
-
-<!-- Mirrored from azim.hostlin.com/Amcare/error.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:08 GMT -->
-
-</html>
+</body></html>

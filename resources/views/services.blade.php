@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from azim.hostlin.com/Amcare/service-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:06:58 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - HTML 5 Template Preview</title>
+    <title>Services - Amcare</title>
 
-    <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -55,13 +50,10 @@
 </head>
 
 
-<!-- page wrapper -->
-
 <body>
 
     <div class="boxed_wrapper ltr">
 
-        <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
                 <div id="handle-preloader" class="handle-preloader">
@@ -91,42 +83,34 @@
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
+        @include('shared.header')
 
 
-        @include('header')
-
-
-        <!-- page-title -->
         <section class="page-title centred">
             <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Accueil</a></li>
                         <li>Services</li>
                     </ul>
-                    <h1>Our Services</h1>
+                    <h1>Nos services</h1>
                 </div>
             </div>
         </section>
-        <!-- page-title end -->
-
-
-        <!-- service-section -->
         <section class="service-section pt_80 ">
             <div class="auto-container">
                 <div class="sec-title mb_50 centred">
-                    <span class="sub-title mb_12">Our services</span>
-                    <h2>Expert Ambulance Services</h2>
+                    <span class="sub-title mb_12">Nos services</span>
+                    <h2>Services d'ambulance experts</h2>
                 </div>
                 <div class="tabs-box">
                     <div class="tab-btn-box">
                         <div class="tab-btns tab-buttons clearfix">
-                            <div class="tab-btn active-btn" data-tab="#tab-4">Ambulance Service</div>
-                            <div class="tab-btn" data-tab="#tab-5">ICU Ambulance</div>
-                            <div class="tab-btn" data-tab="#tab-6">Air Ambulance</div>
-                            <div class="tab-btn" data-tab="#tab-7">Medical Support</div>
+                            <div class="tab-btn active-btn" data-tab="#tab-4">Service d'ambulance</div>
+                            <div class="tab-btn" data-tab="#tab-5">Ambulance USI</div>
+                            <div class="tab-btn" data-tab="#tab-6">Ambulance aérienne</div>
+                            <div class="tab-btn" data-tab="#tab-7">Support médical</div>
                         </div>
                     </div>
                     <div class="tabs-content">
@@ -135,18 +119,17 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                                     <div class="content-box">
-                                        <h2>Ambulance Service</h2>
+                                        <h2>Service d'ambulance</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
                                             suscipit you take action against fraud. See it the Security Center for and
                                             Mobile and Online Banking.</p>
                                         <ul class="list-style-one clearfix">
-                                            <li>Medical Necessity</li>
-                                            <li>Flexible Payment</li>
-                                            <li>24/7 Assistance</li>
-                                            <li>Customer Support</li>
-                                            <li>Additional Benefits</li>
+                                            <li>Nécessité médicale</li>
+                                            <li>Paiement flexible</li>
+                                            <li>Assistance 24/7</li>
+                                            <li>Support client</li>
+                                            <li>Avantages supplémentaires</li>
                                         </ul>
-                                        <a href="{{ url('services/1') }}" class="theme-btn btn-one">Know More</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 image-column">
@@ -163,18 +146,17 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                                     <div class="content-box">
-                                        <h2>ICU Ambulance</h2>
+                                        <h2>Ambulance USI</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
                                             suscipit you take action against fraud. See it the Security Center for and
                                             Mobile and Online Banking.</p>
                                         <ul class="list-style-one clearfix">
-                                            <li>Medical Necessity</li>
-                                            <li>Flexible Payment</li>
-                                            <li>24/7 Assistance</li>
-                                            <li>Customer Support</li>
-                                            <li>Additional Benefits</li>
+                                            <li>Nécessité médicale</li>
+                                            <li>Paiement flexible</li>
+                                            <li>Assistance 24/7</li>
+                                            <li>Support client</li>
+                                            <li>Avantages supplémentaires</li>
                                         </ul>
-                                        <a href="service-details-6.html" class="theme-btn btn-one">Get a Quote</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 image-column">
@@ -191,18 +173,17 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                                     <div class="content-box">
-                                        <h2>Air Ambulance</h2>
+                                        <h2>Ambulance aérienne</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
                                             suscipit you take action against fraud. See it the Security Center for and
                                             Mobile and Online Banking.</p>
                                         <ul class="list-style-one clearfix">
-                                            <li>Medical Necessity</li>
-                                            <li>Flexible Payment</li>
-                                            <li>24/7 Assistance</li>
-                                            <li>Customer Support</li>
-                                            <li>Additional Benefits</li>
+                                            <li>Nécessité médicale</li>
+                                            <li>Paiement flexible</li>
+                                            <li>Assistance 24/7</li>
+                                            <li>Support client</li>
+                                            <li>Avantages supplémentaires</li>
                                         </ul>
-                                        <a href="service-details-2.html" class="theme-btn btn-one">Get a Quote</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 image-column">
@@ -219,18 +200,17 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                                     <div class="content-box">
-                                        <h2>Medical Support</h2>
+                                        <h2>Support médical</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
                                             suscipit you take action against fraud. See it the Security Center for and
                                             Mobile and Online Banking.</p>
                                         <ul class="list-style-one clearfix">
-                                            <li>Medical Necessity</li>
-                                            <li>Flexible Payment</li>
-                                            <li>24/7 Assistance</li>
-                                            <li>Customer Support</li>
-                                            <li>Additional Benefits</li>
+                                            <li>Nécessité médicale</li>
+                                            <li>Paiement flexible</li>
+                                            <li>Assistance 24/7</li>
+                                            <li>Support client</li>
+                                            <li>Avantages supplémentaires</li>
                                         </ul>
-                                        <a href="service-details-2.html" class="theme-btn btn-one">Get a Quote</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 image-column">
@@ -247,16 +227,12 @@
                 </div>
             </div>
         </section>
-        <!-- service-section end -->
-
-
-        <!-- sevice-area -->
         <section class="sevice-area centred pt_120 pb_90" style="width: 87%;margin: auto;">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-14.png);"></div>
             <div class="auto-container">
                 <div class="sec-title mb_50">
-                    <span class="sub-title mb_13">Service Areas</span>
-                    <h2>Our Service Zones</h2>
+                    <span class="sub-title mb_13">Zones de service</span>
+                    <h2>Nos zones de service</h2>
                 </div>
                 <div class="row clearfix">
                     <div class="col-lg-3 col-md-6 col-sm-12 single-column">
@@ -277,7 +253,7 @@
                         <div class="single-item">
                             <figure class="image-box"><img src="assets/images/resource/service-area-3.jpg"
                                     alt=""></figure>
-                            <h4><a href="index-4.html">Philadelphia</a></h4>
+                            <h4><a href="index-4.html">Philadelphie</a></h4>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 single-column">
@@ -318,17 +294,12 @@
                 </div>
             </div>
         </section>
-        <!-- sevice-area end -->
-
-
-        @include('footer')
+        @include('shared.footer')
 
     </div>
 
-    @include('js')
+    @include('shared.js')
 
-</body><!-- End of .page_wrapper -->
-
-<!-- Mirrored from azim.hostlin.com/Amcare/service-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:06:58 GMT -->
+</body>
 
 </html>

@@ -1,12 +1,10 @@
-<!-- main header -->
 <header class="main-header header-style-three pl_100 pr_100">
-    <!-- header-top -->
     <div class="header-top">
         <div class="auto-container">
             <div class="top-inner">
                 <ul class="info-list">
-                    <li><i class="icon-48"></i>Appellez:<a href="tel:912345432">+91 (234) 5432</a></li>
-                    <li><i class="icon-47"></i>Mail:<a href="mailto:info@example.com">info@example.com</a>
+                    <li><i class="icon-48"></i>Appelez:<a href="tel:912345432">+91 (234) 5432</a></li>
+                    <li><i class="icon-47"></i>Courriel:<a href="mailto:info@example.com">info@example.com</a>
                     </li>
                 </ul>
                 <div class="right-column">
@@ -14,15 +12,13 @@
             </div>
         </div>
     </div>
-    <!-- header-lower -->
     <div class="header-lower">
         <div class="auto-container">
             <div class="outer-box">
-                <figure class="logo-box"><a href="index.html"><img
+                <figure class="logo-box"><a href="/"><img
                             src="{{ Vite::asset('resources/assets/images/logo.png') }}" alt=""></a>
                 </figure>
                 <div class="menu-area">
-                    <!--Mobile Navigation Toggler-->
                     <div class="mobile-nav-toggler">
                         <i class="icon-bar"></i>
                         <i class="icon-bar"></i>
@@ -32,34 +28,37 @@
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
                                 <li class="{{ request()->is('/') ? 'current' : '' }}"><a
-                                        href="{{ route('home') }}">Acceuil</a>
+                                        href="{{ route('home') }}">Accueil</a>
                                 </li>
                                 <li class="dropdown {{ request()->is('services') ? 'current' : '' }}"><a
                                         href="{{ route('services') }}">Services</a>
                                     <ul>
-                                        <li><a href="{{ url('services/1') }}">Road Ambulance</a></li>
-                                        <li><a href="{{ url('services/2') }}">Air Ambulance</a></li>
-                                        <li><a href="{{ url('services/3') }}">Water Ambulance</a></li>
-                                        <li><a href="{{ url('services/4') }}">Emergency Medical</a></li>
-                                        <li><a href="{{ url('services/5') }}">Road Accident</a></li>
-                                        <li><a href="{{ url('services/6') }}">ICU Ambulance</a></li>
+                                        <li><a href="{{ url('services/1') }}">Ambulance routière</a></li>
+                                        <li><a href="{{ url('services/2') }}">Ambulance aérienne</a></li>
+                                        <li><a href="{{ url('services/3') }}">Ambulance nautique</a></li>
+                                        <li><a href="{{ url('services/4') }}">Urgence médicale</a></li>
+                                        <li><a href="{{ url('services/5') }}">Accident de la route</a></li>
+                                        <li><a href="{{ url('services/6') }}">Ambulance de soins intensifs</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="{{ url('events') }}">Events</a>
+                                <li class="dropdown {{ request()->is('events') ? 'current' : '' }}"><a
+                                        href="{{ url('events') }}">Événements</a>
                                     <ul>
-                                        <li><a href="{{ url('events/1') }}">Health Care Ideas</a></li>
-                                        <li><a href="{{ url('events/1') }}">Real Heart Attack</a></li>
-                                        <li><a href="{{ url('events/1') }}">Blood Information</a></li>
-                                        <li><a href="{{ url('events/1') }}">Nursing Care</a></li>
-                                        <li><a href="{{ url('events/1') }}">Anesthesia Support</a></li>
+                                        <li><a href="{{ url('events/1') }}">Idées de soins de santé</a></li>
+                                        <li><a href="{{ url('events/1') }}">Crise cardiaque réelle</a></li>
+                                        <li><a href="{{ url('events/1') }}">Informations sur le sang</a></li>
+                                        <li><a href="{{ url('events/1') }}">Soins infirmiers</a></li>
+                                        <li><a href="{{ url('events/1') }}">Support d'anesthésie</a></li>
                                     </ul>
                                 </li>
                                 <li class="{{ request()->is('blogs') ? 'current' : '' }}">
                                     <a href="{{ url('blogs') }}">Blog</a>
                                 </li>
-                                <li><a href="{{ url('faqs') }}">FAQ's</a></li>
-                                <li><a href="{{ url('about') }}">About Us</a></li>
-                                <li><a href="{{ url('contact') }}">Contact</a></li>
+                                {{-- <li><a href="{{ url('faqs') }}">FAQ</a></li> --}}
+                                <li class="{{ request()->is('about') ? 'current' : '' }}"><a
+                                        href="{{ url('about') }}">À propos</a></li>
+                                <li class="{{ request()->is('contact') ? 'current' : '' }}"><a
+                                        href="{{ url('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -72,7 +71,6 @@
         </div>
     </div>
 
-    <!--sticky Header-->
     <div class="sticky-header">
         <div class="auto-container">
             <div class="outer-box">
@@ -81,7 +79,6 @@
                 </figure>
                 <div class="menu-area">
                     <nav class="main-menu clearfix">
-                        <!--Keep This Empty / Menu will come through Javascript-->
                     </nav>
                 </div>
                 <div class="menu-right-content">
@@ -92,22 +89,17 @@
         </div>
     </div>
 </header>
-<!-- main-header end -->
-
-
-<!-- Mobile Menu  -->
 <div class="mobile-menu">
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
     <nav class="menu-box">
-        <div class="nav-logo"><a href="index.html"><img src="{{ Vite::asset('resources/assets/images/logo-2.png') }}"
+        <div class="nav-logo"><a href="/"><img src="{{ Vite::asset('resources/assets/images/logo-2.png') }}"
                     alt="" title=""></a>
         </div>
         <div class="menu-outer">
-            <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
         </div>
         <div class="contact-info">
-            <h4>Contact Info</h4>
+            <h4>Informations de contact</h4>
             <ul>
                 <li>Chicago 12, Melborne City, USA</li>
                 <li><a href="tel:+8801682648101">+88 01682648101</a></li>
@@ -125,8 +117,6 @@
         </div>
     </nav>
 </div>
-<!-- End Mobile Menu -->
-
 <div class="chat-icon whatsapp-icon">
     <button type="button" class="chat-toggler">
         <i class="fab fa-whatsapp"></i>
@@ -134,7 +124,6 @@
 </div>
 
 
-<!--Search Popup-->
 <div id="search-popup" class="search-popup">
     <div class="popup-inner">
         <div class="upper-box">
@@ -150,7 +139,7 @@
                     <div class="form-group">
                         <fieldset>
                             <input type="search" class="form-control" name="search-input" value=""
-                                placeholder="Type your keyword and hit" required>
+                                placeholder="Tapez votre mot-clé et appuyez" required>
                             <button type="submit"><i class="icon-8"></i></button>
                         </fieldset>
                     </div>

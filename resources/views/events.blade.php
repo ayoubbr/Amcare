@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from azim.hostlin.com/Amcare/event.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:01 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - HTML 5 Template Preview</title>
+    <title>Événements - Amcare</title>
 
-    <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    <!-- Stylesheets -->
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -54,14 +49,11 @@
 </head>
 
 
-<!-- page wrapper -->
-
 <body>
 
     <div class="boxed_wrapper ltr">
 
 
-        <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
                 <div id="handle-preloader" class="handle-preloader">
@@ -91,45 +83,35 @@
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
+        @include('shared.header')
 
 
-        @include('header')
-
-
-        <!-- page-title -->
         <section class="page-title centred">
             <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="/">Home</a></li>
-                        <li>Events</li>
+                        <li><a href="/">Accueil</a></li>
+                        <li>Événements</li>
                     </ul>
-                    <h1>Events</h1>
+                    <h1>Événements</h1>
                 </div>
             </div>
         </section>
-        <!-- page-title end -->
-
-
-        <!-- event-section -->
         <section class="event-section pt_120 pb_90 centred p_relative">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-8.png);"></div>
             <div class="auto-container">
                 <div class="sec-title mb_50">
-                    <span class="sub-title mb_12">Events</span>
-                    <h2>Keeping Spectators Safe</h2>
+                    <span class="sub-title mb_12">Événements</span>
+                    <h2>Assurer la sécurité des spectateurs</h2>
                 </div>
                 <div class="row clearfix">
                     <div class="col-lg-6 col-md-6 col-sm-12 event-block">
                         <div class="event-block-one">
                             <div class="inner-box">
-                                <h3><a href="event-details.html">Sports Events</a></h3>
-                                <p>On-site medical team ready to provide full medical attention, for Competitors,
-                                    spectators & event</p>
-                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">Know
-                                        More</a></div>
+                                <h3><a href="event-details.html">Événements sportifs</a></h3>
+                                <p>Équipe médicale sur place prête à fournir une attention médicale complète pour les concurrents, les spectateurs et l'événement</p>
+                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">En savoir plus</a></div>
                                 <figure class="image-box"><img src="assets/images/resource/event-1.jpg" alt="">
                                 </figure>
                             </div>
@@ -138,11 +120,9 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 event-block">
                         <div class="event-block-one">
                             <div class="inner-box">
-                                <h3><a href="event-details.html">Community Events</a></h3>
-                                <p>Finding individuals who share your company's values and vision can contribute to a
-                                    cohesive</p>
-                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">Know
-                                        More</a></div>
+                                <h3><a href="event-details.html">Événements communautaires</a></h3>
+                                <p>Trouver des personnes qui partagent les valeurs et la vision de votre entreprise peut contribuer à une cohésion</p>
+                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">En savoir plus</a></div>
                                 <figure class="image-box"><img src="assets/images/resource/event-2.jpg" alt="">
                                 </figure>
                             </div>
@@ -151,17 +131,11 @@
                 </div>
             </div>
         </section>
-        <!-- event-section end -->
-
-        @include('footer')
+        @include('shared.footer')
 
     </div>
 
 
-    @include('js')
+    @include('shared.js')
 
-</body><!-- End of .page_wrapper -->
-
-<!-- Mirrored from azim.hostlin.com/Amcare/event.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 May 2025 14:07:01 GMT -->
-
-</html>
+</body></html>

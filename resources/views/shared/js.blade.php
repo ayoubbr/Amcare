@@ -11,7 +11,7 @@
   <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
   <script src="{{ asset('assets/js/scrolltop.min.js') }}"></script>
   <script src="{{ asset('assets/js/odometer.js') }}"></script>
-  <script src="{{ asset('assets/js/language.js') }}"></script>
+  {{-- <script src="{{ asset('assets/js/language.js') }}"></script> --}}
   <script src="{{ asset('assets/js/jquery.lettering.min.js') }}"></script>
   <script src="{{ asset('assets/js/jquery.circleType.js') }}"></script>
 
