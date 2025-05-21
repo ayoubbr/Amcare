@@ -1,5 +1,5 @@
 <x-layouts.auth 
-    title="Connexion | Marro" 
+    title="Connexion | Amacre" 
     heading="Connexion à votre compte"
 >
     <form method="POST" action="{{ route('login') }}" class="mt-6">
@@ -60,7 +60,4 @@
         </div>
     </form>
     
-    <div class="mt-6 text-center text-sm text-gray-500">
-        Pas encore de compte? <a href="{{ route('register') }}" class="font-medium text-red-600 hover:text-red-500">Inscrivez-vous</a>
-    </div>
 </x-layouts.auth>

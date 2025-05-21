@@ -45,32 +45,36 @@ class AuthController extends Controller
 
     public function loginForm()
     {
-        return view('auth.login');
+        return view('auth.adminLogin');
     }
 
     public function login(LoginRequest $request)
     {
-        $request->validated();
-        $email = $request->email;
-        $password = $request->password;
-        $remember = $request->filled('remember');
+        $reqst= $request->validated();
         
+        $email = $reqst->email;
+        $password = $reqst->password;
+        $remember = $reqst->filled('remember');
         if (Auth::check()) {
-            Auth::logout();
+            Auth::logout(); 
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
         
         $user = User::where('email', $email)->first();
-        if ($user && Hash::check($password, $user->password)) {
+        if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
+            $user->Auth::user();
             Auth::login($user, $remember);
             $request->session()->regenerate();
             $user->update(['last_login_at' => now()]);
-            return $this->redirectBasedOnRole($user);
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Connexion réussie. Bienvenue dans votre espace d\'administration.');
         }
-        return back()->withErrors([
-            'email' => 'Les identifiants fournis ne correspondent à aucun compte.',
-        ]);
+        return back()
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors([
+                'email' => 'Les identifiants fournis ne correspondent à aucun compte.',
+            ]);
     }
 
     public function logout(Request $request)

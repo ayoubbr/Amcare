@@ -19,6 +19,12 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
 Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
 
+
+Route::get('/events', [HomeController::class, 'events'])->name('events');
+Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
+
+
+
 require __DIR__.'/auth.php';
 
 
@@ -39,7 +45,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 
-    Route::get('/event', [EventController::class, 'index'])->name('event.index');
+    Route::resource('events', EventController::class);
+    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
 
 
     Route::resource('blog', BlogPostController::class);
