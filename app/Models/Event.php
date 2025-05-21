@@ -40,7 +40,7 @@ class Event extends Model
                 ->orderBy('event_date', 'asc');
     }
 
-    public function past($query)
+    public function scopePast($query)
     {
         return $query->where('event_date', '<', now())
                 ->orderBy('event_date', 'desc');

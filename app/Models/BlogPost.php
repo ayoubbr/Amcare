@@ -40,11 +40,11 @@ class BlogPost extends Model
     }
 
 
-    public static function createUniqueSlug($title)
+    private function createUniqueSlug($title)
     {
         $slug = Str::slug($title);
-        $count = self::where('slug', $slug)->count();
-
+        $count = BlogPost::where('slug', $slug)->count();
+        
         return $count ? "{$slug}-{$count}" : $slug;
     }
 }

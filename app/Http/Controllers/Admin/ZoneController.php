@@ -43,7 +43,7 @@ class ZoneController extends Controller
      */
     public function show(Zone $zone)
     {
-        //
+        return view('');
     }
 
     /**
