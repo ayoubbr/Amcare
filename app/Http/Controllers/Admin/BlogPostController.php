@@ -17,9 +17,9 @@ class BlogPostController extends Controller
     public function index()
     {
         $posts = BlogPost::with('category')
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(10);
-        
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('admin.dashboard', compact('posts'));
     }
 
@@ -37,22 +37,22 @@ class BlogPostController extends Controller
      */
     public function store(StoreBlogPostRequest $request)
     {
-        dd('dd');
+
         $validate = $request->validated();
         $validate['slug'] = BlogPost::createUniqueSlug($validate['title']);
 
-        if ($validate->hasFile('image')) {
-            $path = $validate->file('image')->store('blog', 'public');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('blog', 'public');
             $validate['image'] = $path;
         }
 
-        if (!isset($validate['published_at']) && isset($validate['is_published']) && $validate['is_published']) {
+        if (!isset($request['published_at']) && isset($request['is_published'])) {
             $validate['published_at'] = now();
         }
 
         BlogPost::create($validate);
 
-        return redirect()->route('admin')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Article créé avec succès.');
     }
 
@@ -77,19 +77,21 @@ class BlogPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBlogPostRequest $request, BlogPost $blogPost)
+    public function update(UpdateBlogPostRequest $request)
     {
         $validate = $request->validated();
+        $blogPost = BlogPost::find($request['post_id']);
 
         if ($blogPost->title !== $validate['title']) {
             $validate['slug'] = BlogPost::createUniqueSlug($validate['title']);
         }
 
+
         if ($request->hasFile('image')) {
             if ($blogPost->image) {
                 Storage::disk('public')->delete($blogPost->image);
             }
-            
+
             $path = $request->file('image')->store('blog', 'public');
             $validate['image'] = $path;
         }
@@ -102,23 +104,23 @@ class BlogPostController extends Controller
 
         $blogPost->update($validate);
 
-        return redirect()->route('admin')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Blog mis à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BlogPost $blogPost)
+    public function destroy(int $id)
     {
+        $blogPost = BlogPost::find($id);
+
         if ($blogPost->image) {
             Storage::disk('public')->delete($blogPost->image);
         }
 
-
-        
         $blogPost->delete();
-        return redirect()->route('admin')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Article supprimé avec succès.');
     }
 
@@ -126,13 +128,13 @@ class BlogPostController extends Controller
     public function togglePublish(BlogPost $blogPost)
     {
         $blogPost->is_published = !$blogPost->is_published;
-        
+
         if ($blogPost->is_published && !$blogPost->published_at) {
             $blogPost->published_at = now();
         }
-        
+
         $blogPost->save();
-        
+
         return redirect()->route('admin')
             ->with('success', $blogPost->is_published ? 'Article publié avec succès.' : 'Article dépublié avec succès.');
     }
@@ -142,6 +144,4 @@ class BlogPostController extends Controller
     {
         return view('front.blog.show', compact('blogPost'));
     }
-
-
 }

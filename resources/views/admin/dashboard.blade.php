@@ -220,7 +220,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($posts as $post)
-                                    <tr data-entity="posts" data-id="{{ $post->id }}"
+                                    <tr data-entity="blog" data-id="{{ $post->id }}"
                                         data-title="{{ $post->title }}" data-slug="{{ $post->slug }}"
                                         data-category-id="{{ $post->category_id }}"
                                         data-category-name="{{ $post->category->name ?? 'N/A' }}"
@@ -808,11 +808,13 @@
                     let currentImage = '';
 
                     switch (entityType) {
-                        case 'posts':
+                        case 'blog':
                             modalTitle.textContent = 'Modifier l\'Article de Blog';
                             actionRoute = `/admin/blog/${data.id}`;
                             currentImage = data.image;
                             formHtml = `
+                              <input type="hidden" class="form-control" name="post_id" id="blogPostId"
+                                    placeholder="Entrez le titre de l'article" required value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalBlogPostTitle">Titre</label>
                                     <input type="text" class="form-control" name="title" id="modalBlogPostTitle" value="${data.title || ''}" required>
@@ -1094,7 +1096,7 @@
                         const deleteForm = document.createElement('form');
                         deleteForm.method = 'POST';
                         deleteForm.action =
-                            `/admin/${itemToDelete.type}/${itemToDelete.id}`; // e.g., /admin/blog/1, /admin/categories/1
+                        `/admin/${itemToDelete.type}/${itemToDelete.id}`; // e.g., /admin/blog/1, /admin/categories/1
 
                         const methodInput = document.createElement('input');
                         methodInput.type = 'hidden';
@@ -1111,7 +1113,7 @@
                         document.body.appendChild(deleteForm); // Append to body to submit
                         deleteForm.submit(); // Submit the form
 
-                      
+
                     }
                 };
             });
