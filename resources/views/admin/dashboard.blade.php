@@ -187,6 +187,7 @@
                 <nav>
                     <ul>
                         <li><a href="#blog-posts" class="active">Articles de Blog</a></li>
+                        <li><a href="#pages">Pages</a></li>
                         <li><a href="#categories">Catégories</a></li>
                         <li><a href="#events">Événements</a></li>
                         <li><a href="#faqs">FAQs</a></li>
@@ -740,6 +741,8 @@
                     </div>
                 </section>
 
+                @include('admin.pages.section')
+                
             </main>
         </div>
 

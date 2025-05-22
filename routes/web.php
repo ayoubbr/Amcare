@@ -20,6 +20,8 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
 Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
 
+Route::get('/{slug}', [HomeController::class, 'page'])->name('page');
+
 
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
@@ -49,8 +51,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
 
 
-    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+    Route::resource('pages', PageController::class);
 
+
+    
     Route::resource('events', EventController::class);
     Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
 

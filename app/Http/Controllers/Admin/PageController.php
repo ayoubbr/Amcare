@@ -35,8 +35,8 @@ class PageController extends Controller
     {
         $data = $request->validated();
 
-        if ($data->hasFile('image')) {
-            $path = $data->file('image')->store('pages', 'public');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('pages', 'public');
             $data['image'] = $path;
         }
 
@@ -51,7 +51,7 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        return view('admin.pages.show', compact($page));
+        return view('admin.pages.show', compact('page'));
     }
 
     /**
@@ -59,7 +59,7 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('admin.pages.edit', compact($page));
+        return view('admin.pages.edit', compact('page'));
     }
 
     /**
@@ -68,12 +68,12 @@ class PageController extends Controller
     public function update(UpdatePageRequest $request, Page $page)
     {
         $data = $request->validated();
-        if ($data->hasFile('image')) {
+        if ($request->hasFile('image')) {
             if ($page->image) {
                 Storage::disk('public')->delete($page->image);
             }
             
-            $path = $data->file('image')->store('pages', 'public');
+            $path = $request->file('image')->store('pages', 'public');
             $data['image'] = $path;
         }
 
@@ -98,5 +98,17 @@ class PageController extends Controller
             ->with('success', 'Page supprimée avec succès.');
     }
 
-    
+    public function preview(Page $page)
+    {
+        return view('front.page', compact('page'));
+    }
+
+    public function togglePublish(Page $page)
+    {
+        $page->is_published = !$page->is_published;
+        $page->save();
+        
+        return redirect()->route('admin.pages.index')
+            ->with('success', $page->is_published ? 'Page publiée avec succès.' : 'Page dépubliée avec succès.');
+    }   
 }
