@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Service;
+use App\Models\Zone;
 
 class HomeController extends Controller
 {
@@ -100,14 +102,19 @@ class HomeController extends Controller
     public function services()
     {
         $services = Service::published()->ordered()->get();
-        return view('services', compact('services'));
+        $zones = Zone::orderBy('name')->get();
+    
+        return view('services', compact('services', 'zones'));
     }
 
 
     public function service($id)
     {
         $service = Service::published()->findOrFail($id);
-        return view('services-details', compact('service'));
+        $allServices = Service::published()->ordered()->get();
+        $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
+
+        return view('services-details', compact('service', 'allServices', 'faqs'));
     }
 
     public function events()
@@ -145,5 +152,4 @@ class HomeController extends Controller
 
         return view('events-details', compact('event', 'relatedEvents', 'allEvents'));
     }
-
 }

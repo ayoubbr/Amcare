@@ -43,7 +43,6 @@
     @vite('resources/css/module-css/cta.css')
     @vite('resources/css/module-css/footer.css')
     @vite('resources/css/responsive.css')
-    @vite('resources/css/responsive.css')
     @vite('resources/css/module-css/page-title.css')
     @vite('resources/css/module-css/subscribe.css')
 
@@ -87,7 +86,7 @@
 
 
         <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
+            <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -107,189 +106,44 @@
                 <div class="tabs-box">
                     <div class="tab-btn-box">
                         <div class="tab-btns tab-buttons clearfix">
-                            <div class="tab-btn active-btn" data-tab="#tab-4">Service d'ambulance</div>
-                            <div class="tab-btn" data-tab="#tab-5">Ambulance USI</div>
-                            <div class="tab-btn" data-tab="#tab-6">Ambulance aérienne</div>
-                            <div class="tab-btn" data-tab="#tab-7">Support médical</div>
+                            @foreach($services as $index => $service)
+                                <div class="tab-btn {{ $index === 0 ? 'active-btn' : '' }}" data-tab="#tab-{{ $service->id }}">
+                                    {{ $service->title }}
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="tabs-content">
-                        <div class="shape" style="background-image: url(assets/images/shape/shape-1.png);"></div>
-                        <div class="tab active-tab" id="tab-4">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Service d'ambulance</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
+                        <div class="shape" style="background-image: url({{ asset('assets/images/shape/shape-1.png') }});"></div>
+                        @foreach($services as $index => $service)
+                            <div class="tab {{ $index === 0 ? 'active-tab' : '' }}" id="tab-{{ $service->id }}">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                                        <div class="content-box">
+                                            <h2>{{ $service->title }}</h2>
+                                            <p>{{ $service->short_description ?? Str::limit(strip_tags($service->content), 200) }}</p>
+                                            <ul class="list-style-one clearfix">
+                                                <li>Nécessité médicale</li>
+                                                <li>Paiement flexible</li>
+                                                <li>Assistance 24/7</li>
+                                                <li>Support client</li>
+                                                <li>Avantages supplémentaires</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-1.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-2.jpg" alt=""></figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab" id="tab-5">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Ambulance USI</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-22.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-23.jpg" alt=""></figure>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                                        <div class="image-box pl_110 pb_50">
+                                            <figure class="image image-1 image-hov-one">
+                                                <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/service-1.jpg') }}" alt="{{ $service->title }}">
+                                            </figure>
+                                            {{-- <figure class="image image-2 image-hov-two">
+                                                <img src="{{ asset('assets/images/service/service-1.jpg') }}" alt="{{ $service->title }} secondary">
+                                            </figure> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab" id="tab-6">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Ambulance aérienne</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-24.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-25.jpg" alt=""></figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab" id="tab-7">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Support médical</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-26.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-27.jpg" alt=""></figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="sevice-area centred pt_120 pb_90" style="width: 87%;margin: auto;">
-            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-14.png);"></div>
-            <div class="auto-container">
-                <div class="sec-title mb_50">
-                    <span class="sub-title mb_13">Zones de service</span>
-                    <h2>Nos zones de service</h2>
-                </div>
-                <div class="row clearfix">
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-1.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">Los Angeles</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-2.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">Houston</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-3.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">Philadelphie</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-4.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">New York</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-5.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">San Antonio</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-6.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">Phoenix</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-7.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">San Diego</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <figure class="image-box"><img src="assets/images/resource/service-area-8.jpg"
-                                    alt=""></figure>
-                            <h4><a href="index-4.html">Chicago</a></h4>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -299,6 +153,28 @@
     </div>
 
     @include('shared.js')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tabs-box .tab-btn');
+            const tabContents = document.querySelectorAll('.tabs-box .tab');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active classes from all buttons and content
+                    tabButtons.forEach(btn => btn.classList.remove('active-btn'));
+                    tabContents.forEach(content => content.classList.remove('active-tab'));
+
+                    // Add active class to the clicked button
+                    this.classList.add('active-btn');
+
+                    // Show the corresponding tab content
+                    const targetTabId = this.dataset.tab;
+                    document.querySelector(targetTabId).classList.add('active-tab');
+                });
+            });
+        });
+    </script>
 
 </body>
 
