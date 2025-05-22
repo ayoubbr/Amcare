@@ -61,7 +61,11 @@ class HomeController extends Controller
     public function page($slug)
     {
         $page = Page::published()->where('slug', $slug)->firstOrFail();
-        return view('front.page', compact('page'));
+    
+        $metaTitle = $page->meta_title ?? $page->title;
+        $metaDescription = $page->description ?? '';
+    
+        return view('front.page', compact('page', 'metaTitle', 'description'));
     }
 
     public function about()

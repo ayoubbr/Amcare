@@ -40,5 +40,20 @@ class Page extends Model
 
         return $count ? "{$slug}-{$count}" : $slug;
     }
+
+    public function preview(Page $page)
+    {
+        return view('front.page', compact('page'));
+    }
+
+
+    public function togglePublish(Page $page)
+    {
+        $page->is_published = !$page->is_published;
+        $page->save();
+        
+        return redirect()->route('admin.pages.index')
+            ->with('success', $page->is_published ? 'Page publiée avec succès.' : 'Page dépubliée avec succès.');
+    }
     
 }
