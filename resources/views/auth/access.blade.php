@@ -32,7 +32,6 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: url('{{ asset('images/ambulance-bg.jpg') }}');
             background-size: cover;
             background-position: center;
             position: relative;
