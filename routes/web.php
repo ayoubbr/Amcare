@@ -108,8 +108,6 @@ Route::get('contact', function () {
 })->name('contact');
 
 
-
 Route::get('admin', function () {
-    return view('admin_dashboard');
+    return view('admin.dashboard');
 })->name('admin');
-
