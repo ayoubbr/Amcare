@@ -24,8 +24,8 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer('shared.header', function ($view) {
             $view->with([
-                'events' => Event::all(),
-                'services' => Service::all()
+                'events' => Event::published()->orderBy('created_at', 'desc')->take(5)->get(),
+                'services' =>  Service::published()->ordered()->take(5)->get()
             ]);
         });
     }
