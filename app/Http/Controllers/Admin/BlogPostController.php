@@ -20,7 +20,7 @@ class BlogPostController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
         
-        return view('admin.blog.index', compact('posts'));
+        return view('admin.dashboard', compact('posts'));
     }
 
     /**
@@ -37,6 +37,7 @@ class BlogPostController extends Controller
      */
     public function store(StoreBlogPostRequest $request)
     {
+        dd('dd');
         $validate = $request->validated();
         $validate['slug'] = BlogPost::createUniqueSlug($validate['title']);
 
@@ -51,7 +52,7 @@ class BlogPostController extends Controller
 
         BlogPost::create($validate);
 
-        return redirect()->route('admin.blog.index')
+        return redirect()->route('admin')
             ->with('success', 'Article créé avec succès.');
     }
 
@@ -101,7 +102,7 @@ class BlogPostController extends Controller
 
         $blogPost->update($validate);
 
-        return redirect()->route('admin.blog.index')
+        return redirect()->route('admin')
             ->with('success', 'Blog mis à jour avec succès.');
     }
 
@@ -117,7 +118,7 @@ class BlogPostController extends Controller
 
         
         $blogPost->delete();
-        return redirect()->route('admin.blog.index')
+        return redirect()->route('admin')
             ->with('success', 'Article supprimé avec succès.');
     }
 
@@ -132,7 +133,7 @@ class BlogPostController extends Controller
         
         $blogPost->save();
         
-        return redirect()->route('admin.blog.index')
+        return redirect()->route('admin')
             ->with('success', $blogPost->is_published ? 'Article publié avec succès.' : 'Article dépublié avec succès.');
     }
 

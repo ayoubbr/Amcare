@@ -25,37 +25,35 @@ Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+// Route::get('admin', [DashboardController::class, 'index'])->name('admin');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('blog', BlogPostController::class);
+    Route::patch('blog/{post}/toggle-publish', [BlogPostController::class, 'togglePublish'])->name('blog.toggle-publish');
+    Route::get('blog/{post}/preview', [BlogPostController::class, 'preview'])->name('blog.preview');
+
+    Route::post('zone', [ZoneController::class, 'store'])->name('zone.store');
+    Route::get('zone', [ZoneController::class, 'index'])->name('zone.index');
 
 
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-
-    Route::get('/zone', [ZoneController::class, 'index'])->name('zone.index');
-
-
+    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 
 
-
+    Route::resource('services', ServiceController::class);
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-
-
 
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 
     Route::resource('events', EventController::class);
     Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
-
-
-    Route::resource('blog', BlogPostController::class);
-    Route::patch('blog/{post}/toggle-publish', [BlogPostController::class, 'togglePublish'])->name('blog.toggle-publish');
-    Route::get('blog/{post}/preview', [BlogPostController::class, 'preview'])->name('blog.preview');
-    
-    Route::resource('categories', CategoryController::class);
-
-
 });
 
 Route::get('services', function () {
@@ -106,8 +104,3 @@ Route::get('about', function () {
 Route::get('contact', function () {
     return view('contact');
 })->name('contact');
-
-
-Route::get('admin', function () {
-    return view('admin.dashboard');
-})->name('admin');

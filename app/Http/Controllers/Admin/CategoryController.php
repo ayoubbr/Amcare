@@ -14,13 +14,13 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::withCount('posts')->get();
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.dashboard', compact('categories'));
     }
 
 
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.dashboard');
     }
 
     public function store(StoreCategoryRequest $request)
@@ -31,7 +31,7 @@ class CategoryController extends Controller
         
         Category::create($validate);
 
-        return redirect()->route('admin.categories.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Catégorie créée avec succès.');
     }
 
@@ -51,21 +51,22 @@ class CategoryController extends Controller
 
         $category->update($validate);
 
-        return redirect()->route('admin.categories.index')
+        return redirect()->route('admin.dashboard')
                         ->with('succès', 'Category mis à jour avec succès .');
     }
 
     public function destroy(Category $category)
     {
+        // dd($category);
         if($category->posts()->count() > 0)
         {
-            return redirect()->route('admin.categories.index')
+            return redirect()->route('admin.dashboard')
                             ->with('error', 'Il y a des articles associés avec cette category!');
         }
 
         $category->delete();
 
-        return redirect()->route('admin.categories.index')
+        return redirect()->route('admin.dashboard')
                         ->with('succès', 'Category bien supprimée .');
     }
 }
