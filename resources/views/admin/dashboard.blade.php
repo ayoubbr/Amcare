@@ -463,28 +463,29 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Question</th>
+                                    <th>Reponse</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Assuming a $faqs variable is passed from controller --}}
-                                {{-- @foreach ($faqs as $faq)
+                                @foreach ($faqs as $faq)
                                     <tr data-entity="faqs" data-id="{{ $faq->id }}"
                                         data-question="{{ $faq->question }}" data-answer="{{ $faq->answer }}">
                                         <td>{{ $faq->id }}</td>
                                         <td>{{ $faq->question }}</td>
+                                        <td>{{ $faq->answer }}</td>
                                         <td class="action-buttons">
                                             <button class="btn btn-edit">Modifier</button>
                                             <button class="btn btn-delete">Supprimer</button>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="form-section mt-4" style="display: none;" id="faq-form">
                         <h4>Ajouter une nouvelle FAQ</h4>
-                        <form action="" method="POST">
+                        <form action="{{ route('admin.faqs.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="faqQuestion">Question</label>
@@ -965,7 +966,7 @@
                             break;
                         case 'faqs':
                             modalTitle.textContent = 'Modifier la FAQ';
-                            actionRoute = `/admin/faqs/${data.id}`; // Assuming admin.faqs.update route exists
+                            actionRoute = `/admin/faqs/${data.id}`;
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">

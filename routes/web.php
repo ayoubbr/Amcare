@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
@@ -55,7 +56,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Route::post('zone', [ZoneController::class, 'store'])->name('zone.store');
     // Route::get('zone', [ZoneController::class, 'index'])->name('zone.index');
 
-    // Route::resource('faqs', FaqController::class);
+    Route::resource('faqs', FaqController::class);
 
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
