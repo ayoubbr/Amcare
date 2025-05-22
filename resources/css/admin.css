@@ -179,7 +179,8 @@ body {
 
 /* Form Styles */
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    padding-top: 12px;
 }
 
 .form-control {
@@ -197,13 +198,17 @@ body {
 
 .form-control:focus {
     border-color: var(--secondary-color);
-    box-shadow: 0 0 0 0.25rem rgba(11, 37, 182, 0.25);
+    /* box-shadow: 0 0 0 0.25rem rgba(11, 37, 182, 0.25); */
     /* Using secondary color for focus */
     outline: 0;
 }
 
 textarea.form-control {
     min-height: 120px;
+}
+
+.form-section h4{
+    margin-bottom: 15px;
 }
 
 .btn-add-new {
