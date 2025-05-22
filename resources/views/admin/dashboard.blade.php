@@ -1004,6 +1004,7 @@
                                     <label for="modalServiceOrder">Ordre d'affichage</label>
                                     <input type="number" class="form-control" name="order" id="modalServiceOrder" value="${data.order || '0'}">
                                 </div>
+                                <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalServiceIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalServiceIsPublished">Publié</label>

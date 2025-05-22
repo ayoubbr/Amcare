@@ -107,7 +107,7 @@ class EventController extends Controller
     
         $event->delete();
         return redirect()->route('admin.dashboard')
-            ->with('succès', 'Evénement crée avec succès.');
+            ->with('success', 'Evénement crée avec succès.');
     }
 
     public function togglePublish(Event $event)

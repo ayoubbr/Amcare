@@ -37,21 +37,22 @@ class ServiceController extends Controller
     public function store(StoreServiceRequest $request)
     {
         $data = $request->validated();
-
-        if ($data->hasFile('image')) {
-            $path = $data->file('image')->store('services', 'public');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('services', 'public');
             $data['image'] = $path;
         }
+
         if (!isset($data['order'])) {
             $data['order'] = Service::max('order') + 1;
         }
-        
+
         $service = Service::create($data);
 
         if (isset($validated['zones'])) {
             $service->regions()->sync($data['zones']);
         }
-        return redirect()->route('admin.services.index')
+
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Service créé avec succès.');
     }
 
@@ -77,22 +78,22 @@ class ServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service)
     {
         $data = $request->validated();
-
-        if ($data->hasFile('image')) {
+       
+        if ($request->hasFile('image')) {
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
             }
-            $path = $data->file('image')->store('service', 'public');
+            $path = $request->file('image')->store('service', 'public');
             $data['image'] = $path;
 
-            // if(!isset($data['order']))
-            // {
-            //     $data['order'] = Service::max('order') + 1;
-            // }
+            if (!isset($data['order'])) {
+                $data['order'] = Service::max('order') + 1;
+            }
         }
+
         $service->update($data);
-        return redirect()->route('admin.services.index')
-                        ->with('succes', 'Service mis à jour avec succès');
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'Service mis à jour avec succès');
     }
 
     /**
@@ -100,17 +101,16 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        if($service->image) 
-        {
+        if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }
 
         $service->delete();
-        return redirect()->route('admin.services.index')
-            ->with('succes', 'Service supprimé avec succès.');
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'Service supprimé avec succès.');
     }
 
-    
+
     public function updateOrder(Request $request)
     {
         $services = $request->input('services', []);

@@ -52,7 +52,7 @@ class CategoryController extends Controller
         $category->update($validate);
 
         return redirect()->route('admin.dashboard')
-                        ->with('succès', 'Category mis à jour avec succès .');
+                        ->with('success', 'Category mis à jour avec succès .');
     }
 
     public function destroy(Category $category)
@@ -67,6 +67,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('admin.dashboard')
-                        ->with('succès', 'Category bien supprimée .');
+                        ->with('success', 'Category bien supprimée .');
     }
 }
