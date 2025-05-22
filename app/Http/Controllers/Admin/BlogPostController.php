@@ -40,8 +40,8 @@ class BlogPostController extends Controller
         $validate = $request->validated();
         $validate['slug'] = BlogPost::createUniqueSlug($validate['title']);
 
-        if ($validate->hasFile('image')) {
-            $path = $validate->file('image')->store('blog', 'public');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('blog', 'public');
             $validate['image'] = $path;
         }
 

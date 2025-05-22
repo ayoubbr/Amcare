@@ -227,6 +227,38 @@ textarea.form-control {
     /* Darken secondary color */
 }
 
+
+.logout-item {
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+  }
+  
+  .logout-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #a5130d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: left;
+  }
+  
+  .logout-button:hover {
+    background-color: #7d0f0a;
+  }
+  
+  .logout-button i {
+    margin-right: 10px;
+    font-size: 16px;
+  }  
+
 /* Responsive adjustments */
 @media (max-width: 991px) {
     .admin-wrapper {

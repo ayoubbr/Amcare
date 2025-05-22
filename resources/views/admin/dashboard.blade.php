@@ -193,6 +193,14 @@
                         <li><a href="#services">Services</a></li>
                         <li><a href="#zones">Zones</a></li>
                         <li><a href="#settings">Paramètres du Site</a></li>
+                        <li class="logout-item">
+                            <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                                @csrf
+                                    <button type="submit" class="logout-button">
+                                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                    </button>
+                            </form>
+                        </li>
                     </ul>
                 </nav>
             </aside>
