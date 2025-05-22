@@ -31,37 +31,37 @@ Route::post('/admin-login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
+// Route::get('admin', [DashboardController::class, 'index'])->name('admin');
 
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::prefix('admin')->name('admin.')->group(function () {
 
+    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/zone', [ZoneController::class, 'index'])->name('zone.index');
-
-
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-
-
-
-    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-
-
-
-    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
-
-    Route::resource('events', EventController::class);
-    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
-
+    Route::resource('categories', CategoryController::class);
 
     Route::resource('blog', BlogPostController::class);
     Route::patch('blog/{post}/toggle-publish', [BlogPostController::class, 'togglePublish'])->name('blog.toggle-publish');
     Route::get('blog/{post}/preview', [BlogPostController::class, 'preview'])->name('blog.preview');
-    
-    Route::resource('categories', CategoryController::class);
+
+    Route::resource('events', EventController::class);
+    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
+
+    Route::resource('zone', ZoneController::class);
+    // Route::post('zone', [ZoneController::class, 'store'])->name('zone.store');
+    // Route::get('zone', [ZoneController::class, 'index'])->name('zone.index');
+
+    // Route::resource('faqs', FaqController::class);
+
+    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 
 
+    Route::resource('services', ServiceController::class);
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+
+    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 });
 
 Route::get('services', function () {
@@ -112,8 +112,3 @@ Route::get('about', function () {
 Route::get('contact', function () {
     return view('contact');
 })->name('contact');
-
-
-Route::get('admin', function () {
-    return view('admin.dashboard');
-})->name('admin');

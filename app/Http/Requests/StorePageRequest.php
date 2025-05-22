@@ -23,7 +23,6 @@ class StorePageRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'slug' => 'required|string',
             'content' => 'required|string',
             'meta_title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
