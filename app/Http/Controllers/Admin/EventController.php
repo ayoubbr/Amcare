@@ -25,7 +25,7 @@ class EventController extends Controller
             'publishedEvents',
             'upCommingEvents',
             'pastEvents',
-         ));
+        ));
     }
 
     /**
@@ -45,14 +45,14 @@ class EventController extends Controller
 
         $reqst['slug'] = Event::createUniqueSlug($reqst['title']);
 
-        if ($reqst->hasFile('image')) {
-            $path = $reqst->file('image')->store('events', 'public');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('events', 'public');
             $reqst['image'] = $path;
         }
 
         Event::create($reqst);
 
-        return redirect()->route('admin.events.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Événement créé avec succès.');
     }
 
@@ -82,17 +82,17 @@ class EventController extends Controller
         if ($event->title !== $reqst['title']) {
             $reqst['slug'] = Event::createUniqueSlug($reqst['title']);
         }
-        if ($reqst->hasFile('image')) {
+        if ($request->hasFile('image')) {
             if ($event->image) {
                 Storage::disk('public')->delete($event->image);
             }
-            $path = $reqst->file('image')->store('events', 'public');
+            $path = $request->file('image')->store('events', 'public');
             $reqst['image'] = $path;
         }
 
         $event->update($reqst);
 
-        return redirect()->route('admin.events.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Événement mis à jour avec succès.');
     }
 
@@ -101,19 +101,20 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        if($event->image) {
+        if ($event->image) {
             Storage::disk('public')->delete($event->image);
         }
+    
         $event->delete();
-        return redirect()->view('admin.events.index')
-                        ->with('succès', 'Evénement crée avec succès.');
+        return redirect()->route('admin.dashboard')
+            ->with('succès', 'Evénement crée avec succès.');
     }
 
     public function togglePublish(Event $event)
     {
         $event->is_published = !$event->is_published;
         $event->save();
-        
+
         return redirect()->route('admin.events.index')
             ->with('success', $event->is_published ? 'Événement publié avec succès.' : 'Événement dépublié avec succès.');
     }

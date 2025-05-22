@@ -156,6 +156,27 @@
         .delete-confirmation-modal .btn-cancel-delete:hover {
             background-color: var(--bs-gray-500);
         }
+
+        /* Styles for session alerts */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
     </style>
 </head>
 
@@ -201,6 +222,19 @@
                 <section class="page-title">
                     <h1>Gestion du Contenu</h1>
                 </section>
+
+                {{-- Session Messages --}}
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <section id="blog-posts" class="admin-section">
                     <h3>Gestion des Articles de Blog</h3>
@@ -302,7 +336,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Dynamically populate with categories data --}}
                                 @foreach ($categories as $category)
                                     <tr data-entity="categories" data-id="{{ $category->id }}"
                                         data-name="{{ $category->name }}" data-slug="{{ $category->slug }}">
@@ -350,23 +383,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Data will come from EventController --}}
-                                {{-- Example static data, replace with @foreach ($events as $event) --}}
-                                <tr data-entity="events" data-id="1" data-title="Événements sportifs"
-                                    data-slug="evenements-sportifs" data-event-date="2025-08-20T10:00"
-                                    data-location="6391 Elgin St. Celina" data-is-published="true"
-                                    data-content="Contenu complet de l'événement 1..." data-image="event1.jpg">
-                                    <td>1</td>
-                                    <td>Événements sportifs</td>
-                                    <td>evenements-sportifs</td>
-                                    <td>2025-08-20 10:00</td>
-                                    <td>6391 Elgin St. Celina</td>
-                                    <td>Oui</td>
-                                    <td class="action-buttons">
-                                        <button class="btn btn-edit">Modifier</button>
-                                        <button class="btn btn-delete">Supprimer</button>
-                                    </td>
-                                </tr>
+                                @foreach ($events as $event)
+                                    <tr data-entity="events" data-id="{{ $event->id }}"
+                                        data-title="{{ $event->title }}" data-slug="{{ $event->slug }}"
+                                        data-event-date="{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i') }}"
+                                        data-location="{{ $event->location ?? '' }}"
+                                        data-is-published="{{ $event->is_published ? 'true' : 'false' }}"
+                                        data-content="{{ $event->content }}"
+                                        data-image="{{ $event->image ? Storage::url($event->image) : '' }}">
+                                        <td>{{ $event->id }}</td>
+                                        <td>{{ $event->title }}</td>
+                                        <td>{{ $event->slug }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d H:i') }}</td>
+                                        <td>{{ $event->location ?? 'N/A' }}</td>
+                                        <td>{{ $event->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -423,23 +459,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Data will come from a FAQController --}}
-                                <tr data-entity="faqs" data-id="1"
-                                    data-question="Quels types d'urgences médicales traitez-vous ?"
-                                    data-answer="Notre service d'ambulance est équipé pour gérer un large éventail d'urgences médicales, y compris les traumatismes.">
-                                    <td>1</td>
-                                    <td>Quels types d'urgences médicales traitez-vous ?</td>
-                                    <td class="action-buttons">
-                                        <button class="btn btn-edit">Modifier</button>
-                                        <button class="btn btn-delete">Supprimer</button>
-                                    </td>
-                                </tr>
+                                {{-- Assuming a $faqs variable is passed from controller --}}
+                                {{-- @foreach ($faqs as $faq)
+                                    <tr data-entity="faqs" data-id="{{ $faq->id }}"
+                                        data-question="{{ $faq->question }}" data-answer="{{ $faq->answer }}">
+                                        <td>{{ $faq->id }}</td>
+                                        <td>{{ $faq->question }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
                     <div class="form-section mt-4" style="display: none;" id="faq-form">
                         <h4>Ajouter une nouvelle FAQ</h4>
-                        <form action="{{-- route('admin.faqs.store') --}}" method="POST"> {{-- Placeholder route --}}
+                        <form action="" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="faqQuestion">Question</label>
@@ -473,23 +510,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Data will come from ServiceController --}}
-                                <tr data-entity="services" data-id="1" data-title="Ambulance Routière"
-                                    data-icon="icon-ambulance"
-                                    data-short-description="Transport rapide et sûr des patients."
-                                    data-content="Contenu complet du service Ambulance Routière..."
-                                    data-image="service1.jpg" data-whatsapp-number="+1234567890" data-order="0"
-                                    data-is-published="true">
-                                    <td>1</td>
-                                    <td>Ambulance Routière</td>
-                                    <td>icon-ambulance</td>
-                                    <td>Transport rapide et sûr des patients.</td>
-                                    <td>Oui</td>
-                                    <td class="action-buttons">
-                                        <button class="btn btn-edit">Modifier</button>
-                                        <button class="btn btn-delete">Supprimer</button>
-                                    </td>
-                                </tr>
+                                @foreach ($services as $service)
+                                    <tr data-entity="services" data-id="{{ $service->id }}"
+                                        data-title="{{ $service->title }}" data-icon="{{ $service->icon ?? '' }}"
+                                        data-short-description="{{ $service->short_description }}"
+                                        data-content="{{ $service->content }}"
+                                        data-image="{{ $service->image ? Storage::url($service->image) : '' }}"
+                                        data-whatsapp-number="{{ $service->whatsapp_number ?? '' }}"
+                                        data-order="{{ $service->order }}"
+                                        data-is-published="{{ $service->is_published ? 'true' : 'false' }}">
+                                        <td>{{ $service->id }}</td>
+                                        <td>{{ $service->title }}</td>
+                                        <td><i class="{{ $service->icon }}"></i></td>
+                                        <td>{{ $service->short_description }}</td>
+                                        <td>{{ $service->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -559,25 +599,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Data will come from ZoneController --}}
-                                <tr data-entity="zones" data-id="1" data-name="Los Angeles" data-code="LA"
-                                    data-description="Zone de service pour Los Angeles." data-is-active="true">
-                                    <td>1</td>
-                                    <td>Los Angeles</td>
-                                    <td>LA</td>
-                                    <td>Zone de service pour Los Angeles.</td>
-                                    <td>Oui</td>
-                                    <td class="action-buttons">
-                                        <button class="btn btn-edit">Modifier</button>
-                                        <button class="btn btn-delete">Supprimer</button>
-                                    </td>
-                                </tr>
+                                @foreach ($zones as $zone)
+                                    <tr data-entity="zone" data-id="{{ $zone->id }}"
+                                        data-name="{{ $zone->name }}" data-code="{{ $zone->code ?? '' }}"
+                                        data-description="{{ $zone->description ?? '' }}"
+                                        data-is-active="{{ $zone->is_active ? 'true' : 'false' }}">
+                                        <td>{{ $zone->id }}</td>
+                                        <td>{{ $zone->name }}</td>
+                                        <td>{{ $zone->code ?? 'N/A' }}</td>
+                                        <td>{{ $zone->description ?? 'N/A' }}</td>
+                                        <td>{{ $zone->is_active ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="form-section mt-4" style="display: none;" id="zone-form">
                         <h4>Ajouter une nouvelle Zone</h4>
-                        <form action="{{ route('admin.zone.store') }}" method="POST"> {{-- Assuming admin.zone.store route exists --}}
+                        <form action="{{ route('admin.zone.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="zoneName">Nom</label>
@@ -623,21 +666,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Data will come from SettingController --}}
-                                <tr data-entity="settings" data-id="1" data-site-name="Amcare"
-                                    data-phone="+91 (234) 5432" data-email="info@example.com" data-logo="logo.png"
-                                    data-footer-text="Copyright 2025 par Amcare.">
-                                    <td>1</td>
-                                    <td>Amcare</td>
-                                    <td>+91 (234) 5432</td>
-                                    <td>info@example.com</td>
-                                    <td>logo.png</td>
-                                    <td>Copyright 2025 par Amcare.</td>
-                                    <td class="action-buttons">
-                                        <button class="btn btn-edit">Modifier</button>
-                                        <button class="btn btn-delete">Supprimer</button>
-                                    </td>
-                                </tr>
+                                @if ($settings)
+                                    <tr data-entity="settings" data-id="{{ $settings->id }}"
+                                        data-site-name="{{ $settings->site_name }}"
+                                        data-phone="{{ $settings->phone ?? '' }}"
+                                        data-email="{{ $settings->email ?? '' }}"
+                                        data-logo="{{ $settings->logo ? Storage::url($settings->logo) : '' }}"
+                                        data-footer-text="{{ $settings->footer_text ?? '' }}">
+                                        <td>{{ $settings->id }}</td>
+                                        <td>{{ $settings->site_name }}</td>
+                                        <td>{{ $settings->phone ?? 'N/A' }}</td>
+                                        <td>{{ $settings->email ?? 'N/A' }}</td>
+                                        <td>
+                                            @if ($settings->logo)
+                                                <img src="{{ Storage::url($settings->logo) }}" alt="Logo"
+                                                    style="max-height: 50px;">
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                        <td>{{ $settings->footer_text ?? 'N/A' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td colspan="7">Aucun paramètre de site configuré.</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -649,26 +707,33 @@
                             <div class="form-group">
                                 <label for="siteName">Nom du Site</label>
                                 <input type="text" class="form-control" name="site_name" id="siteName"
-                                    placeholder="Entrez le nom du site" required>
+                                    placeholder="Entrez le nom du site" value="{{ $settings->site_name ?? '' }}"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="sitePhone">Téléphone</label>
                                 <input type="text" class="form-control" name="phone" id="sitePhone"
-                                    placeholder="Entrez le numéro de téléphone">
+                                    placeholder="Entrez le numéro de téléphone" value="{{ $settings->phone ?? '' }}">
                             </div>
                             <div class="form-group">
                                 <label for="siteEmail">Email</label>
                                 <input type="email" class="form-control" name="email" id="siteEmail"
-                                    placeholder="Entrez l'adresse email">
+                                    placeholder="Entrez l'adresse email" value="{{ $settings->email ?? '' }}">
                             </div>
                             <div class="form-group">
-                                <label for="siteLogo">Logo</label>
+                                <label for="siteLogo">Logo @if ($settings && $settings->logo)
+                                        (actuel: <a href="{{ Storage::url($settings->logo) }}"
+                                            target="_blank">Voir</a>)
+                                    @else
+                                        (N/A)
+                                    @endif
+                                </label>
                                 <input type="file" class="form-control" name="logo" id="siteLogo">
                             </div>
                             <div class="form-group">
                                 <label for="siteFooterText">Texte de Pied de Page</label>
                                 <textarea class="form-control" name="footer_text" id="siteFooterText" rows="3"
-                                    placeholder="Entrez le texte du pied de page"></textarea>
+                                    placeholder="Entrez le texte du pied de page">{{ $settings->footer_text ?? '' }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
                             <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
@@ -690,9 +755,7 @@
                 <div class="modal-body">
                     <form id="modalForm" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT') {{-- This will be dynamically set by JS --}}
                         <input type="hidden" name="_method" value="PUT" id="modalFormMethod">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="modalFormCSRF">
                         {{-- Form fields will be dynamically inserted here --}}
                     </form>
                 </div>
@@ -813,8 +876,7 @@
                             actionRoute = `/admin/blog/${data.id}`;
                             currentImage = data.image;
                             formHtml = `
-                              <input type="hidden" class="form-control" name="post_id" id="blogPostId"
-                                    placeholder="Entrez le titre de l'article" required value="${data.id || ''}">
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalBlogPostTitle">Titre</label>
                                     <input type="text" class="form-control" name="title" id="modalBlogPostTitle" value="${data.title || ''}" required>
@@ -836,6 +898,7 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalBlogPostIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalBlogPostIsPublished">Publié</label>
@@ -850,6 +913,7 @@
                             modalTitle.textContent = 'Modifier la Catégorie';
                             actionRoute = `/admin/categories/${data.id}`;
                             formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalCategoryName">Nom</label>
                                     <input type="text" class="form-control" name="name" id="modalCategoryName" value="${data.name || ''}" required>
@@ -861,6 +925,7 @@
                             actionRoute = `/admin/events/${data.id}`;
                             currentImage = data.image;
                             formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalEventTitle">Titre de l'événement</label>
                                     <input type="text" class="form-control" name="title" id="modalEventTitle" value="${data.title || ''}" required>
@@ -881,6 +946,9 @@
                                     <label for="modalEventImage">Image ${currentImage ? '(actuel: <a href="' + currentImage + '" target="_blank">Voir</a>)' : '(N/A)'}</label>
                                     <input type="file" class="form-control" name="image" id="modalEventImage">
                                 </div>
+                                
+                                <input type="hidden" name="is_published" value="0">
+
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalEventIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalEventIsPublished">Publié</label>
@@ -889,8 +957,9 @@
                             break;
                         case 'faqs':
                             modalTitle.textContent = 'Modifier la FAQ';
-                            actionRoute = `/admin/faqs/${data.id}`; // Placeholder route
+                            actionRoute = `/admin/faqs/${data.id}`; // Assuming admin.faqs.update route exists
                             formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalFaqQuestion">Question</label>
                                     <input type="text" class="form-control" name="question" id="modalFaqQuestion" value="${data.question || ''}" required>
@@ -906,6 +975,7 @@
                             actionRoute = `/admin/services/${data.id}`;
                             currentImage = data.image;
                             formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalServiceTitle">Titre</label>
                                     <input type="text" class="form-control" name="title" id="modalServiceTitle" value="${data.title || ''}" required>
@@ -940,10 +1010,11 @@
                                 </div>
                             `;
                             break;
-                        case 'zones':
+                        case 'zone':
                             modalTitle.textContent = 'Modifier la Zone';
-                            actionRoute = `/admin/zone/${data.id}`; // Placeholder route
+                            actionRoute = `/admin/zone/${data.id}`; // Assuming admin.zone.update route exists
                             formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalZoneName">Nom</label>
                                     <input type="text" class="form-control" name="name" id="modalZoneName" value="${data.name || ''}" required>
@@ -964,9 +1035,10 @@
                             break;
                         case 'settings':
                             modalTitle.textContent = 'Modifier les Paramètres du Site';
-                            actionRoute = `/admin/settings/${data.id}`; // Placeholder route
+                            actionRoute = `/admin/settings/${data.id}`; // Assuming admin.settings.update route exists
                             currentImage = data.logo;
                             formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
                                     <label for="modalSiteName">Nom du Site</label>
                                     <input type="text" class="form-control" name="site_name" id="modalSiteName" value="${data.siteName || ''}" required>
@@ -1096,7 +1168,7 @@
                         const deleteForm = document.createElement('form');
                         deleteForm.method = 'POST';
                         deleteForm.action =
-                        `/admin/${itemToDelete.type}/${itemToDelete.id}`; // e.g., /admin/blog/1, /admin/categories/1
+                            `/admin/${itemToDelete.type}/${itemToDelete.id}`; // e.g., /admin/blog/1, /admin/categories/1
 
                         const methodInput = document.createElement('input');
                         methodInput.type = 'hidden';

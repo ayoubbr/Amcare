@@ -80,7 +80,7 @@ class BlogPostController extends Controller
     public function update(UpdateBlogPostRequest $request)
     {
         $validate = $request->validated();
-        $blogPost = BlogPost::find($request['post_id']);
+        $blogPost = BlogPost::find($request['id']);
 
         if ($blogPost->title !== $validate['title']) {
             $validate['slug'] = BlogPost::createUniqueSlug($validate['title']);

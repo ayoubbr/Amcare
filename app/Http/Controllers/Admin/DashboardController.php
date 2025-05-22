@@ -30,6 +30,7 @@ class DashboardController extends Controller
         $events = Event::orderBy('event_date', 'desc')->get();
         $services = Service::orderBy('order')->get();
         $zones = Zone::orderBy('name')->get();
+        // $faqs = Faq::orderBy('name')->get();
         $settings = Setting::first();
 
         return view('admin.dashboard',  compact('posts', 'categories', 'events', 'services', 'zones', 'settings'));
