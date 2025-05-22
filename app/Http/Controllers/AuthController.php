@@ -17,34 +17,33 @@ class AuthController extends Controller
         $this->middleware('auth')->only('dashboard');
     }
 
-    // public function registerForm()
-    // {
-    //     return view('auth.register');
-    // }
+    public function accessForm()
+    {
+        return view('auth.access');
+    }
 
-    // public function register(RegisterRequest $request)
-    // {
-    //     $request->validated();
-    //     $userRole = Role::where('role_name', 'Utilisateur')->first();
-    //     $welcomeBadge = Badge::where('name', 'Welcome')->first();
+    public function verifyAccessCode(Request $request)
+    {
+        $request->validate([
+            'access_code' => 'required|string'
+        ]);
 
-    //     $user = User::create([
-    //         'nom' => $request->nom,
-    //         'prenom' => $request->prenom,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'role_id' => $userRole?->id ?? 3,
-    //         'badge_id' => $welcomeBadge?->id,
-    //         'avatar' => 'avatars/default.png',
-    //     ]);
+        $validCode = env('ACCESS_CODE', 'admin_secret_2024');
 
-    //     event(new Registered($user));
-    //     Auth::login($user);
-    //     return $this->redirectBasedOnRole($user);
-    // }
+        if ($request->access_code === $validCode) {
+            session(['admin_access_granted' => true]);
+            return redirect()->route('admin.login.form');
+        }
+        return back()->withErrors([
+            'access_code' => 'Code d\'accès invalide.'
+        ]);
+    }
 
     public function loginForm()
     {
+        if (!session('admin_access_granted')) {
+            return redirect()->route('auth.access');
+        }
         return view('auth.adminLogin');
     }
 
@@ -64,6 +63,7 @@ class AuthController extends Controller
         if (Auth::attempt($reqst, $remember)) {
             Auth::login($user, $remember);
             $request->session()->regenerate();
+            session()->forget('admin_access_granted');
             $user->update(['last_login_at' => now()]);
             return redirect()->route('admin.dashboard')
                 ->with('success', 'Connexion réussie. Bienvenue dans votre espace d\'administration.');
@@ -81,7 +81,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login')
+        return redirect()->route('admin.access')
             ->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
