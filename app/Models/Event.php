@@ -24,8 +24,7 @@ class Event extends Model
 
 
     protected $casts = [
-        'is_published' => 'boolean',
-        'event_date' => 'dateTime'
+        'is_published' => 'boolean'
     ];
 
 

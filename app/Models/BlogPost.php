@@ -23,15 +23,14 @@ class BlogPost extends Model
     ];
 
     protected $casts = [
-        'is_published' => 'boolean',
-        'published_at' => 'dateTime'
+        'is_published' => 'boolean'
     ];
 
     public function scopePublished($query)
     {
         return $query->where('is_published', true)
-                ->where('published_at', '<=', now())
-                ->orderBy('published_at', 'desc');
+            ->where('published_at', '<=', now())
+            ->orderBy('published_at', 'desc');
     }
 
     public function category()
@@ -40,11 +39,11 @@ class BlogPost extends Model
     }
 
 
-    private function createUniqueSlug($title)
+    public static function createUniqueSlug($title)
     {
         $slug = Str::slug($title);
         $count = BlogPost::where('slug', $slug)->count();
-        
+
         return $count ? "{$slug}-{$count}" : $slug;
     }
 }
