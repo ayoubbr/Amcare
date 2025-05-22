@@ -24,8 +24,8 @@ class StoreServiceRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
-            'short_description' => 'required|text',
-            'content' => 'required|longText',
+            'short_description' => 'required',
+            'content' => 'required',
             'image' => 'nullable|image|mimes:jpeg, png, jpg, gif|max:2048',
             'order' => 'nullable|integer',
             'is_published' => 'boolean'
