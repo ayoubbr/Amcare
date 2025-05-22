@@ -86,14 +86,14 @@ Route::get('events/{id}', function () {
 })->name('events-details');
 
 
-Route::get('blogs', function () {
-    return view('blogs');
-})->name('blogs');
+// Route::get('blogs', function () {
+//     return view('blogs');
+// })->name('blogs');
 
 
-Route::get('blogs/{id}', function () {
-    return view('blogs-details');
-})->name('blogs-details');
+// Route::get('blogs/{id}', function () {
+//     return view('blogs-details');
+// })->name('blogs-details');
 
 
 Route::get('faqs', function () {

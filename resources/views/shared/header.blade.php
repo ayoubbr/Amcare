@@ -51,10 +51,9 @@
                                         <li><a href="{{ url('events/1') }}">Support d'anesthésie</a></li>
                                     </ul>
                                 </li>
-                                <li class="{{ request()->is('blogs') ? 'current' : '' }}">
-                                    <a href="{{ url('blogs') }}">Blog</a>
+                                <li class="{{ request()->is('blog') ? 'current' : '' }}">
+                                    <a href="{{ url('blog') }}">Blog</a>
                                 </li>
-                                {{-- <li><a href="{{ url('faqs') }}">FAQ</a></li> --}}
                                 <li class="{{ request()->is('about') ? 'current' : '' }}"><a
                                         href="{{ url('about') }}">À propos</a></li>
                                 <li class="{{ request()->is('contact') ? 'current' : '' }}"><a

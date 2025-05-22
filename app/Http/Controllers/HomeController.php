@@ -22,10 +22,16 @@ class HomeController extends Controller
     {
         $posts = BlogPost::published()
                     ->with('category')
-                    ->orderBy('published_at', 'desc')
                     ->paginate(9);
+  
+        $categories = Category::orderBy('name')->get();
+
+        $latestPosts = BlogPost::published()
+                        ->orderBy('published_at', 'desc')
+                        ->take(3)
+                        ->get();
     
-        return view('front.blog', compact('posts'));
+        return view('blogs', compact('posts', 'categories', 'latestPosts'));
     }
 
     public function post($slug)
@@ -39,8 +45,16 @@ class HomeController extends Controller
                             ->where('category_id', $post->category_id)
                             ->take(3)
                             ->get();
+
+        
+        $categories = Category::orderBy('name')->get();
+
+        $latestPosts = BlogPost::published()
+                        ->orderBy('published_at', 'desc')
+                        ->take(3)
+                        ->get();
     
-        return view('front.post', compact('post', 'relatedPosts'));
+        return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
     }
 
 
@@ -52,8 +66,17 @@ class HomeController extends Controller
                     ->where('category_id', $category->id)
                     ->orderBy('published_at', 'desc')
                     ->paginate(9);
+
+        // Fetch all categories for the sidebar
+        $categories = Category::orderBy('name')->get();
+
+        // Fetch latest posts for the sidebar
+        $latestPosts = BlogPost::published()
+                        ->orderBy('published_at', 'desc')
+                        ->take(3)
+                        ->get();
     
-        return view('front.category', compact('category', 'posts'));
+        return view('front.category', compact('category', 'posts', 'categories', 'latestPosts'));
     }
 
 

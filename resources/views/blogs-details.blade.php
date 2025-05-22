@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Blog details - Amcare</title>
+    <title>{{ $post->title }} - Amcare</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
@@ -94,7 +94,8 @@
                 <div class="content-box">
                     <ul class="bread-crumb">
                         <li><a href="/">Accueil</a></li>
-                        <li>Détails du Blog</li>
+                        <li><a href="{{ route('blog') }}">Blog</a></li>
+                        <li>{{ $post->title }}</li>
                     </ul>
                     <h1>Détails du Blog</h1>
                 </div>
@@ -108,44 +109,51 @@
                             <div class="news-block-one">
                                 <div class="inner-box">
                                     <div class="image-box">
-                                        <figure class="image"><img src="{{ asset('assets/images/news/news-14.jpg') }}"
-                                                alt="">
+                                        <figure class="image">
+                                            <img src="{{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog-details.jpg') }}" alt="{{ $post->title }}">
                                         </figure>
                                     </div>
                                     <div class="lower-content">
                                         <ul class="post-info">
-                                            <li><span>Ambulance aérienne</span></li>
-                                            <li>16 Mai 2024</li>
+                                            <li><span>{{ $post->category->name ?? 'Non catégorisé' }}</span></li>
+                                            <li>{{ \Carbon\Carbon::parse($post->published_at)->format('d M Y') }}</li>
                                         </ul>
-                                        <h2>Ambulance aérienne internationale Transport de patients longue distance Innovations en ambulance</h2>
+                                        <h2>{{ $post->title }}</h2>
                                         <div class="text-box">
-                                            <p class="mb_30">Les services d'ambulance aérienne internationale ont révolutionné le transport de patients sur de longues distances, offrant des soins critiques pendant les vols à travers de vastes étendues et les frontières internationales. Ces services sont essentiels pour les patients nécessitant une attention médicale urgente ou des soins spécialisés non disponibles localement. Les ambulances aériennes sont équipées de technologies médicales avancées telles que des ventilateurs portables, des défibrillateurs et des unités de soins intensifs, garantissant que les patients reçoivent des soins continus de haut niveau tout au long du voyage.</p>
-                                            <p class="mb_40">Les innovations dans ce domaine incluent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un soutien et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
-                                            <blockquote>
+                                            {!! $post->content !!} {{-- Use {!! !!} to render HTML content --}}
+                                            
+                                            {{-- If you have a quote in your blog post, you can extract it or add a specific field for it --}}
+                                            {{-- <blockquote>
                                                 <div class="icon-box"><i class="icon-52"></i></div>
-                                                <p>"Lorsque mon père est tombé gravement malade alors que nous étions en vacances à l'étranger, nous étions terrifiés. Le service d'ambulance aérienne internationale a été une bouée de sauvetage. L'équipe médicale était professionnelle"</p>
-                                                <h6>Brooklyn Simmons</h6>
-                                            </blockquote>
+                                                <p>"Some inspirational quote related to the blog post."</p>
+                                                <h6>Author of the quote</h6>
+                                            </blockquote> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {{-- Related Posts Section --}}
+                            @if($relatedPosts->isNotEmpty())
                             <div class="content-one">
-                                <h3>Dernières Nouvelles</h3>
-                                <p class="mb_55">Les innovations dans ce domaine incluent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un soutien et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
-                                <div class="video-content"
-                                    style="background-image: url('{{ asset('assets/images/news/news-19.jpg') }}');">
-                                    <div class="video-btn">
-                                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&t=28s"
-                                            class="lightbox-image" data-caption=""><i class="icon-49"></i><span
-                                                class="border-animation"></span><span
-                                                class="border-animation border-1"></span><span
-                                                class="border-animation border-2"></span><span
-                                                class="border-animation border-3"></span></a>
+                                <h3>Articles Similaires</h3>
+                                <div class="row clearfix">
+                                    @foreach($relatedPosts as $relatedPost)
+                                    <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                                        <div class="news-block-two">
+                                            <div class="inner-box">
+                                                <div class="bg-layer" style="background-image: url({{ $relatedPost->image ? Storage::url($relatedPost->image) : asset('assets/images/news/default-related-blog.jpg') }});"></div>
+                                                <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($relatedPost->published_at)->format('d M, Y') }}</span>
+                                                <h4><a href="{{ route('post', $relatedPost->slug) }}">{{ $relatedPost->title }}</a></h4>
+                                                <ul class="post-info">
+                                                    <li><i class="icon-30"></i><a href="#">Admin</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                                <p class="mt_55">Ces services sont essentiels pour les patients nécessitant une attention médicale urgente ou des soins spécialisés non disponibles localement. Les ambulances aériennes sont équipées de technologies médicales avancées telles que des ventilateurs portables, des défibrillateurs, des unités de soins intensifs, garantissant que les patients reçoivent des soins continus de haut niveau tout au long du voyage. Les innovations dans ce domaine incluent des capacités de télémédecine améliorées, permettant aux équipes médicales au sol de fournir un soutien et des consultations en temps réel pendant les vols. De plus, les avancées dans la conception des aéronefs et l'équipement médical ont amélioré l'efficacité et la sécurité des opérations d'ambulance aérienne.</p>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
@@ -155,10 +163,9 @@
                                     <h3>Rechercher</h3>
                                 </div>
                                 <div class="search-form">
-                                    <form action="https://azim.hostlin.com/Amcare/blog-details.html" method="get"
-                                        class="default-form">
+                                    <form action="{{ route('blog') }}" method="get" class="default-form">
                                         <div class="form-group">
-                                            <input type="search" name="search-field" placeholder="Rechercher..."
+                                            <input type="search" name="search" placeholder="Rechercher..."
                                                 required>
                                             <button type="submit"><i class="icon-8"></i></button>
                                         </div>
@@ -171,12 +178,9 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
-                                        <li><a href="blog-details.html">Ambulance d'urgence</a></li>
-                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
-                                        <li><a href="blog-details.html">Transport d'urgence</a></li>
-                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
-                                        <li><a href="blog-details.html">Services d'ambulance</a></li>
-                                        <li><a href="blog-details.html">Néonatal et Pédiatrique</a></li>
+                                        @foreach($categories as $category)
+                                            <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -185,33 +189,17 @@
                                     <h3>Dernières Nouvelles</h3>
                                 </div>
                                 <div class="post-inner">
+                                    @foreach($latestPosts as $latestPost)
                                     <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img
-                                                    src="{{ asset('assets/images/news/post-1.jpg') }}"
+                                        <figure class="post-thumb"><a href="{{ route('post', $latestPost->slug) }}"><img
+                                                    src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
                                                     alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">Ambulance aérienne internationale Longue</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>20 Août 2024</span>
+                                            <h5><a href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
                                         </article>
                                     </div>
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img
-                                                    src="{{ asset('assets/images/news/post-2.jpg') }}"
-                                                    alt=""></a></figure>
-                                        <article>
-                                            <h5><a href="blog-details.html">Soins de santé mentale après un événement médical</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>19 Août 2024</span>
-                                        </article>
-                                    </div>
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img
-                                                    src="{{ asset('assets/images/news/post-3.jpg') }}"
-                                                    alt=""></a></figure>
-                                        <article>
-                                            <h5><a href="blog-details.html">Transformer le transport d'organes</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>18 Août 2024</span>
-                                        </article>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="sidebar-widget gallery-widget mb_45">
@@ -221,75 +209,41 @@
                                 <div class="widget-content">
                                     <ul class="image-list clearfix">
                                         <li>
-                                            <figure class="image"><a href="" class="lightbox-image"
-                                                    data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-1.jpg') }}"
-                                                        alt=""></a>
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-1.jpg') }}"
+                                                    class="lightbox-image" data-fancybox="gallery"><img
+                                                        src="{{ asset('assets/images/news/gallery-1.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-2.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-2.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-2.jpg') }}"
-                                                        alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-2.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-3.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-3.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-3.jpg') }}"
-                                                        alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-3.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-4.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-4.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-4.jpg') }}"
-                                                        alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-4.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-5.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-5.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-5.jpg') }}"
-                                                        alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-5.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-6.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-6.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-6.jpg') }}"
-                                                        alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-6.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget archive-widget mb_45">
-                                <div class="widget-title mb_20">
-                                    <h3>Archives</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="archive-list clearfix">
-                                        <li><a href="blog-details.html">Janvier, 2023</a></li>
-                                        <li><a href="blog-details.html">Février, 2023</a></li>
-                                        <li><a href="blog-details.html">Mars, 2023</a></li>
-                                        <li><a href="blog-details.html">Avril, 2023</a></li>
-                                        <li><a href="blog-details.html">Juin, 2023</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget tags-widget">
-                                <div class="widget-title mb_20">
-                                    <h3>Tags Populaires</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="tags-list clearfix">
-                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
-                                        <li><a href="blog-details.html">USI d'urgence</a></li>
-                                        <li><a href="blog-details.html">Yachts avec équipage</a></li>
-                                        <li><a href="blog-details.html">Ambulance</a></li>
-                                        <li><a href="blog-details.html">Ambulance d'urgence</a></li>
                                     </ul>
                                 </div>
                             </div>

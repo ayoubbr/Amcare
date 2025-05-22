@@ -88,7 +88,7 @@
         @include('shared.header')
 
         <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url(assets/images/background/page-title-4.jpg);"></div>
+            <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title-4.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -105,183 +105,31 @@
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                         <div class="blog-grid-content p_relative">
                             <div class="row clearfix">
+                                @forelse($posts as $post)
                                 <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="00ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;">
+                                    <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms"
+                                        data-wow-duration="1500ms">
                                         <div class="inner-box">
                                             <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-4.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>19 Avr, 2025</span>
-                                            <h4><a href="{{ url('blogs/1') }}">Visites autoguidées et promenades dans la Grande Ville</a></h4>
+                                                style="background-image: url({{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog.jpg') }});"></div>
+                                            <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($post->published_at)->format('d M, Y') }}</span>
+                                            <h4><a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a></h4>
                                             <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
+                                                <li><i class="icon-30"></i><a href="#">Admin</a></li>
+                                                {{-- Assuming comments are not dynamic yet, keeping static or removing --}}
                                                 <li><i class="icon-31"></i><span>0 Commentaire</span></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="300ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 300ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-5.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>18 Avr, 2025</span>
-                                            <h4><a href="{{ url('blogs/2') }}">Assistance pour les maisons et les propriétés immobilières</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>6 Commentaires</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                @empty
+                                <div class="col-lg-12">
+                                    <p>Aucun article de blog trouvé pour le moment.</p>
                                 </div>
-                                {{-- <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-6.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 17, 2025</span>
-                                            <h4><a href="blog-details.html">Long-Term Vision Of Health &amp; Attractive
-                                                    Facility</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>2 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-7.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 16, 2025</span>
-                                            <h4><a href="blog-details.html">Repatriation Stories Spain Ireland with a
-                                                    medical escort</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>3 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-8.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 15, 2025</span>
-                                            <h4><a href="blog-details.html">Emergency Ambulance Service Ambulance
-                                                    services play</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>5 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-9.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 14, 2025</span>
-                                            <h4><a href="blog-details.html">In the realm of the medical 24/7
-                                                    emergencies counts</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>4 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-10.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 13, 2025</span>
-                                            <h4><a href="blog-details.html">Emergency medical repatriation when time is
-                                                    of the essence</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>9 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-11.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 12, 2025</span>
-                                            <h4><a href="blog-details.html">Mental health care after a medical
-                                                    emergency abroad</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>0 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-12.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 11, 2025</span>
-                                            <h4><a href="blog-details.html">International patient transport via Air
-                                                    Ambulance explained</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>11 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated animated" data-wow-delay="600ms"
-                                        data-wow-duration="1500ms"
-                                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeInUp;">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url(assets/images/news/news-13.jpg);"></div>
-                                            <span class="post-date"><i class="icon-29"></i>Apr 10, 2025</span>
-                                            <h4><a href="blog-details.html">International air ambulance Long distance
-                                                    patient transport</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="blog-details.html">Admin</a></li>
-                                                <li><i class="icon-31"></i><span>2 Comment</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                @endforelse
                             </div>
                             <div class="pagination-wrapper pt_30">
-                                <ul class="pagination">
-                                    <li><a href="blog-2.html"><i class="icon-50"></i></a></li>
-                                    <li><a href="blog-2.html" class="current">1</a></li>
-                                    <li><a href="blog-2.html">2</a></li>
-                                    <li><a href="blog-2.html">3</a></li>
-                                    <li><a href="blog-2.html"><i class="icon-51"></i></a></li>
-                                </ul>
+                                {{ $posts->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>
@@ -292,9 +140,9 @@
                                     <h3>Rechercher</h3>
                                 </div>
                                 <div class="search-form">
-                                    <form action="" method="get" class="default-form">
+                                    <form action="{{ route('blog') }}" method="get" class="default-form">
                                         <div class="form-group">
-                                            <input type="search" name="search-field" placeholder="Rechercher..."
+                                            <input type="search" name="search" placeholder="Rechercher..."
                                                 required>
                                             <button type="submit"><i class="icon-8"></i></button>
                                         </div>
@@ -307,12 +155,9 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
-                                        <li><a href="{{ url('categories/1/blogs') }}">Ambulance d'urgence</a></li>
-                                        <li><a href="{{ url('categories/2/blogs') }}">Ambulance aérienne</a></li>
-                                        <li><a href="{{ url('categories/3/blogs') }}">Transport d'urgence</a></li>
-                                        <li><a href="{{ url('categories/4/blogs') }}">Ambulance aérienne</a></li>
-                                        <li><a href="{{ url('categories/5/blogs') }}">Services d'ambulance</a></li>
-                                        <li><a href="{{ url('categories/6/blogs') }}">Néonatal et Pédiatrique</a></li>
+                                        @foreach($categories as $category)
+                                            <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -321,31 +166,17 @@
                                     <h3>Dernières Nouvelles</h3>
                                 </div>
                                 <div class="post-inner">
+                                    @foreach($latestPosts as $latestPost)
                                     <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img
-                                                    src="{{ asset('assets/images/news/post-1.jpg') }}"
+                                        <figure class="post-thumb"><a href="{{ route('post', $latestPost->slug) }}"><img
+                                                    src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
                                                     alt=""></a></figure>
                                         <article>
-                                            <h5><a href="blog-details.html">Ambulance aérienne internationale Longue</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>20 Août 2024</span>
+                                            <h5><a href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a></h5>
+                                            <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
                                         </article>
                                     </div>
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img
-                                                    src="assets/images/news/post-2.jpg" alt=""></a></figure>
-                                        <article>
-                                            <h5><a href="blog-details.html">Soins de santé mentale après un événement médical</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>19 Août 2024</span>
-                                        </article>
-                                    </div>
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img
-                                                    src="assets/images/news/post-3.jpg" alt=""></a></figure>
-                                        <article>
-                                            <h5><a href="blog-details.html">Transformer le transport d'organes</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>18 Août 2024</span>
-                                        </article>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="sidebar-widget gallery-widget mb_45">
@@ -355,69 +186,41 @@
                                 <div class="widget-content">
                                     <ul class="image-list clearfix">
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-1.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-1.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="assets/images/news/gallery-1.jpg" alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-1.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-2.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-2.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="assets/images/news/gallery-2.jpg" alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-2.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-3.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-3.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="assets/images/news/gallery-3.jpg" alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-3.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-4.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-4.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="assets/images/news/gallery-4.jpg" alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-4.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-5.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-5.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="assets/images/news/gallery-5.jpg" alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-5.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
                                         <li>
-                                            <figure class="image"><a href="assets/images/news/gallery-6.jpg"
+                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-6.jpg') }}"
                                                     class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="assets/images/news/gallery-6.jpg" alt=""></a>
+                                                        src="{{ asset('assets/images/news/gallery-6.jpg') }}" alt=""></a>
                                             </figure>
                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget archive-widget mb_45">
-                                <div class="widget-title mb_20">
-                                    <h3>Archives</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="archive-list clearfix">
-                                        <li><a href="blog-details.html">Janvier, 2023</a></li>
-                                        <li><a href="blog-details.html">Février, 2023</a></li>
-                                        <li><a href="blog-details.html">Mars, 2023</a></li>
-                                        <li><a href="blog-details.html">Avril, 2023</a></li>
-                                        <li><a href="blog-details.html">Juin, 2023</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget tags-widget">
-                                <div class="widget-title mb_20">
-                                    <h3>Tags Populaires</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="tags-list clearfix">
-                                        <li><a href="blog-details.html">Ambulance aérienne</a></li>
-                                        <li><a href="blog-details.html">USI d'urgence</a></li>
-                                        <li><a href="blog-details.html">Yachts avec équipage</a></li>
-                                        <li><a href="blog-details.html">Ambulance</a></li>
-                                        <li><a href="blog-details.html">Ambulance d'urgence</a></li>
                                     </ul>
                                 </div>
                             </div>
