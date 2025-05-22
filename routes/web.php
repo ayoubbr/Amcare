@@ -21,9 +21,11 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
 Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
 
-
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
+
+Route::get('services', [HomeController::class, 'services'])->name('services');
+Route::get('services/{id}', [HomeController::class, 'service'])->name('service');
 
 Route::get('/admin-access', [AuthController::class, 'accessForm'])->name('admin.access');
 Route::post('/admin-access', [AuthController::class, 'verifyAccessCode'])->name('admin.verify.access');
@@ -50,40 +52,35 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
 
     Route::resource('services', ServiceController::class);
-    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
     Route::resource('zone', ZoneController::class);
-    // Route::post('zone', [ZoneController::class, 'store'])->name('zone.store');
-    // Route::get('zone', [ZoneController::class, 'index'])->name('zone.index');
 
     Route::resource('faqs', FaqController::class);
 
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 
-
-
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 });
 
-Route::get('services', function () {
-    return view('services');
-})->name('services');
+// Route::get('services', function () {
+//     return view('services');
+// })->name('services');
 
 
-Route::get('services/{id}', function () {
-    return view('services-details');
-})->name('services-details');
+// Route::get('services/{id}', function () {
+//     return view('services-details');
+// })->name('services-details');
 
 
-Route::get('events', function () {
-    return view('events');
-})->name('events');
+// Route::get('events', function () {
+//     return view('events');
+// })->name('events');
 
 
-Route::get('events/{id}', function () {
-    return view('events-details');
-})->name('events-details');
+// Route::get('events/{id}', function () {
+//     return view('events-details');
+// })->name('events-details');
 
 
 // Route::get('blogs', function () {
@@ -102,7 +99,7 @@ Route::get('faqs', function () {
 
 
 Route::get('not-found', function () {
-    return view('404');
+    return view('errors.404');
 })->name('not-found');
 
 

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Idées de soins de santé - Amcare</title>
+    <title>{{ $event->title }} - Amcare</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
@@ -42,7 +42,6 @@
     @vite('resources/css/module-css/news.css')
     @vite('resources/css/module-css/cta.css')
     @vite('resources/css/module-css/footer.css')
-    @vite('resources/css/responsive.css')
     @vite('resources/css/responsive.css')
     @vite('resources/css/module-css/page-title.css')
     @vite('resources/css/module-css/subscribe.css')
@@ -95,9 +94,10 @@
                 <div class="content-box">
                     <ul class="bread-crumb">
                         <li><a href="/">Accueil</a></li>
-                        <li>Détails de l'événement</li>
+                        <li><a href="{{ route('events') }}">Événements</a></li>
+                        <li>{{ $event->title }}</li>
                     </ul>
-                    <h1>Idées de soins de santé</h1>
+                    <h1>Détails de l'événement</h1>
                 </div>
             </div>
         </section>
@@ -107,19 +107,21 @@
                     <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                         <div class="event-details-content">
                             <div class="content-one mb_55">
-                                <figure class="image-box"><img src="{{ asset('assets/images/resource/event-3.jpg') }}"
-                                        alt="">
+                                <figure class="image-box">
+                                    <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event-details.jpg') }}" alt="{{ $event->title }}">
                                 </figure>
                                 <div class="text-box">
                                     <ul class="post-info">
-                                        <li><i class="icon-29"></i><span>20 Août</span></li>
-                                        <li><i class="icon-41"></i><span>6391 Elgin St. Celina,</span></li>
+                                        <li><i class="icon-29"></i><span>{{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}</span></li>
+                                        <li><i class="icon-41"></i><span>{{ $event->location ?? 'N/A' }}</span></li>
                                     </ul>
-                                    <h2>Idées de soins de santé</h2>
-                                    <p>Une vraie crise cardiaque, médicalement connue sous le nom d'infarctus du myocarde, se produit lorsque le flux sanguin vers une partie du cœur est bloqué pendant une période prolongée, causant des dommages au muscle cardiaque. Ce blocage est généralement dû à l'accumulation de plaque, une combinaison de graisse, de cholestérol et d'autres substances, dans les artères coronaires. Lorsqu'une plaque se rompt, elle forme un caillot qui peut obstruer l'artère, privant le muscle cardiaque de sang riche en oxygène.</p>
-                                    <p>Les symptômes d'une crise cardiaque peuvent inclure des douleurs ou des inconforts thoraciques, un essoufflement, des nausées et des étourdissements. Reconnaître les signes tôt et chercher une aide immédiate peut avoir un impact significatif sur l'issue pour les personnes souffrant d'une crise cardiaque.</p>
+                                    <h2>{{ $event->title }}</h2>
+                                    {!! $event->content !!} {{-- Render event content with HTML --}}
                                 </div>
                             </div>
+                            {{-- This section seems to be hardcoded with a video and specific text.
+                                If you want this dynamic, you'd need fields in your Event model for video URL,
+                                a second content block, and list items. For now, it remains static.
                             <div class="content-two">
                                 <div class="video-content">
                                     <div class="bg-layer"
@@ -145,26 +147,48 @@
                                     </ul>
                                 </div>
                             </div>
+                            --}}
+                            
+                            {{-- Related Events Section (if you want to add it to the main content area) --}}
+                            @if($relatedEvents->isNotEmpty())
+                            <div class="content-one mt_50">
+                                <h3>Événements Similaires</h3>
+                                <div class="row clearfix">
+                                    @foreach($relatedEvents as $relatedEvent)
+                                    <div class="col-lg-6 col-md-6 col-sm-12 event-block">
+                                        <div class="event-block-one">
+                                            <div class="inner-box">
+                                                <h3><a href="{{ route('event', $relatedEvent->slug) }}">{{ $relatedEvent->title }}</a></h3>
+                                                <p>{{ Str::limit($relatedEvent->content, 80) }}</p>
+                                                <div class="btn-box"><a href="{{ route('event', $relatedEvent->slug) }}" class="theme-btn btn-one">En savoir plus</a></div>
+                                                <figure class="image-box">
+                                                    <img src="{{ $relatedEvent->image ? Storage::url($relatedEvent->image) : asset('assets/images/resource/default-event.jpg') }}" alt="{{ $relatedEvent->title }}">
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                         <div class="event-sidebar ml_30">
                             <div class="sidebar-widget category-widget">
                                 <div class="widget-title">
-                                    <h3>Événements</h3>
+                                    <h3>Tous les Événements</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="category-list clearfix">
-                                        <li><a href="{{ url('events/1') }}"
-                                                class="{{ request()->is('events/1') ? 'current' : '' }}">Idées de soins de santé</a></li>
-                                        <li><a href="{{ url('events/2') }}"
-                                                class="{{ request()->is('events/2') ? 'current' : '' }}">Crise cardiaque réelle</a></li>
-                                        <li><a href="{{ url('events/3') }}"
-                                                class="{{ request()->is('events/3') ? 'current' : '' }}">Informations sur le sang</a></li>
-                                        <li><a href="{{ url('events/4') }}"
-                                                class="{{ request()->is('events/4') ? 'current' : '' }}">Soins infirmiers</a></li>
-                                        <li><a href="{{ url('events/5') }}"
-                                                class="{{ request()->is('events/5') ? 'current' : '' }}">Soutien anesthésie</a></li>
+                                        @foreach($allEvents as $sidebarEvent)
+                                        <li><a href="{{ route('event', $sidebarEvent->slug) }}"
+                                                class="{{ $event->id == $sidebarEvent->id ? 'current' : '' }}">
+                                                {{ $sidebarEvent->title }}
+                                            </a>
+                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -174,13 +198,13 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="info-list clearfix">
-                                        <li><span>Lieu :</span> 6391 Elgin St. Celina, </li>
-                                        <li><span>Adresse :</span> 12, Victoria St, Australie</li>
+                                        <li><span>Date :</span> {{ \Carbon\Carbon::parse($event->event_date)->format('d M Y') }}</li>
+                                        <li><span>Heure :</span> {{ \Carbon\Carbon::parse($event->event_date)->format('H:i') }}</li>
+                                        <li><span>Lieu :</span> {{ $event->location ?? 'N/A' }}</li>
                                         <li><span>E-mail : </span><a
-                                                href="mailto:amcarefexample@.com">amcarefexample@.com</a></li>
-                                        <li><span>Téléphone :</span><a href="tel:142585477592">+(1425) 8547-7592</a></li>
-                                        <li><span>Site web :</span> <a href="event-details.html">https://example.com</a>
-                                        </li>
+                                                href="mailto:info@example.com">info@example.com</a></li> {{-- Static email, replace if dynamic --}}
+                                        <li><span>Téléphone :</span><a href="tel:123456789">+(123) 456-789</a></li> {{-- Static phone, replace if dynamic --}}
+                                        <li><span>Site web :</span> <a href="{{ url('/') }}">https://amcare.com</a></li> {{-- Static website, replace if dynamic --}}
                                     </ul>
                                 </div>
                             </div>

@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        @include('header')
+        @include('shared.header')
 
 
         <section class="error-section centred pt_180 pb_120">
@@ -99,11 +99,11 @@
                 </div>
             </div>
         </section>
-        @include('footer')
+        @include('shared.footer')
 
     </div>
 
 
-    @include('js')
+    @include('shared.js')
 
 </body></html>

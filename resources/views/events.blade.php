@@ -87,7 +87,7 @@
 
 
         <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
+            <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -99,36 +99,56 @@
             </div>
         </section>
         <section class="event-section pt_120 pb_90 centred p_relative">
-            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-8.png);"></div>
+            <div class="pattern-layer" style="background-image: url({{ asset('assets/images/shape/shape-8.png') }});"></div>
             <div class="auto-container">
                 <div class="sec-title mb_50">
                     <span class="sub-title mb_12">Événements</span>
                     <h2>Assurer la sécurité des spectateurs</h2>
                 </div>
                 <div class="row clearfix">
+                    @forelse($upcomingEvents as $event)
                     <div class="col-lg-6 col-md-6 col-sm-12 event-block">
                         <div class="event-block-one">
                             <div class="inner-box">
-                                <h3><a href="event-details.html">Événements sportifs</a></h3>
-                                <p>Équipe médicale sur place prête à fournir une attention médicale complète pour les concurrents, les spectateurs et l'événement</p>
-                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">En savoir plus</a></div>
-                                <figure class="image-box"><img src="assets/images/resource/event-1.jpg" alt="">
+                                <h3><a href="{{ route('event', $event->slug) }}">{{ $event->title }}</a></h3>
+                                <p>{{ Str::limit($event->content, 100) }}</p> {{-- Display a short snippet of content --}}
+                                <div class="btn-box"><a href="{{ route('event', $event->slug) }}" class="theme-btn btn-one">En savoir plus</a></div>
+                                <figure class="image-box">
+                                    <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event.jpg') }}" alt="{{ $event->title }}">
                                 </figure>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 event-block">
-                        <div class="event-block-one">
-                            <div class="inner-box">
-                                <h3><a href="event-details.html">Événements communautaires</a></h3>
-                                <p>Trouver des personnes qui partagent les valeurs et la vision de votre entreprise peut contribuer à une cohésion</p>
-                                <div class="btn-box"><a href="{{ url('events/1') }}" class="theme-btn btn-one">En savoir plus</a></div>
-                                <figure class="image-box"><img src="assets/images/resource/event-2.jpg" alt="">
-                                </figure>
-                            </div>
-                        </div>
+                    @empty
+                    <div class="col-lg-12">
+                        <p>Aucun événement à venir pour le moment.</p>
                     </div>
+                    @endforelse
                 </div>
+
+                {{-- Optional: Section for Past Events --}}
+                @if($pastEvents->isNotEmpty())
+                <div class="sec-title mt_80 mb_50">
+                    <span class="sub-title mb_12">Événements Passés</span>
+                    <h2>Nos événements précédents</h2>
+                </div>
+                <div class="row clearfix">
+                    @foreach($pastEvents as $event)
+                    <div class="col-lg-6 col-md-6 col-sm-12 event-block">
+                        <div class="event-block-one">
+                            <div class="inner-box">
+                                <h3><a href="{{ route('event', $event->slug) }}">{{ $event->title }}</a></h3>
+                                <p>{{ Str::limit($event->content, 100) }}</p>
+                                <div class="btn-box"><a href="{{ route('event', $event->slug) }}" class="theme-btn btn-one">Voir les détails</a></div>
+                                <figure class="image-box">
+                                    <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event.jpg') }}" alt="{{ $event->title }}">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
             </div>
         </section>
         @include('shared.footer')
