@@ -13,8 +13,8 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout', 'home']);
-        $this->middleware('auth')->only(['dashboard']);
+        $this->middleware('guest')->except('logout');
+        $this->middleware('auth')->only('dashboard');
     }
 
     // public function registerForm()
@@ -51,29 +51,28 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $reqst= $request->validated();
+        $email = $request->email;
+        $remember = $request->filled('remember');
         
-        $email = $reqst->email;
-        $password = $reqst->password;
-        $remember = $reqst->filled('remember');
         if (Auth::check()) {
-            Auth::logout(); 
+            Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
         
         $user = User::where('email', $email)->first();
-        if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
-            $user->Auth::user();
+        if (Auth::attempt($reqst, $remember)) {
             Auth::login($user, $remember);
             $request->session()->regenerate();
             $user->update(['last_login_at' => now()]);
             return redirect()->route('admin.dashboard')
                 ->with('success', 'Connexion réussie. Bienvenue dans votre espace d\'administration.');
         }
+        
         return back()
             ->withInput($request->only('email', 'remember'))
             ->withErrors([
-                'email' => 'Les identifiants fournis ne correspondent à aucun compte.',
+                'email' => 'Les identifiants fournis ne correspondent à aucun compte administrateur.',
             ]);
     }
 
@@ -82,7 +81,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home')
+        return redirect()->route('login')
             ->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
