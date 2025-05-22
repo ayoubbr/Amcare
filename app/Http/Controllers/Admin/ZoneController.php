@@ -34,7 +34,7 @@ class ZoneController extends Controller
         $validate = $request->validated();
         Zone::create($validate);
 
-        return redirect()->route('admin.zones.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Zone créée avec succès.');
     }
 
@@ -60,7 +60,7 @@ class ZoneController extends Controller
     public function update(UpdateZoneRequest $request, Zone $zone)
     {
         $zone->update($request->validated());
-        return redirect()->route('admin.zones.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Zone mise à jour avec succès.');
     }
 
@@ -71,7 +71,7 @@ class ZoneController extends Controller
     {
         $zone->delete();
 
-        return redirect()->route('admin.zones.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Zone supprimée avec succès.');
     }
 }

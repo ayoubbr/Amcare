@@ -217,9 +217,9 @@
                         <li class="logout-item">
                             <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                 @csrf
-                                    <button type="submit" class="logout-button">
-                                        <i class="fas fa-sign-out-alt"></i> Déconnexion
-                                    </button>
+                                <button type="submit" class="logout-button">
+                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -1036,6 +1036,7 @@
                                     <label for="modalZoneDescription">Description</label>
                                     <textarea class="form-control" name="description" id="modalZoneDescription" rows="3">${data.description || ''}</textarea>
                                 </div>
+                                <input type="hidden" name="is_active" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_active" id="modalZoneIsActive" value="1" ${data.isActive === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalZoneIsActive">Active</label>

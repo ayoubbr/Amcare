@@ -48,6 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('events', EventController::class);
     Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
 
+    Route::resource('services', ServiceController::class);
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+
     Route::resource('zone', ZoneController::class);
     // Route::post('zone', [ZoneController::class, 'store'])->name('zone.store');
     // Route::get('zone', [ZoneController::class, 'index'])->name('zone.index');
@@ -58,8 +61,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 
 
-    Route::resource('services', ServiceController::class);
-    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 });
