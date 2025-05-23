@@ -415,8 +415,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="siteAddress">Addresse</label>
+                                <textarea class="form-control" name="address" id="siteAddress" rows="2" placeholder="Entrez l'addresse">{{ $settings->address ?? '' }}</textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="siteFooterText">Texte de Pied de Page</label>
-                                <textarea class="form-control" name="footer_text" id="siteFooterText" rows="3"
+                                <textarea class="form-control" name="footer_text" id="siteFooterText" rows="2"
                                     placeholder="Entrez le texte du pied de page">{{ $settings->footer_text ?? '' }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Enregistrer les Paramètres</button>
@@ -1329,8 +1333,6 @@
                     </div>
                 </section>
 
-                
-
                 <section id="categories" class="admin-section" style="display: none;">
                     <h3>Gestion des Catégories</h3>
                     <button class="btn-add-new" data-target-form="category-form">Ajouter une nouvelle
@@ -1433,8 +1435,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="eventDate">Date et Heure de l'événement</label>
-                                <input type="datetime-local" class="form-control" name="event_date"
-                                    id="eventDate" required>
+                                <input type="datetime-local" class="form-control" name="event_date" id="eventDate"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="eventLocation">Lieu</label>

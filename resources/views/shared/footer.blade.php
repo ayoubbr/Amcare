@@ -6,12 +6,12 @@
                     <div class="footer-widget about-widget">
                         <div class="widget-content">
                             <h2>Le service d'ambulance le plus rapide et le plus sécurisé</h2>
-                            <ul class="social-links">
+                            {{-- <ul class="social-links">
                                 <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
                                 <li><a href="index.html"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="index.html"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>
@@ -61,10 +61,10 @@
         <div class="auto-container">
             <div class="bottom-inner">
                 <div class="copyright">
-                    <p>Copyright 2025 par <a href="index.html">Amcare</a> Tous droits réservés.</p>
+                    <p>{{ $settings->footer_text }}</p>
                 </div>
                 <div class="location-box">
-                    <p><i class="icon-17"></i>88 broklyn silver street, USA</p>
+                    <p><i class="icon-17"></i>{{ $settings->address }}</p>
                 </div>
             </div>
         </div>

@@ -22,9 +22,7 @@ class SettingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
-         
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.
@@ -48,17 +46,18 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-         $validatedData = $request->validate([
+        $validatedData = $request->validate([
             'site_name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'footer_text' => 'nullable|string',
+            'address' => 'nullable|string',
             'phone_keys.*' => 'nullable|string|max:50',
             'phone_values.*' => 'nullable|string|max:255',
         ]);
 
         $settings = Setting::firstOrNew([]); // Find the first settings record or create a new one
-  
+
         // Handle logo upload
         if ($request->hasFile('logo')) {
             if ($settings->logo) {
@@ -73,7 +72,7 @@ class SettingController extends Controller
         if ($request->has('phone_keys') && $request->has('phone_values')) {
             $phoneKeys = $request->input('phone_keys');
             $phoneValues = $request->input('phone_values');
-            
+
             foreach ($phoneKeys as $index => $key) {
                 $value = $phoneValues[$index] ?? null;
                 if (!empty($key) && !empty($value)) {
@@ -82,11 +81,12 @@ class SettingController extends Controller
             }
         }
         $settings->phones = $phones;
-        
+
         $settings->site_name = $validatedData['site_name'];
         $settings->email = $validatedData['email'];
         $settings->footer_text = $validatedData['footer_text'];
-        
+        $settings->address = $validatedData['address'];
+
         $settings->save();
 
         return redirect()->route('admin.dashboard')
