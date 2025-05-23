@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('site_name');
-            $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('logo')->nullable();
+            $table->json('phones')->nullable();
             $table->text('footer_text')->nullable();
             $table->timestamps();
         });

@@ -14,10 +14,14 @@ class Setting extends Model
 
     protected $fillable = [
         'site_name',
-        'phone',
+        'phones',
         'email',
         'logo',
         'footer_text'
+    ];
+
+    protected $casts = [
+        'phones' => 'array',
     ];
 
 

@@ -57,8 +57,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('faqs', FaqController::class);
 
-    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
 
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 });
