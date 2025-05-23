@@ -29,7 +29,6 @@
     @vite('resources/css/module-css/page-title.css')
 
     <style>
-        /* Styles pour le modal d'édition */
         .modal {
             display: none;
             /* Hidden by default */
@@ -107,7 +106,6 @@
             margin-left: 10px;
         }
 
-        /* Styles pour le modal de confirmation de suppression */
         .delete-confirmation-modal .modal-content {
             max-width: 450px;
             text-align: center;
@@ -136,19 +134,16 @@
 
         .delete-confirmation-modal .btn-confirm-delete {
             background-color: var(--theme-color);
-            /* Red color for delete */
             color: #fff;
             border: none;
         }
 
         .delete-confirmation-modal .btn-confirm-delete:hover {
             background-color: #a5130d;
-            /* Darker red */
         }
 
         .delete-confirmation-modal .btn-cancel-delete {
             background-color: var(--bs-gray-400);
-            /* Gray for cancel */
             color: #fff;
             border: none;
         }
@@ -157,7 +152,6 @@
             background-color: var(--bs-gray-500);
         }
 
-        /* Styles for session alerts */
         .alert {
             padding: 15px;
             margin-bottom: 20px;
@@ -178,7 +172,7 @@
             border-color: #ebccd1;
         }
 
-        /* Styles for dynamic phone inputs */
+
         .phone-input-group {
             display: flex;
             gap: 10px;
@@ -203,7 +197,7 @@
             background-color: #c82333;
         }
 
-        /* Specific styles for the settings section */
+        
         #settings .setting-form-container {
             background-color: #f8f9fa;
             padding: 30px;
@@ -320,6 +314,7 @@
                         <li><a href="#settings" class="active">Paramètres du Site</a></li>
                         <li><a href="#slider-images">Images du Slider</a></li>
                         <li><a href="#partners">Partenaires</a></li>
+                        <li><a href="#pages">Pages</a></li>
                         <li><a href="#faqs">FAQs</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#zones">Zones</a></li>
@@ -344,7 +339,7 @@
                     <h1>Gestion du Contenu</h1>
                 </section>
 
-                {{-- Session Messages --}}
+  
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -1662,6 +1657,70 @@
                     </div>
                 </section>
 
+                <section id="settings" class="admin-section">
+                    <h3>Paramètres du Site</h3>
+                    <div class="setting-form-container mt-4">
+                        <h4>Gérer les Paramètres Généraux</h4>
+                        <form action="{{ route('admin.settings.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $settings->id ?? '' }}">
+                            <div class="form-group">
+                                <label for="siteName">Nom du Site</label>
+                                <input type="text" class="form-control" name="site_name" id="siteName"
+                                    placeholder="Entrez le nom du site" value="{{ $settings->site_name ?? '' }}"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="siteEmail">Email</label>
+                                <input type="email" class="form-control" name="email" id="siteEmail"
+                                    placeholder="Entrez l'adresse email" value="{{ $settings->email ?? '' }}">
+                            </div>
+                            <div class="form-group d-flex align-items-center">
+                                <label for="siteLogo" class="mb-0 mr-3">Logo</label>
+                                @if ($settings && $settings->logo)
+                                    <img src="{{ Storage::url($settings->logo) }}" alt="Logo actuel"
+                                        class="img-thumbnail mr-3" style="max-height: 80px;">
+                                    <a href="{{ Storage::url($settings->logo) }}" target="_blank"
+                                        class="btn btn-sm btn-info mr-2">Voir actuel</a>
+                                @else
+                                    <span class="text-muted mr-3">Aucun logo actuel</span>
+                                @endif
+                                <input type="file" class="form-control-file" name="logo" id="siteLogo">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Numéros de Téléphone</label>
+                                <div id="phone-numbers-container">
+                                    @if ($settings && $settings->phones)
+                                        @foreach ($settings->phones as $key => $value)
+                                            <div class="phone-input-group">
+                                                <input type="text" class="form-control" name="phone_keys[]"
+                                                    placeholder="Clé (ex: Support)" value="{{ $key }}"
+                                                    style="width: 40%;">
+                                                <input type="text" class="form-control" name="phone_values[]"
+                                                    placeholder="Numéro (ex: +1234567890)"
+                                                    value="{{ $value }}" style="width: 40%;">
+                                                <button type="button" class="btn btn-danger btn-remove-phone"
+                                                    style="width: 20%;">Supprimer</button>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <button type="button" id="add-phone-button" class="btn btn-info mt-2">Ajouter un
+                                    numéro</button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="siteFooterText">Texte de Pied de Page</label>
+                                <textarea class="form-control" name="footer_text" id="siteFooterText" rows="3"
+                                    placeholder="Entrez le texte du pied de page">{{ $settings->footer_text ?? '' }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer les Paramètres</button>
+                        </form>
+                    </div>
+                </section>
+                @include('admin.pageSection')
             </main>
         </div>
 
@@ -1677,7 +1736,7 @@
                     <form id="modalForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="PUT" id="modalFormMethod">
-                        {{-- Form fields will be dynamically inserted here --}}
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -1718,9 +1777,7 @@
                 document.querySelector('#faqs').style.display = 'none';
                 document.querySelector('#services').style.display = 'none';
                 document.querySelector('#zones').style.display = 'none';
-
-
-                // Handle sidebar navigation clicks
+                
                 const navLinks = document.querySelectorAll('.admin-sidebar nav ul li a');
                 const sections = document.querySelectorAll('.admin-content .admin-section');
 
@@ -1728,26 +1785,25 @@
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
 
-                        // Remove active class from all links
+                        
                         navLinks.forEach(nav => nav.classList.remove('active'));
-                        // Add active class to the clicked link
+                        
                         this.classList.add('active');
 
-                        // Hide all sections
+                       
                         sections.forEach(section => section.style.display = 'none');
 
-                        // Show the target section
+                        
                         const targetId = this.getAttribute('href');
                         document.querySelector(targetId).style.display = 'block';
 
-                        // Special handling for settings section to initialize phone numbers
+                        
                         if (targetId === '#settings') {
                             const phonesContainer = document.getElementById('phone-numbers-container');
                             phonesContainer.innerHTML =
-                                ''; // Clear existing fields to avoid duplication
-
+                                ''; 
                             const settingsData =
-                                {!! json_encode($settings ?? []) !!}; // Get settings data from Blade
+                                {!! json_encode($settings ?? []) !!}; 
                             const phonesData = settingsData.phones || {};
 
                             for (const key in phonesData) {
@@ -1760,13 +1816,11 @@
                     });
                 });
 
-                // Handle "Add New" button clicks to show/hide forms
                 document.querySelectorAll('.admin-section .btn-add-new').forEach(button => {
                     button.addEventListener('click', function() {
                         const targetFormId = this.dataset.targetForm;
                         const formSection = document.getElementById(targetFormId);
 
-                        // Hide all other forms in the current section
                         document.querySelectorAll('.admin-section .form-section').forEach(fs => {
                             if (fs.id !== targetFormId) {
                                 fs.style.display = 'none';
@@ -1774,16 +1828,14 @@
                         });
 
                         formSection.style.display = 'block';
-                        this.style.display = 'none'; // Hide the "Add New" button
+                        this.style.display = 'none'; 
                     });
                 });
 
-                // Handle "Cancel" button clicks to hide forms
                 document.querySelectorAll('.admin-section .cancel-form').forEach(button => {
                     button.addEventListener('click', function() {
                         const formSection = this.closest('.form-section');
                         formSection.style.display = 'none';
-                        // Find the corresponding "Add New" button and show it
                         const parentSection = formSection.closest('.admin-section');
                         const addNewButton = parentSection.querySelector('.btn-add-new');
                         if (addNewButton) {
@@ -1792,7 +1844,6 @@
                     });
                 });
 
-                // Function to add a phone number field dynamically (for both main settings form and modal)
                 function addPhoneNumberField(containerId, key = '', value = '') {
                     const container = document.getElementById(containerId);
                     const div = document.createElement('div');
@@ -1809,12 +1860,10 @@
                     });
                 }
 
-                // Initial population for the main settings form (when the page loads and settings tab is active)
-                // This will run only once when the DOM is ready.
                 const initialSettingsTab = document.querySelector('.admin-sidebar nav ul li a[href="#settings"]');
                 if (initialSettingsTab && initialSettingsTab.classList.contains('active')) {
                     const phonesContainer = document.getElementById('phone-numbers-container');
-                    phonesContainer.innerHTML = ''; // Clear existing fields to avoid duplication
+                    phonesContainer.innerHTML = ''; 
 
                     const settingsData = {!! json_encode($settings ?? []) !!};
                     const phonesData = settingsData.phones || {};
@@ -1826,13 +1875,11 @@
                     }
                 }
 
-                // Add event listener for the "Add Phone" button in the main settings form
                 document.getElementById('add-phone-button').addEventListener('click', function() {
                     addPhoneNumberField('phone-numbers-container');
                 });
 
 
-                // Modal Logic (Edit Modal - for other sections)
                 const editModal = document.getElementById('editModal');
                 const closeEditModalButton = editModal.querySelector('.close-button');
                 const modalCancelButton = document.getElementById('modalCancel');
@@ -1840,12 +1887,11 @@
                 const modalForm = document.getElementById('modalForm');
                 const modalTitle = document.getElementById('modalTitle');
 
-                // Function to open the edit modal and populate its form
                 function openEditModal(entityType, data) {
                     modalForm.innerHTML = `
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    `; // Clear previous form fields and add CSRF/Method spoofing
+                    `; 
 
                     let formHtml = '';
                     let actionRoute = '';
@@ -1994,7 +2040,7 @@
                             break;
                         case 'zones':
                             modalTitle.textContent = 'Modifier la Zone';
-                            actionRoute = `/admin/zone/${data.id}`; // Assuming admin.zone.update route exists
+                            actionRoute = `/admin/zone/${data.id}`;
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
@@ -2074,12 +2120,12 @@
                             formHtml = '<p>Aucune donnée de formulaire disponible pour ce type d\'entité.</p>';
                             break;
                     }
-                    modalForm.innerHTML += formHtml; // Append dynamic fields
+                    modalForm.innerHTML += formHtml; 
                     modalForm.action = actionRoute;
-                    modalForm.method = 'POST'; // Always POST for Laravel, use _method for PUT/DELETE
-                    modalForm.querySelector('input[name="_method"]').value = 'PUT'; // Set spoofing method
+                    modalForm.method = 'POST'; 
+                    modalForm.querySelector('input[name="_method"]').value = 'PUT';
 
-                    // If the form contains a file input, ensure enctype is set
+                  
                     if (modalForm.querySelector('input[type="file"]')) {
                         modalForm.enctype = 'multipart/form-data';
                     } else {
@@ -2089,77 +2135,73 @@
                     editModal.style.display = 'flex';
                 }
 
-                // Event listener for all "Modifier" buttons
+               
                 document.querySelectorAll('.btn-edit').forEach(button => {
                     button.addEventListener('click', function() {
                         const row = this.closest('tr');
                         const entityType = row.dataset.entity;
                         const data = row.dataset;
-
-                        // Only open modal for non-settings entities
+ 
                         if (entityType !== 'settings') {
                             openEditModal(entityType, data);
                         } else {
-                            // For settings, directly show the form (it's already visible if tab is active)
-                            // and ensure it's populated. This part is handled by the tab click logic.
-                            // If user clicks "Modifier" on settings table row, it should just ensure the form is shown
-                            // and potentially re-populate it (though it should already be).
+                            
                             document.querySelector('.admin-sidebar nav ul li a[href="#settings"]')
                                 .click();
                         }
                     });
                 });
 
-                // Close edit modal when clicking on <span> (x)
+                
                 closeEditModalButton.onclick = function() {
                     editModal.style.display = 'none';
                 }
 
-                // Close edit modal when clicking on "Annuler" button
+                
                 modalCancelButton.onclick = function() {
                     editModal.style.display = 'none';
                 }
 
-                // Close edit modal when clicking outside of it
+               
                 window.addEventListener('click', function(event) {
                     if (event.target == editModal) {
                         editModal.style.display = 'none';
                     }
                 });
 
-                // Handle save button click for the modal form
+                
                 modalSaveButton.addEventListener('click', function() {
-                    modalForm.submit(); // Submit the dynamically generated form
+                    modalForm.submit(); 
                 });
 
 
-                // Delete Confirmation Modal Logic
+               
                 const deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
                 const closeDeleteModalButton = document.getElementById('closeDeleteModalButton');
                 const cancelDeleteButton = document.getElementById('cancelDeleteButton');
                 const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
-                let itemToDelete = null; // To store the ID and entity type of the item to be deleted
+                let itemToDelete = null; 
 
-                // Function to open the delete confirmation modal
+               
                 function openDeleteConfirmationModal(entityId, entityType) {
                     itemToDelete = {
                         id: entityId,
                         type: entityType
                     };
-                    deleteConfirmationModal.style.display = 'flex'; // Use flex to center the modal
+                    deleteConfirmationModal.style.display = 'flex'; 
                 }
 
-                // Event listener for all "Supprimer" buttons
+                
                 document.querySelectorAll('.btn-delete').forEach(button => {
                     button.addEventListener('click', function() {
                         const row = this.closest('tr');
                         const entityId = row.dataset.id;
                         const entityType = row.dataset.entity;
 
-                        // Prevent deletion of settings via the modal
+                        
                         if (entityType === 'settings') {
-                            // Optionally show a message or do nothing
+                            
                             console.warn(
                                 "Cannot delete settings via this button. Please manage settings directly."
                             );
@@ -2170,34 +2212,34 @@
                     });
                 });
 
-                // Close delete modal when clicking on <span> (x)
+                
                 closeDeleteModalButton.onclick = function() {
                     deleteConfirmationModal.style.display = 'none';
-                    itemToDelete = null; // Clear the item to delete
+                    itemToDelete = null;
                 }
 
-                // Close delete modal when clicking on "Annuler" button
+                
                 cancelDeleteButton.onclick = function() {
                     deleteConfirmationModal.style.display = 'none';
-                    itemToDelete = null; // Clear the item to delete
+                    itemToDelete = null; 
                 }
 
-                // Close delete modal when clicking outside of it
+                
                 window.addEventListener('click', function(event) {
                     if (event.target == deleteConfirmationModal) {
                         deleteConfirmationModal.style.display = 'none';
-                        itemToDelete = null; // Clear the item to delete
+                        itemToDelete = null; 
                     }
                 });
 
-                // Handle confirm delete button click
+                
                 confirmDeleteButton.onclick = function() {
                     if (itemToDelete) {
-                        // Construct the form dynamically for DELETE request
+                        
                         const deleteForm = document.createElement('form');
                         deleteForm.method = 'POST';
                         deleteForm.action =
-                            `/admin/${itemToDelete.type}/${itemToDelete.id}`; // e.g., /admin/blog/1, /admin/categories/1
+                            `/admin/${itemToDelete.type}/${itemToDelete.id}`; 
 
                         const methodInput = document.createElement('input');
                         methodInput.type = 'hidden';
@@ -2211,9 +2253,8 @@
                         csrfInput.value = '{{ csrf_token() }}';
                         deleteForm.appendChild(csrfInput);
 
-                        document.body.appendChild(deleteForm); // Append to body to submit
-                        deleteForm.submit(); // Submit the form
-
+                        document.body.appendChild(deleteForm); 
+                        deleteForm.submit();
 
                     }
                 };

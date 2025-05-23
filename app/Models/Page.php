@@ -23,7 +23,8 @@ class Page extends Model
     ];
 
     protected $casts = [
-        'is_published' => 'boolean'
+        'is_published' => 'boolean',
+        'description' => 'array',
     ];
 
 

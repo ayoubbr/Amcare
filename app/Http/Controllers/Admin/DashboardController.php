@@ -40,7 +40,23 @@ class DashboardController extends Controller
         $faqs = Faq::orderBy('created_at', 'desc')->get();
         $sliderImages = SliderImage::orderBy('order')->get();
         $partners = Partner::orderBy('order')->get();
+        
+        $pages = Page::all()->map(function ($page) {
+            $page->description = json_decode($page->description, true) ?? [];
+            return $page;
+        });
 
-        return view('admin.dashboard',  compact('posts', 'categories', 'events', 'services', 'zones', 'settings', 'faqs', 'sliderImages', 'partners', 'stats'));
+        return view('admin.dashboard',  compact(
+            'posts', 
+        'categories', 
+                    'events', 
+                    'services', 
+                    'zones', 
+                    'settings', 
+                    'faqs',
+           'sliderImages', 
+          'partners',
+                    'pages'
+        ));
     }
 }
