@@ -6,16 +6,16 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SliderImageController;
 use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
@@ -27,6 +27,10 @@ Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 Route::get('services', [HomeController::class, 'services'])->name('services');
 Route::get('services/{id}', [HomeController::class, 'service'])->name('service');
 
+Route::get('about', [HomeController::class, 'about'])->name('about');
+Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('faqs', [HomeController::class, 'faqs'])->name('faqs');
+
 Route::get('/admin-access', [AuthController::class, 'accessForm'])->name('admin.access');
 Route::post('/admin-access', [AuthController::class, 'verifyAccessCode'])->name('admin.verify.access');
 Route::get('/admin-login', [AuthController::class, 'loginForm'])->name('admin.login.form');
@@ -35,8 +39,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 require __DIR__ . '/auth.php';
-
-// Route::get('admin', [DashboardController::class, 'index'])->name('admin');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -57,6 +59,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('faqs', FaqController::class);
 
+    Route::resource('slider-images', SliderImageController::class); // New route for slider images
+    Route::resource('partners', PartnerController::class); // New route for partners
+
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
 
@@ -65,21 +70,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/pages/{id}', [PageController::class, 'update'])->name('pageSection');
 });
 
-Route::get('faqs', function () {
-    return view('faqs');
-})->name('faqs');
 
 
 Route::get('not-found', function () {
     return view('errors.404');
 })->name('not-found');
-
-
-Route::get('about', function () {
-    return view('about');
-})->name('about');
-
-
-Route::get('contact', function () {
-    return view('contact');
-})->name('contact');

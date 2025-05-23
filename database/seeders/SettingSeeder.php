@@ -18,9 +18,10 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert([
             'site_name' => 'Ambulance Team',
             'email' => 'Ambulance.team@yahoo.com',
-            'logo' => 'assets/images/logo.png',
-            'phones' => json_encode(['WhatsApp ' => '0637222220', 'WhatsApp' => '0661241832']),
+            'logo' => 'settings/logo.png',
+            'phones' => json_encode(['WhatsApp Business' => '+212637222220', 'WhatsApp' => '+212661241832']),
             'footer_text' => '© 2025 Ambulance Team. All rights reserved.',
+            'address' => 'Marrakech Marrakech-Safe, Maroc',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

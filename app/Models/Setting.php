@@ -17,7 +17,8 @@ class Setting extends Model
         'phones',
         'email',
         'logo',
-        'footer_text'
+        'footer_text',
+        'address',
     ];
 
     protected $casts = [

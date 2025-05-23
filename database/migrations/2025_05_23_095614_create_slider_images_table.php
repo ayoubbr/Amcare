@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('slider_images', function (Blueprint $table) {
             $table->id();
-            $table->string('site_name');
-            $table->string('email')->nullable();
-            $table->string('logo')->nullable();
-            $table->json('phones')->nullable();
-            $table->text('footer_text')->nullable();
-            $table->string('address')->nullable();
+            $table->string('image_path');
+            $table->string('title')->nullable();
+            $table->integer('order')->default(0);
+            $table->boolean('is_published')->default(true);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('slider_images');
     }
 };

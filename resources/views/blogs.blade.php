@@ -87,7 +87,7 @@
         </div>
         @include('shared.header')
 
-        <section class="page-title centred">
+        {{-- <section class="page-title centred">
             <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title-4.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
@@ -98,7 +98,7 @@
                     <h1>Blog</h1>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="sidebar-page-container pt_120 pb_120">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -129,7 +129,7 @@
                                 @endforelse
                             </div>
                             <div class="pagination-wrapper pt_30">
-                                {{ $posts->links('pagination::bootstrap-4') }}
+                                {{ $posts->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
                     </div>

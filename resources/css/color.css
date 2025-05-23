@@ -182,7 +182,7 @@ button.ltr,
   border-color: var(--theme-color) !important;
 }
 
-.whatsapp-icon button{
+.whatsapp-icon a{
   background-color: rgb(43, 174, 43);
   color: white;
 }

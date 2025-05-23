@@ -3,20 +3,25 @@
         <div class="auto-container">
             <div class="top-inner">
                 <ul class="info-list">
-                    <li><i class="icon-48"></i>Appelez:<a href="tel:912345432">+91 (234) 5432</a></li>
-                    <li><i class="icon-47"></i>Courriel:<a href="mailto:info@example.com">info@example.com</a>
+                    <li><i class="icon-48"></i>Appellez:<a
+                            href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? '+91 (234) 5432' }}</a>
+                    </li>
+                    <li><i class="icon-47"></i>Mail:<a
+                            href="mailto:{{ $settings->email ?? 'info@example.com' }}">{{ $settings->email ?? 'info@example.com' }}</a>
                     </li>
                 </ul>
-                <div class="right-column">
-                </div>
+                <div class="right-column"></div>
             </div>
         </div>
     </div>
     <div class="header-lower">
         <div class="auto-container">
             <div class="outer-box">
-                <figure class="logo-box"><a href="/"><img
-                            src="{{ Vite::asset('resources/assets/images/logo.png') }}" alt=""></a>
+                <figure class="logo-box">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+                            alt="{{ $settings->site_name ?? 'Amcare' }}">
+                    </a>
                 </figure>
                 <div class="menu-area">
                     <div class="mobile-nav-toggler">
@@ -96,6 +101,7 @@
         </div>
     </div>
 </header>
+
 <div class="mobile-menu">
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
@@ -109,7 +115,9 @@
             <h4>Informations de contact</h4>
             <ul>
                 <li>Chicago 12, Melborne City, USA</li>
-                <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                <li></i>Appellez:<a
+                        href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? '+91 (234) 5432' }}</a>
+                </li>
                 <li><a href="mailto:info@example.com">info@example.com</a></li>
             </ul>
         </div>
@@ -124,12 +132,12 @@
         </div>
     </nav>
 </div>
-<div class="chat-icon whatsapp-icon">
-    <button type="button" class="chat-toggler">
-        <i class="fab fa-whatsapp"></i>
-    </button>
-</div>
 
+<div class="chat-icon whatsapp-icon">
+    <a href="tel:{{ $settings->phones['WhatsApp'] ?? '' }}">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
 
 <div id="search-popup" class="search-popup">
     <div class="popup-inner">

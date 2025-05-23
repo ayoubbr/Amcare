@@ -9,22 +9,30 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Zone;
+use App\Models\Partner;
+use App\Models\Setting;
+use App\Models\SliderImage;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $services = Service::published()->ordered()->take(3)->get();
-        $events = Event::published()->upcoming()->take(3)->get();
+        $events = Event::published()->take(3)->get();
         $posts = BlogPost::published()->take(3)->get();
-        return view('front.home', compact('services', 'events', 'posts'));
+        $settings = Setting::first();
+        $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
+        $sliderImages = SliderImage::published()->ordered()->get();
+        $partners = Partner::published()->ordered()->get();
+
+        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners'));
     }
 
     public function blog()
     {
         $posts = BlogPost::published()
             ->with('category')
-            ->paginate(9);
+            ->paginate(1);
 
         $categories = Category::orderBy('name')->get();
 
@@ -69,10 +77,8 @@ class HomeController extends Controller
             ->orderBy('published_at', 'desc')
             ->paginate(9);
 
-        // Fetch all categories for the sidebar
         $categories = Category::orderBy('name')->get();
 
-        // Fetch latest posts for the sidebar
         $latestPosts = BlogPost::published()
             ->orderBy('published_at', 'desc')
             ->take(3)
@@ -96,14 +102,14 @@ class HomeController extends Controller
     public function about()
     {
         $page = Page::published()->where('slug', 'about-us')->first();
-        return view('front.about', compact('page'));
+        return view('about', compact('page'));
     }
 
     public function services()
     {
         $services = Service::published()->ordered()->get();
         $zones = Zone::orderBy('name')->get();
-    
+
         return view('services', compact('services', 'zones'));
     }
 
@@ -151,5 +157,19 @@ class HomeController extends Controller
             ->get();
 
         return view('events-details', compact('event', 'relatedEvents', 'allEvents'));
+    }
+
+    public function faqs()
+    {
+        $faqs = Faq::orderBy('created_at', 'asc')
+            ->get();
+
+        return view('faqs', compact('faqs'));
+    }
+
+    public function contact()
+    {
+        $settings = Setting::first();
+        return view('contact', compact('settings'));
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Event;
+use App\Models\Faq;
 use App\Models\Service;
+use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +27,17 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('shared.header', function ($view) {
             $view->with([
                 'events' => Event::published()->orderBy('created_at', 'desc')->take(5)->get(),
-                'services' =>  Service::published()->ordered()->take(5)->get()
+                'services' =>  Service::published()->ordered()->take(5)->get(),
+                'settings' => Setting::first()
+            ]);
+        });
+
+        View::composer('shared.footer', function ($view) {
+            $view->with([
+                'events' => Event::published()->orderBy('created_at', 'desc')->take(5)->get(),
+                'services' =>  Service::published()->ordered()->take(5)->get(),
+                'settings' => Setting::first(),
+                'faqs' =>  Faq::orderBy('created_at', 'asc')->take(5)->get(),
             ]);
         });
     }

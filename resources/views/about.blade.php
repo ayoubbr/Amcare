@@ -90,7 +90,7 @@
         @include('shared.header')
 
 
-        <section class="page-title centred">
+        {{-- <section class="page-title centred">
             <div class="bg-layer blue-mask" style="background-image: url(assets/images/background/page-title-3.jpg);">
             </div>
             <div class="auto-container">
@@ -102,7 +102,7 @@
                     <h1>À propos de nous</h1>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="about-style-three pt_120 pb_120">
             <div class="auto-container">
                 <div class="row align-items-center">
