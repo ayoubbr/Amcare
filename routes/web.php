@@ -6,16 +6,16 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SliderImageController;
 use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
@@ -36,8 +36,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 require __DIR__ . '/auth.php';
 
-// Route::get('admin', [DashboardController::class, 'index'])->name('admin');
-
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('', [DashboardController::class, 'index'])->name('dashboard');
@@ -57,15 +55,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('faqs', FaqController::class);
 
+    Route::resource('slider-images', SliderImageController::class); // New route for slider images
+    Route::resource('partners', PartnerController::class); // New route for partners
+
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
 
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 });
 
-Route::get('faqs', function () {
-    return view('faqs');
-})->name('faqs');
+// Route::get('faqs', function () {
+//     return view('faqs');
+// })->name('faqs');
 
 
 Route::get('not-found', function () {
@@ -73,11 +74,11 @@ Route::get('not-found', function () {
 })->name('not-found');
 
 
-Route::get('about', function () {
-    return view('about');
-})->name('about');
+// Route::get('about', function () {
+//     return view('about');
+// })->name('about');
 
 
-Route::get('contact', function () {
-    return view('contact');
-})->name('contact');
+// Route::get('contact', function () {
+//     return view('contact');
+// })->name('contact');

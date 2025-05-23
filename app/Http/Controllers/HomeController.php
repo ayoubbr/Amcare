@@ -9,6 +9,9 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Zone;
+use App\Models\Partner;
+use App\Models\Setting;
+use App\Models\SliderImage;
 
 class HomeController extends Controller
 {
@@ -17,7 +20,12 @@ class HomeController extends Controller
         $services = Service::published()->ordered()->take(3)->get();
         $events = Event::published()->upcoming()->take(3)->get();
         $posts = BlogPost::published()->take(3)->get();
-        return view('front.home', compact('services', 'events', 'posts'));
+        $settings = Setting::first();
+        $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
+        $sliderImages = SliderImage::published()->ordered()->get();
+        $partners = Partner::published()->ordered()->get();
+
+        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners'));
     }
 
     public function blog()
@@ -69,10 +77,8 @@ class HomeController extends Controller
             ->orderBy('published_at', 'desc')
             ->paginate(9);
 
-        // Fetch all categories for the sidebar
         $categories = Category::orderBy('name')->get();
 
-        // Fetch latest posts for the sidebar
         $latestPosts = BlogPost::published()
             ->orderBy('published_at', 'desc')
             ->take(3)
@@ -103,7 +109,7 @@ class HomeController extends Controller
     {
         $services = Service::published()->ordered()->get();
         $zones = Zone::orderBy('name')->get();
-    
+
         return view('services', compact('services', 'zones'));
     }
 
