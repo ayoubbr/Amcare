@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('content');
             $table->string('meta_title')->nullable();
-            $table->string('description')->nullable();
+            $table->json('description')->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_published')->default(false);
             $table->timestamps();
