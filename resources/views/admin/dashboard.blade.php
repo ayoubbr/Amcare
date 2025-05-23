@@ -14,7 +14,7 @@
         rel="stylesheet">
 
 
-    @vite('resources/css/admin.css')
+    @vite('resources/css/admin.css') {{-- Custom admin styles --}}
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -32,14 +32,21 @@
         /* Styles pour le modal d'édition */
         .modal {
             display: none;
+            /* Hidden by default */
             position: fixed;
+            /* Stay in place */
             z-index: 1000;
+            /* Sit on top */
             left: 0;
             top: 0;
             width: 100%;
+            /* Full width */
             height: 100%;
+            /* Full height */
             overflow: auto;
+            /* Enable scroll if needed */
             background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
             justify-content: center;
             align-items: center;
         }
@@ -309,7 +316,10 @@
                 <h2>Tableau de Bord Admin</h2>
                 <nav>
                     <ul>
+                        {{-- Reordered for better flow --}}
                         <li><a href="#settings" class="active">Paramètres du Site</a></li>
+                        <li><a href="#slider-images">Images du Slider</a></li>
+                        <li><a href="#partners">Partenaires</a></li>
                         <li><a href="#faqs">FAQs</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#zones">Zones</a></li>
@@ -346,6 +356,237 @@
                         {{ session('error') }}
                     </div>
                 @endif
+
+                {{-- Settings Section (Redesigned) --}}
+                <section id="settings" class="admin-section">
+                    <h3>Paramètres du Site</h3>
+                    <div class="setting-form-container mt-4">
+                        <h4>Gérer les Paramètres Généraux</h4>
+                        <form action="{{ route('admin.settings.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            {{-- Assuming settings always exist, if not, create one on first access --}}
+                            <input type="hidden" name="id" value="{{ $settings->id ?? '' }}">
+                            <div class="form-group">
+                                <label for="siteName">Nom du Site</label>
+                                <input type="text" class="form-control" name="site_name" id="siteName"
+                                    placeholder="Entrez le nom du site" value="{{ $settings->site_name ?? '' }}"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="siteEmail">Email</label>
+                                <input type="email" class="form-control" name="email" id="siteEmail"
+                                    placeholder="Entrez l'adresse email" value="{{ $settings->email ?? '' }}">
+                            </div>
+                            <div class="form-group d-flex align-items-center">
+                                <label for="siteLogo" class="mb-0 mr-3">Logo</label>
+                                @if ($settings && $settings->logo)
+                                    <img src="{{ Storage::url($settings->logo) }}" alt="Logo actuel"
+                                        class="img-thumbnail mr-3" style="max-height: 80px;">
+                                    <a href="{{ Storage::url($settings->logo) }}" target="_blank"
+                                        class="btn btn-sm btn-info mr-2">Voir actuel</a>
+                                @else
+                                    <span class="text-muted mr-3">Aucun logo actuel</span>
+                                @endif
+                                <input type="file" class="form-control-file" name="logo" id="siteLogo">
+                            </div>
+
+                            {{-- Dynamic Phone Numbers Section --}}
+                            <div class="form-group">
+                                <label>Numéros de Téléphone</label>
+                                <div id="phone-numbers-container">
+                                    {{-- Phone number inputs will be added here by JavaScript --}}
+                                    @if ($settings && $settings->phones)
+                                        @foreach ($settings->phones as $key => $value)
+                                            <div class="phone-input-group">
+                                                <input type="text" class="form-control" name="phone_keys[]"
+                                                    placeholder="Clé (ex: Support)" value="{{ $key }}"
+                                                    style="width: 40%;">
+                                                <input type="text" class="form-control" name="phone_values[]"
+                                                    placeholder="Numéro (ex: +1234567890)"
+                                                    value="{{ $value }}" style="width: 40%;">
+                                                <button type="button" class="btn btn-danger btn-remove-phone"
+                                                    style="width: 20%;">Supprimer</button>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <button type="button" id="add-phone-button" class="btn btn-info mt-2">Ajouter un
+                                    numéro</button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="siteFooterText">Texte de Pied de Page</label>
+                                <textarea class="form-control" name="footer_text" id="siteFooterText" rows="3"
+                                    placeholder="Entrez le texte du pied de page">{{ $settings->footer_text ?? '' }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer les Paramètres</button>
+                            {{-- Removed cancel button as this is the main settings form --}}
+                        </form>
+                    </div>
+                </section>
+
+                {{-- New Section: Slider Images --}}
+                <section id="slider-images" class="admin-section" style="display: none;">
+                    <h3>Gestion des Images du Slider</h3>
+                    <button class="btn-add-new" data-target-form="slider-image-form">Ajouter une nouvelle image de
+                        slider</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Titre</th>
+                                    <th>Ordre</th>
+                                    <th>Publié</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sliderImages as $sliderImage)
+                                    <tr data-entity="slider-images" data-id="{{ $sliderImage->id }}"
+                                        data-image-path="{{ $sliderImage->image_path ? Storage::url($sliderImage->image_path) : '' }}"
+                                        data-title="{{ $sliderImage->title ?? '' }}"
+                                        data-subtitle="{{ $sliderImage->subtitle ?? '' }}"
+                                        data-description="{{ $sliderImage->description ?? '' }}"
+                                        data-order="{{ $sliderImage->order }}"
+                                        data-is-published="{{ $sliderImage->is_published ? 'true' : 'false' }}">
+                                        <td>{{ $sliderImage->id }}</td>
+                                        <td>
+                                            @if ($sliderImage->image_path)
+                                                <img src="{{ Storage::url($sliderImage->image_path) }}"
+                                                    alt="Slider Image" style="max-height: 50px;">
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                        <td>{{ $sliderImage->title ?? 'N/A' }}</td>
+                                        <td>{{ $sliderImage->order }}</td>
+                                        <td>{{ $sliderImage->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="slider-image-form">
+                        <h4>Ajouter une nouvelle Image de Slider</h4>
+                        <form action="{{ route('admin.slider-images.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="sliderImageFile">Fichier Image</label>
+                                <input type="file" class="form-control" name="image_path" id="sliderImageFile"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sliderImageTitle">Titre</label>
+                                <input type="text" class="form-control" name="title" id="sliderImageTitle"
+                                    placeholder="Titre principal du slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="sliderImageOrder">Ordre d'affichage</label>
+                                <input type="number" class="form-control" name="order" id="sliderImageOrder"
+                                    value="0">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_published"
+                                    id="sliderImageIsPublished" value="1" checked>
+                                <label class="form-check-label" for="sliderImageIsPublished">Publié</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                {{-- New Section: Partners --}}
+                <section id="partners" class="admin-section" style="display: none;">
+                    <h3>Gestion des Partenaires</h3>
+                    <button class="btn-add-new" data-target-form="partner-form">Ajouter un nouveau partenaire</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Logo</th>
+                                    <th>URL du Site Web</th>
+                                    <th>Ordre</th>
+                                    <th>Publié</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($partners as $partner)
+                                    <tr data-entity="partners" data-id="{{ $partner->id }}"
+                                        data-name="{{ $partner->name }}"
+                                        data-logo-path="{{ $partner->logo_path ? Storage::url($partner->logo_path) : '' }}"
+                                        data-website-url="{{ $partner->website_url ?? '' }}"
+                                        data-order="{{ $partner->order }}"
+                                        data-is-published="{{ $partner->is_published ? 'true' : 'false' }}">
+                                        <td>{{ $partner->id }}</td>
+                                        <td>{{ $partner->name }}</td>
+                                        <td>
+                                            @if ($partner->logo_path)
+                                                <img src="{{ Storage::url($partner->logo_path) }}" alt="Partner Logo"
+                                                    style="max-height: 50px;">
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                        <td><a href="{{ $partner->website_url ?? '#' }}"
+                                                target="_blank">{{ Str::limit($partner->website_url, 30) ?? 'N/A' }}</a>
+                                        </td>
+                                        <td>{{ $partner->order }}</td>
+                                        <td>{{ $partner->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="partner-form">
+                        <h4>Ajouter un nouveau Partenaire</h4>
+                        <form action="{{ route('admin.partners.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="partnerName">Nom du Partenaire</label>
+                                <input type="text" class="form-control" name="name" id="partnerName"
+                                    placeholder="Nom du partenaire" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="partnerLogo">Logo du Partenaire</label>
+                                <input type="file" class="form-control" name="logo_path" id="partnerLogo"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="partnerWebsiteUrl">URL du Site Web</label>
+                                <input type="url" class="form-control" name="website_url" id="partnerWebsiteUrl"
+                                    placeholder="Ex: https://www.example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="partnerOrder">Ordre d'affichage</label>
+                                <input type="number" class="form-control" name="order" id="partnerOrder"
+                                    value="0">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_published"
+                                    id="partnerIsPublished" value="1" checked>
+                                <label class="form-check-label" for="partnerIsPublished">Publié</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
 
                 <section id="blog-posts" class="admin-section">
                     <h3>Gestion des Articles de Blog</h3>
@@ -760,66 +1001,661 @@
                     </div>
                 </section>
 
-                <section id="settings" class="admin-section">
-                    <h3>Paramètres du Site</h3>
-                    <div class="setting-form-container mt-4">
-                        <h4>Gérer les Paramètres Généraux</h4>
-                        <form action="{{ route('admin.settings.store') }}" method="POST"
+                <section id="categories" class="admin-section" style="display: none;">
+                    <h3>Gestion des Catégories</h3>
+                    <button class="btn-add-new" data-target-form="category-form">Ajouter une nouvelle
+                        catégorie</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Slug</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($categories as $category)
+                                    <tr data-entity="categories" data-id="{{ $category->id }}"
+                                        data-name="{{ $category->name }}" data-slug="{{ $category->slug }}">
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->slug }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="category-form">
+                        <h4>Ajouter une nouvelle Catégorie</h4>
+                        <form action="{{ route('admin.categories.store') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="categoryName">Nom</label>
+                                <input type="text" class="form-control" name="name" id="categoryName"
+                                    placeholder="Entrez le nom de la catégorie" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="events" class="admin-section" style="display: none;">
+                    <h3>Gestion des Événements</h3>
+                    <button class="btn-add-new" data-target-form="event-form">Ajouter un nouvel événement</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Titre</th>
+                                    <th>Slug</th>
+                                    <th>Date de l'événement</th>
+                                    <th>Lieu</th>
+                                    <th>Publié</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($events as $event)
+                                    <tr data-entity="events" data-id="{{ $event->id }}"
+                                        data-title="{{ $event->title }}" data-slug="{{ $event->slug }}"
+                                        data-event-date="{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i') }}"
+                                        data-location="{{ $event->location ?? '' }}"
+                                        data-is-published="{{ $event->is_published ? 'true' : 'false' }}"
+                                        data-content="{{ $event->content }}"
+                                        data-image="{{ $event->image ? Storage::url($event->image) : '' }}">
+                                        <td>{{ $event->id }}</td>
+                                        <td>{{ $event->title }}</td>
+                                        <td>{{ $event->slug }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d H:i') }}</td>
+                                        <td>{{ $event->location ?? 'N/A' }}</td>
+                                        <td>{{ $event->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="event-form">
+                        <h4>Ajouter un nouvel Événement</h4>
+                        <form action="{{ route('admin.events.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $settings->id ?? '' }}">
                             <div class="form-group">
-                                <label for="siteName">Nom du Site</label>
-                                <input type="text" class="form-control" name="site_name" id="siteName"
-                                    placeholder="Entrez le nom du site" value="{{ $settings->site_name ?? '' }}"
+                                <label for="eventTitle">Titre de l'événement</label>
+                                <input type="text" class="form-control" name="title" id="eventTitle"
+                                    placeholder="Entrez le titre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventContent">Contenu</label>
+                                <textarea class="form-control" name="content" id="eventContent" rows="5"
+                                    placeholder="Entrez le contenu de l'événement"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Date et Heure de l'événement</label>
+                                <input type="datetime-local" class="form-control" name="event_date" id="eventDate"
                                     required>
                             </div>
                             <div class="form-group">
-                                <label for="siteEmail">Email</label>
-                                <input type="email" class="form-control" name="email" id="siteEmail"
-                                    placeholder="Entrez l'adresse email" value="{{ $settings->email ?? '' }}">
+                                <label for="eventLocation">Lieu</label>
+                                <input type="text" class="form-control" name="location" id="eventLocation"
+                                    placeholder="Entrez le lieu">
                             </div>
-                            <div class="form-group d-flex align-items-center">
-                                <label for="siteLogo" class="mb-0 mr-3">Logo</label>
-                                @if ($settings && $settings->logo)
-                                    <img src="{{ Storage::url($settings->logo) }}" alt="Logo actuel"
-                                        class="img-thumbnail mr-3" style="max-height: 80px;">
-                                    <a href="{{ Storage::url($settings->logo) }}" target="_blank"
-                                        class="btn btn-sm btn-info mr-2">Voir actuel</a>
-                                @else
-                                    <span class="text-muted mr-3">Aucun logo actuel</span>
-                                @endif
-                                <input type="file" class="form-control-file" name="logo" id="siteLogo">
-                            </div>
-
                             <div class="form-group">
-                                <label>Numéros de Téléphone</label>
-                                <div id="phone-numbers-container">
-                                    @if ($settings && $settings->phones)
-                                        @foreach ($settings->phones as $key => $value)
-                                            <div class="phone-input-group">
-                                                <input type="text" class="form-control" name="phone_keys[]"
-                                                    placeholder="Clé (ex: Support)" value="{{ $key }}"
-                                                    style="width: 40%;">
-                                                <input type="text" class="form-control" name="phone_values[]"
-                                                    placeholder="Numéro (ex: +1234567890)"
-                                                    value="{{ $value }}" style="width: 40%;">
-                                                <button type="button" class="btn btn-danger btn-remove-phone"
-                                                    style="width: 20%;">Supprimer</button>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <button type="button" id="add-phone-button" class="btn btn-info mt-2">Ajouter un
-                                    numéro</button>
+                                <label for="eventImage">Image</label>
+                                <input type="file" class="form-control" name="image" id="eventImage">
                             </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_published"
+                                    id="eventIsPublished" value="1">
+                                <label class="form-check-label" for="eventIsPublished">Publié</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
 
+                <section id="faqs" class="admin-section" style="display: none;">
+                    <h3>Gestion des FAQs</h3>
+                    <button class="btn-add-new" data-target-form="faq-form">Ajouter une nouvelle FAQ</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Question</th>
+                                    <th>Reponse</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($faqs as $faq)
+                                    <tr data-entity="faqs" data-id="{{ $faq->id }}"
+                                        data-question="{{ $faq->question }}" data-answer="{{ $faq->answer }}">
+                                        <td>{{ $faq->id }}</td>
+                                        <td>{{ $faq->question }}</td>
+                                        <td>{{ $faq->answer }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="faq-form">
+                        <h4>Ajouter une nouvelle FAQ</h4>
+                        <form action="{{ route('admin.faqs.store') }}" method="POST">
+                            @csrf
                             <div class="form-group">
-                                <label for="siteFooterText">Texte de Pied de Page</label>
-                                <textarea class="form-control" name="footer_text" id="siteFooterText" rows="3"
-                                    placeholder="Entrez le texte du pied de page">{{ $settings->footer_text ?? '' }}</textarea>
+                                <label for="faqQuestion">Question</label>
+                                <input type="text" class="form-control" name="question" id="faqQuestion"
+                                    placeholder="Entrez la question" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer les Paramètres</button>
+                            <div class="form-group">
+                                <label for="faqAnswer">Réponse</label>
+                                <textarea class="form-control" name="answer" id="faqAnswer" rows="3" placeholder="Entrez la réponse"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="services" class="admin-section" style="display: none;">
+                    <h3>Gestion des Services</h3>
+                    <button class="btn-add-new" data-target-form="service-form">Ajouter un nouveau service</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Titre</th>
+                                    <th>Icône</th>
+                                    <th>Description Courte</th>
+                                    <th>Publié</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($services as $service)
+                                    <tr data-entity="services" data-id="{{ $service->id }}"
+                                        data-title="{{ $service->title }}" data-icon="{{ $service->icon ?? '' }}"
+                                        data-short-description="{{ $service->short_description }}"
+                                        data-content="{{ $service->content }}"
+                                        data-image="{{ $service->image ? Storage::url($service->image) : '' }}"
+                                        data-whatsapp-number="{{ $service->whatsapp_number ?? '' }}"
+                                        data-order="{{ $service->order }}"
+                                        data-is-published="{{ $service->is_published ? 'true' : 'false' }}">
+                                        <td>{{ $service->id }}</td>
+                                        <td>{{ $service->title }}</td>
+                                        <td><i class="{{ $service->icon }}"></i></td>
+                                        <td>{{ $service->short_description }}</td>
+                                        <td>{{ $service->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="service-form">
+                        <h4>Ajouter un nouveau Service</h4>
+                        <form action="{{ route('admin.services.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="serviceTitle">Titre</label>
+                                <input type="text" class="form-control" name="title" id="serviceTitle"
+                                    placeholder="Entrez le titre du service" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceIcon">Icône (classe CSS)</label>
+                                <input type="text" class="form-control" name="icon" id="serviceIcon"
+                                    placeholder="Ex: icon-ambulance">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceShortDescription">Description Courte</label>
+                                <textarea class="form-control" name="short_description" id="serviceShortDescription" rows="2"
+                                    placeholder="Entrez une courte description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceContent">Contenu Complet</label>
+                                <textarea class="form-control" name="content" id="serviceContent" rows="5"
+                                    placeholder="Entrez le contenu complet du service" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceImage">Image</label>
+                                <input type="file" class="form-control" name="image" id="serviceImage">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceWhatsappNumber">Numéro WhatsApp</label>
+                                <input type="text" class="form-control" name="whatsapp_number"
+                                    id="serviceWhatsappNumber" placeholder="Ex: +1234567890">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceOrder">Ordre d'affichage</label>
+                                <input type="number" class="form-control" name="order" id="serviceOrder"
+                                    value="0">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_published"
+                                    id="serviceIsPublished" value="1">
+                                <label class="form-check-label" for="serviceIsPublished">Publié</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="zones" class="admin-section" style="display: none;">
+                    <h3>Gestion des Zones</h3>
+                    <button class="btn-add-new" data-target-form="zone-form">Ajouter une nouvelle zone</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($zones as $zone)
+                                    <tr data-entity="zones" data-id="{{ $zone->id }}"
+                                        data-name="{{ $zone->name }}" data-code="{{ $zone->code ?? '' }}"
+                                        data-description="{{ $zone->description ?? '' }}"
+                                        data-is-active="{{ $zone->is_active ? 'true' : 'false' }}">
+                                        <td>{{ $zone->id }}</td>
+                                        <td>{{ $zone->name }}</td>
+                                        <td>{{ $zone->code ?? 'N/A' }}</td>
+                                        <td>{{ $zone->description ?? 'N/A' }}</td>
+                                        <td>{{ $zone->is_active ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="zone-form">
+                        <h4>Ajouter une nouvelle Zone</h4>
+                        <form action="{{ route('admin.zone.store') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="zoneName">Nom</label>
+                                <input type="text" class="form-control" name="name" id="zoneName"
+                                    placeholder="Entrez le nom de la zone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zoneCode">Code</label>
+                                <input type="text" class="form-control" name="code" id="zoneCode"
+                                    placeholder="Entrez le code de la zone (ex: LA, NY)">
+                            </div>
+                            <div class="form-group">
+                                <label for="zoneDescription">Description</label>
+                                <textarea class="form-control" name="description" id="zoneDescription" rows="3"
+                                    placeholder="Entrez une description de la zone"></textarea>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_active" id="zoneIsActive"
+                                    value="1">
+                                <label class="form-check-label" for="zoneIsActive">Active</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                
+
+                <section id="categories" class="admin-section" style="display: none;">
+                    <h3>Gestion des Catégories</h3>
+                    <button class="btn-add-new" data-target-form="category-form">Ajouter une nouvelle
+                        catégorie</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Slug</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($categories as $category)
+                                    <tr data-entity="categories" data-id="{{ $category->id }}"
+                                        data-name="{{ $category->name }}" data-slug="{{ $category->slug }}">
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->slug }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="category-form">
+                        <h4>Ajouter une nouvelle Catégorie</h4>
+                        <form action="{{ route('admin.categories.store') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="categoryName">Nom</label>
+                                <input type="text" class="form-control" name="name" id="categoryName"
+                                    placeholder="Entrez le nom de la catégorie" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="events" class="admin-section" style="display: none;">
+                    <h3>Gestion des Événements</h3>
+                    <button class="btn-add-new" data-target-form="event-form">Ajouter un nouvel événement</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Titre</th>
+                                    <th>Slug</th>
+                                    <th>Date de l'événement</th>
+                                    <th>Lieu</th>
+                                    <th>Publié</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($events as $event)
+                                    <tr data-entity="events" data-id="{{ $event->id }}"
+                                        data-title="{{ $event->title }}" data-slug="{{ $event->slug }}"
+                                        data-event-date="{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i') }}"
+                                        data-location="{{ $event->location ?? '' }}"
+                                        data-is-published="{{ $event->is_published ? 'true' : 'false' }}"
+                                        data-content="{{ $event->content }}"
+                                        data-image="{{ $event->image ? Storage::url($event->image) : '' }}">
+                                        <td>{{ $event->id }}</td>
+                                        <td>{{ $event->title }}</td>
+                                        <td>{{ $event->slug }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d H:i') }}</td>
+                                        <td>{{ $event->location ?? 'N/A' }}</td>
+                                        <td>{{ $event->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="event-form">
+                        <h4>Ajouter un nouvel Événement</h4>
+                        <form action="{{ route('admin.events.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="eventTitle">Titre de l'événement</label>
+                                <input type="text" class="form-control" name="title" id="eventTitle"
+                                    placeholder="Entrez le titre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventContent">Contenu</label>
+                                <textarea class="form-control" name="content" id="eventContent" rows="5"
+                                    placeholder="Entrez le contenu de l'événement"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Date et Heure de l'événement</label>
+                                <input type="datetime-local" class="form-control" name="event_date"
+                                    id="eventDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventLocation">Lieu</label>
+                                <input type="text" class="form-control" name="location" id="eventLocation"
+                                    placeholder="Entrez le lieu">
+                            </div>
+                            <div class="form-group">
+                                <label for="eventImage">Image</label>
+                                <input type="file" class="form-control" name="image" id="eventImage">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_published"
+                                    id="eventIsPublished" value="1">
+                                <label class="form-check-label" for="eventIsPublished">Publié</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="faqs" class="admin-section" style="display: none;">
+                    <h3>Gestion des FAQs</h3>
+                    <button class="btn-add-new" data-target-form="faq-form">Ajouter une nouvelle FAQ</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Question</th>
+                                    <th>Reponse</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($faqs as $faq)
+                                    <tr data-entity="faqs" data-id="{{ $faq->id }}"
+                                        data-question="{{ $faq->question }}" data-answer="{{ $faq->answer }}">
+                                        <td>{{ $faq->id }}</td>
+                                        <td>{{ $faq->question }}</td>
+                                        <td>{{ $faq->answer }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="faq-form">
+                        <h4>Ajouter une nouvelle FAQ</h4>
+                        <form action="{{ route('admin.faqs.store') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="faqQuestion">Question</label>
+                                <input type="text" class="form-control" name="question" id="faqQuestion"
+                                    placeholder="Entrez la question" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="faqAnswer">Réponse</label>
+                                <textarea class="form-control" name="answer" id="faqAnswer" rows="3" placeholder="Entrez la réponse"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="services" class="admin-section" style="display: none;">
+                    <h3>Gestion des Services</h3>
+                    <button class="btn-add-new" data-target-form="service-form">Ajouter un nouveau service</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Titre</th>
+                                    <th>Icône</th>
+                                    <th>Description Courte</th>
+                                    <th>Publié</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($services as $service)
+                                    <tr data-entity="services" data-id="{{ $service->id }}"
+                                        data-title="{{ $service->title }}"
+                                        data-icon="{{ $service->icon ?? '' }}"
+                                        data-short-description="{{ $service->short_description }}"
+                                        data-content="{{ $service->content }}"
+                                        data-image="{{ $service->image ? Storage::url($service->image) : '' }}"
+                                        data-whatsapp-number="{{ $service->whatsapp_number ?? '' }}"
+                                        data-order="{{ $service->order }}"
+                                        data-is-published="{{ $service->is_published ? 'true' : 'false' }}">
+                                        <td>{{ $service->id }}</td>
+                                        <td>{{ $service->title }}</td>
+                                        <td><i class="{{ $service->icon }}"></i></td>
+                                        <td>{{ $service->short_description }}</td>
+                                        <td>{{ $service->is_published ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="service-form">
+                        <h4>Ajouter un nouveau Service</h4>
+                        <form action="{{ route('admin.services.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="serviceTitle">Titre</label>
+                                <input type="text" class="form-control" name="title" id="serviceTitle"
+                                    placeholder="Entrez le titre du service" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceIcon">Icône (classe CSS)</label>
+                                <input type="text" class="form-control" name="icon" id="serviceIcon"
+                                    placeholder="Ex: icon-ambulance">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceShortDescription">Description Courte</label>
+                                <textarea class="form-control" name="short_description" id="serviceShortDescription" rows="2"
+                                    placeholder="Entrez une courte description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceContent">Contenu Complet</label>
+                                <textarea class="form-control" name="content" id="serviceContent" rows="5"
+                                    placeholder="Entrez le contenu complet du service" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceImage">Image</label>
+                                <input type="file" class="form-control" name="image" id="serviceImage">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceWhatsappNumber">Numéro WhatsApp</label>
+                                <input type="text" class="form-control" name="whatsapp_number"
+                                    id="serviceWhatsappNumber" placeholder="Ex: +1234567890">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceOrder">Ordre d'affichage</label>
+                                <input type="number" class="form-control" name="order" id="serviceOrder"
+                                    value="0">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_published"
+                                    id="serviceIsPublished" value="1">
+                                <label class="form-check-label" for="serviceIsPublished">Publié</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section id="zones" class="admin-section" style="display: none;">
+                    <h3>Gestion des Zones</h3>
+                    <button class="btn-add-new" data-target-form="zone-form">Ajouter une nouvelle zone</button>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($zones as $zone)
+                                    <tr data-entity="zones" data-id="{{ $zone->id }}"
+                                        data-name="{{ $zone->name }}" data-code="{{ $zone->code ?? '' }}"
+                                        data-description="{{ $zone->description ?? '' }}"
+                                        data-is-active="{{ $zone->is_active ? 'true' : 'false' }}">
+                                        <td>{{ $zone->id }}</td>
+                                        <td>{{ $zone->name }}</td>
+                                        <td>{{ $zone->code ?? 'N/A' }}</td>
+                                        <td>{{ $zone->description ?? 'N/A' }}</td>
+                                        <td>{{ $zone->is_active ? 'Oui' : 'Non' }}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-edit">Modifier</button>
+                                            <button class="btn btn-delete">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-section mt-4" style="display: none;" id="zone-form">
+                        <h4>Ajouter une nouvelle Zone</h4>
+                        <form action="{{ route('admin.zone.store') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="zoneName">Nom</label>
+                                <input type="text" class="form-control" name="name" id="zoneName"
+                                    placeholder="Entrez le nom de la zone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zoneCode">Code</label>
+                                <input type="text" class="form-control" name="code" id="zoneCode"
+                                    placeholder="Entrez le code de la zone (ex: LA, NY)">
+                            </div>
+                            <div class="form-group">
+                                <label for="zoneDescription">Description</label>
+                                <textarea class="form-control" name="description" id="zoneDescription" rows="3"
+                                    placeholder="Entrez une description de la zone"></textarea>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" name="is_active"
+                                    id="zoneIsActive" value="1">
+                                <label class="form-check-label" for="zoneIsActive">Active</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
                         </form>
                     </div>
                 </section>
@@ -870,15 +1706,16 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Initial display setup
-                document.querySelector('#blog-posts').style.display = 'none'; // Show blogs by default
+                // Initial display setup: Show settings by default
+                document.querySelector('#blog-posts').style.display = 'none';
+                document.querySelector('#settings').style.display = 'block';
+                document.querySelector('#slider-images').style.display = 'none';
+                document.querySelector('#partners').style.display = 'none';
                 document.querySelector('#categories').style.display = 'none';
                 document.querySelector('#events').style.display = 'none';
                 document.querySelector('#faqs').style.display = 'none';
                 document.querySelector('#services').style.display = 'none';
                 document.querySelector('#zones').style.display = 'none';
-                document.querySelector('#settings').style.display =
-                    'block'; // Keep settings hidden initially, JS will show it on tab click
 
 
                 // Handle sidebar navigation clicks
@@ -1177,7 +2014,60 @@
                                 </div>
                             `;
                             break;
-                            // The settings case is removed from the modal logic as it will be a direct form
+                        case 'slider-images':
+                            modalTitle.textContent = 'Modifier l\'Image du Slider';
+                            actionRoute = `/admin/slider-images/${data.id}`;
+                            currentImage = data.imagePath;
+                            formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
+                                <div class="form-group">
+                                    <label for="modalSliderImageTitle">Titre</label>
+                                    <input type="text" class="form-control" name="title" id="modalSliderImageTitle" value="${data.title || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalSliderImageOrder">Ordre d'affichage</label>
+                                    <input type="number" class="form-control" name="order" id="modalSliderImageOrder" value="${data.order || '0'}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalSliderImageFile">Image ${currentImage ? '(actuel: <a href="' + currentImage + '" target="_blank">Voir</a>)' : '(N/A)'}</label>
+                                    <input type="file" class="form-control" name="image_path" id="modalSliderImageFile">
+                                </div>
+                                <input type="hidden" name="is_published" value="0">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" name="is_published" id="modalSliderImageIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
+                                    <label class="form-check-label" for="modalSliderImageIsPublished">Publié</label>
+                                </div>
+                            `;
+                            break;
+                        case 'partners':
+                            modalTitle.textContent = 'Modifier le Partenaire';
+                            actionRoute = `/admin/partners/${data.id}`;
+                            currentImage = data.logoPath;
+                            formHtml = `
+                                <input type="hidden" name="id" value="${data.id || ''}">
+                                <div class="form-group">
+                                    <label for="modalPartnerName">Nom du Partenaire</label>
+                                    <input type="text" class="form-control" name="name" id="modalPartnerName" value="${data.name || ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalPartnerWebsiteUrl">URL du Site Web</label>
+                                    <input type="url" class="form-control" name="website_url" id="modalPartnerWebsiteUrl" value="${data.websiteUrl || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalPartnerOrder">Ordre d'affichage</label>
+                                    <input type="number" class="form-control" name="order" id="modalPartnerOrder" value="${data.order || '0'}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalPartnerLogo">Logo ${currentImage ? '(actuel: <a href="' + currentImage + '" target="_blank">Voir</a>)' : '(N/A)'}</label>
+                                    <input type="file" class="form-control" name="logo_path" id="modalPartnerLogo">
+                                </div>
+                                <input type="hidden" name="is_published" value="0">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" name="is_published" id="modalPartnerIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
+                                    <label class="form-check-label" for="modalPartnerIsPublished">Publié</label>
+                                </div>
+                            `;
+                            break;
                         default:
                             formHtml = '<p>Aucune donnée de formulaire disponible pour ce type d\'entité.</p>';
                             break;

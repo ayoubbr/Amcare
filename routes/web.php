@@ -27,6 +27,10 @@ Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 Route::get('services', [HomeController::class, 'services'])->name('services');
 Route::get('services/{id}', [HomeController::class, 'service'])->name('service');
 
+Route::get('about', [HomeController::class, 'about'])->name('about');
+Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('faqs', [HomeController::class, 'faqs'])->name('faqs');
+
 Route::get('/admin-access', [AuthController::class, 'accessForm'])->name('admin.access');
 Route::post('/admin-access', [AuthController::class, 'verifyAccessCode'])->name('admin.verify.access');
 Route::get('/admin-login', [AuthController::class, 'loginForm'])->name('admin.login.form');
@@ -64,21 +68,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
 });
 
-// Route::get('faqs', function () {
-//     return view('faqs');
-// })->name('faqs');
 
 
 Route::get('not-found', function () {
     return view('errors.404');
 })->name('not-found');
-
-
-// Route::get('about', function () {
-//     return view('about');
-// })->name('about');
-
-
-// Route::get('contact', function () {
-//     return view('contact');
-// })->name('contact');

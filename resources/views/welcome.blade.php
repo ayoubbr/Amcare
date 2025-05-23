@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Acceuil - Amcare</title>
+    <title>{{ $settings->site_name ?? 'Amcare' }} - Acceuil</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
@@ -81,70 +81,77 @@
                 </div>
             </div>
         </div>
+        {{-- Dynamic Header Inclusion --}}
         @include('shared.header')
 
+        {{-- Dynamic Main Slider --}}
         <section class="banner-style-three pl_100 pr_100">
             <div class="banner-carousel owl-theme owl-carousel owl-nav-none owl-dots-none">
-                <div class="slide-item p_relative">
-                    <div class="bg-layer" style="background-image: url(assets/images/banner/banner-7.jpg);"></div>
-                    <div class="auto-container">
-                        <div class="content-box">
-                            <span class="upper-text">Disponible 24/7</span>
-
-                            <h2>Meilleurs <span>Services</span> d'Ambulance</h2>
-                            <p>Ces services sont conçus pour atteindre les lieux d'une urgence <br />rapidement, équipé
-                                d'équipements médicaux de pointe.</p>
+                @forelse($sliderImages as $sliderImage)
+                    <div class="slide-item p_relative">
+                        <div class="bg-layer"
+                            style="background-image: url({{ $sliderImage->image_path ? Storage::url($sliderImage->image_path) : asset('assets/images/banner/default-banner.jpg') }});">
+                        </div>
+                        <div class="auto-container">
+                            <div class="content-box">
+                                {{-- <span class="upper-text">{{ $sliderImage->subtitle ?? 'Disponible 24/7' }}</span> --}}
+                                <h2>{{ $sliderImage->title ?? 'Meilleurs Services' }} <span>d'Ambulance</span></h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="slide-item p_relative">
-                    <div class="bg-layer" style="background-image: url(assets/images/banner/banner-5.jpg);"></div>
-                    <div class="auto-container">
-                        <div class="content-box">
-                            <span class="upper-text">Disponible 24/7</span>
-                            <h2>Meilleurs <span>Services</span> d'Ambulance</h2>
-                            <p>Ces services sont conçus pour atteindre les lieux d'une urgence <br />rapidement, équipé
-                                d'équipements médicaux de pointe.</p>
+                @empty
+                    <div class="slide-item p_relative">
+                        <div class="bg-layer" style="background-image: url(assets/images/banner/banner-7.jpg);"></div>
+                        <div class="auto-container">
+                            <div class="content-box">
+                                {{-- <span class="upper-text">Disponible 24/7</span> --}}
+                                <h2>Meilleurs <span>Services</span> d'Ambulance</h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="slide-item p_relative">
-                    <div class="bg-layer"
-                        style="background-image: url('{{ asset('assets/images/banner/banner-6.jpg') }}');"></div>
-                    <div class="shape"
-                        style="background-image: url('{{ asset('assets/images/shape/shape-6.png') }}');"></div>
-                    <div class="auto-container">
-                        <div class="content-box">
-                            <span class="upper-text">Disponible 24/7</span>
-                            <h2>Meilleurs <span>Services</span> d'Ambulance</h2>
-                            <p>Ces services sont conçus pour atteindre les lieux d'une urgence <br />rapidement, équipé
-                                d'équipements médicaux de pointe.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </section>
+
+        {{-- Dynamic Partners Slider --}}
         <section class="brand-style-two pl_100 pr_100">
             <div class="outer-container b_radius pl_0">
                 <div class="brand-carousel owl-carousel owl-theme owl-dots-none owl-nav-none">
-                    <div class="brand-logo-box"><a href="index.html"><img
-                                src="{{ Vite::asset('resources/assets/images/brand/brand-1.png') }}" alt=""></a>
-                    </div>
-                    <div class="brand-logo-box"><a href="index.html"><img
-                                src="{{ Vite::asset('resources/assets/images/brand/brand-2.png') }}" alt=""></a>
-                    </div>
-                    <div class="brand-logo-box"><a href="index.html"><img
-                                src="{{ Vite::asset('resources/assets/images/brand/brand-3.png') }}" alt=""></a>
-                    </div>
-                    <div class="brand-logo-box"><a href="index.html"><img
-                                src="{{ Vite::asset('resources/assets/images/brand/brand-4.png') }}" alt=""></a>
-                    </div>
-                    <div class="brand-logo-box"><a href="index.html"><img
-                                src="{{ Vite::asset('resources/assets/images/brand/brand-5.png') }}" alt=""></a>
-                    </div>
+                    @forelse($partners as $partner)
+                        <div class="brand-logo-box">
+                            <a href="{{ $partner->website_url ?? '#' }}"
+                                {{ $partner->website_url ? 'target="_blank"' : '' }}>
+                                <img src="{{ $partner->logo_path ? Storage::url($partner->logo_path) : asset('assets/images/brand/default-brand.png') }}"
+                                    alt="{{ $partner->name }}">
+                            </a>
+                        </div>
+                    @empty
+                        {{-- Default static partners if no dynamic partners are found --}}
+                        <div class="brand-logo-box"><a href="index.html"><img
+                                    src="{{ Vite::asset('resources/assets/images/brand/brand-1.png') }}"
+                                    alt=""></a>
+                        </div>
+                        <div class="brand-logo-box"><a href="index.html"><img
+                                    src="{{ Vite::asset('resources/assets/images/brand/brand-2.png') }}"
+                                    alt=""></a>
+                        </div>
+                        <div class="brand-logo-box"><a href="index.html"><img
+                                    src="{{ Vite::asset('resources/assets/images/brand/brand-3.png') }}"
+                                    alt=""></a>
+                        </div>
+                        <div class="brand-logo-box"><a href="index.html"><img
+                                    src="{{ Vite::asset('resources/assets/images/brand/brand-4.png') }}"
+                                    alt=""></a>
+                        </div>
+                        <div class="brand-logo-box"><a href="index.html"><img
+                                    src="{{ Vite::asset('resources/assets/images/brand/brand-5.png') }}"
+                                    alt=""></a>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </section>
+
         <section class="about-style-three pl_100 pr_100 pt_120 pb_120">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-8.png);"></div>
             <div class="auto-container">
@@ -186,6 +193,7 @@
                 </div>
             </div>
         </section>
+
         <section class="processing-style-two pl_100 pr_100 centred">
             <div class="auto-container">
                 <div class="inner-container pt_90 pb_90">
@@ -231,30 +239,35 @@
                 </div>
             </div>
         </section>
+
+        {{-- Dynamic Phone Numbers Section --}}
+        @php
+            $phoneCount = count($settings->phones);
+            $colLg = $phoneCount > 0 ? floor(12 / $phoneCount) : 12;
+            $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12; // max 2 columns for md
+        @endphp
         <section class="support-style-two centred pl_100 pr_100 pb_90">
             <div class="auto-container">
                 <div class="row clearfix">
-                    <div class="col-lg-4 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <h5>Réservation d'urgence:</h5>
-                            <h2><a href="tel:912345431">+91 (234) 5431</a></h2>
+                    @forelse($settings->phones as $key => $phone)
+                        <div class="col-lg-{{ $colLg }} col-md-{{ $colMd }} col-sm-12 single-column">
+                            <div class="single-item">
+                                <h5>{{ $key }}:</h5>
+                                <h2>
+                                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a>
+                                </h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <h5>Réservation d'urgence:</h5>
-                            <h2><a href="tel:912345432">+91 (234) 5432</a></h2>
+                    @empty
+                        <div class="col-12 text-center">
+                            <p>Aucun numéro de téléphone de support configuré.</p>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 single-column">
-                        <div class="single-item">
-                            <h5>Réservation d'urgence:</h5>
-                            <h2><a href="tel:912345433">+91 (234) 5433</a></h2>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </section>
+
+        {{-- Dynamic Services Section --}}
         <section class="service-section">
             <div class="auto-container">
                 <div class="sec-title mb_50 centred">
@@ -264,128 +277,64 @@
                 <div class="tabs-box">
                     <div class="tab-btn-box">
                         <div class="tab-btns tab-buttons clearfix">
-                            <div class="tab-btn active-btn" data-tab="#tab-4">Service d'ambulance</div>
-                            <div class="tab-btn" data-tab="#tab-5">Ambulance de soins intensifs</div>
-                            <div class="tab-btn" data-tab="#tab-6">Ambulance aérienne</div>
-                            <div class="tab-btn" data-tab="#tab-7">Support médical</div>
+                            @foreach ($services as $index => $service)
+                                <div class="tab-btn {{ $index === 0 ? 'active-btn' : '' }}"
+                                    data-tab="#tab-{{ $service->id }}">
+                                    {{ $service->title }}
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="tabs-content">
                         <div class="shape"
                             style="background-image: url('{{ asset('assets/images/shape/shape-1.png') }}');"></div>
-                        <div class="tab active-tab" id="tab-4">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Service d'ambulance</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
+                        @forelse($services as $index => $service)
+                            <div class="tab {{ $index === 0 ? 'active-tab' : '' }}" id="tab-{{ $service->id }}">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                                        <div class="content-box">
+                                            <h2>{{ $service->title }}</h2>
+                                            <p>{{ $service->short_description ?? Str::limit(strip_tags($service->content), 200) }}
+                                            </p>
+                                            <ul class="list-style-one clearfix">
+                                                {{-- These list items are static placeholders. To make them dynamic,
+                                                    you would need a 'features_list' field in your Service model (e.g., JSON array). --}}
+                                                <li>Nécessité médicale</li>
+                                                <li>Paiement flexible</li>
+                                                <li>Assistance 24/7</li>
+                                                <li>Support client</li>
+                                                <li>Avantages supplémentaires</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="{{ asset('assets/images/service/service-1.jpg') }}"
-                                                alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-2.jpg" alt=""></figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab" id="tab-5">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Ambulance de soins intensifs</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-22.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-23.jpg" alt=""></figure>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                                        <div class="image-box pl_110 pb_50">
+                                            <figure class="image image-1 image-hov-one">
+                                                <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/default-service-tab-1.jpg') }}"
+                                                    alt="{{ $service->title }}">
+                                            </figure>
+                                            <figure class="image image-2 image-hov-two">
+                                                <img src="{{ asset('assets/images/service/service-2.jpg') }}"
+                                                    alt="">
+                                            </figure>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab" id="tab-6">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Ambulance aérienne</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-24.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-25.jpg" alt=""></figure>
+                        @empty
+                            <div class="tab active-tab" id="tab-default">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-12 text-center">
+                                        <p>Aucun service disponible pour le moment.</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab" id="tab-7">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                                    <div class="content-box">
-                                        <h2>Support médical</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis,
-                                            suscipit you take action against fraud. See it the Security Center for and
-                                            Mobile and Online Banking.</p>
-                                        <ul class="list-style-one clearfix">
-                                            <li>Nécessité médicale</li>
-                                            <li>Paiement flexible</li>
-                                            <li>Assistance 24/7</li>
-                                            <li>Support client</li>
-                                            <li>Avantages supplémentaires</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                    <div class="image-box pl_110 pb_50">
-                                        <figure class="image image-1 image-hov-one"><img
-                                                src="assets/images/service/service-26.jpg" alt=""></figure>
-                                        <figure class="image image-2 image-hov-two"><img
-                                                src="assets/images/service/service-27.jpg" alt=""></figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
         </section>
+
         <section class="funfact-style-three pl_100 pr_100 pb_40 pt_40">
             <div class="pattern-layer"
                 style="background-image: url('{{ asset('assets/images/shape/shape-8.png') }}');"></div>
@@ -438,6 +387,8 @@
                 </div>
             </div>
         </section>
+
+        {{-- Dynamic FAQ Section --}}
         <section class="faq-style-two pt_120 pb_120">
             <div class="bg-layer parallax-bg" data-parallax='{"y": 100}'
                 style="background-image: url('{{ asset('assets/images/background/faq-bg.jpg') }}');"></div>
@@ -454,7 +405,18 @@
                                     <h4>Vous avez d'autres questions ?</h4>
                                     <h2>Appelez-nous</h2>
                                 </div>
-                                <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
+                                {{-- Display first phone number from settings if available --}}
+                                @if ($settings && $settings->phones && count($settings->phones) > 0)
+                                    @php
+                                        $firstPhoneKey = array_key_first($settings->phones);
+                                        $firstPhoneNumber = $settings->phones[$firstPhoneKey];
+                                    @endphp
+                                    <h3><a
+                                            href="tel:{{ preg_replace('/[^0-9+]/', '', $firstPhoneNumber) }}">{{ $firstPhoneNumber }}</a>
+                                    </h3>
+                                @else
+                                    <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -462,71 +424,32 @@
                         <div class="content_block_six">
                             <div class="faq-content">
                                 <ul class="accordion-box">
-                                    <li class="accordion block">
-                                        <div class="acc-btn">
-                                            <h4>Comment puis-je me préparer à un entretien ?</h4>
-                                            <div class="icon-box"><i class="icon-27"></i></div>
-                                        </div>
-                                        <div class="acc-content">
-                                            <div class="text">
-                                                <p>Pour vous préparer à un entretien, recherchez l'entreprise, comprenez
-                                                    le rôle et les responsabilités du poste, et préparez des questions à
-                                                    poser à l'intervieweur.</p>
+                                    @forelse($faqs as $index => $faq)
+                                        <li class="accordion block {{ $index === 0 ? 'active-block' : '' }}">
+                                            <div class="acc-btn {{ $index === 0 ? 'active' : '' }}">
+                                                <h4>{{ $faq->question }}</h4>
+                                                <div class="icon-box"><i class="icon-27"></i></div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="accordion block active-block">
-                                        <div class="acc-btn active">
-                                            <h4>Embaucher des infirmières et des candidats ?</h4>
-                                            <div class="icon-box"><i class="icon-27"></i></div>
-                                        </div>
-                                        <div class="acc-content current">
-                                            <div class="text">
-                                                <p>Pour vous préparer à un entretien, recherchez l'entreprise, comprenez
-                                                    le rôle et les responsabilités du poste, et préparez des questions à
-                                                    poser à l'intervieweur.</p>
+                                            <div class="acc-content {{ $index === 0 ? 'current' : '' }}">
+                                                <div class="text">
+                                                    <p>{{ $faq->answer }}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="accordion block">
-                                        <div class="acc-btn">
-                                            <h4>Clarifier les concepts de recrutement ?</h4>
-                                            <div class="icon-box"><i class="icon-27"></i></div>
-                                        </div>
-                                        <div class="acc-content">
-                                            <div class="text">
-                                                <p>Pour vous préparer à un entretien, recherchez l'entreprise, comprenez
-                                                    le rôle et les responsabilités du poste, et préparez des questions à
-                                                    poser à l'intervieweur.</p>
+                                        </li>
+                                    @empty
+                                        <li class="accordion block">
+                                            <div class="acc-btn">
+                                                <h4>Aucune FAQ disponible pour le moment.</h4>
+                                                <div class="icon-box"><i class="icon-27"></i></div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="accordion block">
-                                        <div class="acc-btn">
-                                            <h4>Que recherchent les employeurs chez les candidats ?</h4>
-                                            <div class="icon-box"><i class="icon-27"></i></div>
-                                        </div>
-                                        <div class="acc-content">
-                                            <div class="text">
-                                                <p>Pour vous préparer à un entretien, recherchez l'entreprise, comprenez
-                                                    le rôle et les responsabilités du poste, et préparez des questions à
-                                                    poser à l'intervieweur.</p>
+                                            <div class="acc-content">
+                                                <div class="text">
+                                                    <p>Veuillez consulter l'administrateur pour ajouter des questions
+                                                        fréquemment posées.</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="accordion block">
-                                        <div class="acc-btn">
-                                            <h4>Que recherchent les médecins chez les candidats ?</h4>
-                                            <div class="icon-box"><i class="icon-27"></i></div>
-                                        </div>
-                                        <div class="acc-content">
-                                            <div class="text">
-                                                <p>Pour vous préparer à un entretien, recherchez l'entreprise, comprenez
-                                                    le rôle et les responsabilités du poste, et préparez des questions à
-                                                    poser à l'intervieweur.</p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @endforelse
                                 </ul>
                             </div>
                         </div>
@@ -534,11 +457,60 @@
                 </div>
             </div>
         </section>
+
+        {{-- Dynamic Footer Inclusion --}}
         @include('shared.footer')
 
     </div>
 
     @include('shared.js')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching logic for Services section (copied from services.blade.php)
+            const serviceTabButtons = document.querySelectorAll('.service-section .tabs-box .tab-btn');
+            const serviceTabContents = document.querySelectorAll('.service-section .tabs-box .tab');
+
+            serviceTabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    serviceTabButtons.forEach(btn => btn.classList.remove('active-btn'));
+                    serviceTabContents.forEach(content => content.classList.remove('active-tab'));
+
+                    this.classList.add('active-btn');
+                    const targetTabId = this.dataset.tab;
+                    document.querySelector(targetTabId).classList.add('active-tab');
+                });
+            });
+
+            // FAQ Accordion Logic (copied from welcome.blade.php's original JS or common JS)
+            const accordionButtons = document.querySelectorAll('.accordion-box .acc-btn');
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const parentBlock = this.closest('.accordion.block');
+                    const accContent = parentBlock.querySelector('.acc-content');
+
+                    if (parentBlock.classList.contains('active-block')) {
+                        parentBlock.classList.remove('active-block');
+                        this.classList.remove('active');
+                        accContent.style.display =
+                            'none'; // Or use slideUp/slideToggle if you have jQuery
+                    } else {
+                        // Close all other open accordions in the same box
+                        document.querySelectorAll('.accordion-box .active-block').forEach(
+                            openBlock => {
+                                openBlock.classList.remove('active-block');
+                                openBlock.querySelector('.acc-btn').classList.remove('active');
+                                openBlock.querySelector('.acc-content').style.display = 'none';
+                            });
+
+                        parentBlock.classList.add('active-block');
+                        this.classList.add('active');
+                        accContent.style.display = 'block'; // Or use slideDown
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

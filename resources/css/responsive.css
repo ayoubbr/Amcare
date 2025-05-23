@@ -1,41 +1,36 @@
 /* Responsive Css */
 
 
-@media only screen and (max-width: 1749px){
-
-}
+@media only screen and (max-width: 1749px) {}
 
 
-@media only screen and (max-width: 1499px){
-
-}
+@media only screen and (max-width: 1499px) {}
 
 
-@media only screen and (max-width: 1399px){
-
-}
+@media only screen and (max-width: 1399px) {}
 
 
-@media only screen and (max-width: 1299px){
-  .single-support-box{
+@media only screen and (max-width: 1299px) {
+  .single-support-box {
     padding-left: 15px;
     padding-right: 15px;
   }
 
-  .single-support-box .inner-box h5{
+  .single-support-box .inner-box h5 {
     font-size: 12px;
   }
 
-  .single-support-box .inner-box a{
+  .single-support-box .inner-box a {
     font-size: 13px;
   }
 }
 
 
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width: 1200px) {
+
   .main-menu,
   .sticky-header,
-  .main-header.style-one .outer-container:before{
+  .main-header.style-one .outer-container:before {
     display: none !important;
   }
 
@@ -44,112 +39,187 @@
     padding: 10px;
   }
 
-  .megamenu ul li:first-child{
+  .megamenu ul li:first-child {
     display: none;
   }
 
-  .support-style-two{
+  .support-style-two {
     padding-left: 0px;
     padding-right: 0px;
   }
 }
 
 
-@media only screen and (min-width: 768px){
-  .main-menu .navigation > li > ul,
-  .main-menu .navigation > li > ul > li > ul,
-  .main-menu .navigation > li > .megamenu{
-    display:block !important;
-    visibility:hidden;
-    opacity:0;
+@media only screen and (min-width: 768px) {
+
+  .main-menu .navigation>li>ul,
+  .main-menu .navigation>li>ul>li>ul,
+  .main-menu .navigation>li>.megamenu {
+    display: block !important;
+    visibility: hidden;
+    opacity: 0;
   }
 }
 
 
-@media only screen and (max-width: 991px){
-
-}
+@media only screen and (max-width: 991px) {}
 
 
-@media only screen and (max-width: 767px){
-  .sec-title h2{
+@media only screen and (max-width: 767px) {
+  .sec-title h2 {
     font-size: 36px;
     line-height: 44px;
   }
 
-  .sec-title h2 br{
+  .sec-title h2 br {
     display: none;
   }
 
-  .support-style-two{
+  .support-style-two {
     padding-bottom: 40px;
   }
 
-  .fluid-section{
+  .fluid-section {
     padding: 70px 0px;
   }
 
-  .support-style-two.pt_120{
+  .support-style-two.pt_120 {
     padding-top: 70px;
   }
 
-  .support-style-two .inner-container{
+  .support-style-two .inner-container {
     padding: 70px 0px 40px 0px;
   }
 
-  .support-style-two.p_0{
+  .support-style-two.p_0 {
     padding: 0px !important;
   }
 }
 
 
-@media only screen and (max-width: 599px){
-  .pagination li a{
+@media only screen and (max-width: 599px) {
+  .pagination li a {
     width: 40px;
     height: 40px;
     line-height: 40px;
   }
 
-  .search-popup .upper-box{
+  .search-popup .upper-box {
     padding-left: 30px;
     padding-right: 30px;
   }
 }
 
 
-@media only screen and (max-width: 499px){
+@media only screen and (max-width: 499px) {
+
   .mobile-menu,
-  .chat-popup{
+  .chat-popup {
     width: 100%;
   }
 
-  .support-style-two .single-item{
+  .support-style-two .single-item {
     padding-left: 20px;
     padding-right: 20px;
   }
 
-  .sec-title h2{
+  .sec-title h2 {
     font-size: 30px;
     line-height: 36px;
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .content_block_six .faq-content .accordion .acc-btn h4 {
+    /* FAQ Question Title */
+    font-size: 18px;
+    /* Original is 20px */
+    line-height: 26px;
+  }
 
+  .content_block_six .faq-content .accordion .acc-content .text p {
+    /* FAQ Answer Text */
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
 
+@media only screen and (max-width: 499px) {
+  .content_block_six .faq-content .accordion .acc-btn h4 {
+    /* FAQ Question Title */
+    font-size: 16px;
+    line-height: 24px;
+  }
 
+  .content_block_six .faq-content .accordion .acc-content .text p {
+    /* FAQ Answer Text */
+    font-size: 14px;
+    line-height: 22px;
+  }
 
+  /* Adjusting font sizes in the support box in the left column */
+  .faq-style-two .content-box .support-box h2 {
+    /* "Appelez-nous" text */
+    font-size: 30px;
+    /* Original is 36px */
+    line-height: 38px;
+  }
 
+  .faq-style-two .content-box .support-box h3 a {
+    /* Phone number */
+    font-size: 20px;
+    /* Original is 22px (for h3) */
+    line-height: 28px;
+  }
 
+  .faq-style-two .content-box .support-box .text-box h4 {
+    /* "Vous avez d'autres questions ?" */
+    font-size: 18px;
+    /* Original is 20px */
+    line-height: 22px;
+  }
+}
 
+/* Add to responsive.css */
 
+@media only screen and (max-width: 1200px) {
+  .faq-style-two .parallax-bg {
+    /* Target specifically within this section if needed */
+    left: 0;
+    width: 100%;
+    /* Adjust width relative to new left position, or use a percentage like 90% */
+  }
+}
 
+@media only screen and (max-width: 991px) {
+  .faq-style-two .parallax-bg {
+    /* Target specifically within this section if needed */
+    left: 0;
+    width: 100%;
+    /* Adjust width relative to new left position, or use a percentage like 90% */
+  }
+}
 
+@media only screen and (max-width: 767px) {
+  .faq-style-two .parallax-bg {
+    left: 0;
+    width: 100%;
+    top: -15%;
+    /* Adjust vertical position if content height changes significantly */
+    height: calc(100% + 20%);
+    /* Adjust height */
+  }
+}
 
-
-
-
-
-
-
-
-
+@media only screen and (max-width: 499px) {
+  .faq-style-two .parallax-bg {
+    left: 0;
+    width: 100%;
+    top: -5%;
+    /* Example adjustment */
+    height: calc(100% + 5%);
+    /* Example adjustment */
+    /* Optionally hide or simplify on very small screens if performance or layout is an issue */
+    /* display: none; */
+  }
+}

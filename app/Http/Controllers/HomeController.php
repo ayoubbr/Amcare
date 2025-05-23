@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         $services = Service::published()->ordered()->take(3)->get();
-        $events = Event::published()->upcoming()->take(3)->get();
+        $events = Event::published()->take(3)->get();
         $posts = BlogPost::published()->take(3)->get();
         $settings = Setting::first();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         $posts = BlogPost::published()
             ->with('category')
-            ->paginate(9);
+            ->paginate(1);
 
         $categories = Category::orderBy('name')->get();
 
@@ -102,7 +102,7 @@ class HomeController extends Controller
     public function about()
     {
         $page = Page::published()->where('slug', 'about-us')->first();
-        return view('front.about', compact('page'));
+        return view('about', compact('page'));
     }
 
     public function services()
@@ -157,5 +157,19 @@ class HomeController extends Controller
             ->get();
 
         return view('events-details', compact('event', 'relatedEvents', 'allEvents'));
+    }
+
+    public function faqs()
+    {
+        $faqs = Faq::orderBy('created_at', 'asc')
+            ->get();
+
+        return view('faqs', compact('faqs'));
+    }
+
+    public function contact()
+    {
+        $settings = Setting::first();
+        return view('contact', compact('settings'));
     }
 }

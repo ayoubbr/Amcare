@@ -10,8 +10,7 @@
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
     @vite('resources/css/font-awesome-all.css')
@@ -91,7 +90,7 @@
         @include('shared.header')
 
 
-        <section class="page-title centred">
+        {{-- <section class="page-title centred">
             <div class="bg-layer" style="background-image: url(assets/images/background/page-title-4.jpg);"></div>
             <div class="auto-container">
                 <div class="content-box">
@@ -102,7 +101,7 @@
                     <h1>Nous contacter</h1>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="support-style-two p_0 centred">
             <div class="auto-container">
                 <div class="inner-container pt_120 pb_90">
@@ -110,30 +109,38 @@
                         <span class="sub-title mb_12">Nous contacter</span>
                         <h2>Informations de contact</h2>
                     </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-4 col-md-6 col-sm-12 single-column">
-                            <div class="single-item">
-                                <h5>Réservation d'urgence :</h5>
-                                <h2><a href="tel:912345431">+91 (234) 5431</a></h2>
+                    {{-- Dynamic Phone Numbers Section --}}
+                    @php
+                        $phoneCount = count($settings->phones);
+                        $colLg = $phoneCount > 0 ? floor(12 / $phoneCount) : 12;
+                        $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12; // max 2 columns for md
+                    @endphp
+                    <section class="support-style-two centred pl_100 pr_100 pb_90">
+                        <div class="auto-container">
+                            <div class="row clearfix">
+                                @forelse($settings->phones as $key => $phone)
+                                    <div
+                                        class="col-lg-{{ $colLg }} col-md-{{ $colMd }} col-sm-12 single-column">
+                                        <div class="single-item">
+                                            <h5>{{ $key }}:</h5>
+                                            <h2>
+                                                <a
+                                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="col-12 text-center">
+                                        <p>Aucun numéro de téléphone de support configuré.</p>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 single-column">
-                            <div class="single-item">
-                                <h5>Réservation d'urgence :</h5>
-                                <h2><a href="tel:912345432">+91 (234) 5432</a></h2>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 single-column">
-                            <div class="single-item">
-                                <h5>Réservation d'urgence :</h5>
-                                <h2><a href="tel:912345433">+91 (234) 5433</a></h2>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </section>
-    
+
         @include('shared.footer')
 
     </div>
@@ -141,4 +148,6 @@
 
     @include('shared.js')
 
-</body></html>
+</body>
+
+</html>

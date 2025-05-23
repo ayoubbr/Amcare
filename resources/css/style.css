@@ -409,7 +409,7 @@ img {
     position: absolute;
     left: 100px;
     top: -30%;
-    width: 86.79%;
+    width: calc(100% - 200px);
     height: calc(100% + 30%);
     background-size: cover;
     background-repeat: no-repeat;
@@ -425,14 +425,15 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
+  justify-content: center;
 }
 
-.pagination li{
+/* .pagination li{
   position: relative;
   display: inline-block;
-}
+} */
 
-.pagination li a{
+/* .pagination li a{
   position: relative;
   display: inline-block;
   font-size: 16px;
@@ -448,18 +449,18 @@ img {
   border: 1px solid #e5e5e5;
   z-index: 1;
   transition: all 500ms ease;
-}
+} */
 
-.pagination li a:hover,
+/* .pagination li a:hover,
 .pagination li a.current{
   color: #fff;
-}
+} */
 
-.pagination li a i{
+/* .pagination li a i{
   position: relative;
   display: inline-block;
   font-size: 12px;
-}
+} */
 
 .sec-pad{
   padding: 142px 0px 150px 0px;

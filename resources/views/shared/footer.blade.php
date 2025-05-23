@@ -36,9 +36,9 @@
                         </div>
                         <div class="widget-content">
                             <ul class="links-list clearfix">
-                                <li><a href="{{url('events')}}">Événements</a></li>
+                                <li><a href="{{ url('events') }}">Événements</a></li>
                                 <li><a href="{{ url('contact') }}">Contactez-nous</a></li>
-                                <li><a href="{{url('blogs')}}">Blog</a></li>
+                                <li><a href="{{ url('blog') }}">Blog</a></li>
                             </ul>
                         </div>
                     </div>
@@ -46,9 +46,11 @@
                 <div class="col-lg-3 col-md-4 col-sm-12 footer-column">
                     <div class="footer-widget contact-widget">
                         <div class="widget-content">
-                            <figure class="image-box mb_25"><img src="{{asset('assets/images/resource/ambulance-3.png')}}"
-                                    alt=""></figure>
-                            <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
+                            <figure class="image-box mb_25"><img
+                                    src="{{ asset('assets/images/resource/ambulance-3.png') }}" alt=""></figure>
+                            <h3><a
+                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? '+91 (234) 5432' }}</a>
+                            </h3>
                         </div>
                     </div>
                 </div>
