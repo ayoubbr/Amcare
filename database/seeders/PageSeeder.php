@@ -13,58 +13,21 @@ class PageSeeder extends Seeder
      */
     public function run(): void
     {
-        $slides = [
-            [
-                'logo' => '<img src="https://cdn-icons-png.freepik.com/256/15228/15228159.png?uid=R120847014&ga=GA1.1.1306162642.1747995481&semt=ais_hybrid" width="40" alt="Ambulance Icon">',
-                'title' => 'Transport sécurisé',
-                'description' => 'Les services de transport sécurisé d`\Ambulance Team jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.'
-            ],
-            [
-                'logo' => '<img src="https://cdn-icons-png.freepik.com/256/13641/13641122.png?uid=R120847014&ga=GA1.1.1306162642.1747995481&semt=ais_hybrid" width="40" alt="Urgence Icon">',
-                'title' => 'Service sur demande',
-                'description' => 'Les services de transport sécurisé d`\Ambulance Team jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.'
-            ],
-            [
-                'logo' => '<img src="https://cdn-icons-png.freepik.com/256/10190/10190889.png?uid=R120847014&ga=GA1.1.1306162642.1747995481&semt=ais_hybrid" width="40" alt="Transport Icon">',
-                'title' => 'Transport d\'urgence',
-                'description' => 'Les services de transport sécurisé d\'Ambulance Team jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.'
-            ],
-        ];
-
-
-        $questions = [
-            [
-                'question' => 'C\'est quoi l\'urgance?',
-                'reponse' => 'C\'est avoir une situation compliquée',
-            ],
-            [
-                'question' => 'Comment sauver la vie de quelqu\'un?',
-                'reponse' => 'Par nous appelée dans les numéros qui existe dans les services',
-            ],
-            [
-                'question' => 'Où est-t-il votre local?',
-                'reponse' => 'A Marrakech',
-            ],
-        ];
-    
-        Page::create([
-            'title' => 'About',
-            'slug' => 'about',
-            'content' => '<h1>Qui sommes-nous</h1>',
-            'meta_title' => 'About - Ambulance Team',
-            'description' => json_encode($slides),
-            'image' => '<div> Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/lakonicon" title="lakonicon"> lakonicon </a> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>',
-            'is_published' => true,
-        ]);
-
-        Page::create([
-            'title' => 'FAQ',
-            'slug' => 'faq',
-            'content' => '<h1>Questions/Réponses</h1>',
-            'meta_title' => 'FAQ - Ambulance Team',
-            'description' => json_encode($questions),
-            'image' => '<div> Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/lakonicon" title="lakonicon"> lakonicon </a> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>',
-            'is_published' => true,
-        ]);
+        if (!\App\Models\Page::where('slug', 'about')->exists()) {
+            \App\Models\Page::create([
+                'title' => 'About Us',
+                'slug' => 'about',
+                'content' => 'Chez Amcare, nous sommes fiers d\'offrir l\'excellence dans les services médicaux d\'urgence. Notre équipe de professionnels hautement qualifiés et expérimentés est dédiée à fournir des soins rapides, compatissants et efficaces à ceux qui en ont besoin. Nous comprenons que les urgences médicales peuvent être stressantes et bouleversantes, c\'est pourquoi nous nous efforçons de rendre l\'expérience aussi fluide et rassurante que possible pour nos patients et leurs familles.',
+                'meta_title' => 'À Propos de Amcare - Services Médicaux d\'Urgence',
+                'meta_description' => 'Découvrez Amcare, votre partenaire de confiance pour des services médicaux d\'urgence rapides et fiables. Apprenez-en plus sur notre mission et notre équipe.',
+                'description' => json_encode([
+                    'Les équipes inclusives prennent en compte un plus large éventail de points de vue',
+                    'Démontrer un engagement envers la diversité et l\'inclusion améliore',
+                    'Adopter la diversité est conforme aux normes légales et éthiques'
+                ]),
+                'image' => null, 
+                'is_published' => true,
+            ]);
+        }
     }
 }

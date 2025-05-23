@@ -59,15 +59,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('faqs', FaqController::class);
 
-    Route::resource('slider-images', SliderImageController::class); // New route for slider images
-    Route::resource('partners', PartnerController::class); // New route for partners
+    Route::resource('slider-images', SliderImageController::class); 
+    Route::resource('partners', PartnerController::class);
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
 
-    Route::get('/pages', [PageController::class, 'index'])->name('pageSection');
-    Route::get('/pages/{page}', [PageController::class, 'show'])->name('pageSection');
-    Route::put('/pages/{id}', [PageController::class, 'update'])->name('pageSection');
+    Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
 });
 
 

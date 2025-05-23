@@ -101,8 +101,14 @@ class HomeController extends Controller
 
     public function about()
     {
-        $page = Page::published()->where('slug', 'about-us')->first();
-        return view('about', compact('page'));
+        $page = Page::published()->where('slug', 'a-propos')->where('is_published', true)->first();
+        $settings = Setting::first();
+        
+        if (!$page) {
+            abort(404, 'Page not found');
+        }
+
+        return view('about', compact('page', 'settings'));
     }
 
     public function services()
