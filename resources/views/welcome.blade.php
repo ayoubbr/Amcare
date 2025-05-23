@@ -401,7 +401,7 @@
                                 <h2>Question les plus fréquentes</h2>
                             </div>
                             <div class="support-box">
-                                <div class="text-box">
+                                <div class="text-box"  style="    padding: 15px;">
                                     <h4>Vous avez d'autres questions ?</h4>
                                     <h2>Appelez-nous</h2>
                                 </div>

@@ -42,7 +42,7 @@ class AuthController extends Controller
     public function loginForm()
     {
         if (!session('admin_access_granted')) {
-            return redirect()->route('auth.access');
+            return redirect()->route('admin.access');
         }
         return view('auth.adminLogin');
     }

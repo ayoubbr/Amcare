@@ -37,10 +37,7 @@ Route::get('/admin-login', [AuthController::class, 'loginForm'])->name('admin.lo
 Route::post('/admin-login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-require __DIR__ . '/auth.php';
-
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -59,16 +56,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('faqs', FaqController::class);
 
-    Route::resource('slider-images', SliderImageController::class); 
+    Route::resource('slider-images', SliderImageController::class);
     Route::resource('partners', PartnerController::class);
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
 
     Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout-get', [AuthController::class, 'logout'])->name('logout.get');
 });
-
-
+    
 
 Route::get('not-found', function () {
     return view('errors.404');

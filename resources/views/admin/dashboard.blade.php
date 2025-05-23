@@ -577,16 +577,6 @@
                                     placeholder="Titre principal du slider">
                             </div>
                             <div class="form-group">
-                                <label for="sliderImageSubtitle">Sous-titre</label>
-                                <input type="text" class="form-control" name="subtitle" id="sliderImageSubtitle"
-                                    placeholder="Sous-titre (optionnel)">
-                            </div>
-                            <div class="form-group">
-                                <label for="sliderImageDescription">Description</label>
-                                <textarea class="form-control" name="description" id="sliderImageDescription" rows="3"
-                                    placeholder="Description (optionnel)"></textarea>
-                            </div>
-                            <div class="form-group">
                                 <label for="sliderImageOrder">Ordre d'affichage</label>
                                 <input type="number" class="form-control" name="order" id="sliderImageOrder"
                                     value="0">
@@ -758,7 +748,6 @@
                                         data-short-description="{{ $service->short_description }}"
                                         data-content="{{ $service->content }}"
                                         data-image="{{ $service->image ? Storage::url($service->image) : '' }}"
-                                        data-whatsapp-number="{{ $service->whatsapp_number ?? '' }}"
                                         data-order="{{ $service->order }}"
                                         data-is-published="{{ $service->is_published ? 'true' : 'false' }}">
                                         <td>{{ $service->id }}</td>
@@ -808,11 +797,6 @@
                                     class="current-image-preview" style="display:none;">
                             </div>
                             <div class="form-group">
-                                <label for="serviceWhatsappNumber">Numéro WhatsApp</label>
-                                <input type="text" class="form-control" name="whatsapp_number"
-                                    id="serviceWhatsappNumber" placeholder="Ex: +1234567890">
-                            </div>
-                            <div class="form-group">
                                 <label for="serviceOrder">Ordre d'affichage</label>
                                 <input type="number" class="form-control" name="order" id="serviceOrder"
                                     value="0">
@@ -844,7 +828,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($zones as $zone)
-                                    <tr data-entity="zones" data-id="{{ $zone->id }}"
+                                    <tr data-entity="zone" data-id="{{ $zone->id }}"
                                         data-name="{{ $zone->name }}" data-code="{{ $zone->code ?? '' }}"
                                         data-description="{{ $zone->description ?? '' }}"
                                         data-is-active="{{ $zone->is_active ? 'true' : 'false' }}">
@@ -1470,6 +1454,7 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalBlogPostIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalBlogPostIsPublished">Publié</label>
@@ -1532,6 +1517,7 @@
                                     <input type="file" class="form-control" name="image" id="modalEventImage">
                                     <input type="hidden" name="remove_image_event" id="modalEventRemoveImageFlag" value="0">
                                 </div>
+                                <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalEventIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalEventIsPublished">Publié</label>
@@ -1594,13 +1580,10 @@
                                     <input type="hidden" name="remove_image_service" id="modalServiceRemoveImageFlag" value="0">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modalServiceWhatsappNumber">Numéro WhatsApp</label>
-                                    <input type="text" class="form-control" name="whatsapp_number" id="modalServiceWhatsappNumber" value="${data.whatsappNumber || ''}">
-                                </div>
-                                <div class="form-group">
                                     <label for="modalServiceOrder">Ordre d'affichage</label>
                                     <input type="number" class="form-control" name="order" id="modalServiceOrder" value="${data.order || '0'}">
                                 </div>
+                                 <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalServiceIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalServiceIsPublished">Publié</label>
@@ -1634,6 +1617,7 @@
                                     <label for="modalZoneDescription">Description</label>
                                     <textarea class="form-control" name="description" id="modalZoneDescription" rows="3">${data.description || ''}</textarea>
                                 </div>
+                                <input type="hidden" name="is_active" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_active" id="modalZoneIsActive" value="1" ${data.isActive === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalZoneIsActive">Active</label>
@@ -1653,14 +1637,6 @@
                                     <input type="text" class="form-control" name="title" id="modalSliderImageTitle" value="${data.title || ''}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modalSliderImageSubtitle">Sous-titre</label>
-                                    <input type="text" class="form-control" name="subtitle" id="modalSliderImageSubtitle" value="${data.subtitle || ''}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="modalSliderImageDescription">Description</label>
-                                    <textarea class="form-control" name="description" id="modalSliderImageDescription" rows="2">${data.description || ''}</textarea>
-                                </div>
-                                <div class="form-group">
                                     <label for="modalSliderImageOrder">Ordre d'affichage</label>
                                     <input type="number" class="form-control" name="order" id="modalSliderImageOrder" value="${data.order || '0'}">
                                 </div>
@@ -1670,6 +1646,7 @@
                                     <input type="file" class="form-control" name="image_path" id="modalSliderImageFile">
                                     <input type="hidden" name="remove_image_slider" id="modalSliderRemoveImageFlag" value="0">
                                 </div>
+                                <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalSliderImageIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalSliderImageIsPublished">Publié</label>
@@ -1711,6 +1688,7 @@
                                     <input type="file" class="form-control" name="logo_path" id="modalPartnerLogo">
                                     <input type="hidden" name="remove_logo_partner" id="modalPartnerRemoveImageFlag" value="0">
                                 </div>
+                                <input type="hidden" name="is_published" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_published" id="modalPartnerIsPublished" value="1" ${data.isPublished === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalPartnerIsPublished">Publié</label>
@@ -1853,7 +1831,7 @@
                         deleteForm.innerHTML = `
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        `;
+                            `;
                         document.body.appendChild(deleteForm);
                         deleteForm.submit();
                     }
