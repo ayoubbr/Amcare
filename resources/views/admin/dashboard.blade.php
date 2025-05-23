@@ -14,7 +14,7 @@
         rel="stylesheet">
 
 
-    @vite('resources/css/admin.css') {{-- Custom admin styles --}}
+    @vite('resources/css/admin.css')
     @vite('resources/css/font-awesome-all.css')
     @vite('resources/css/owl.css')
     @vite('resources/css/flaticon.css')
@@ -32,21 +32,14 @@
         /* Styles pour le modal d'édition */
         .modal {
             display: none;
-            /* Hidden by default */
             position: fixed;
-            /* Stay in place */
             z-index: 1000;
-            /* Sit on top */
             left: 0;
             top: 0;
             width: 100%;
-            /* Full width */
             height: 100%;
-            /* Full height */
             overflow: auto;
-            /* Enable scroll if needed */
             background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
             justify-content: center;
             align-items: center;
         }
@@ -177,6 +170,115 @@
             background-color: #f2dede;
             border-color: #ebccd1;
         }
+
+        /* Styles for dynamic phone inputs */
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .phone-input-group input {
+            flex: 1;
+        }
+
+        .phone-input-group .btn-remove-phone {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .phone-input-group .btn-remove-phone:hover {
+            background-color: #c82333;
+        }
+
+        /* Specific styles for the settings section */
+        #settings .setting-form-container {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #settings .setting-form-container h4 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--title-color);
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        #settings .form-group label {
+            font-weight: 600;
+            color: var(--title-color);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        #settings .form-group input[type="text"],
+        #settings .form-group input[type="email"],
+        #settings .form-group textarea,
+        #settings .form-group input[type="file"] {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: border-color 0.3s ease;
+        }
+
+        #settings .form-group input:focus,
+        #settings .form-group textarea:focus {
+            border-color: var(--theme-color);
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(var(--theme-color-rgb), .25);
+        }
+
+        #settings .btn-primary,
+        #settings .btn-secondary {
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #settings .btn-primary {
+            background-color: var(--theme-color);
+            color: #fff;
+            border: none;
+        }
+
+        #settings .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        #settings .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+        }
+
+        #settings .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        #settings .form-group.d-flex {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #settings .form-group.d-flex img {
+            max-height: 80px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
     </style>
 </head>
 
@@ -217,9 +319,9 @@
                         <li class="logout-item">
                             <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                 @csrf
-                                    <button type="submit" class="logout-button">
-                                        <i class="fas fa-sign-out-alt"></i> Déconnexion
-                                    </button>
+                                <button type="submit" class="logout-button">
+                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -463,28 +565,29 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Question</th>
+                                    <th>Reponse</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Assuming a $faqs variable is passed from controller --}}
-                                {{-- @foreach ($faqs as $faq)
+                                @foreach ($faqs as $faq)
                                     <tr data-entity="faqs" data-id="{{ $faq->id }}"
                                         data-question="{{ $faq->question }}" data-answer="{{ $faq->answer }}">
                                         <td>{{ $faq->id }}</td>
                                         <td>{{ $faq->question }}</td>
+                                        <td>{{ $faq->answer }}</td>
                                         <td class="action-buttons">
                                             <button class="btn btn-edit">Modifier</button>
                                             <button class="btn btn-delete">Supprimer</button>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="form-section mt-4" style="display: none;" id="faq-form">
                         <h4>Ajouter une nouvelle FAQ</h4>
-                        <form action="" method="POST">
+                        <form action="{{ route('admin.faqs.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="faqQuestion">Question</label>
@@ -608,7 +711,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($zones as $zone)
-                                    <tr data-entity="zone" data-id="{{ $zone->id }}"
+                                    <tr data-entity="zones" data-id="{{ $zone->id }}"
                                         data-name="{{ $zone->name }}" data-code="{{ $zone->code ?? '' }}"
                                         data-description="{{ $zone->description ?? '' }}"
                                         data-is-active="{{ $zone->is_active ? 'true' : 'false' }}">
@@ -656,62 +759,14 @@
                     </div>
                 </section>
 
-                <section id="settings" class="admin-section" style="display: none;">
-                    <h3>Gestion des Paramètres du Site</h3>
-                    <button class="btn-add-new" data-target-form="setting-form">Ajouter/Modifier les
-                        paramètres</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nom du Site</th>
-                                    <th>Téléphone</th>
-                                    <th>Email</th>
-                                    <th>Logo</th>
-                                    <th>Texte de Pied de Page</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($settings)
-                                    <tr data-entity="settings" data-id="{{ $settings->id }}"
-                                        data-site-name="{{ $settings->site_name }}"
-                                        data-phone="{{ $settings->phone ?? '' }}"
-                                        data-email="{{ $settings->email ?? '' }}"
-                                        data-logo="{{ $settings->logo ? Storage::url($settings->logo) : '' }}"
-                                        data-footer-text="{{ $settings->footer_text ?? '' }}">
-                                        <td>{{ $settings->id }}</td>
-                                        <td>{{ $settings->site_name }}</td>
-                                        <td>{{ $settings->phone ?? 'N/A' }}</td>
-                                        <td>{{ $settings->email ?? 'N/A' }}</td>
-                                        <td>
-                                            @if ($settings->logo)
-                                                <img src="{{ Storage::url($settings->logo) }}" alt="Logo"
-                                                    style="max-height: 50px;">
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                        <td>{{ $settings->footer_text ?? 'N/A' }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td colspan="7">Aucun paramètre de site configuré.</td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="setting-form">
-                        <h4>Ajouter/Modifier les Paramètres du Site</h4>
+                <section id="settings" class="admin-section">
+                    <h3>Paramètres du Site</h3>
+                    <div class="setting-form-container mt-4">
+                        <h4>Gérer les Paramètres Généraux</h4>
                         <form action="{{ route('admin.settings.store') }}" method="POST"
-                            enctype="multipart/form-data"> {{-- Assuming admin.settings.store route exists --}}
+                            enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id" value="{{ $settings->id ?? '' }}">
                             <div class="form-group">
                                 <label for="siteName">Nom du Site</label>
                                 <input type="text" class="form-control" name="site_name" id="siteName"
@@ -719,32 +774,51 @@
                                     required>
                             </div>
                             <div class="form-group">
-                                <label for="sitePhone">Téléphone</label>
-                                <input type="text" class="form-control" name="phone" id="sitePhone"
-                                    placeholder="Entrez le numéro de téléphone" value="{{ $settings->phone ?? '' }}">
-                            </div>
-                            <div class="form-group">
                                 <label for="siteEmail">Email</label>
                                 <input type="email" class="form-control" name="email" id="siteEmail"
                                     placeholder="Entrez l'adresse email" value="{{ $settings->email ?? '' }}">
                             </div>
-                            <div class="form-group">
-                                <label for="siteLogo">Logo @if ($settings && $settings->logo)
-                                        (actuel: <a href="{{ Storage::url($settings->logo) }}"
-                                            target="_blank">Voir</a>)
-                                    @else
-                                        (N/A)
-                                    @endif
-                                </label>
-                                <input type="file" class="form-control" name="logo" id="siteLogo">
+                            <div class="form-group d-flex align-items-center">
+                                <label for="siteLogo" class="mb-0 mr-3">Logo</label>
+                                @if ($settings && $settings->logo)
+                                    <img src="{{ Storage::url($settings->logo) }}" alt="Logo actuel"
+                                        class="img-thumbnail mr-3" style="max-height: 80px;">
+                                    <a href="{{ Storage::url($settings->logo) }}" target="_blank"
+                                        class="btn btn-sm btn-info mr-2">Voir actuel</a>
+                                @else
+                                    <span class="text-muted mr-3">Aucun logo actuel</span>
+                                @endif
+                                <input type="file" class="form-control-file" name="logo" id="siteLogo">
                             </div>
+
+                            <div class="form-group">
+                                <label>Numéros de Téléphone</label>
+                                <div id="phone-numbers-container">
+                                    @if ($settings && $settings->phones)
+                                        @foreach ($settings->phones as $key => $value)
+                                            <div class="phone-input-group">
+                                                <input type="text" class="form-control" name="phone_keys[]"
+                                                    placeholder="Clé (ex: Support)" value="{{ $key }}"
+                                                    style="width: 40%;">
+                                                <input type="text" class="form-control" name="phone_values[]"
+                                                    placeholder="Numéro (ex: +1234567890)"
+                                                    value="{{ $value }}" style="width: 40%;">
+                                                <button type="button" class="btn btn-danger btn-remove-phone"
+                                                    style="width: 20%;">Supprimer</button>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <button type="button" id="add-phone-button" class="btn btn-info mt-2">Ajouter un
+                                    numéro</button>
+                            </div>
+
                             <div class="form-group">
                                 <label for="siteFooterText">Texte de Pied de Page</label>
                                 <textarea class="form-control" name="footer_text" id="siteFooterText" rows="3"
                                     placeholder="Entrez le texte du pied de page">{{ $settings->footer_text ?? '' }}</textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer les Paramètres</button>
                         </form>
                     </div>
                 </section>
@@ -752,7 +826,7 @@
             </main>
         </div>
 
-        @include('shared.js') {{-- Assuming 'js' includes necessary scripts like jQuery for accordion/tabs --}}
+        @include('shared.js')
 
         <div id="editModal" class="modal">
             <div class="modal-content">
@@ -802,7 +876,8 @@
                 document.querySelector('#faqs').style.display = 'none';
                 document.querySelector('#services').style.display = 'none';
                 document.querySelector('#zones').style.display = 'none';
-                document.querySelector('#settings').style.display = 'none';
+                document.querySelector('#settings').style.display =
+                    'none'; // Keep settings hidden initially, JS will show it on tab click
 
 
                 // Handle sidebar navigation clicks
@@ -824,6 +899,24 @@
                         // Show the target section
                         const targetId = this.getAttribute('href');
                         document.querySelector(targetId).style.display = 'block';
+
+                        // Special handling for settings section to initialize phone numbers
+                        if (targetId === '#settings') {
+                            const phonesContainer = document.getElementById('phone-numbers-container');
+                            phonesContainer.innerHTML =
+                                ''; // Clear existing fields to avoid duplication
+
+                            const settingsData =
+                                {!! json_encode($settings ?? []) !!}; // Get settings data from Blade
+                            const phonesData = settingsData.phones || {};
+
+                            for (const key in phonesData) {
+                                if (Object.hasOwnProperty.call(phonesData, key)) {
+                                    addPhoneNumberField('phone-numbers-container', key, phonesData[
+                                        key]);
+                                }
+                            }
+                        }
                     });
                 });
 
@@ -859,7 +952,47 @@
                     });
                 });
 
-                // Modal Logic (Edit Modal)
+                // Function to add a phone number field dynamically (for both main settings form and modal)
+                function addPhoneNumberField(containerId, key = '', value = '') {
+                    const container = document.getElementById(containerId);
+                    const div = document.createElement('div');
+                    div.classList.add('phone-input-group');
+                    div.innerHTML = `
+                        <input type="text" class="form-control" name="phone_keys[]" placeholder="Clé (ex: Support)" value="${key}" style="width: 40%;">
+                        <input type="text" class="form-control" name="phone_values[]" placeholder="Numéro (ex: +1234567890)" value="${value}" style="width: 40%;">
+                        <button type="button" class="btn btn-danger btn-remove-phone" style="width: 20%;">Supprimer</button>
+                    `;
+                    container.appendChild(div);
+
+                    div.querySelector('.btn-remove-phone').addEventListener('click', function() {
+                        div.remove();
+                    });
+                }
+
+                // Initial population for the main settings form (when the page loads and settings tab is active)
+                // This will run only once when the DOM is ready.
+                const initialSettingsTab = document.querySelector('.admin-sidebar nav ul li a[href="#settings"]');
+                if (initialSettingsTab && initialSettingsTab.classList.contains('active')) {
+                    const phonesContainer = document.getElementById('phone-numbers-container');
+                    phonesContainer.innerHTML = ''; // Clear existing fields to avoid duplication
+
+                    const settingsData = {!! json_encode($settings ?? []) !!};
+                    const phonesData = settingsData.phones || {};
+
+                    for (const key in phonesData) {
+                        if (Object.hasOwnProperty.call(phonesData, key)) {
+                            addPhoneNumberField('phone-numbers-container', key, phonesData[key]);
+                        }
+                    }
+                }
+
+                // Add event listener for the "Add Phone" button in the main settings form
+                document.getElementById('add-phone-button').addEventListener('click', function() {
+                    addPhoneNumberField('phone-numbers-container');
+                });
+
+
+                // Modal Logic (Edit Modal - for other sections)
                 const editModal = document.getElementById('editModal');
                 const closeEditModalButton = editModal.querySelector('.close-button');
                 const modalCancelButton = document.getElementById('modalCancel');
@@ -965,7 +1098,7 @@
                             break;
                         case 'faqs':
                             modalTitle.textContent = 'Modifier la FAQ';
-                            actionRoute = `/admin/faqs/${data.id}`; // Assuming admin.faqs.update route exists
+                            actionRoute = `/admin/faqs/${data.id}`;
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
@@ -1019,7 +1152,7 @@
                                 </div>
                             `;
                             break;
-                        case 'zone':
+                        case 'zones':
                             modalTitle.textContent = 'Modifier la Zone';
                             actionRoute = `/admin/zone/${data.id}`; // Assuming admin.zone.update route exists
                             formHtml = `
@@ -1036,40 +1169,14 @@
                                     <label for="modalZoneDescription">Description</label>
                                     <textarea class="form-control" name="description" id="modalZoneDescription" rows="3">${data.description || ''}</textarea>
                                 </div>
+                                <input type="hidden" name="is_active" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_active" id="modalZoneIsActive" value="1" ${data.isActive === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalZoneIsActive">Active</label>
                                 </div>
                             `;
                             break;
-                        case 'settings':
-                            modalTitle.textContent = 'Modifier les Paramètres du Site';
-                            actionRoute = `/admin/settings/${data.id}`; // Assuming admin.settings.update route exists
-                            currentImage = data.logo;
-                            formHtml = `
-                                <input type="hidden" name="id" value="${data.id || ''}">
-                                <div class="form-group">
-                                    <label for="modalSiteName">Nom du Site</label>
-                                    <input type="text" class="form-control" name="site_name" id="modalSiteName" value="${data.siteName || ''}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="modalSitePhone">Téléphone</label>
-                                    <input type="text" class="form-control" name="phone" id="modalSitePhone" value="${data.phone || ''}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="modalSiteEmail">Email</label>
-                                    <input type="email" class="form-control" name="email" id="modalSiteEmail" value="${data.email || ''}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="modalSiteLogo">Logo ${currentImage ? '(actuel: <a href="' + currentImage + '" target="_blank">Voir</a>)' : '(N/A)'}</label>
-                                    <input type="file" class="form-control" name="logo" id="modalSiteLogo">
-                                </div>
-                                <div class="form-group">
-                                    <label for="modalSiteFooterText">Texte de Pied de Page</label>
-                                    <textarea class="form-control" name="footer_text" id="modalSiteFooterText" rows="3">${data.footerText || ''}</textarea>
-                                </div>
-                            `;
-                            break;
+                            // The settings case is removed from the modal logic as it will be a direct form
                         default:
                             formHtml = '<p>Aucune donnée de formulaire disponible pour ce type d\'entité.</p>';
                             break;
@@ -1096,7 +1203,17 @@
                         const entityType = row.dataset.entity;
                         const data = row.dataset;
 
-                        openEditModal(entityType, data);
+                        // Only open modal for non-settings entities
+                        if (entityType !== 'settings') {
+                            openEditModal(entityType, data);
+                        } else {
+                            // For settings, directly show the form (it's already visible if tab is active)
+                            // and ensure it's populated. This part is handled by the tab click logic.
+                            // If user clicks "Modifier" on settings table row, it should just ensure the form is shown
+                            // and potentially re-populate it (though it should already be).
+                            document.querySelector('.admin-sidebar nav ul li a[href="#settings"]')
+                                .click();
+                        }
                     });
                 });
 
@@ -1146,6 +1263,16 @@
                         const row = this.closest('tr');
                         const entityId = row.dataset.id;
                         const entityType = row.dataset.entity;
+
+                        // Prevent deletion of settings via the modal
+                        if (entityType === 'settings') {
+                            // Optionally show a message or do nothing
+                            console.warn(
+                                "Cannot delete settings via this button. Please manage settings directly."
+                            );
+                            return;
+                        }
+
                         openDeleteConfirmationModal(entityId, entityType);
                     });
                 });

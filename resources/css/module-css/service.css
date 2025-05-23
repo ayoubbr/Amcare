@@ -35,12 +35,12 @@
   transition: all 500ms ease;
 }
 
-.service-section .tab-btns .tab-btn:first-child {
-  border-radius: 20px 0px 0px 20px;
-}
-
 .service-section .tab-btns .tab-btn:last-child {
   border-radius: 0px 20px 20px 0px;
+}
+
+.service-section .tab-btns .tab-btn:first-child {
+  border-radius: 20px 0px 0px 20px;
 }
 
 .service-section .tab-btns .tab-btn.active-btn {

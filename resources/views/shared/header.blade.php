@@ -30,31 +30,38 @@
                                 <li class="{{ request()->is('/') ? 'current' : '' }}"><a
                                         href="{{ route('home') }}">Accueil</a>
                                 </li>
-                                <li class="dropdown {{ request()->is('services') ? 'current' : '' }}"><a
-                                        href="{{ route('services') }}">Services</a>
+                                <li class="dropdown {{ request()->is('services') ? 'current' : '' }}">
+                                    <a href="{{ url('services') }}">Services</a>
                                     <ul>
-                                        <li><a href="{{ url('services/1') }}">Ambulance routière</a></li>
-                                        <li><a href="{{ url('services/2') }}">Ambulance aérienne</a></li>
-                                        <li><a href="{{ url('services/3') }}">Ambulance nautique</a></li>
-                                        <li><a href="{{ url('services/4') }}">Urgence médicale</a></li>
-                                        <li><a href="{{ url('services/5') }}">Accident de la route</a></li>
-                                        <li><a href="{{ url('services/6') }}">Ambulance de soins intensifs</a></li>
+                                        @forelse($services as $service)
+                                            <li>
+                                                <a href="{{ route('service', $service->id) }}">
+                                                    {{ $service->title }}
+                                                </a>
+                                            </li>
+                                        @empty
+                                            <div class="col-lg-12">
+                                                <p>Aucun service pour le moment.</p>
+                                            </div>
+                                        @endforelse
                                     </ul>
                                 </li>
                                 <li class="dropdown {{ request()->is('events') ? 'current' : '' }}"><a
                                         href="{{ url('events') }}">Événements</a>
                                     <ul>
-                                        <li><a href="{{ url('events/1') }}">Idées de soins de santé</a></li>
-                                        <li><a href="{{ url('events/1') }}">Crise cardiaque réelle</a></li>
-                                        <li><a href="{{ url('events/1') }}">Informations sur le sang</a></li>
-                                        <li><a href="{{ url('events/1') }}">Soins infirmiers</a></li>
-                                        <li><a href="{{ url('events/1') }}">Support d'anesthésie</a></li>
+                                        @forelse($events as $event)
+                                            <li><a href="{{ route('event', $event->slug) }}">{{ $event->title }}</a>
+                                            </li>
+                                        @empty
+                                            <div class="col-lg-12">
+                                                <p>Aucun événement pour le moment.</p>
+                                            </div>
+                                        @endforelse
                                     </ul>
                                 </li>
-                                <li class="{{ request()->is('blogs') ? 'current' : '' }}">
-                                    <a href="{{ url('blogs') }}">Blog</a>
+                                <li class="{{ request()->is('blog') ? 'current' : '' }}">
+                                    <a href="{{ url('blog') }}">Blog</a>
                                 </li>
-                                {{-- <li><a href="{{ url('faqs') }}">FAQ</a></li> --}}
                                 <li class="{{ request()->is('about') ? 'current' : '' }}"><a
                                         href="{{ url('about') }}">À propos</a></li>
                                 <li class="{{ request()->is('contact') ? 'current' : '' }}"><a

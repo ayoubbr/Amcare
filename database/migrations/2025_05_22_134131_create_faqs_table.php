@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string('site_name');
-            $table->string('email')->nullable();
-            $table->string('logo')->nullable();
-            $table->json('phones')->nullable();
-            $table->text('footer_text')->nullable();
+            $table->string('question');
+            $table->text('answer');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('faqs');
     }
 };

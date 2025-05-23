@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +17,13 @@
             --error-color: #e74c3c;
             --success-color: #2ecc71;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f5f5f5;
@@ -37,7 +38,7 @@
             background-position: center;
             position: relative;
         }
-        
+
         body::before {
             content: '';
             position: absolute;
@@ -48,7 +49,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             z-index: 1;
         }
-        
+
         .container {
             width: 100%;
             max-width: 400px;
@@ -59,35 +60,35 @@
             position: relative;
             z-index: 2;
         }
-        
+
         .logo {
             text-align: center;
             margin-bottom: 2rem;
         }
-        
+
         .logo img {
             max-width: 150px;
             height: auto;
         }
-        
+
         h1 {
             font-size: 1.5rem;
             color: var(--secondary-color);
             text-align: center;
             margin-bottom: 1.5rem;
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
+
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
             color: var(--secondary-color);
         }
-        
+
         input {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -96,12 +97,12 @@
             font-size: 1rem;
             transition: border-color 0.3s;
         }
-        
+
         input:focus {
             outline: none;
             border-color: var(--primary-color);
         }
-        
+
         .btn {
             display: inline-block;
             background-color: var(--primary-color);
@@ -115,63 +116,61 @@
             transition: background-color 0.3s;
             width: 100%;
         }
-        
+
         .btn:hover {
             background-color: #c0392b;
         }
-        
+
         .alert {
             padding: 0.75rem 1rem;
             border-radius: 5px;
             margin-bottom: 1.5rem;
         }
-        
+
         .alert-danger {
             background-color: rgba(231, 76, 60, 0.1);
             border: 1px solid var(--error-color);
             color: var(--error-color);
         }
-        
+
         .alert-success {
             background-color: rgba(46, 204, 113, 0.1);
             border: 1px solid var(--success-color);
             color: var(--success-color);
         }
-        
+
         .secure-note {
             text-align: center;
             margin-top: 1.5rem;
             font-size: 0.85rem;
             color: #777;
         }
-        
+
         .secure-icon {
             margin-right: 0.5rem;
             color: var(--secondary-color);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="logo">
-            @if(file_exists(public_path('storage/' . \App\Models\Setting::getSetting('logo'))))
-                <img src="{{ asset('storage/' . \App\Models\Setting::getSetting('logo')) }}" alt="{{ \App\Models\Setting::getSetting('site_name') ?? 'Amcare' }}">
-            @else
-                <img src="{{ asset('images/logo.png') }}" alt="{{ \App\Models\Setting::getSetting('site_name') ?? 'Amcare' }}">
-            @endif
+            <img src="{{ asset('assets/images/logo.png') }}"
+                alt="{{ \App\Models\Setting::getSetting('site_name') ?? 'Amcare' }}">
         </div>
-        
+
         <h1>Accès Sécurisé</h1>
-        
-        @if(session('error'))
+
+        @if (session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
         @endif
-        
+
         <form action="{{ route('admin.verify.access') }}" method="POST">
             @csrf
-            
+
             <div class="form-group">
                 <label for="access_code">Code d'accès</label>
                 <input type="password" id="access_code" name="access_code" required autofocus>
@@ -181,14 +180,15 @@
                     </div>
                 @enderror
             </div>
-            
+
             <button type="submit" class="btn">Vérifier</button>
         </form>
-        
+
         <div class="secure-note">
             <i class="fas fa-shield-alt secure-icon"></i>
             Accès réservé au personnel autorisé
         </div>
     </div>
 </body>
+
 </html>

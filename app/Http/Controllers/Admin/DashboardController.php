@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Setting;
@@ -30,9 +31,9 @@ class DashboardController extends Controller
         $events = Event::orderBy('event_date', 'desc')->get();
         $services = Service::orderBy('order')->get();
         $zones = Zone::orderBy('name')->get();
-        // $faqs = Faq::orderBy('name')->get();
+        $faqs = Faq::orderBy('created_at')->get();
         $settings = Setting::first();
 
-        return view('admin.dashboard',  compact('posts', 'categories', 'events', 'services', 'zones', 'settings'));
+        return view('admin.dashboard',  compact('posts', 'categories', 'events', 'services', 'zones', 'settings', 'faqs'));
     }
 }
