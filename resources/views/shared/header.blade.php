@@ -115,7 +115,9 @@
             <h4>Informations de contact</h4>
             <ul>
                 <li>Chicago 12, Melborne City, USA</li>
-                <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                <li></i>Appellez:<a
+                        href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? '+91 (234) 5432' }}</a>
+                </li>
                 <li><a href="mailto:info@example.com">info@example.com</a></li>
             </ul>
         </div>
@@ -132,9 +134,9 @@
 </div>
 
 <div class="chat-icon whatsapp-icon">
-    <button type="button" class="chat-toggler">
+    <a href="tel:{{ $settings->phones['WhatsApp'] ?? '' }}">
         <i class="fab fa-whatsapp"></i>
-    </button>
+    </a>
 </div>
 
 <div id="search-popup" class="search-popup">
