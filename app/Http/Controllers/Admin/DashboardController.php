@@ -34,6 +34,21 @@ class DashboardController extends Controller
         $faqs = Faq::orderBy('created_at')->get();
         $settings = Setting::first();
 
-        return view('admin.dashboard',  compact('posts', 'categories', 'events', 'services', 'zones', 'settings', 'faqs'));
+        
+        $pages = Page::all()->map(function ($page) {
+            $page->description = json_decode($page->description, true) ?? [];
+            return $page;
+        });
+
+        return view('admin.dashboard',  compact(
+            'posts', 
+        'categories', 
+                    'events', 
+                    'services', 
+                    'zones', 
+                    'settings', 
+                    'faqs',
+                    'pages'
+        ));
     }
 }

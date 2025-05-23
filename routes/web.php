@@ -60,7 +60,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
 
-    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+    Route::get('/pages', [PageController::class, 'index'])->name('pageSection');
+    Route::get('/pages/{page}', [PageController::class, 'show'])->name('pageSection');
+    Route::put('/pages/{id}', [PageController::class, 'update'])->name('pageSection');
 });
 
 Route::get('faqs', function () {
