@@ -309,13 +309,14 @@
                 <h2>Tableau de Bord Admin</h2>
                 <nav>
                     <ul>
-                        <li><a href="#blog-posts" class="active">Articles de Blog</a></li>
-                        <li><a href="#categories">Catégories</a></li>
-                        <li><a href="#events">Événements</a></li>
+                        <li><a href="#settings" class="active">Paramètres du Site</a></li>
                         <li><a href="#faqs">FAQs</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#zones">Zones</a></li>
-                        <li><a href="#settings">Paramètres du Site</a></li>
+                        <li><a href="#events">Événements</a></li>
+                        <li><a href="#categories">Catégories</a></li>
+                        <li><a href="#blog-posts">Articles de Blog</a></li>
+
                         <li class="logout-item">
                             <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                 @csrf
@@ -870,14 +871,14 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Initial display setup
-                document.querySelector('#blog-posts').style.display = 'block'; // Show blogs by default
+                document.querySelector('#blog-posts').style.display = 'none'; // Show blogs by default
                 document.querySelector('#categories').style.display = 'none';
                 document.querySelector('#events').style.display = 'none';
                 document.querySelector('#faqs').style.display = 'none';
                 document.querySelector('#services').style.display = 'none';
                 document.querySelector('#zones').style.display = 'none';
                 document.querySelector('#settings').style.display =
-                    'none'; // Keep settings hidden initially, JS will show it on tab click
+                    'block'; // Keep settings hidden initially, JS will show it on tab click
 
 
                 // Handle sidebar navigation clicks
