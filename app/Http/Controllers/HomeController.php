@@ -65,7 +65,7 @@ class HomeController extends Controller
         $metaTitle = $page->meta_title ?? $page->title;
         $metaDescription = $page->description ?? '';
     
-        return view('front.page', compact('page', 'metaTitle', 'description'));
+        return view('front.page', compact('page', 'metaTitle', 'metaDescription'));
     }
 
     public function about()
@@ -99,7 +99,6 @@ class HomeController extends Controller
                     ->orderBy('event_date', 'desc')
                     ->take(5)
                     ->get();
-    
         return view('front.events', compact('upcomingEvents', 'pastEvents'));
     }
 

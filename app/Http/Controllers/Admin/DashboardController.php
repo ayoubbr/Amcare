@@ -8,11 +8,18 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\Page;
 use App\Models\Service;
+use App\Models\Zone;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $pages = Page::all();
+        $categories = Category::all();
+        $events = Event::all();
+        $services = Service::all();
+        $zones = Zone::all();
+
         $stats = [
             'pages' => Page::count(),
             'services' => Service::count(),
@@ -21,6 +28,12 @@ class DashboardController extends Controller
             'categories' => Category::count()
         ];
 
-        return view('admin.dashboard', compact('stats'));
+        return view('admin.dashboard', compact( 
+            'categories',
+            'events', 
+            'services', 'zones', 
+            'pages',
+            'stats'
+        ));
     }
 }

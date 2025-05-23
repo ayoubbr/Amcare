@@ -17,7 +17,7 @@ class EnsureAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
-            return redirect()->route('login')
+            return redirect()->route('auth.adminLogin')
                 ->with('error', 'Vous devez être connecté pour accéder à cette page.');
         }
         return $next($request);

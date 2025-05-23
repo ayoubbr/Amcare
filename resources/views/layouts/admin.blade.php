@@ -13,7 +13,20 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('css/admin/sb-admin-2.min.css') }}" rel="stylesheet">
+    
+    @vite('resources/css/admin.css') {{-- Custom admin styles --}}
+    @vite('resources/css/font-awesome-all.css')
+    @vite('resources/css/owl.css')
+    @vite('resources/css/flaticon.css')
+    @vite('resources/css/bootstrap.css')
+    @vite('resources/css/jquery.fancybox.min.css')
+    @vite('resources/css/animate.css')
+    @vite('resources/css/nice-select.css')
+    @vite('resources/css/odometer.css')
+    @vite('resources/css/elpath.css')
+    @vite('resources/css/color.css')
+    @vite('resources/css/style.css')
+    @vite('resources/css/module-css/page-title.css')
     
     <!-- Additional CSS -->
     @stack('styles')
@@ -67,14 +80,6 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Team -->
-            <li class="nav-item {{ request()->routeIs('admin.team.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.team.index') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Équipe</span>
-                </a>
-            </li>
-
             <!-- Nav Item - Events -->
             <li class="nav-item {{ request()->routeIs('admin.events.*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.events.index') }}">
@@ -97,14 +102,6 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Testimonials -->
-            <li class="nav-item {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.testimonials.index') }}">
-                    <i class="fas fa-fw fa-comment"></i>
-                    <span>Témoignages</span>
-                </a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -112,22 +109,6 @@
             <div class="sidebar-heading">
                 Demandes
             </div>
-
-            <!-- Nav Item - Contact Requests -->
-            <li class="nav-item {{ request()->routeIs('admin.contact-requests.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.contact-requests.index') }}">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Contacts</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Quote Requests -->
-            <li class="nav-item {{ request()->routeIs('admin.quote-requests.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.quote-requests.index') }}">
-                    <i class="fas fa-fw fa-file-invoice-dollar"></i>
-                    <span>Devis</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -139,10 +120,6 @@
 
             <!-- Nav Item - Settings -->
             <li class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.settings.edit') }}">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Paramètres</span>
-                </a>
             </li>
 
             <!-- Divider -->
@@ -168,90 +145,11 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                @if($alertsCount > 0)
-                                    <span class="badge badge-danger badge-counter">{{ $alertsCount }}</span>
-                                @endif
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alertes
-                                </h6>
-                                
-                                
-                                @forelse($unreadContacts as $contact)
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.contact-requests.show', $contact) }}">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-primary">
-                                                <i class="fas fa-envelope text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">{{ $contact->created_at->format('d/m/Y H:i') }}</div>
-                                            <span class="font-weight-bold">Nouveau message de {{ $contact->name }}</span>
-                                        </div>
-                                    </a>
-                                @empty
-                                @endforelse
-                                
-                                @forelse($unprocessedQuotes as $quote)
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.quote-requests.show', $quote) }}">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-success">
-                                                <i class="fas fa-file-invoice-dollar text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">{{ $quote->created_at->format('d/m/Y H:i') }}</div>
-                                            <span class="font-weight-bold">Nouvelle demande de devis de {{ $quote->name }}</span>
-                                        </div>
-                                    </a>
-                                @empty
-                                @endforelse
-                                
-                                @if($unreadContacts->count() == 0 && $unprocessedQuotes->count() == 0)
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-info">
-                                                <i class="fas fa-check text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <span>Aucune nouvelle alerte</span>
-                                        </div>
-                                    </a>
-                                @endif
-                                
-                                <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.contact-requests.index') }}">Voir toutes les demandes</a>
-                            </div>
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                                <img class="img-profile rounded-circle" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profil
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Déconnexion
-                                </a>
-                            </div>
-                        </li>
                     </ul>
                 </nav>
                 <!-- End of Topbar -->

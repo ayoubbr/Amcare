@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -20,9 +22,6 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
 Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
 
-Route::get('/{slug}', [HomeController::class, 'page'])->name('page');
-
-
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 
@@ -33,37 +32,44 @@ Route::post('/admin-login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-require __DIR__.'/auth.php';
 
 
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+require __DIR__ . '/auth.php';
 
+// Route::get('admin', [DashboardController::class, 'index'])->name('admin');
 
-    Route::get('/zone', [ZoneController::class, 'index'])->name('zone.index');
+Route::prefix('admin')->name('admin.')->group(function () {
 
+    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-
-
-
-    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-
-
-
-    Route::resource('pages', PageController::class);
-
-
-    
-    Route::resource('events', EventController::class);
-    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
-
+    Route::resource('categories', CategoryController::class);
 
     Route::resource('blog', BlogPostController::class);
     Route::patch('blog/{post}/toggle-publish', [BlogPostController::class, 'togglePublish'])->name('blog.toggle-publish');
     Route::get('blog/{post}/preview', [BlogPostController::class, 'preview'])->name('blog.preview');
-    
-    Route::resource('categories', CategoryController::class);
+
+    Route::resource('events', EventController::class);
+    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
+
+    Route::resource('services', ServiceController::class);
+
+    Route::resource('zone', ZoneController::class);
+
+
+    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+
+    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+
+
+
+    Route::resource('pages', PageController::class);
+    Route::get('pages/{page}/preview', [PageController::class, 'preview'])->name('pages.preview');
+    Route::post('pages/{page}/toggle-publish', [PageController::class, 'togglePublish'])->name('pages.toggle-publish');
+
+
+    Route::post('/admin/upload/image', [UploadController::class, 'uploadImage'])->name('admin.upload.image');
+
 
 
 });
@@ -78,24 +84,24 @@ Route::get('services/{id}', function () {
 })->name('services-details');
 
 
-Route::get('events', function () {
-    return view('events');
-})->name('events');
+// Route::get('events', function () {
+//     return view('events');
+// })->name('events');
 
 
-Route::get('events/{id}', function () {
-    return view('events-details');
-})->name('events-details');
+// Route::get('events/{id}', function () {
+//     return view('events-details');
+// })->name('events-details');
 
 
-Route::get('blogs', function () {
-    return view('blogs');
-})->name('blogs');
+// Route::get('blogs', function () {
+//     return view('blogs');
+// })->name('blogs');
 
 
-Route::get('blogs/{id}', function () {
-    return view('blogs-details');
-})->name('blogs-details');
+// Route::get('blogs/{id}', function () {
+//     return view('blogs-details');
+// })->name('blogs-details');
 
 
 Route::get('faqs', function () {
@@ -104,7 +110,7 @@ Route::get('faqs', function () {
 
 
 Route::get('not-found', function () {
-    return view('404');
+    return view('errors.404');
 })->name('not-found');
 
 
@@ -116,8 +122,3 @@ Route::get('about', function () {
 Route::get('contact', function () {
     return view('contact');
 })->name('contact');
-
-
-Route::get('admin', function () {
-    return view('admin.dashboard');
-})->name('admin');
