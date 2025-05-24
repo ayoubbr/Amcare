@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -15,26 +16,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        $publishedEvents = Event::published()->get();
+        $events = Event::all();
+        $categories = Category::orderBy('name')->get();
 
-        $upCommingEvents = Event::upComming()->get();
-
-        $pastEvents = Event::past()->get();
-
-        return view('admin.events.index', compact(
-            'publishedEvents',
-            'upCommingEvents',
-            'pastEvents',
-        ));
+        return view('admin.events', compact('events', 'categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.events.create');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,25 +39,10 @@ class EventController extends Controller
 
         Event::create($reqst);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.events.index')
             ->with('success', 'Événement créé avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Event $event)
-    {
-        return view('admin.events.show', compact('event'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Event $event)
-    {
-        return view('admin.events.edit', compact('event'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -92,7 +64,7 @@ class EventController extends Controller
 
         $event->update($reqst);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.events.index')
             ->with('success', 'Événement mis à jour avec succès.');
     }
 
@@ -104,18 +76,10 @@ class EventController extends Controller
         if ($event->image) {
             Storage::disk('public')->delete($event->image);
         }
-    
+
         $event->delete();
-        return redirect()->route('admin.dashboard')
-            ->with('success', 'Evénement crée avec succès.');
-    }
-
-    public function togglePublish(Event $event)
-    {
-        $event->is_published = !$event->is_published;
-        $event->save();
-
         return redirect()->route('admin.events.index')
-            ->with('success', $event->is_published ? 'Événement publié avec succès.' : 'Événement dépublié avec succès.');
+            ->with('success', 'Evénement supprime avec succès.');
     }
+
 }

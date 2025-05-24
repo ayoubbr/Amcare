@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
@@ -39,35 +38,32 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
 
-    Route::resource('categories', CategoryController::class);
+    Route::resource('slider-images', SliderImageController::class);
 
-    Route::resource('blog', BlogPostController::class);
-    Route::patch('blog/{post}/toggle-publish', [BlogPostController::class, 'togglePublish'])->name('blog.toggle-publish');
-    Route::get('blog/{post}/preview', [BlogPostController::class, 'preview'])->name('blog.preview');
-
-    Route::resource('events', EventController::class);
-    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
-
-    Route::resource('services', ServiceController::class);
-
-    Route::resource('zone', ZoneController::class);
+    Route::resource('partners', PartnerController::class);
 
     Route::resource('faqs', FaqController::class);
 
-    Route::resource('slider-images', SliderImageController::class);
-    Route::resource('partners', PartnerController::class);
+    Route::resource('services', ServiceController::class);
 
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
-
+    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
     Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
+
+    Route::resource('zones', ZoneController::class);
+
+    Route::resource('events', EventController::class);
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('blog-posts', BlogPostController::class);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/logout-get', [AuthController::class, 'logout'])->name('logout.get');
 });
-    
+
 
 Route::get('not-found', function () {
     return view('errors.404');

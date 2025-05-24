@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->longText('content')->nullable(); // Main content of the page
-            $table->string('meta_title')->nullable(); // For SEO: browser title / search result title
-            $table->text('meta_description')->nullable(); // For SEO: search result snippet
-            $table->json('description')->nullable(); // For structured content like lists of points
-            $table->string('image')->nullable(); // Main image for the page (e.g., banner)
+            $table->longText('content')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->json('description')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_published')->default(false);
             $table->timestamps();
         });

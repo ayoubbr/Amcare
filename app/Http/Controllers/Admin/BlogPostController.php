@@ -19,17 +19,9 @@ class BlogPostController extends Controller
         $posts = BlogPost::with('category')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-
-        return view('admin.dashboard', compact('posts'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
         $categories = Category::orderBy('name')->get();
-        return view('admin.blog.create', compact('categories'));
+
+        return view('admin.blog-posts', compact('posts', 'categories'));
     }
 
     /**
@@ -52,26 +44,8 @@ class BlogPostController extends Controller
 
         BlogPost::create($validate);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.blog-posts.index')
             ->with('success', 'Article créé avec succès.');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(BlogPost $blogPost)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(BlogPost $blogPost)
-    {
-        $categories = Category::orderBy('name')->get();
-        return view('admin.blog.edit', compact('post', 'categories'));
     }
 
     /**
@@ -104,7 +78,7 @@ class BlogPostController extends Controller
 
         $blogPost->update($validate);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.blog-posts.index')
             ->with('success', 'Blog mis à jour avec succès.');
     }
 
@@ -120,28 +94,8 @@ class BlogPostController extends Controller
         }
 
         $blogPost->delete();
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.blog-posts.index')
             ->with('success', 'Article supprimé avec succès.');
     }
-
-
-    public function togglePublish(BlogPost $blogPost)
-    {
-        $blogPost->is_published = !$blogPost->is_published;
-
-        if ($blogPost->is_published && !$blogPost->published_at) {
-            $blogPost->published_at = now();
-        }
-
-        $blogPost->save();
-
-        return redirect()->route('admin')
-            ->with('success', $blogPost->is_published ? 'Article publié avec succès.' : 'Article dépublié avec succès.');
-    }
-
-
-    public function preview(BlogPost $blogPost)
-    {
-        return view('front.blog.show', compact('blogPost'));
-    }
+    
 }

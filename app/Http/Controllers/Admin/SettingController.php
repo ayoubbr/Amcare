@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Setting;
-use App\Http\Requests\StoreSettingRequest;
-use App\Http\Requests\UpdateSettingRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\BlogPost;
+use App\Models\Category;
+use App\Models\Event;
+use App\Models\Faq;
+use App\Models\Page;
+use App\Models\Partner;
+use App\Models\Service;
+use App\Models\SliderImage;
+use App\Models\Zone;
 
 class SettingController extends Controller
 {
@@ -16,29 +23,10 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $settings = Setting::getAllSettings();
-        return view('admin.settings.index', compact('settings'));
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
+        $categories = Category::orderBy('name')->get();
+        $settings = Setting::first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Setting $setting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Setting $setting)
-    {
-        $settings = Setting::first() ?? new Setting();
-        return view('admin.settings.edit', compact('settings'));
+        return view('admin.settings',  compact('categories', 'settings'));
     }
 
     /**
@@ -89,15 +77,7 @@ class SettingController extends Controller
 
         $settings->save();
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.settings.index')
             ->with('success', 'Paramètres du site mis à jour avec succès.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Setting $setting)
-    {
-        //
     }
 }

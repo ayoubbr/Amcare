@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,18 +19,11 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::ordered()->get();
+        $categories = Category::orderBy('name')->get();
 
-        return view('admin.services.index', compact('services'));
+        return view('admin.services', compact('services', 'categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $zones = Zone::where('is_active', true)->get();
-        return view('admin.services.create', compact('zones'));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,25 +46,10 @@ class ServiceController extends Controller
             $service->regions()->sync($data['zones']);
         }
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.services.index')
             ->with('success', 'Service créé avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Service $service)
-    {
-        return view('admin.services.show', compact($service));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Service $service)
-    {
-        return view('admin.services.edit', compact($service));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -78,7 +57,7 @@ class ServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service)
     {
         $data = $request->validated();
-       
+
         if ($request->hasFile('image')) {
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
@@ -92,7 +71,7 @@ class ServiceController extends Controller
         }
 
         $service->update($data);
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.services.index')
             ->with('success', 'Service mis à jour avec succès');
     }
 
@@ -106,17 +85,8 @@ class ServiceController extends Controller
         }
 
         $service->delete();
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.services.index')
             ->with('success', 'Service supprimé avec succès.');
     }
 
-
-    public function updateOrder(Request $request)
-    {
-        $services = $request->input('services', []);
-        foreach ($services as $id => $order) {
-            Service::where('id', $id)->update(['order' => $order]);
-        }
-        return response()->json(['success' => true]);
-    }
 }

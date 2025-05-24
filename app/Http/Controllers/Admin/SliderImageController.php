@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogPost;
+use App\Models\Category;
 use App\Models\SliderImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,8 +16,10 @@ class SliderImageController extends Controller
      */
     public function index()
     {
+        $categories = Category::orderBy('name')->get();
         $sliderImages = SliderImage::orderBy('order')->get();
-        return view('admin.dashboard', compact('sliderImages'));
+
+        return view('admin.slider-images',  compact('categories', 'sliderImages'));
     }
 
     /**
@@ -37,7 +41,7 @@ class SliderImageController extends Controller
 
         SliderImage::create($validatedData);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.slider-images.index')
             ->with('success', 'Image du slider ajoutée avec succès.');
     }
 
@@ -63,7 +67,7 @@ class SliderImageController extends Controller
 
         $sliderImage->update($validatedData);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.slider-images.index')
             ->with('success', 'Image du slider mise à jour avec succès.');
     }
 
@@ -77,7 +81,7 @@ class SliderImageController extends Controller
         }
         $sliderImage->delete();
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.slider-images.index')
             ->with('success', 'Image du slider supprimée avec succès.');
     }
 }

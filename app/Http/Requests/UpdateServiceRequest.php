@@ -23,7 +23,6 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'icon' => 'nullable|string|max:255',
             'short_description' => 'required',
             'content' => 'required',
             'image' => 'nullable|image|mimes:jpeg, png, jpg, gif|max:2048',

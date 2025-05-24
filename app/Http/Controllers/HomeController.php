@@ -67,7 +67,6 @@ class HomeController extends Controller
         return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
     }
 
-
     public function category($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
@@ -87,8 +86,6 @@ class HomeController extends Controller
         return view('front.category', compact('category', 'posts', 'categories', 'latestPosts'));
     }
 
-
-
     public function page($slug)
     {
         $page = Page::published()->where('slug', $slug)->firstOrFail();
@@ -103,7 +100,7 @@ class HomeController extends Controller
     {
         $page = Page::published()->where('slug', 'a-propos')->where('is_published', true)->first();
         $settings = Setting::first();
-        
+
         if (!$page) {
             abort(404, 'Page not found');
         }
@@ -118,7 +115,6 @@ class HomeController extends Controller
 
         return view('services', compact('services', 'zones'));
     }
-
 
     public function service($id)
     {

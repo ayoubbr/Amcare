@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class FaqController extends Controller
     public function index()
     {
         $faqs = Faq::orderBy('created_at', 'desc')->get();
-        return view('admin.faqs.index', compact('faqs')); 
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.faqs', compact('faqs', 'categories'));
     }
 
     /**
@@ -29,7 +32,7 @@ class FaqController extends Controller
 
         Faq::create($validated);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.faqs.index')
             ->with('success', 'FAQ ajoutée avec succès.');
     }
 
@@ -45,7 +48,7 @@ class FaqController extends Controller
 
         $faq->update($validated);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.faqs.index')
             ->with('success', 'FAQ mise à jour avec succès.');
     }
 
@@ -56,8 +59,7 @@ class FaqController extends Controller
     {
         $faq->delete();
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.faqs.index')
             ->with('success', 'FAQ supprimée avec succès.');
     }
 }
-

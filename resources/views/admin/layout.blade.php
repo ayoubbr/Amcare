@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Amcare - Tableau de Bord Admin</title>
+    <title>@yield('title')</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
@@ -341,16 +341,29 @@
                 <nav>
                     <ul>
                         {{-- Reordered for better flow --}}
-                        <li><a href="#settings" class="active">Paramètres du Site</a></li>
-                        <li><a href="#pages">Pages</a></li> {{-- Added Pages Link --}}
-                        <li><a href="#slider-images">Images du Slider</a></li>
-                        <li><a href="#partners">Partenaires</a></li>
-                        <li><a href="#faqs">FAQs</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#zones">Zones</a></li>
-                        <li><a href="#events">Événements</a></li>
-                        <li><a href="#categories">Catégories</a></li>
-                        <li><a href="#blog-posts">Articles de Blog</a></li>
+                        <li><a href="{{ url('admin/settings') }}"
+                                class="{{ request()->is('admin/settings') ? 'active' : '' }}">Paramètres du Site</a>
+                        </li>
+                        <li><a href="{{ url('admin/slider-images') }}"
+                                class="{{ request()->is('admin/slider-images') ? 'active' : '' }}">Images du Slider</a>
+                        </li>
+                        <li><a href="{{ url('admin/partners') }}"
+                                class="{{ request()->is('admin/partners') ? 'active' : '' }}">Partenaires</a></li>
+                        <li><a href="{{ url('admin/faqs') }}"
+                                class="{{ request()->is('admin/faqs') ? 'active' : '' }}">FAQs</a></li>
+                        <li><a href="{{ url('admin/services') }}"
+                                class="{{ request()->is('admin/services') ? 'active' : '' }}">Services</a></li>
+                        <li><a href="{{ url('admin/pages') }}"
+                                class="{{ request()->is('admin/pages') ? 'active' : '' }}">Pages</a></li>
+                        <li><a href="{{ url('admin/zones') }}"
+                                class="{{ request()->is('admin/zones') ? 'active' : '' }}">Zones</a></li>
+                        <li><a href="{{ url('admin/events') }}"
+                                class="{{ request()->is('admin/events') ? 'active' : '' }}">Événements</a></li>
+                        <li><a href="{{ url('admin/categories') }}"
+                                class="{{ request()->is('admin/categories') ? 'active' : '' }}">Catégories</a></li>
+                        <li><a href="{{ url('admin/blog-posts') }}"
+                                class="{{ request()->is('admin/blog-posts') ? 'active' : '' }}">Articles de Blog</a>
+                        </li>
 
                         <li class="logout-item">
                             <form action="{{ route('logout') }}" method="POST" id="logout-form">
@@ -365,6 +378,7 @@
             </aside>
 
             <main class="admin-content">
+
                 <section class="page-title">
                     <h1>Gestion du Contenu</h1>
                 </section>
@@ -376,722 +390,13 @@
                     </div>
                 @endif
 
-                @if (session('error'))
+                @if (session('errors'))
                     <div class="alert alert-danger" onclick="this.style.display='none'">
-                        {{ session('error') }}
+                        {{ session('errors') }}
                     </div>
                 @endif
 
-                {{-- Settings Section (Existing) --}}
-                <section id="settings" class="admin-section">
-                    <h3>Paramètres du Site</h3>
-                    <div class="setting-form-container mt-4">
-                        <h4>Gérer les Paramètres Généraux</h4>
-                        <form action="{{ route('admin.settings.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $settings->id ?? '' }}">
-                            <div class="form-group">
-                                <label for="siteName">Nom du Site</label>
-                                <input type="text" class="form-control" name="site_name" id="siteName"
-                                    placeholder="Entrez le nom du site"
-                                    value="{{ old('site_name', $settings->site_name ?? '') }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="siteEmail">Email</label>
-                                <input type="email" class="form-control" name="email" id="siteEmail"
-                                    placeholder="Entrez l'adresse email"
-                                    value="{{ old('email', $settings->email ?? '') }}">
-                            </div>
-                            <div class="form-group d-flex align-items-center">
-                                <label for="siteLogo" class="mb-0 mr-3">Logo</label>
-                                @if ($settings && $settings->logo)
-                                    <img src="{{ Storage::url($settings->logo) }}" alt="Logo actuel"
-                                        class="img-thumbnail mr-3" style="max-height: 80px;">
-                                    <a href="{{ Storage::url($settings->logo) }}" target="_blank"
-                                        class="btn btn-sm btn-info mr-2">Voir actuel</a>
-                                @else
-                                    <span class="text-muted mr-3">Aucun logo actuel</span>
-                                @endif
-                                <input type="file" class="form-control-file" name="logo" id="siteLogo">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Numéros de Téléphone</label>
-                                <div id="phone-numbers-container">
-                                    @if (old('phone_keys'))
-                                        @foreach (old('phone_keys') as $index => $key)
-                                            <div class="phone-input-group">
-                                                <input type="text" class="form-control" name="phone_keys[]"
-                                                    placeholder="Clé (ex: Support)" value="{{ $key }}"
-                                                    style="width: 40%;">
-                                                <input type="text" class="form-control" name="phone_values[]"
-                                                    placeholder="Numéro (ex: +1234567890)"
-                                                    value="{{ old('phone_values')[$index] ?? '' }}"
-                                                    style="width: 40%;">
-                                                <button type="button" class="btn btn-danger btn-remove-phone"
-                                                    style="width: 20%;">Supprimer</button>
-                                            </div>
-                                        @endforeach
-                                    @elseif ($settings && $settings->phones)
-                                        @foreach ($settings->phones as $key => $value)
-                                            <div class="phone-input-group">
-                                                <input type="text" class="form-control" name="phone_keys[]"
-                                                    placeholder="Clé (ex: Support)" value="{{ $key }}"
-                                                    style="width: 40%;">
-                                                <input type="text" class="form-control" name="phone_values[]"
-                                                    placeholder="Numéro (ex: +1234567890)"
-                                                    value="{{ $value }}" style="width: 40%;">
-                                                <button type="button" class="btn btn-danger btn-remove-phone"
-                                                    style="width: 20%;">Supprimer</button>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <button type="button" id="add-phone-button" class="btn btn-info mt-2">Ajouter un
-                                    numéro</button>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="siteAddress">Addresse</label>
-                                <textarea class="form-control" name="address" id="siteAddress" rows="2" placeholder="Entrez l'addresse">{{ old('address', $settings->address ?? '') }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="siteFooterText">Texte de Pied de Page</label>
-                                <textarea class="form-control" name="footer_text" id="siteFooterText" rows="2"
-                                    placeholder="Entrez le texte du pied de page">{{ old('footer_text', $settings->footer_text ?? '') }}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer les Paramètres</button>
-                        </form>
-                    </div>
-                </section>
-
-                {{-- Pages Section --}}
-                <section id="pages" class="admin-section" style="display: none;">
-                    <h3>Gestion des Pages</h3>
-                    {{-- No "Add New" button as per request --}}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Titre</th>
-                                    <th>Slug</th>
-                                    <th>Publiée</th>
-                                    <th>Dernière modification</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($pages as $page)
-                                    <tr data-entity="pages" data-id="{{ $page->id }}"
-                                        data-title="{{ $page->title }}" data-slug="{{ $page->slug }}"
-                                        data-content="{{ $page->content }}"
-                                        data-meta-title="{{ $page->meta_title ?? '' }}"
-                                        data-meta-description="{{ $page->meta_description ?? '' }}"
-                                        data-description='@json($page->description ?? [])' {{-- Pass as JSON string --}}
-                                        data-image-path="{{ $page->image ? Storage::url($page->image) : '' }}"
-                                        data-is-published="{{ $page->is_published ? 'true' : 'false' }}">
-                                        <td>{{ $page->id }}</td>
-                                        <td>{{ $page->title }}</td>
-                                        <td>/{{ $page->slug }}</td>
-                                        <td>{{ $page->is_published ? 'Oui' : 'Non' }}</td>
-                                        <td>{{ $page->updated_at->format('d/m/Y H:i') }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            {{-- No delete button as per request --}}
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Aucune page trouvée.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-
-                {{-- Other sections like #slider-images, #partners, etc. remain here --}}
-                <section id="slider-images" class="admin-section" style="display: none;">
-                    <h3>Gestion des Images du Slider</h3>
-                    <button class="btn-add-new" data-target-form="slider-image-form">Ajouter une nouvelle image de
-                        slider</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Image</th>
-                                    <th>Titre</th>
-                                    <th>Ordre</th>
-                                    <th>Publié</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($sliderImages as $sliderImage)
-                                    <tr data-entity="slider-images" data-id="{{ $sliderImage->id }}"
-                                        data-image-path="{{ $sliderImage->image_path ? Storage::url($sliderImage->image_path) : '' }}"
-                                        data-title="{{ $sliderImage->title ?? '' }}"
-                                        data-subtitle="{{ $sliderImage->subtitle ?? '' }}" {{-- Assuming subtitle exists --}}
-                                        data-description="{{ $sliderImage->description ?? '' }}"
-                                        {{-- Assuming description exists --}} data-order="{{ $sliderImage->order }}"
-                                        data-is-published="{{ $sliderImage->is_published ? 'true' : 'false' }}">
-                                        <td>{{ $sliderImage->id }}</td>
-                                        <td>
-                                            @if ($sliderImage->image_path)
-                                                <img src="{{ Storage::url($sliderImage->image_path) }}"
-                                                    alt="Slider Image" style="max-height: 50px;">
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                        <td>{{ $sliderImage->title ?? 'N/A' }}</td>
-                                        <td>{{ $sliderImage->order }}</td>
-                                        <td>{{ $sliderImage->is_published ? 'Oui' : 'Non' }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="slider-image-form">
-                        <h4>Ajouter/Modifier Image de Slider</h4>
-                        <form action="{{ route('admin.slider-images.store') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" id="sliderImageId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="sliderImageFile">Fichier Image</label>
-                                <input type="file" class="form-control" name="image_path" id="sliderImageFile">
-                                <img id="currentSliderImage" src="#" alt="Image actuelle"
-                                    class="current-image-preview" style="display:none;">
-                            </div>
-                            <div class="form-group">
-                                <label for="sliderImageTitle">Titre</label>
-                                <input type="text" class="form-control" name="title" id="sliderImageTitle"
-                                    placeholder="Titre principal du slider">
-                            </div>
-                            <div class="form-group">
-                                <label for="sliderImageOrder">Ordre d'affichage</label>
-                                <input type="number" class="form-control" name="order" id="sliderImageOrder"
-                                    value="0">
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="is_published"
-                                    id="sliderImageIsPublished" value="1">
-                                <label class="form-check-label" for="sliderImageIsPublished">Publié</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-
-                <section id="partners" class="admin-section" style="display: none;">
-                    <h3>Gestion des Partenaires</h3>
-                    <button class="btn-add-new" data-target-form="partner-form">Ajouter un nouveau partenaire</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nom</th>
-                                    <th>Logo</th>
-                                    <th>URL du Site Web</th>
-                                    <th>Ordre</th>
-                                    <th>Publié</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($partners as $partner)
-                                    <tr data-entity="partners" data-id="{{ $partner->id }}"
-                                        data-name="{{ $partner->name }}"
-                                        data-logo-path="{{ $partner->logo_path ? Storage::url($partner->logo_path) : '' }}"
-                                        data-website-url="{{ $partner->website_url ?? '' }}"
-                                        data-order="{{ $partner->order }}"
-                                        data-is-published="{{ $partner->is_published ? 'true' : 'false' }}">
-                                        <td>{{ $partner->id }}</td>
-                                        <td>{{ $partner->name }}</td>
-                                        <td>
-                                            @if ($partner->logo_path)
-                                                <img src="{{ Storage::url($partner->logo_path) }}" alt="Partner Logo"
-                                                    style="max-height: 50px;">
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                        <td><a href="{{ $partner->website_url ?? '#' }}"
-                                                target="_blank">{{ Str::limit($partner->website_url, 30) ?? 'N/A' }}</a>
-                                        </td>
-                                        <td>{{ $partner->order }}</td>
-                                        <td>{{ $partner->is_published ? 'Oui' : 'Non' }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="partner-form">
-                        <h4>Ajouter/Modifier Partenaire</h4>
-                        <form action="{{ route('admin.partners.store') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" id="partnerId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="partnerName">Nom du Partenaire</label>
-                                <input type="text" class="form-control" name="name" id="partnerName"
-                                    placeholder="Nom du partenaire" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="partnerLogo">Logo du Partenaire</label>
-                                <input type="file" class="form-control" name="logo_path" id="partnerLogo">
-                                <img id="currentPartnerLogo" src="#" alt="Logo actuel"
-                                    class="current-image-preview" style="display:none;">
-                            </div>
-                            <div class="form-group">
-                                <label for="partnerWebsiteUrl">URL du Site Web</label>
-                                <input type="url" class="form-control" name="website_url" id="partnerWebsiteUrl"
-                                    placeholder="Ex: https://www.example.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="partnerOrder">Ordre d'affichage</label>
-                                <input type="number" class="form-control" name="order" id="partnerOrder"
-                                    value="0">
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="is_published"
-                                    id="partnerIsPublished" value="1">
-                                <label class="form-check-label" for="partnerIsPublished">Publié</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-                <section id="faqs" class="admin-section" style="display: none;">
-                    <h3>Gestion des FAQs</h3>
-                    <button class="btn-add-new" data-target-form="faq-form">Ajouter une nouvelle FAQ</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Question</th>
-                                    <th>Reponse</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($faqs as $faq)
-                                    <tr data-entity="faqs" data-id="{{ $faq->id }}"
-                                        data-question="{{ $faq->question }}" data-answer="{{ $faq->answer }}">
-                                        <td>{{ $faq->id }}</td>
-                                        <td>{{ Str::limit($faq->question, 50) }}</td>
-                                        <td>{{ Str::limit($faq->answer, 70) }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="faq-form">
-                        <h4>Ajouter/Modifier FAQ</h4>
-                        <form action="{{ route('admin.faqs.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id" id="faqId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="faqQuestion">Question</label>
-                                <input type="text" class="form-control" name="question" id="faqQuestion"
-                                    placeholder="Entrez la question" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="faqAnswer">Réponse</label>
-                                <textarea class="form-control" name="answer" id="faqAnswer" rows="3" placeholder="Entrez la réponse"
-                                    required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-                <section id="services" class="admin-section" style="display: none;">
-                    <h3>Gestion des Services</h3>
-                    <button class="btn-add-new" data-target-form="service-form">Ajouter un nouveau service</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Titre</th>
-                                    <th>Icône</th>
-                                    <th>Description Courte</th>
-                                    <th>Publié</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($services as $service)
-                                    <tr data-entity="services" data-id="{{ $service->id }}"
-                                        data-title="{{ $service->title }}" data-icon="{{ $service->icon ?? '' }}"
-                                        data-short-description="{{ $service->short_description }}"
-                                        data-content="{{ $service->content }}"
-                                        data-image="{{ $service->image ? Storage::url($service->image) : '' }}"
-                                        data-order="{{ $service->order }}"
-                                        data-is-published="{{ $service->is_published ? 'true' : 'false' }}">
-                                        <td>{{ $service->id }}</td>
-                                        <td>{{ $service->title }}</td>
-                                        <td><i class="{{ $service->icon }}"></i></td>
-                                        <td>{{ Str::limit($service->short_description, 50) }}</td>
-                                        <td>{{ $service->is_published ? 'Oui' : 'Non' }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="service-form">
-                        <h4>Ajouter/Modifier Service</h4>
-                        <form action="{{ route('admin.services.store') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" id="serviceId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="serviceTitle">Titre</label>
-                                <input type="text" class="form-control" name="title" id="serviceTitle"
-                                    placeholder="Entrez le titre du service" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceIcon">Icône (classe CSS)</label>
-                                <input type="text" class="form-control" name="icon" id="serviceIcon"
-                                    placeholder="Ex: icon-ambulance">
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceShortDescription">Description Courte</label>
-                                <textarea class="form-control" name="short_description" id="serviceShortDescription" rows="2"
-                                    placeholder="Entrez une courte description" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceContent">Contenu Complet</label>
-                                <textarea class="form-control" name="content" id="serviceContent" rows="5"
-                                    placeholder="Entrez le contenu complet du service" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceImage">Image</label>
-                                <input type="file" class="form-control" name="image" id="serviceImage">
-                                <img id="currentServiceImage" src="#" alt="Image actuelle"
-                                    class="current-image-preview" style="display:none;">
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceOrder">Ordre d'affichage</label>
-                                <input type="number" class="form-control" name="order" id="serviceOrder"
-                                    value="0">
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="is_published"
-                                    id="serviceIsPublished" value="1">
-                                <label class="form-check-label" for="serviceIsPublished">Publié</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-                <section id="zones" class="admin-section" style="display: none;">
-                    <h3>Gestion des Zones</h3>
-                    <button class="btn-add-new" data-target-form="zone-form">Ajouter une nouvelle zone</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nom</th>
-                                    <th>Code</th>
-                                    <th>Description</th>
-                                    <th>Active</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($zones as $zone)
-                                    <tr data-entity="zone" data-id="{{ $zone->id }}"
-                                        data-name="{{ $zone->name }}" data-code="{{ $zone->code ?? '' }}"
-                                        data-description="{{ $zone->description ?? '' }}"
-                                        data-is-active="{{ $zone->is_active ? 'true' : 'false' }}">
-                                        <td>{{ $zone->id }}</td>
-                                        <td>{{ $zone->name }}</td>
-                                        <td>{{ $zone->code ?? 'N/A' }}</td>
-                                        <td>{{ Str::limit($zone->description, 50) ?? 'N/A' }}</td>
-                                        <td>{{ $zone->is_active ? 'Oui' : 'Non' }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="zone-form">
-                        <h4>Ajouter/Modifier Zone</h4>
-                        <form action="{{ route('admin.zone.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id" id="zoneId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="zoneName">Nom</label>
-                                <input type="text" class="form-control" name="name" id="zoneName"
-                                    placeholder="Entrez le nom de la zone" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="zoneCode">Code</label>
-                                <input type="text" class="form-control" name="code" id="zoneCode"
-                                    placeholder="Entrez le code de la zone (ex: LA, NY)">
-                            </div>
-                            <div class="form-group">
-                                <label for="zoneDescription">Description</label>
-                                <textarea class="form-control" name="description" id="zoneDescription" rows="3"
-                                    placeholder="Entrez une description de la zone"></textarea>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="is_active" id="zoneIsActive"
-                                    value="1">
-                                <label class="form-check-label" for="zoneIsActive">Active</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-                <section id="events" class="admin-section" style="display: none;">
-                    <h3>Gestion des Événements</h3>
-                    <button class="btn-add-new" data-target-form="event-form">Ajouter un nouvel événement</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Titre</th>
-                                    <th>Slug</th>
-                                    <th>Date de l'événement</th>
-                                    <th>Lieu</th>
-                                    <th>Publié</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($events as $event)
-                                    <tr data-entity="events" data-id="{{ $event->id }}"
-                                        data-title="{{ $event->title }}" data-slug="{{ $event->slug }}"
-                                        data-event-date="{{ $event->event_date ? \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i') : '' }}"
-                                        data-location="{{ $event->location ?? '' }}"
-                                        data-is-published="{{ $event->is_published ? 'true' : 'false' }}"
-                                        data-content="{{ $event->content }}"
-                                        data-image="{{ $event->image ? Storage::url($event->image) : '' }}">
-                                        <td>{{ $event->id }}</td>
-                                        <td>{{ $event->title }}</td>
-                                        <td>{{ $event->slug }}</td>
-                                        <td>{{ $event->event_date ? \Carbon\Carbon::parse($event->event_date)->format('Y-m-d H:i') : 'N/A' }}
-                                        </td>
-                                        <td>{{ $event->location ?? 'N/A' }}</td>
-                                        <td>{{ $event->is_published ? 'Oui' : 'Non' }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="event-form">
-                        <h4>Ajouter/Modifier Événement</h4>
-                        <form action="{{ route('admin.events.store') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" id="eventId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="eventTitle">Titre de l'événement</label>
-                                <input type="text" class="form-control" name="title" id="eventTitle"
-                                    placeholder="Entrez le titre" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="eventContent">Contenu</label>
-                                <textarea class="form-control" name="content" id="eventContent" rows="5"
-                                    placeholder="Entrez le contenu de l'événement"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="eventDate">Date et Heure de l'événement</label>
-                                <input type="datetime-local" class="form-control" name="event_date" id="eventDate"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="eventLocation">Lieu</label>
-                                <input type="text" class="form-control" name="location" id="eventLocation"
-                                    placeholder="Entrez le lieu">
-                            </div>
-                            <div class="form-group">
-                                <label for="eventImage">Image</label>
-                                <input type="file" class="form-control" name="image" id="eventImage">
-                                <img id="currentEventImage" src="#" alt="Image actuelle"
-                                    class="current-image-preview" style="display:none;">
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="is_published"
-                                    id="eventIsPublished" value="1">
-                                <label class="form-check-label" for="eventIsPublished">Publié</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-                <section id="categories" class="admin-section" style="display: none;">
-                    <h3>Gestion des Catégories</h3>
-                    <button class="btn-add-new" data-target-form="category-form">Ajouter une nouvelle
-                        catégorie</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nom</th>
-                                    <th>Slug</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($categories as $category)
-                                    <tr data-entity="categories" data-id="{{ $category->id }}"
-                                        data-name="{{ $category->name }}" data-slug="{{ $category->slug }}">
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="category-form">
-                        <h4>Ajouter/Modifier Catégorie</h4>
-                        <form action="{{ route('admin.categories.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id" id="categoryId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="categoryName">Nom</label>
-                                <input type="text" class="form-control" name="name" id="categoryName"
-                                    placeholder="Entrez le nom de la catégorie" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
-                <section id="blog-posts" class="admin-section" style="display: none;">
-                    <h3>Gestion des Articles de Blog</h3>
-                    <button class="btn-add-new" data-target-form="blog-post-form">Ajouter un nouvel article</button>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Titre</th>
-                                    <th>Slug</th>
-                                    <th>Catégorie</th>
-                                    <th>Publié</th>
-                                    <th>Date de publication</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($posts as $post)
-                                    <tr data-entity="blog" data-id="{{ $post->id }}"
-                                        data-title="{{ $post->title }}" data-slug="{{ $post->slug }}"
-                                        data-category-id="{{ $post->category_id }}"
-                                        data-category-name="{{ $post->category->name ?? 'N/A' }}"
-                                        data-is-published="{{ $post->is_published ? 'true' : 'false' }}"
-                                        data-published-at="{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('Y-m-d\TH:i') : '' }}"
-                                        data-content="{{ $post->content }}"
-                                        data-image="{{ $post->image ? Storage::url($post->image) : '' }}">
-                                        <td>{{ $post->id }}</td>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->slug }}</td>
-                                        <td>{{ $post->category->name ?? 'N/A' }}</td>
-                                        <td>{{ $post->is_published ? 'Oui' : 'Non' }}</td>
-                                        <td>{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d/m/Y') : 'N/A' }}
-                                        </td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-edit">Modifier</button>
-                                            <button class="btn btn-delete">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-section mt-4" style="display: none;" id="blog-post-form">
-                        <h4>Ajouter/Modifier Article de Blog</h4>
-                        <form action="{{ route('admin.blog.store') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" id="blogPostId"> {{-- For updates --}}
-                            <div class="form-group">
-                                <label for="blogPostTitle">Titre</label>
-                                <input type="text" class="form-control" name="title" id="blogPostTitle"
-                                    placeholder="Entrez le titre de l'article" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="blogPostContent">Contenu</label>
-                                <textarea class="form-control" name="content" id="blogPostContent" rows="5"
-                                    placeholder="Entrez le contenu de l'article"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="blogPostImage">Image</label>
-                                <input type="file" class="form-control" name="image" id="blogPostImage">
-                                <img id="currentBlogPostImage" src="#" alt="Image actuelle"
-                                    class="current-image-preview" style="display:none;">
-                            </div>
-                            <div class="form-group">
-                                <label for="blogPostCategory">Catégorie</label>
-                                <select class="form-control" name="category_id" id="blogPostCategory" required>
-                                    <option value="">Sélectionner une catégorie</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="is_published"
-                                    id="blogPostIsPublished" value="1">
-                                <label class="form-check-label" for="blogPostIsPublished">Publié</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="blogPostPublishedAt">Date de publication (optionnel)</label>
-                                <input type="datetime-local" class="form-control" name="published_at"
-                                    id="blogPostPublishedAt">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <button type="button" class="btn btn-secondary cancel-form">Annuler</button>
-                        </form>
-                    </div>
-                </section>
+                @yield('content')
 
             </main>
         </div>
@@ -1137,8 +442,7 @@
             </div>
         </div>
 
-
-        @include('shared.js') Assuming this includes jQuery or other necessary base JS
+        @include('shared.js')
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -1165,71 +469,71 @@
 
 
                 // Initial display setup: Show settings by default, hide others
-                const allSections = document.querySelectorAll('.admin-content .admin-section');
-                allSections.forEach(s => s.style.display = 'none'); // Hide all first
+                // const allSections = document.querySelectorAll('.admin-content .admin-section');
+                // allSections.forEach(s => s.style.display = 'none'); // Hide all first
 
-                const defaultSectionId = '#settings'; // Default section
-                const defaultSection = document.querySelector(defaultSectionId);
-                if (defaultSection) {
-                    defaultSection.style.display = 'block';
-                }
+                // const defaultSectionId = '#settings'; // Default section
+                // const defaultSection = document.querySelector(defaultSectionId);
+                // if (defaultSection) {
+                //     defaultSection.style.display = 'block';
+                // }
                 // Activate the corresponding nav link
-                const defaultNavLink = document.querySelector(`.admin-sidebar nav ul li a[href="${defaultSectionId}"]`);
-                if (defaultNavLink) {
-                    document.querySelectorAll('.admin-sidebar nav ul li a').forEach(nav => nav.classList.remove(
-                        'active'));
-                    defaultNavLink.classList.add('active');
-                }
+                // const defaultNavLink = document.querySelector(`.admin-sidebar nav ul li a[href="${defaultSectionId}"]`);
+                // if (defaultNavLink) {
+                //     document.querySelectorAll('.admin-sidebar nav ul li a').forEach(nav => nav.classList.remove(
+                //         'active'));
+                //     defaultNavLink.classList.add('active');
+                // }
 
 
-                const navLinks = document.querySelectorAll('.admin-sidebar nav ul li a');
-                const sections = document.querySelectorAll('.admin-content .admin-section');
+                // const navLinks = document.querySelectorAll('.admin-sidebar nav ul li a');
+                // const sections = document.querySelectorAll('.admin-content .admin-section');
 
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        navLinks.forEach(nav => nav.classList.remove('active'));
-                        this.classList.add('active');
-                        sections.forEach(section => section.style.display = 'none');
-                        const targetId = this.getAttribute('href');
-                        const targetSection = document.querySelector(targetId);
-                        if (targetSection) {
-                            targetSection.style.display = 'block';
-                        }
+                // navLinks.forEach(link => {
+                //     link.addEventListener('click', function(e) {
+                //         e.preventDefault();
+                //         navLinks.forEach(nav => nav.classList.remove('active'));
+                //         this.classList.add('active');
+                //         sections.forEach(section => section.style.display = 'none');
+                //         const targetId = this.getAttribute('href');
+                //         const targetSection = document.querySelector(targetId);
+                //         if (targetSection) {
+                //             targetSection.style.display = 'block';
+                //         }
 
-                        // Special handling for settings if needed (e.g., re-init dynamic fields)
-                        if (targetId === '#settings') {
-                            const phonesContainer = document.getElementById('phone-numbers-container');
-                            // Clear existing before re-populating to avoid duplicates if re-clicked
-                            phonesContainer.innerHTML = '';
-                            const settingsData = {!! json_encode($settings ?? ['phones' => []]) !!};
-                            const phonesData = settingsData.phones || {};
-                            if (Object.keys(phonesData).length > 0 && phonesContainer.children
-                                .length === 0) {
-                                for (const key in phonesData) {
-                                    if (Object.hasOwnProperty.call(phonesData, key)) {
-                                        addPhoneNumberField('phone-numbers-container', key, phonesData[
-                                            key]);
-                                    }
-                                }
-                            }
-                        }
-                    });
-                });
+                //         // Special handling for settings if needed (e.g., re-init dynamic fields)
+                //         if (targetId === '#settings') {
+                //             const phonesContainer = document.getElementById('phone-numbers-container');
+                //             // Clear existing before re-populating to avoid duplicates if re-clicked
+                //             phonesContainer.innerHTML = '';
+                //             const settingsData = {!! json_encode($settings ?? ['phones' => []]) !!};
+                //             const phonesData = settingsData.phones || {};
+                //             if (Object.keys(phonesData).length > 0 && phonesContainer.children
+                //                 .length === 0) {
+                //                 for (const key in phonesData) {
+                //                     if (Object.hasOwnProperty.call(phonesData, key)) {
+                //                         addPhoneNumberField('phone-numbers-container', key, phonesData[
+                //                             key]);
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //     });
+                // });
 
-                // If settings is the default visible tab, ensure phone numbers are populated
-                if (defaultSectionId === '#settings') {
-                    const phonesContainer = document.getElementById('phone-numbers-container');
-                    if (phonesContainer.children.length === 0) { // Only populate if empty
-                        const settingsData = {!! json_encode($settings ?? ['phones' => []]) !!};
-                        const phonesData = settingsData.phones || {};
-                        for (const key in phonesData) {
-                            if (Object.hasOwnProperty.call(phonesData, key)) {
-                                addPhoneNumberField('phone-numbers-container', key, phonesData[key]);
-                            }
-                        }
-                    }
-                }
+                // // If settings is the default visible tab, ensure phone numbers are populated
+                // if (defaultSectionId === '#settings') {
+                //     const phonesContainer = document.getElementById('phone-numbers-container');
+                //     if (phonesContainer.children.length === 0) { // Only populate if empty
+                //         const settingsData = {!! json_encode($settings ?? ['phones' => []]) !!};
+                //         const phonesData = settingsData.phones || {};
+                //         for (const key in phonesData) {
+                //             if (Object.hasOwnProperty.call(phonesData, key)) {
+                //                 addPhoneNumberField('phone-numbers-container', key, phonesData[key]);
+                //             }
+                //         }
+                //     }
+                // }
 
 
                 document.querySelectorAll('.admin-section .btn-add-new').forEach(button => {
@@ -1423,9 +727,9 @@
                             }
                             break;
                             // ... cases for other entities like 'blog', 'categories', etc.
-                        case 'blog':
+                        case 'blog-posts':
                             modalTitle.textContent = 'Modifier l\'Article de Blog';
-                            actionRoute = `/admin/blog/${data.id}`;
+                            actionRoute = `/admin/blog-posts/${data.id}`;
                             currentImageHTML = data.image ?
                                 `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_blog">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
@@ -1562,10 +866,6 @@
                                     <input type="text" class="form-control" name="title" id="modalServiceTitle" value="${data.title || ''}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="modalServiceIcon">Icône (classe CSS)</label>
-                                    <input type="text" class="form-control" name="icon" id="modalServiceIcon" value="${data.icon || ''}">
-                                </div>
-                                <div class="form-group">
                                     <label for="modalServiceShortDescription">Description Courte</label>
                                     <textarea class="form-control" name="short_description" id="modalServiceShortDescription" rows="2">${data.shortDescription || ''}</textarea>
                                 </div>
@@ -1602,7 +902,7 @@
                             break;
                         case 'zones':
                             modalTitle.textContent = 'Modifier la Zone';
-                            actionRoute = `/admin/zone/${data.id}`;
+                            actionRoute = `/admin/zones/${data.id}`;
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
@@ -1838,9 +1138,6 @@
                 };
             });
         </script>
-
-    </div>
-
 </body>
 
 </html>

@@ -68,7 +68,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             session()->forget('admin_access_granted');
             $user->update(['last_login_at' => now()]);
-            return redirect()->route('admin.dashboard')
+            return redirect()->route('admin.settings.index')
                 ->with('success', 'Connexion réussie. Bienvenue dans votre espace d\'administration.');
         }
 
@@ -86,10 +86,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('admin.access')
             ->with('success', 'Vous avez été déconnecté avec succès.');
-    }
-
-    public function dashboard()
-    {
-        return view('admin.dashboard');
     }
 }

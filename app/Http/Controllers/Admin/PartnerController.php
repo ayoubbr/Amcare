@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,9 @@ class PartnerController extends Controller
     public function index()
     {
         $partners = Partner::orderBy('order')->get();
-        return view('admin.dashboard', compact('partners'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.partners', compact('partners', 'categories'));
     }
 
     /**
@@ -38,7 +41,7 @@ class PartnerController extends Controller
 
         Partner::create($validatedData);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.partners.index')
             ->with('success', 'Partenaire ajouté avec succès.');
     }
 
@@ -65,7 +68,7 @@ class PartnerController extends Controller
 
         $partner->update($validatedData);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.partners.index')
             ->with('success', 'Partenaire mis à jour avec succès.');
     }
 
@@ -79,7 +82,7 @@ class PartnerController extends Controller
         }
         $partner->delete();
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.partners.index')
             ->with('success', 'Partenaire supprimé avec succès.');
     }
 }
