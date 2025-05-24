@@ -135,12 +135,12 @@
                             <div class="chooseus-block-one">
                                 <div class="inner-box">
                                     {{-- <div class="icon-box"> --}}
-                                        <div class="choose-img-box">
-                                            <img src="{{ Storage::url($item->image) }}" alt="">
-                                        </div>
+                                    <div class="choose-img-box">
+                                        <img src="{{ Storage::url($item->image) }}" alt="">
+                                    </div>
                                     {{-- </div> --}}
                                     <h3><a href="#">{{ $item->title }}</a></h3>
-                                    <p>{{ $item->content }}</p>
+                                    {!! $item->content !!}
                                 </div>
                             </div>
                         </div>
