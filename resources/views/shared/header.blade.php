@@ -19,7 +19,7 @@
             <div class="outer-box">
                 <figure class="logo-box">
                     <a href="{{ route('home') }}">
-                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+                        <img src="{{ $settings->logo ? asset($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
                             alt="{{ $settings->site_name ?? 'Amcare' }}">
                     </a>
                 </figure>

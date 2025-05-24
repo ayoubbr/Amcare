@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -44,21 +45,23 @@ class AuthController extends Controller
         if (!session('admin_access_granted')) {
             return redirect()->route('admin.access');
         }
-        return view('auth.adminLogin');
+
+        $settings = Setting::first();
+        return view('auth.adminLogin', compact('settings'));
     }
 
     public function login(LoginRequest $request)
     {
-        $reqst= $request->validated();
+        $reqst = $request->validated();
         $email = $request->email;
         $remember = $request->filled('remember');
-        
+
         if (Auth::check()) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
-        
+
         $user = User::where('email', $email)->first();
         if (Auth::attempt($reqst, $remember)) {
             Auth::login($user, $remember);
@@ -68,7 +71,7 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard')
                 ->with('success', 'Connexion réussie. Bienvenue dans votre espace d\'administration.');
         }
-        
+
         return back()
             ->withInput($request->only('email', 'remember'))
             ->withErrors([
