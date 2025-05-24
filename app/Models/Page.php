@@ -16,8 +16,9 @@ class Page extends Model
         'title',
         'slug',
         'content',
+        'main_title',
         'meta_title',
-        'meta_description', // Added
+        'meta_description', 
         'description',
         'image',
         'is_published',

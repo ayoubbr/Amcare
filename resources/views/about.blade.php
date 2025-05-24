@@ -72,7 +72,9 @@
                             <div class="content-box">
                                 <div class="sec-title mb_30">
                                     <span class="sub-title mb_12">Qui sommes-nous</span>
-                                    <h2>{{ $page->title ?? 'Excellence dans les services médicaux d\'urgence' }}</h2>
+                                    <h2 class="about-h2">
+                                        {{ $page->main_title ?? 'Excellence dans les services médicaux d\'urgence' }}
+                                    </h2>
                                     @if (isset($page) && $page->content)
                                         {!! $page->content !!}
                                     @else
@@ -128,17 +130,24 @@
                     <h2>Pourquoi nous choisir</h2>
                 </div>
                 <div class="row clearfix">
-                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
-                        <div class="chooseus-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-12"></i></div>
-                                <h3><a href="#">Transport sécurisé</a></h3> {{-- Link can be dynamic if needed --}}
-                                <p>Les services de transport sécurisé d'Amcare jouent un rôle essentiel dans le système
-                                    de santé, en fournissant un transport sûr et fiable.</p>
+                    @forelse ($characteristics as $item)
+                        <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
+                            <div class="chooseus-block-one">
+                                <div class="inner-box">
+                                    {{-- <div class="icon-box"> --}}
+                                        <div class="choose-img-box">
+                                            <img src="{{ Storage::url($item->image) }}" alt="">
+                                        </div>
+                                    {{-- </div> --}}
+                                    <h3><a href="#">{{ $item->title }}</a></h3>
+                                    <p>{{ $item->content }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
+                    @empty
+                    @endforelse
+
+                    {{-- <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
                         <div class="chooseus-block-one">
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-13"></i></div>
@@ -157,7 +166,7 @@
                                     de santé, en fournissant un transport sûr et fiable.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>

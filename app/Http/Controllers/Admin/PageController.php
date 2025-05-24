@@ -39,7 +39,7 @@ class PageController extends Controller
             }
             $path = $request->file('image')->store('pages', 'public');
             $data['image'] = $path;
-        } elseif ($request->input('remove_image') == '1') { 
+        } elseif ($request->input('remove_image') == '1') {
             if ($page->image) {
                 Storage::disk('public')->delete($page->image);
             }
@@ -63,5 +63,4 @@ class PageController extends Controller
 
         return redirect()->route('admin.pages.index')->with('success', 'Page "' . $page->title . '" mise à jour avec succès.');
     }
-
 }

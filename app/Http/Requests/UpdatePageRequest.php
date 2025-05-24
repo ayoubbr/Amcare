@@ -25,6 +25,7 @@ class UpdatePageRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
+            'main_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:600',
             'description' => 'nullable|array',
             'description.*' => 'nullable|string|max:255',

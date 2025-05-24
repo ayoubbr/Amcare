@@ -152,8 +152,7 @@
             </div>
         </section>
 
-        <section class="about-style-three pl_100 pr_100 pt_120 pb_120">
-            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-8.png);"></div>
+         <section class="about-style-three pt_120 pb_120">
             <div class="auto-container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
@@ -161,32 +160,44 @@
                             <div class="content-box">
                                 <div class="sec-title mb_30">
                                     <span class="sub-title mb_12">Qui sommes-nous</span>
-                                    <h2>L'excellence dans les services médicaux d'urgence</h2>
-                                    <p>Chez Amcare, nous sommes fiers d'offrir l'excellence en matière de services
-                                        médicaux d'urgence. Notre équipe de professionnels hautement qualifiés et
-                                        expérimentés</p>
+                                    <h2 class="about-h2">{{ $page->main_title ?? 'Excellence dans les services médicaux d\'urgence' }}</h2>
+                                    @if (isset($page) && $page->content)
+                                        {!! $page->content !!}
+                                    @else
+                                        <p>Chez Amcare, nous sommes fiers d'offrir l'excellence dans les services
+                                            médicaux d'urgence. Notre équipe de professionnels hautement qualifiés et
+                                            expérimentés.</p>
+                                    @endif
                                 </div>
-                                <ul class="list-style-one mb_30 clearfix">
-                                    <li>Les équipes inclusives considèrent un éventail plus large de points de vue</li>
-                                    <li>Démontrer un engagement envers la diversité et l'inclusion améliore</li>
-                                    <li>Adopter la diversité est conforme aux normes légales et éthiques</li>
-                                </ul>
-                                <div class="btn-box"><a href="{{ url('about') }}" class="theme-btn btn-one">En savoir
-                                        plus</a></div>
+                                @if (isset($page) && !empty($page->description) && is_array($page->description))
+                                    <ul class="list-style-one mb_30 clearfix">
+                                        @foreach ($page->description as $item)
+                                            <li>{{ $item }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    {{-- Fallback static list if dynamic data is not available --}}
+                                    <ul class="list-style-one mb_30 clearfix">
+                                        <li>Les équipes inclusives prennent en compte un plus large éventail de points
+                                            de vue</li>
+                                        <li>Démontrer un engagement envers la diversité et l'inclusion améliore</li>
+                                        <li>Adopter la diversité est conforme aux normes légales et éthiques</li>
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                         <div class="image_block_four">
                             <div class="image-box pl_150 pb_100">
-                                <figure class="image image-1"><img src="assets/images/resource/about-3.jpg"
-                                        alt=""></figure>
-                                <figure class="image image-2"><img src="assets/images/resource/about-4.jpg"
-                                        alt=""></figure>
-                                <div class="rotate-box">
-                                    <div class="icon-box"><img src="assets/images/icons/icon-1.png" alt="">
-                                    </div>
-                                </div>
+                                <figure class="image image-1">
+                                    <img src="{{ $page && $page->image ? Storage::url($page->image) : Vite::asset('resources/assets/images/resource/about-3.jpg') }}"
+                                        alt="{{ $page->title ?? 'À propos de nous' }}">
+                                </figure>
+                                <figure class="image image-2">
+                                    <img src="{{ Vite::asset('resources/assets/images/resource/about-4.jpg') }}"
+                                        alt="Image décorative">
+                                </figure>
                             </div>
                         </div>
                     </div>

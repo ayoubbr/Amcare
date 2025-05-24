@@ -83,12 +83,16 @@
   opacity: 1;
 }
 
+.tabs-box{
+  margin-bottom: 35px;
+}
+
 .service-section .tabs-content {
   position: relative;
   display: inline-block;
   width: 100%;
   border: 1px solid #E5E5E5;
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 20px;
   padding: 90px 80px 60px 80px;
   margin-top: -50px;
 }
@@ -102,7 +106,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 20px;
 }
 
 .service-section .image-box {

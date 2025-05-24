@@ -10,7 +10,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Titre</th>
-                        <th>Slug</th>
+                        <th>Slug</th>   
+                        <th>Titre principal</th>
                         <th>Publiée</th>
                         <th>Dernière modification</th>
                         <th>Actions</th>
@@ -20,7 +21,7 @@
                     @forelse ($pages as $page)
                         <tr data-entity="pages" data-id="{{ $page->id }}" data-title="{{ $page->title }}"
                             data-slug="{{ $page->slug }}" data-content="{{ $page->content }}"
-                            data-meta-title="{{ $page->meta_title ?? '' }}"
+                            data-main-title="{{ $page->main_title ?? '' }}" data-meta-title="{{ $page->meta_title ?? '' }}"
                             data-meta-description="{{ $page->meta_description ?? '' }}"
                             data-description='@json($page->description ?? [])' {{-- Pass as JSON string --}}
                             data-image-path="{{ $page->image ? Storage::url($page->image) : '' }}"
@@ -28,11 +29,11 @@
                             <td>{{ $page->id }}</td>
                             <td>{{ $page->title }}</td>
                             <td>/{{ $page->slug }}</td>
+                            <td>{{ $page->main_title }}</td>
                             <td>{{ $page->is_published ? 'Oui' : 'Non' }}</td>
                             <td>{{ $page->updated_at->format('d/m/Y H:i') }}</td>
                             <td class="action-buttons">
                                 <button class="btn btn-edit">Modifier</button>
-                                {{-- No delete button as per request --}}
                             </td>
                         </tr>
                     @empty

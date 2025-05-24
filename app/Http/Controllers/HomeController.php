@@ -25,7 +25,12 @@ class HomeController extends Controller
         $sliderImages = SliderImage::published()->ordered()->get();
         $partners = Partner::published()->ordered()->get();
 
-        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners'));
+        $page = Page::published()->where('slug', 'a-propos')->firstOrFail();
+
+        $metaTitle = $page->meta_title ?? $page->title;
+        $metaDescription = $page->description ?? '';
+
+        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page'));
     }
 
     public function blog()
@@ -101,11 +106,17 @@ class HomeController extends Controller
         $page = Page::published()->where('slug', 'a-propos')->where('is_published', true)->first();
         $settings = Setting::first();
 
+        $transport = Page::published()->where('slug', 'transport-securise')->where('is_published', true)->first();
+        $demande = Page::published()->where('slug', 'service-sur-demande')->where('is_published', true)->first();
+        $urgence = Page::published()->where('slug', 'transport-durgence')->where('is_published', true)->first();
+
+        $characteristics = [$transport, $demande, $urgence];
+
         if (!$page) {
             abort(404, 'Page not found');
         }
 
-        return view('about', compact('page', 'settings'));
+        return view('about', compact('page', 'settings', 'characteristics'));
     }
 
     public function services()
@@ -127,18 +138,11 @@ class HomeController extends Controller
 
     public function events()
     {
-        $upcomingEvents = Event::published()
-            ->where('event_date', '>=', now())
+        $events = Event::published()
             ->orderBy('event_date', 'asc')
-            ->get();
+            ->paginate(2);
 
-        $pastEvents = Event::published()
-            ->where('event_date', '<', now())
-            ->orderBy('event_date', 'desc')
-            ->take(5)
-            ->get();
-
-        return view('events', compact('upcomingEvents', 'pastEvents'));
+        return view('events', compact('events'));
     }
 
     public function event($slug)
@@ -158,7 +162,9 @@ class HomeController extends Controller
             ->orderBy('event_date', 'asc')
             ->get();
 
-        return view('events-details', compact('event', 'relatedEvents', 'allEvents'));
+        $settings = Setting::first();
+
+        return view('events-details', compact('event', 'relatedEvents', 'allEvents', 'settings'));
     }
 
     public function faqs()

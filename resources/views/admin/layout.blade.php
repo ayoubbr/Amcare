@@ -665,6 +665,10 @@
                                     <label for="modalPageContent">Contenu Principal</label>
                                     <textarea class="form-control" name="content" id="modalPageContent" rows="10">${data.content || ''}</textarea>
                                 </div>
+                                  <div class="form-group">
+                                    <label for="modalPageMainTitle">Titre principal</label>
+                                    <input type="text" class="form-control" name="main_title" id="modalPageMainTitle" value="${data.mainTitle || ''}">
+                                </div>
                                 <div class="form-group">
                                     <label for="modalPageMetaTitle">Meta Titre (SEO)</label>
                                     <input type="text" class="form-control" name="meta_title" id="modalPageMetaTitle" value="${data.metaTitle || ''}">
