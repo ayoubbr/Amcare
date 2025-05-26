@@ -208,7 +208,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ $settings->logo ? asset($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+            <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
                 alt="{{ $settings->site_name ?? 'Amcare' }}">
         </div>
 
@@ -251,10 +251,10 @@
                 @enderror
             </div>
 
-            <div class="remember-me">
+            {{-- <div class="remember-me">
                 <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                 <label for="remember">Se souvenir de moi</label>
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn">
                 <i class="fas fa-sign-in-alt mr-2"></i> Connexion

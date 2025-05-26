@@ -19,7 +19,7 @@
             <div class="outer-box">
                 <figure class="logo-box">
                     <a href="{{ route('home') }}">
-                        <img src="{{ $settings->logo ? asset($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
                             alt="{{ $settings->site_name ?? 'Amcare' }}">
                     </a>
                 </figure>
@@ -67,18 +67,21 @@
                                 <li class="{{ request()->is('blog') ? 'current' : '' }}">
                                     <a href="{{ url('blog') }}">Blog</a>
                                 </li>
-                                <li class="{{ request()->is('about') ? 'current' : '' }}"><a
-                                        href="{{ url('about') }}">À propos</a></li>
+                                @if ($pages->count() > 0)
+                                    <li class="{{ request()->is('about') ? 'current' : '' }}">
+                                        <a href="{{ url('about') }}">À propos</a>
+                                    </li>
+                                @endif
                                 <li class="{{ request()->is('contact') ? 'current' : '' }}"><a
                                         href="{{ url('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
                 </div>
-                <div class="menu-right-content">
+                {{-- <div class="menu-right-content">
                     <div class="search-toggler"><i class="icon-8"></i></div>
-                    {{-- <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div> --}}
-                </div>
+                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
+                </div> --}}
             </div>
         </div>
     </div>

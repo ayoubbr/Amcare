@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-    <section id="slider-images" class="admin-section" >
+    <section id="slider-images" class="admin-section">
         <h3>Gestion des Images du Slider</h3>
         <button class="btn-add-new" data-target-form="slider-image-form">Ajouter une nouvelle image de
             slider</button>
@@ -65,6 +65,7 @@
                     <label for="sliderImageOrder">Ordre d'affichage</label>
                     <input type="number" class="form-control" name="order" id="sliderImageOrder" value="0">
                 </div>
+                <input type="hidden" name="is_published" value="0">
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="is_published" id="sliderImageIsPublished"
                         value="1">

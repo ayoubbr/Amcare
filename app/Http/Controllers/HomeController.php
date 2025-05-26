@@ -25,10 +25,12 @@ class HomeController extends Controller
         $sliderImages = SliderImage::published()->ordered()->get();
         $partners = Partner::published()->ordered()->get();
 
-        $page = Page::published()->where('slug', 'a-propos')->firstOrFail();
+        $page = Page::published()->where('slug', 'a-propos')->first();
+        if ($page) {
 
-        $metaTitle = $page->meta_title ?? $page->title;
-        $metaDescription = $page->description ?? '';
+            $metaTitle = $page->meta_title ?? $page->title;
+            $metaDescription = $page->description ?? '';
+        }
 
         return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page'));
     }
@@ -45,6 +47,7 @@ class HomeController extends Controller
             ->orderBy('published_at', 'desc')
             ->take(3)
             ->get();
+        $settings = Setting::first();
 
         return view('blogs', compact('posts', 'categories', 'latestPosts'));
     }
@@ -68,6 +71,8 @@ class HomeController extends Controller
             ->orderBy('published_at', 'desc')
             ->take(3)
             ->get();
+
+        $settings = Setting::first();
 
         return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
     }
@@ -97,6 +102,7 @@ class HomeController extends Controller
 
         $metaTitle = $page->meta_title ?? $page->title;
         $metaDescription = $page->description ?? '';
+        $settings = Setting::first();
 
         return view('front.page', compact('page', 'metaTitle', 'description'));
     }
@@ -111,18 +117,20 @@ class HomeController extends Controller
         $urgence = Page::published()->where('slug', 'transport-durgence')->where('is_published', true)->first();
 
         $characteristics = [$transport, $demande, $urgence];
+        $settings = Setting::first();
 
         if (!$page) {
             abort(404, 'Page not found');
         }
 
-        return view('about', compact('page', 'settings', 'characteristics'));
+        return view('about', compact('page', 'characteristics'));
     }
 
     public function services()
     {
         $services = Service::published()->ordered()->get();
         $zones = Zone::orderBy('name')->get();
+        $settings = Setting::first();
 
         return view('services', compact('services', 'zones'));
     }
@@ -132,6 +140,7 @@ class HomeController extends Controller
         $service = Service::published()->findOrFail($id);
         $allServices = Service::published()->ordered()->get();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
+        $settings = Setting::first();
 
         return view('services-details', compact('service', 'allServices', 'faqs'));
     }
@@ -141,6 +150,7 @@ class HomeController extends Controller
         $events = Event::published()
             ->orderBy('event_date', 'asc')
             ->paginate(2);
+        $settings = Setting::first();
 
         return view('events', compact('events'));
     }
@@ -164,13 +174,14 @@ class HomeController extends Controller
 
         $settings = Setting::first();
 
-        return view('events-details', compact('event', 'relatedEvents', 'allEvents', 'settings'));
+        return view('events-details', compact('event', 'relatedEvents', 'allEvents'));
     }
 
     public function faqs()
     {
         $faqs = Faq::orderBy('created_at', 'asc')
             ->get();
+        $settings = Setting::first();
 
         return view('faqs', compact('faqs'));
     }

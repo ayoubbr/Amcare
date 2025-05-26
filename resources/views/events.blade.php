@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Événements - Amcare</title>
+    <title>Événements - {{ $settings->site_name ?? 'Amcare' }}</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
@@ -85,7 +85,7 @@
         </div>
         @include('shared.header')
 
-        <section class="page-title centred">
+        {{-- <section class="page-title centred">
             <div class="bg-layer"
                 style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
             <div class="auto-container">
@@ -97,8 +97,8 @@
                     <h1>Événements</h1>
                 </div>
             </div>
-        </section>
-        <section class="event-section pt_120 pb_90 centred p_relative">
+        </section> --}}
+        <section class="event-section pt_60 pb_90 centred p_relative">
             <div class="pattern-layer" style="background-image: url({{ asset('assets/images/shape/shape-8.png') }});">
             </div>
             <div class="auto-container">

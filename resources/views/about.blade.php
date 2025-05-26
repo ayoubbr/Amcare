@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{{ $page->meta_title ?? ($settings->site_name ?? 'Amcare') . ' - À Propos' }}</title>
+    <title>{{ $page->meta_title ?? ($settings->site_name ?? 'Amcare') . ' - À Propos' }} -
+        {{ $settings->site_name ?? 'Amcare' }}</title>
     @if (isset($page) && $page->meta_description)
         <meta name="description" content="{{ $page->meta_description }}">
     @endif

@@ -6,12 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{{ $post->title }} - Amcare</title>
+    <title>{{ $post->title }} - {{ $settings->site_name ?? 'Amcare' }}</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
     @vite('resources/css/font-awesome-all.css')
@@ -110,7 +109,8 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <figure class="image">
-                                            <img src="{{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog-details.jpg') }}" alt="{{ $post->title }}">
+                                            <img src="{{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog-details.jpg') }}"
+                                                alt="{{ $post->title }}">
                                         </figure>
                                     </div>
                                     <div class="lower-content">
@@ -121,7 +121,7 @@
                                         <h2>{{ $post->title }}</h2>
                                         <div class="text-box">
                                             {!! $post->content !!} {{-- Use {!! !!} to render HTML content --}}
-                                            
+
                                             {{-- If you have a quote in your blog post, you can extract it or add a specific field for it --}}
                                             {{-- <blockquote>
                                                 <div class="icon-box"><i class="icon-52"></i></div>
@@ -133,53 +133,59 @@
                                 </div>
                             </div>
                             {{-- Related Posts Section --}}
-                            @if($relatedPosts->isNotEmpty())
-                            <div class="content-one">
-                                <h3>Articles Similaires</h3>
-                                <div class="row clearfix">
-                                    @foreach($relatedPosts as $relatedPost)
-                                    <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                                        <div class="news-block-two">
-                                            <div class="inner-box">
-                                                <div class="bg-layer" style="background-image: url({{ $relatedPost->image ? Storage::url($relatedPost->image) : asset('assets/images/news/default-related-blog.jpg') }});"></div>
-                                                <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($relatedPost->published_at)->format('d M, Y') }}</span>
-                                                <h4><a href="{{ route('post', $relatedPost->slug) }}">{{ $relatedPost->title }}</a></h4>
-                                                <ul class="post-info">
-                                                    <li><i class="icon-30"></i><a href="#">Admin</a></li>
-                                                </ul>
+                            @if ($relatedPosts->isNotEmpty())
+                                <div class="content-one">
+                                    <h3>Articles Similaires</h3>
+                                    <div class="row clearfix">
+                                        @foreach ($relatedPosts as $relatedPost)
+                                            <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                                                <div class="news-block-two">
+                                                    <div class="inner-box">
+                                                        <div class="bg-layer"
+                                                            style="background-image: url({{ $relatedPost->image ? Storage::url($relatedPost->image) : asset('assets/images/news/default-related-blog.jpg') }});">
+                                                        </div>
+                                                        <span class="post-date"><i
+                                                                class="icon-29"></i>{{ \Carbon\Carbon::parse($relatedPost->published_at)->format('d M, Y') }}</span>
+                                                        <h4><a
+                                                                href="{{ route('post', $relatedPost->slug) }}">{{ $relatedPost->title }}</a>
+                                                        </h4>
+                                                        <ul class="post-info">
+                                                            <li><i class="icon-30"></i><a href="#">Admin</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
-                            </div>
                             @endif
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                         <div class="blog-sidebar ml_30">
-                            <div class="sidebar-widget search-widget mb_55">
+                            {{-- <div class="sidebar-widget search-widget mb_55">
                                 <div class="widget-title mb_25">
                                     <h3>Rechercher</h3>
                                 </div>
                                 <div class="search-form">
                                     <form action="{{ route('blog') }}" method="get" class="default-form">
                                         <div class="form-group">
-                                            <input type="search" name="search" placeholder="Rechercher..."
-                                                required>
+                                            <input type="search" name="search" placeholder="Rechercher..." required>
                                             <button type="submit"><i class="icon-8"></i></button>
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="sidebar-widget category-widget mb_45">
                                 <div class="widget-title mb_20">
                                     <h3>Catégories</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
-                                        @foreach($categories as $category)
-                                            <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                        @foreach ($categories as $category)
+                                            <li><a
+                                                    href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -189,20 +195,24 @@
                                     <h3>Dernières Nouvelles</h3>
                                 </div>
                                 <div class="post-inner">
-                                    @foreach($latestPosts as $latestPost)
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="{{ route('post', $latestPost->slug) }}"><img
-                                                    src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
-                                                    alt=""></a></figure>
-                                        <article>
-                                            <h5><a href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
-                                        </article>
-                                    </div>
+                                    @foreach ($latestPosts as $latestPost)
+                                        <div class="post">
+                                            <figure class="post-thumb"><a
+                                                    href="{{ route('post', $latestPost->slug) }}"><img
+                                                        src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
+                                                        alt=""></a></figure>
+                                            <article>
+                                                <h5><a
+                                                        href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a>
+                                                </h5>
+                                                <span class="post-date"><i
+                                                        class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
+                                            </article>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="sidebar-widget gallery-widget mb_45">
+                            {{-- <div class="sidebar-widget gallery-widget mb_45">
                                 <div class="widget-title mb_25">
                                     <h3>Galerie de Photos</h3>
                                 </div>
@@ -246,7 +256,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -260,4 +270,6 @@
 
     @include('shared.js')
 
-</body></html>
+</body>
+
+</html>

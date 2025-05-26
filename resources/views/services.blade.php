@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Services - Amcare</title>
+    <title>Services - {{ $settings->site_name ?? 'Amcare' }}</title>
 
     <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
 
@@ -85,7 +85,7 @@
         @include('shared.header')
 
 
-        <section class="page-title centred">
+        {{-- <section class="page-title centred">
             <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
@@ -96,7 +96,7 @@
                     <h1>Nos services</h1>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="service-section pt_80 ">
             <div class="auto-container">
                 <div class="sec-title mb_50 centred">
@@ -106,22 +106,25 @@
                 <div class="tabs-box">
                     <div class="tab-btn-box">
                         <div class="tab-btns tab-buttons clearfix">
-                            @foreach($services as $index => $service)
-                                <div class="tab-btn {{ $index === 0 ? 'active-btn' : '' }}" data-tab="#tab-{{ $service->id }}">
+                            @foreach ($services as $index => $service)
+                                <div class="tab-btn {{ $index === 0 ? 'active-btn' : '' }}"
+                                    data-tab="#tab-{{ $service->id }}">
                                     {{ $service->title }}
                                 </div>
                             @endforeach
                         </div>
                     </div>
                     <div class="tabs-content">
-                        <div class="shape" style="background-image: url({{ asset('assets/images/shape/shape-1.png') }});"></div>
-                        @foreach($services as $index => $service)
+                        <div class="shape"
+                            style="background-image: url({{ asset('assets/images/shape/shape-1.png') }});"></div>
+                        @foreach ($services as $index => $service)
                             <div class="tab {{ $index === 0 ? 'active-tab' : '' }}" id="tab-{{ $service->id }}">
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                                         <div class="content-box">
                                             <h2>{{ $service->title }}</h2>
-                                            <p>{{ $service->short_description ?? Str::limit(strip_tags($service->content), 200) }}</p>
+                                            <p>{{ $service->short_description ?? Str::limit(strip_tags($service->content), 200) }}
+                                            </p>
                                             <ul class="list-style-one clearfix">
                                                 <li>Nécessité médicale</li>
                                                 <li>Paiement flexible</li>
@@ -134,7 +137,8 @@
                                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                                         <div class="image-box pl_110 pb_50">
                                             <figure class="image image-1 image-hov-one">
-                                                <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/service-1.jpg') }}" alt="{{ $service->title }}">
+                                                <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/service-1.jpg') }}"
+                                                    alt="{{ $service->title }}">
                                             </figure>
                                             {{-- <figure class="image image-2 image-hov-two">
                                                 <img src="{{ asset('assets/images/service/service-1.jpg') }}" alt="{{ $service->title }} secondary">
