@@ -353,6 +353,20 @@
                             style="background-image: url('{{ asset('assets/images/shape/shape-1.png') }}');">
                         </div>
                         @forelse($services as $index => $service)
+                            @php
+                                $imagePath = $service->image;
+                                $imageUrl = null;
+                                $defaultImageUrl = asset('assets/images/resource/event-3.jpg');
+
+                                if ($imagePath) {
+                                    if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                        $imageUrl = asset($imagePath);
+                                    } else {
+                                        $imageUrl = Storage::url($imagePath);
+                                    }
+                                }
+                            @endphp
+                            {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $service->title }}"> --}}
                             <div class="tab {{ $index === 0 ? 'active-tab' : '' }}" id="tab-{{ $service->id }}">
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
@@ -377,7 +391,7 @@
                                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                                         <div class="image-box pl_110 pb_50">
                                             <figure class="image image-1 image-hov-one">
-                                                <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/default-service-tab-1.jpg') }}"
+                                                <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                                     alt="{{ $service->title }}">
                                             </figure>
                                         </div>
