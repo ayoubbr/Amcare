@@ -1,4 +1,5 @@
 @extends('admin.layout')
+@section('title', 'Slider images')
 @section('content')
     <section id="slider-images" class="admin-section">
         <h3>Gestion des Images du Slider</h3>

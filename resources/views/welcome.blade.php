@@ -8,7 +8,7 @@
 
     <title>{{ $settings->site_name ?? 'Amcare' }} - Acceuil</title>
 
-    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
@@ -322,12 +322,12 @@
                                                 <li>Avantages supplémentaires</li>
                                             </ul>
                                         </div>
-                                         <div class="btn-box"><a href="{{ route('service', $service->slug) }}"
-                                            class="theme-btn btn-one">En
-                                            savoir plus</a>
+                                        <div class="btn-box"><a href="{{ route('service', $service->slug) }}"
+                                                class="theme-btn btn-one">En
+                                                savoir plus</a>
+                                        </div>
                                     </div>
-                                    </div>
-                                    
+
                                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                                         <div class="image-box pl_110 pb_50">
                                             <figure class="image image-1 image-hov-one">

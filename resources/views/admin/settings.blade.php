@@ -1,4 +1,5 @@
 @extends('admin.layout')
+@section('title', 'Paramètres du Site')
 @section('content')
     {{-- Settings Section (Existing) --}}
     <section id="settings" class="admin-section">

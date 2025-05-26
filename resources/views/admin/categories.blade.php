@@ -1,5 +1,5 @@
 @extends('admin.layout')
-
+@section('title', 'Catégories')
 @section('content')
     <section id="categories" class="admin-section">
         <h3>Gestion des Catégories</h3>

@@ -1,5 +1,5 @@
 @extends('admin.layout')
-
+@section('title', 'Articles de Blog')
 @section('content')
     <section id="blog-posts" class="admin-section">
         <h3>Gestion des Articles de Blog</h3>

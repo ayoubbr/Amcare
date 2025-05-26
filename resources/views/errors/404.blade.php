@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Page non trouvée - Amcare</title>
-
-    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
-
+    
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
@@ -94,8 +93,10 @@
                     <h1>404</h1>
                     <figure class="error-image"><img src="assets/images/icons/error-1.png" alt=""></figure>
                     <h2>Page non trouvée</h2>
-                    <p>Cette page n'existe pas ou a été supprimée ! Nous vous suggérons de retourner à la <br /><a href="index.html">page d'accueil.</a></p>
-                    <div class="btn-box"><a href="/" class="theme-btn btn-one">Retour à la page d'accueil</a></div>
+                    <p>Cette page n'existe pas ou a été supprimée ! Nous vous suggérons de retourner à la <br /><a
+                            href="index.html">page d'accueil.</a></p>
+                    <div class="btn-box"><a href="/" class="theme-btn btn-one">Retour à la page d'accueil</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -106,4 +107,6 @@
 
     @include('shared.js')
 
-</body></html>
+</body>
+
+</html>

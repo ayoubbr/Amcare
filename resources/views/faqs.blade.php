@@ -8,30 +8,13 @@
 
     <title>FAQ - {{ $settings->site_name ?? 'Amcare' }}</title>
 
-    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
-
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    @vite([
-        'resources/css/font-awesome-all.css',
-        'resources/css/owl.css',
-        'resources/css/flaticon.css',
-        'resources/css/bootstrap.css',
-        'resources/css/jquery.fancybox.min.css',
-        'resources/css/animate.css',
-        'resources/css/nice-select.css',
-        'resources/css/odometer.css',
-        'resources/css/elpath.css',
-        'resources/css/color.css',
-        'resources/css/style.css',
-        'resources/css/module-css/header.css',
-        'resources/css/module-css/footer.css',
-        'resources/css/module-css/page-title.css',
-        'resources/css/module-css/faq.css', 
-        'resources/css/responsive.css'
-    ])
+    @vite(['resources/css/font-awesome-all.css', 'resources/css/owl.css', 'resources/css/flaticon.css', 'resources/css/bootstrap.css', 'resources/css/jquery.fancybox.min.css', 'resources/css/animate.css', 'resources/css/nice-select.css', 'resources/css/odometer.css', 'resources/css/elpath.css', 'resources/css/color.css', 'resources/css/style.css', 'resources/css/module-css/header.css', 'resources/css/module-css/footer.css', 'resources/css/module-css/page-title.css', 'resources/css/module-css/faq.css', 'resources/css/responsive.css'])
 
 </head>
 
@@ -63,7 +46,8 @@
         @include('shared.header', ['settings' => $settings ?? null])
 
         <section class="page-title centred">
-            <div class="bg-layer blue-mask" style="background-image: url({{ Vite::asset('resources/assets/images/background/page-title-3.jpg') }});">
+            <div class="bg-layer blue-mask"
+                style="background-image: url({{ Vite::asset('resources/assets/images/background/page-title-3.jpg') }});">
             </div>
             <div class="auto-container">
                 <div class="content-box">
@@ -84,18 +68,22 @@
                             <div class="image-box">
                                 <div class="image-shape">
                                     <div class="shape-1"
-                                        style="background-image: url({{ Vite::asset('resources/assets/images/shape/shape-2.png') }});"></div>
+                                        style="background-image: url({{ Vite::asset('resources/assets/images/shape/shape-2.png') }});">
+                                    </div>
                                     <div class="shape-2"
-                                        style="background-image: url({{ Vite::asset('resources/assets/images/shape/shape-2.png') }});"></div>
+                                        style="background-image: url({{ Vite::asset('resources/assets/images/shape/shape-2.png') }});">
+                                    </div>
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 single-image">
                                         <figure class="image image-hov-one mt_100"><img
-                                                src="{{ Vite::asset('resources/assets/images/resource/faq-1.jpg') }}" alt="FAQ Image 1"></figure>
+                                                src="{{ Vite::asset('resources/assets/images/resource/faq-1.jpg') }}"
+                                                alt="FAQ Image 1"></figure>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 single-image">
                                         <figure class="image image-hov-two mb_30"><img
-                                                src="{{ Vite::asset('resources/assets/images/resource/faq-2.jpg') }}" alt="FAQ Image 2"></figure>
+                                                src="{{ Vite::asset('resources/assets/images/resource/faq-2.jpg') }}"
+                                                alt="FAQ Image 2"></figure>
                                         <div class="experience-box">
                                             <div class="year-box">
                                                 <div class="inner">
@@ -119,25 +107,26 @@
                                     <h2>Toutes vos questions à la réalité.</h2>
                                     {{-- This title can also be made dynamic if needed --}}
                                 </div>
-                                @if(isset($faqs) && $faqs->count() > 0)
-                                <ul class="accordion-box">
-                                    @foreach($faqs as $index => $faq)
-                                    <li class="accordion block {{ $index == 0 ? 'active-block' : '' }}">
-                                        {{-- The first item is often open by default --}}
-                                        <div class="acc-btn {{ $index == 0 ? 'active' : '' }}">
-                                            <h4>{{ $faq->question }}</h4>
-                                            <div class="icon-box"><i class="icon-16"></i></div> {{-- Ensure this icon class exists and provides +/ - behavior or adjust JS --}}
-                                        </div>
-                                        <div class="acc-content {{ $index == 0 ? 'current' : '' }}">
-                                            <div class="text">
-                                                <p>{!! nl2br(e($faq->answer)) !!}</p> {{-- Using nl2br(e()) to preserve line breaks and escape HTML --}}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                </ul>
+                                @if (isset($faqs) && $faqs->count() > 0)
+                                    <ul class="accordion-box">
+                                        @foreach ($faqs as $index => $faq)
+                                            <li class="accordion block {{ $index == 0 ? 'active-block' : '' }}">
+                                                {{-- The first item is often open by default --}}
+                                                <div class="acc-btn {{ $index == 0 ? 'active' : '' }}">
+                                                    <h4>{{ $faq->question }}</h4>
+                                                    <div class="icon-box"><i class="icon-16"></i></div>
+                                                    {{-- Ensure this icon class exists and provides +/ - behavior or adjust JS --}}
+                                                </div>
+                                                <div class="acc-content {{ $index == 0 ? 'current' : '' }}">
+                                                    <div class="text">
+                                                        <p>{!! nl2br(e($faq->answer)) !!}</p> {{-- Using nl2br(e()) to preserve line breaks and escape HTML --}}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 @else
-                                <p>Aucune FAQ disponible pour le moment. Veuillez consulter ultérieurement.</p>
+                                    <p>Aucune FAQ disponible pour le moment. Veuillez consulter ultérieurement.</p>
                                 @endif
                             </div>
                         </div>
@@ -158,10 +147,10 @@
     --}}
     <script>
         // Basic Accordion Functionality (if not already in shared.js)
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const accordionButtons = document.querySelectorAll('.accordion-box .acc-btn');
             accordionButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const parentBlock = this.closest('.accordion.block');
                     const accContent = parentBlock.querySelector('.acc-content');
                     const isActive = parentBlock.classList.contains('active-block');
@@ -191,4 +180,5 @@
     </script>
 
 </body>
+
 </html>

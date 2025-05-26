@@ -1,5 +1,5 @@
 @extends('admin.layout')
-
+@section('title', 'Événements')
 @section('content')
     <section id="events" class="admin-section">
         <h3>Gestion des Événements</h3>

@@ -1,5 +1,5 @@
 @extends('admin.layout')
-
+@section('title', 'Faq')
 @section('content')
     <section id="faqs" class="admin-section">
         <h3>Gestion des FAQs</h3>

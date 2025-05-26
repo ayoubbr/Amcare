@@ -1,4 +1,5 @@
 @extends('admin.layout')
+@section('title', 'Pages')
 @section('content')
     {{-- Pages Section --}}
     <section id="pages" class="admin-section">
