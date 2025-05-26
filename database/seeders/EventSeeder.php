@@ -22,7 +22,7 @@ class EventSeeder extends Seeder
                 'content' => '<p>Venez découvrir nos installations, rencontrer notre équipe et en apprendre plus sur nos services. Démonstrations de premiers secours et ateliers pour enfants.</p>',
                 'event_date' => Carbon::now()->addMonths(1)->setHour(10)->setMinute(0),
                 'location' => 'Siège Social Amcare, Casablanca',
-                'image' => 'events/portes_ouvertes.jpg',
+                'image' => 'assets/seed_images/hopital-1.jpg',
                 'is_published' => true,
             ],
             [
@@ -30,7 +30,7 @@ class EventSeeder extends Seeder
                 'content' => '<p>Participez à notre session de formation gratuite aux gestes de premiers secours. Places limitées, inscription obligatoire.</p>',
                 'event_date' => Carbon::now()->addWeeks(3)->setHour(14)->setMinute(30),
                 'location' => 'Centre de Formation Amcare, Rabat',
-                'image' => 'events/formation_secours.jpg',
+                'image' => 'assets/seed_images/jeep-3.jpg',
                 'is_published' => true,
             ],
             [
@@ -38,6 +38,7 @@ class EventSeeder extends Seeder
                 'content' => '<p>Une conférence animée par des experts pour vous aider à identifier et prévenir les risques d\'accidents à la maison, notamment pour les enfants et les personnes âgées.</p>',
                 'event_date' => Carbon::now()->addMonths(2)->setDay(15)->setHour(18)->setMinute(0),
                 'location' => 'Palais des Congrès, Marrakech',
+                'image' => 'assets/seed_images/ambulance-team-2.jpg',
                 'is_published' => true,
             ],
             [
@@ -45,6 +46,7 @@ class EventSeeder extends Seeder
                 'content' => '<p>Amcare soutient la collecte de sang. Venez donner votre sang et sauver des vies. Chaque don compte.</p>',
                 'event_date' => Carbon::now()->addDays(45)->setHour(9)->setMinute(0),
                 'location' => 'Parking de l\'Hôpital Central',
+                'image' => 'assets/seed_images/ambulance-team-3.jpg',
                 'is_published' => false, // Example of an unpublished event
             ],
         ];

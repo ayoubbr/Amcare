@@ -103,8 +103,21 @@
                                     {!! $event->content !!}
                                 </div>
                                 <figure class="image-box">
-                                    <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event-details.jpg') }}"
-                                        alt="{{ $event->title }}">
+                                    @php
+                                        $imagePath = $event->image;
+                                        $imageUrl = null;
+                                        $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                        if ($imagePath) {
+                                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                                $imageUrl = asset($imagePath);
+                                            } else {
+                                                $imageUrl = Storage::url($imagePath);
+                                            }
+                                        }
+                                    @endphp
+                                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
+                                    <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}">
                                 </figure>
                                 <div class="text-box">
                                     <ul class="post-info">
@@ -123,18 +136,37 @@
                                     <h3>Événements Similaires</h3>
                                     <div class="row clearfix">
                                         @foreach ($relatedEvents as $relatedEvent)
+                                            @php
+                                                $imagePath = $relatedEvent->image;
+                                                $imageUrl = null;
+                                                $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                                if ($imagePath) {
+                                                    if (
+                                                        Illuminate\Support\Str::startsWith(
+                                                            $imagePath,
+                                                            'assets/seed_images/',
+                                                        )
+                                                    ) {
+                                                        $imageUrl = asset($imagePath);
+                                                    } else {
+                                                        $imageUrl = Storage::url($imagePath);
+                                                    }
+                                                }
+                                            @endphp
+                                            {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                             <div class="col-lg-6 col-md-6 col-sm-12 event-block">
                                                 <div class="event-block-one">
                                                     <div class="inner-box">
                                                         <h3><a
-                                                                href="{{ route('event', $relatedEvent->slug) }}">{{ $relatedEvent->title }}</a>
+                                                                href="{{ route('event', $relatedEvent->slug) }}">{{ Str::limit($relatedEvent->title, 40) }}</a>
                                                         </h3>
-                                                        <p>{{ Str::limit($relatedEvent->content, 80) }}</p>
+                                                        <p>{!! Str::limit($relatedEvent->content, 80) !!}</p>
                                                         <div class="btn-box"><a
                                                                 href="{{ route('event', $relatedEvent->slug) }}"
                                                                 class="theme-btn btn-one">En savoir plus</a></div>
                                                         <figure class="image-box">
-                                                            <img src="{{ $relatedEvent->image ? Storage::url($relatedEvent->image) : asset('assets/images/resource/default-event.jpg') }}"
+                                                            <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                                                 alt="{{ $relatedEvent->title }}">
                                                         </figure>
                                                     </div>

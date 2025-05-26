@@ -129,7 +129,7 @@
                                 </div>
                                 <figure class="image-box pt_20">
                                     @php
-                                        $imagePath = $service->image;
+                                        $imagePath = $service->imdage;
                                         $imageUrl = null;
                                         $defaultImageUrl = asset('assets/images/service/service-1.jpg');
 

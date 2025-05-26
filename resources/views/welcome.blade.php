@@ -356,7 +356,7 @@
                             @php
                                 $imagePath = $service->image;
                                 $imageUrl = null;
-                                $defaultImageUrl = asset('assets/images/resource/event-3.jpg');
+                                $defaultImageUrl = asset('assets/images/service/service-1.jpg');
 
                                 if ($imagePath) {
                                     if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {

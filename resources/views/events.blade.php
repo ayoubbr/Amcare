@@ -91,8 +91,7 @@
             </div>
         </section>
         <section class="event-section pt_60 pb_60 centred p_relative">
-            <div class="pattern-layer"
-                style="background-image: url({{ asset('assets/images/shape/shape-8.png') }});">
+            <div class="pattern-layer" style="background-image: url({{ asset('assets/images/shape/shape-8.png') }});">
             </div>
             <div class="auto-container">
                 <div class="sec-title mb_50">
@@ -101,17 +100,31 @@
                 </div>
                 <div class="row clearfix">
                     @forelse($events as $event)
+                        @php
+                            $imagePath = $event->image;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                         <div class="col-lg-6 col-md-6 col-sm-12 event-block">
                             <div class="event-block-one">
                                 <div class="inner-box">
                                     <h3><a href="{{ route('event', $event->slug) }}">{{ $event->title }}</a></h3>
-                                    {!! $event->content !!}
+                                    {!! Str::limit($event->content, 90) !!}
                                     <div class="btn-box"><a href="{{ route('event', $event->slug) }}"
                                             class="theme-btn btn-one">En
                                             savoir plus</a>
                                     </div>
                                     <figure class="image-box">
-                                        <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event.jpg') }}"
+                                        <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                             alt="{{ $event->title }}">
                                     </figure>
                                 </div>

@@ -19,13 +19,26 @@
                 </thead>
                 <tbody>
                     @foreach ($events as $event)
+                        @php
+                            $imagePath = $event->image;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                         <tr data-entity="events" data-id="{{ $event->id }}" data-title="{{ $event->title }}"
                             data-slug="{{ $event->slug }}"
                             data-event-date="{{ $event->event_date ? \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i') : '' }}"
                             data-location="{{ $event->location ?? '' }}"
                             data-is-published="{{ $event->is_published ? 'true' : 'false' }}"
-                            data-content="{{ $event->content }}"
-                            data-image="{{ $event->image ? Storage::url($event->image) : '' }}">
+                            data-content="{{ $event->content }}" data-image="{{ $imageUrl ?? $defaultImageUrl }}">
                             <td>{{ $event->id }}</td>
                             <td>{{ $event->title }}</td>
                             <td>{{ $event->slug }}</td>
