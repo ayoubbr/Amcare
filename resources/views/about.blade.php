@@ -68,6 +68,18 @@
 
         @include('shared.header')
 
+        <section class="page-title centred">
+            <div class="bg-layer" style="background-image: url(assets/images/background/page-title-4.jpg);"></div>
+            <div class="auto-container">
+                <div class="content-box">
+                    <ul class="bread-crumb">
+                        <li><a href="/">Accueil</a></li>
+                        <li>Qui sommes-nous</li>
+                    </ul>
+                    <h1>Qui sommes-nous</h1>
+                </div>
+            </div>
+        </section>
         <section class="about-style-three pt_120 pb_120">
             <div class="auto-container">
                 <div class="row align-items-center">

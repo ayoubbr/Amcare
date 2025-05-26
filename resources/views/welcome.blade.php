@@ -122,24 +122,19 @@
                     @empty
                         {{-- Default static partners if no dynamic partners are found --}}
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{asset('assets/images/brand/brand-1.png') }}"
-                                    alt=""></a>
+                                    src="{{ asset('assets/images/brand/brand-1.png') }}" alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{asset('assets/images/brand/brand-2.png') }}"
-                                    alt=""></a>
+                                    src="{{ asset('assets/images/brand/brand-2.png') }}" alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{asset('assets/images/brand/brand-3.png') }}"
-                                    alt=""></a>
+                                    src="{{ asset('assets/images/brand/brand-3.png') }}" alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{asset('assets/images/brand/brand-4.png') }}"
-                                    alt=""></a>
+                                    src="{{ asset('assets/images/brand/brand-4.png') }}" alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{asset('assets/images/brand/brand-5.png') }}"
-                                    alt=""></a>
+                                    src="{{ asset('assets/images/brand/brand-5.png') }}" alt=""></a>
                         </div>
                     @endforelse
                 </div>
@@ -147,7 +142,7 @@
         </section>
 
         @if ($page)
-            <section class="about-style-three pt_120 pb_120">
+            <section class="about-style-three pt_120">
                 <div class="auto-container">
                     <div class="row align-items-center">
                         <div class="col-lg-6 col-md-12 col-sm-12 content-column">
@@ -159,7 +154,7 @@
                                             {{ $page->main_title ?? 'Excellence dans les services médicaux d\'urgence' }}
                                         </h2>
                                         @if (isset($page) && $page->content)
-                                            {!! $page->content !!}
+                                            {!! $page->meta_description !!}
                                         @else
                                             <p>Chez Amcare, nous sommes fiers d'offrir l'excellence dans les
                                                 services
@@ -169,14 +164,18 @@
                                                 expérimentés.</p>
                                         @endif
                                     </div>
-                                    @if (isset($page) && !empty($page->description) && is_array($page->description))
+                                    <div class="btn-box"><a href="{{ route('about') }}"
+                                            class="theme-btn btn-one">En
+                                            savoir plus</a>
+                                    </div>
+                                    {{-- @if (isset($page) && !empty($page->description) && is_array($page->description))
                                         <ul class="list-style-one mb_30 clearfix">
                                             @foreach ($page->description as $item)
                                                 <li>{{ $item }}</li>
                                             @endforeach
                                         </ul>
                                     @else
-                                        {{-- Fallback static list if dynamic data is not available --}}
+                                         Fallback static list if dynamic data is not available 
                                         <ul class="list-style-one mb_30 clearfix">
                                             <li>Les équipes inclusives prennent en compte un plus large éventail de
                                                 points
@@ -186,7 +185,7 @@
                                             <li>Adopter la diversité est conforme aux normes légales et éthiques
                                             </li>
                                         </ul>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -197,10 +196,10 @@
                                         <img src="{{ $page && $page->image ? Storage::url($page->image) : asset('assets/images/resource/about-3.jpg') }}"
                                             alt="{{ $page->title ?? 'À propos de nous' }}">
                                     </figure>
-                                    <figure class="image image-2">
+                                    {{-- <figure class="image image-2">
                                         <img src="{{ asset('assets/real_images/sahara-1-copy.jpg') }}"
                                             alt="Image décorative">
-                                    </figure>
+                                    </figure> --}}
                                 </div>
                             </div>
                         </div>
@@ -287,7 +286,7 @@
         </section>
 
         {{-- Dynamic Services Section --}}
-        <section class="service-section">
+        <section class="service-section pt_60">
             <div class="auto-container">
                 <div class="sec-title mb_50 centred">
                     <span class="sub-title mb_12">Nos services</span>

@@ -82,7 +82,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="/">Accueil</a></li>
                         <li>Nous contacter</li>
                     </ul>
                     <h1>Nous contacter</h1>
