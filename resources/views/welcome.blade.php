@@ -14,35 +14,28 @@
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    @vite('resources/css/font-awesome-all.css')
-    @vite('resources/css/owl.css')
-    @vite('resources/css/flaticon.css')
-    @vite('resources/css/bootstrap.css')
-    @vite('resources/css/jquery.fancybox.min.css')
-    @vite('resources/css/animate.css')
-    @vite('resources/css/nice-select.css')
-    @vite('resources/css/odometer.css')
-    @vite('resources/css/elpath.css')
-    @vite('resources/css/color.css')
-    @vite('resources/css/rtl.css')
-    @vite('resources/css/style.css')
-    @vite('resources/css/module-css/header.css')
-    @vite('resources/css/module-css/banner.css')
-    @vite('resources/css/module-css/brand.css')
-    @vite('resources/css/module-css/about.css')
-    @vite('resources/css/module-css/chooseus.css')
-    @vite('resources/css/module-css/service.css')
-    @vite('resources/css/module-css/feature.css')
-    @vite('resources/css/module-css/funfact.css')
-    @vite('resources/css/module-css/testimonial.css')
-    @vite('resources/css/module-css/faq.css')
-    @vite('resources/css/module-css/team.css')
-    @vite('resources/css/module-css/event.css')
-    @vite('resources/css/module-css/process.css')
-    @vite('resources/css/module-css/news.css')
-    @vite('resources/css/module-css/cta.css')
-    @vite('resources/css/module-css/footer.css')
-    @vite('resources/css/responsive.css')
+    <link href="{{ asset('assets/css/font-awesome-all.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/owl.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/jquery.fancybox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/nice-select.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/odometer.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/elpath.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/color.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/rtl.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/header.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/banner.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/brand.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/about.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/service.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/funfact.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/faq.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/process.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/module-css/footer.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
 
 </head>
 
@@ -101,7 +94,8 @@
                     </div>
                 @empty
                     <div class="slide-item p_relative">
-                        <div class="bg-layer" style="background-image: url(assets/images/banner/banner-7.jpg);"></div>
+                        <div class="bg-layer" style="background-image: url(assets/images/banner/banner-7.jpg);">
+                        </div>
                         <div class="auto-container">
                             <div class="content-box">
                                 {{-- <span class="upper-text">Disponible 24/7</span> --}}
@@ -128,23 +122,23 @@
                     @empty
                         {{-- Default static partners if no dynamic partners are found --}}
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ Vite::asset('resources/assets/images/brand/brand-1.png') }}"
+                                    src="{{asset('assets/images/brand/brand-1.png') }}"
                                     alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ Vite::asset('resources/assets/images/brand/brand-2.png') }}"
+                                    src="{{asset('assets/images/brand/brand-2.png') }}"
                                     alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ Vite::asset('resources/assets/images/brand/brand-3.png') }}"
+                                    src="{{asset('assets/images/brand/brand-3.png') }}"
                                     alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ Vite::asset('resources/assets/images/brand/brand-4.png') }}"
+                                    src="{{asset('assets/images/brand/brand-4.png') }}"
                                     alt=""></a>
                         </div>
                         <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ Vite::asset('resources/assets/images/brand/brand-5.png') }}"
+                                    src="{{asset('assets/images/brand/brand-5.png') }}"
                                     alt=""></a>
                         </div>
                     @endforelse
@@ -167,8 +161,10 @@
                                         @if (isset($page) && $page->content)
                                             {!! $page->content !!}
                                         @else
-                                            <p>Chez Amcare, nous sommes fiers d'offrir l'excellence dans les services
-                                                médicaux d'urgence. Notre équipe de professionnels hautement qualifiés
+                                            <p>Chez Amcare, nous sommes fiers d'offrir l'excellence dans les
+                                                services
+                                                médicaux d'urgence. Notre équipe de professionnels hautement
+                                                qualifiés
                                                 et
                                                 expérimentés.</p>
                                         @endif
@@ -185,8 +181,10 @@
                                             <li>Les équipes inclusives prennent en compte un plus large éventail de
                                                 points
                                                 de vue</li>
-                                            <li>Démontrer un engagement envers la diversité et l'inclusion améliore</li>
-                                            <li>Adopter la diversité est conforme aux normes légales et éthiques</li>
+                                            <li>Démontrer un engagement envers la diversité et l'inclusion améliore
+                                            </li>
+                                            <li>Adopter la diversité est conforme aux normes légales et éthiques
+                                            </li>
                                         </ul>
                                     @endif
                                 </div>
@@ -196,7 +194,7 @@
                             <div class="image_block_four">
                                 <div class="image-box pl_150 pb_100">
                                     <figure class="image image-1">
-                                        <img src="{{ $page && $page->image ? Storage::url($page->image) : Vite::asset('resources/assets/images/resource/about-3.jpg') }}"
+                                        <img src="{{ $page && $page->image ? Storage::url($page->image) : asset('assets/images/resource/about-3.jpg') }}"
                                             alt="{{ $page->title ?? 'À propos de nous' }}">
                                     </figure>
                                     <figure class="image image-2">
@@ -228,7 +226,8 @@
                                     </div>
                                 </div>
                                 <h3>Appeler la ligne directe</h3>
-                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
+                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit
+                                </p>
                             </div>
                         </div>
                         <div class="processing-block-two">
@@ -239,7 +238,8 @@
                                     </div>
                                 </div>
                                 <h3>Définir la direction</h3>
-                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
+                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit
+                                </p>
                             </div>
                         </div>
                         <div class="processing-block-two">
@@ -250,7 +250,8 @@
                                     </div>
                                 </div>
                                 <h3>Obtenir une ambulance</h3>
-                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit</p>
+                                <p>Suspendisse varius etiam est vitae duitempus nec vitae orci sodales metus velit
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -305,7 +306,8 @@
                     </div>
                     <div class="tabs-content">
                         <div class="shape"
-                            style="background-image: url('{{ asset('assets/images/shape/shape-1.png') }}');"></div>
+                            style="background-image: url('{{ asset('assets/images/shape/shape-1.png') }}');">
+                        </div>
                         @forelse($services as $index => $service)
                             <div class="tab {{ $index === 0 ? 'active-tab' : '' }}" id="tab-{{ $service->id }}">
                                 <div class="row align-items-center">
@@ -461,7 +463,8 @@
                                             </div>
                                             <div class="acc-content">
                                                 <div class="text">
-                                                    <p>Veuillez consulter l'administrateur pour ajouter des questions
+                                                    <p>Veuillez consulter l'administrateur pour ajouter des
+                                                        questions
                                                         fréquemment posées.</p>
                                                 </div>
                                             </div>

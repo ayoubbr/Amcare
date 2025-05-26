@@ -210,7 +210,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+            <img src="{{ $settings->logo ? Storage::url($settings->logo) : asset('/assets/images/logo.png') }}"
                 alt="{{ $settings->site_name ?? 'Amcare' }}">
         </div>
 

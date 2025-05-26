@@ -12,40 +12,31 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elpath.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/rtl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
-    @vite('resources/css/font-awesome-all.css')
-    @vite('resources/css/owl.css')
-    @vite('resources/css/flaticon.css')
-    @vite('resources/css/bootstrap.css')
-    @vite('resources/css/jquery.fancybox.min.css')
-    @vite('resources/css/animate.css')
-    @vite('resources/css/nice-select.css')
-    @vite('resources/css/odometer.css')
-    @vite('resources/css/elpath.css')
-    @vite('resources/css/color.css')
-    @vite('resources/css/rtl.css')
-    @vite('resources/css/style.css')
-    @vite('resources/css/module-css/header.css')
-    @vite('resources/css/module-css/banner.css')
-    @vite('resources/css/module-css/brand.css')
-    @vite('resources/css/module-css/about.css')
-    @vite('resources/css/module-css/chooseus.css')
-    @vite('resources/css/module-css/service.css')
-    @vite('resources/css/module-css/feature.css')
-    @vite('resources/css/module-css/funfact.css')
-    @vite('resources/css/module-css/testimonial.css')
-    @vite('resources/css/module-css/faq.css')
-    @vite('resources/css/module-css/team.css')
-    @vite('resources/css/module-css/event.css')
-    @vite('resources/css/module-css/process.css')
-    @vite('resources/css/module-css/news.css')
-    @vite('resources/css/module-css/cta.css')
-    @vite('resources/css/module-css/footer.css')
-    @vite('resources/css/module-css/page-title.css')
-    @vite('resources/css/module-css/blog-sidebar.css')
-    @vite('resources/css/module-css/subscribe.css')
-    @vite('resources/css/module-css/blog-details.css')
-    @vite('resources/css/responsive.css')
+    <!-- Module CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/banner.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/news.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/blog-sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/blog-details.css') }}">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
 
 </head>
 
@@ -150,7 +141,8 @@
                                                                 href="{{ route('post', $relatedPost->slug) }}">{{ $relatedPost->title }}</a>
                                                         </h4>
                                                         <ul class="post-info">
-                                                            <li><i class="icon-30"></i><a href="#">Admin</a></li>
+                                                            <li><i class="icon-30"></i><a href="#">Admin</a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

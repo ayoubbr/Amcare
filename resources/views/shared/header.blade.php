@@ -19,7 +19,7 @@
             <div class="outer-box">
                 <figure class="logo-box">
                     <a href="{{ route('home') }}">
-                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : asset('assets/images/logo.png') }}"
                             alt="{{ $settings->site_name ?? 'Amcare' }}">
                     </a>
                 </figure>
@@ -90,7 +90,7 @@
         <div class="auto-container">
             <div class="outer-box">
                 <figure class="logo-box"><a href="index.html"><img
-                            src="{{ Vite::asset('resources/assets/images/logo.png') }}" alt=""></a>
+                            src="{{ asset('assets/images/logo.png') }}" alt=""></a>
                 </figure>
                 <div class="menu-area">
                     <nav class="main-menu clearfix">
@@ -109,7 +109,7 @@
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
     <nav class="menu-box">
-        <div class="nav-logo"><a href="/"><img src="{{ Vite::asset('resources/assets/images/logo-2.png') }}"
+        <div class="nav-logo"><a href="/"><img src="{{ asset('assets/images/logo-2.png') }}"
                     alt="" title=""></a>
         </div>
         <div class="menu-outer">
@@ -146,7 +146,7 @@
     <div class="popup-inner">
         <div class="upper-box">
             <figure class="logo-box"><a href="index.html"><img
-                        src="{{ Vite::asset('resources/assets/images/logo-2.png') }}" alt=""></a>
+                        src="{{ asset('assets/images/logo-2.png') }}" alt=""></a>
             </figure>
             <div class="close-search"><span class="fas fa-times"></span></div>
         </div>

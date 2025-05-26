@@ -18,25 +18,28 @@
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    @vite([
-        'resources/css/font-awesome-all.css',
-        'resources/css/owl.css',
-        'resources/css/flaticon.css',
-        'resources/css/bootstrap.css',
-        'resources/css/jquery.fancybox.min.css',
-        'resources/css/animate.css',
-        'resources/css/nice-select.css',
-        'resources/css/odometer.css',
-        'resources/css/elpath.css',
-        'resources/css/color.css',
-        'resources/css/style.css',
-        'resources/css/module-css/header.css',
-        'resources/css/module-css/footer.css',
-        'resources/css/module-css/page-title.css',
-        'resources/css/module-css/about.css',
-        'resources/css/module-css/chooseus.css', //
-        'resources/css/responsive.css',
-    ])
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elpath.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <!-- Module CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/about.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/chooseus.css') }}">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
 
 </head>
 
@@ -106,11 +109,11 @@
                         <div class="image_block_four">
                             <div class="image-box pl_150 pb_100">
                                 <figure class="image image-1">
-                                    <img src="{{ $page && $page->image ? Storage::url($page->image) : Vite::asset('resources/assets/images/resource/about-3.jpg') }}"
+                                    <img src="{{ $page && $page->image ? Storage::url($page->image) : asset('assets/images/resource/about-3.jpg') }}"
                                         alt="{{ $page->title ?? 'À propos de nous' }}">
                                 </figure>
                                 <figure class="image image-2">
-                                    <img src="{{ Vite::asset('resources/assets/images/resource/about-4.jpg') }}"
+                                    <img src="{{ asset('assets/images/resource/about-4.jpg') }}"
                                         alt="Image décorative">
                                 </figure>
                             </div>
@@ -123,7 +126,7 @@
         {{-- "Why Choose Us" section - This could be static or managed as a separate content block/model if it needs to be dynamic --}}
         <section class="chooseus-section centred pt_120 pb_90">
             <div class="bg-layer parallax-bg" data-parallax='{"y": 100}'
-                style="background-image: url({{ Vite::asset('resources/assets/images/background/chooseus-bg.jpg') }});">
+                style="background-image: url({{ asset('assets/images/background/chooseus-bg.jpg') }});">
             </div>
             <div class="auto-container">
                 <div class="sec-title centred light mb_50">

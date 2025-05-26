@@ -9,12 +9,27 @@
     <title>FAQ - {{ $settings->site_name ?? 'Amcare' }}</title>
 
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
-    
+
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    @vite(['resources/css/font-awesome-all.css', 'resources/css/owl.css', 'resources/css/flaticon.css', 'resources/css/bootstrap.css', 'resources/css/jquery.fancybox.min.css', 'resources/css/animate.css', 'resources/css/nice-select.css', 'resources/css/odometer.css', 'resources/css/elpath.css', 'resources/css/color.css', 'resources/css/style.css', 'resources/css/module-css/header.css', 'resources/css/module-css/footer.css', 'resources/css/module-css/page-title.css', 'resources/css/module-css/faq.css', 'resources/css/responsive.css'])
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elpath.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/faq.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
 </head>
 
@@ -47,7 +62,7 @@
 
         <section class="page-title centred">
             <div class="bg-layer blue-mask"
-                style="background-image: url({{ Vite::asset('resources/assets/images/background/page-title-3.jpg') }});">
+                style="background-image: url({{ asset('assets/images/background/page-title-3.jpg') }});">
             </div>
             <div class="auto-container">
                 <div class="content-box">
@@ -68,21 +83,21 @@
                             <div class="image-box">
                                 <div class="image-shape">
                                     <div class="shape-1"
-                                        style="background-image: url({{ Vite::asset('resources/assets/images/shape/shape-2.png') }});">
+                                        style="background-image: url({{ asset('assets/images/shape/shape-2.png') }});">
                                     </div>
                                     <div class="shape-2"
-                                        style="background-image: url({{ Vite::asset('resources/assets/images/shape/shape-2.png') }});">
+                                        style="background-image: url({{ asset('assets/images/shape/shape-2.png') }});">
                                     </div>
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 single-image">
                                         <figure class="image image-hov-one mt_100"><img
-                                                src="{{ Vite::asset('resources/assets/images/resource/faq-1.jpg') }}"
+                                                src="{{ asset('assets/images/resource/faq-1.jpg') }}"
                                                 alt="FAQ Image 1"></figure>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 single-image">
                                         <figure class="image image-hov-two mb_30"><img
-                                                src="{{ Vite::asset('resources/assets/images/resource/faq-2.jpg') }}"
+                                                src="{{ asset('assets/images/resource/faq-2.jpg') }}"
                                                 alt="FAQ Image 2"></figure>
                                         <div class="experience-box">
                                             <div class="year-box">

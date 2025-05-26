@@ -13,20 +13,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
-
-    @vite('resources/css/admin.css')
-    @vite('resources/css/font-awesome-all.css')
-    @vite('resources/css/owl.css')
-    @vite('resources/css/flaticon.css')
-    @vite('resources/css/bootstrap.css')
-    @vite('resources/css/jquery.fancybox.min.css')
-    @vite('resources/css/animate.css')
-    @vite('resources/css/nice-select.css')
-    @vite('resources/css/odometer.css')
-    @vite('resources/css/elpath.css')
-    @vite('resources/css/color.css')
-    @vite('resources/css/style.css')
-    @vite('resources/css/module-css/page-title.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elpath.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     {{-- TinyMCE CDN --}}
     <script src="https://cdn.tiny.cloud/1/q9ypn617foqxxvh27h597ji1xh18rygt22durn56hhd6wsfw/tinymce/6/tinymce.min.js"
