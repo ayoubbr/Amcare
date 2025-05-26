@@ -82,7 +82,8 @@
         @include('shared.header')
 
         <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title-4.jpg') }});"></div>
+            <div class="bg-layer"
+                style="background-image: url({{ asset('assets/images/background/page-title-4.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -100,17 +101,30 @@
                         <div class="blog-grid-content p_relative">
                             <div class="row clearfix">
                                 @forelse($posts as $post)
+                                    @php
+                                        $imagePath = $post->image;
+                                        $imageUrl = null;
+                                        $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                        if ($imagePath) {
+                                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                                $imageUrl = asset($imagePath);
+                                            } else {
+                                                $imageUrl = Storage::url($imagePath);
+                                            }
+                                        }
+                                    @endphp
+                                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                     <div class="col-lg-6 col-md-6 col-sm-12 news-block">
                                         <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms"
                                             data-wow-duration="1500ms">
                                             <div class="inner-box">
                                                 <div class="bg-layer"
-                                                    style="background-image: url({{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog.jpg') }});">
+                                                    style="background-image: url({{ $imageUrl ?? $defaultImageUrl }});">
                                                 </div>
                                                 <span class="post-date"><i
                                                         class="icon-29"></i>{{ \Carbon\Carbon::parse($post->published_at)->format('d M, Y') }}</span>
-                                                <h4><a
-                                                        href="{{ route('post', $post->slug) }}">{{ $post->title }}</a>
+                                                <h4><a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a>
                                                 </h4>
                                                 <ul class="post-info">
                                                     <li><i class="icon-30"></i><a href="#">Admin</a></li>
@@ -167,11 +181,30 @@
                                 </div>
                                 <div class="post-inner">
                                     @foreach ($latestPosts as $latestPost)
+                                        @php
+                                            $imagePath = $latestPost->image;
+                                            $imageUrl = null;
+                                            $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                            if ($imagePath) {
+                                                if (
+                                                    Illuminate\Support\Str::startsWith(
+                                                        $imagePath,
+                                                        'assets/seed_images/',
+                                                    )
+                                                ) {
+                                                    $imageUrl = asset($imagePath);
+                                                } else {
+                                                    $imageUrl = Storage::url($imagePath);
+                                                }
+                                            }
+                                        @endphp
+                                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                         <div class="post">
                                             <figure class="post-thumb"><a
                                                     href="{{ route('post', $latestPost->slug) }}"><img
-                                                        src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
-                                                        alt=""></a></figure>
+                                                        src="{{ $imageUrl ?? $defaultImageUrl }}" alt=""></a>
+                                            </figure>
                                             <article>
                                                 <h5><a
                                                         href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a>

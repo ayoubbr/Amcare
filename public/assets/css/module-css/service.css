@@ -33,6 +33,7 @@
   font-weight: 700;
   color: var(--title-color);
   transition: all 500ms ease;
+  min-height: 150px;
 }
 
 .service-section .tab-btns .tab-btn:last-child {

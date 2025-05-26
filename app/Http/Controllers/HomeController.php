@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $posts = BlogPost::published()
             ->with('category')
-            ->paginate(1);
+            ->paginate(4);
 
         $categories = Category::orderBy('name')->get();
 
