@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\ExtraSetting;
 use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Service;
@@ -24,15 +25,15 @@ class HomeController extends Controller
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
         $sliderImages = SliderImage::published()->ordered()->get();
         $partners = Partner::published()->ordered()->get();
+        $extraSettings = ExtraSetting::orderBy('order', 'asc')->get(); 
 
         $page = Page::published()->where('slug', 'a-propos')->first();
         if ($page) {
-
             $metaTitle = $page->meta_title ?? $page->title;
             $metaDescription = $page->description ?? '';
         }
 
-        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page'));
+        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page', 'extraSettings'));
     }
 
     public function blog()

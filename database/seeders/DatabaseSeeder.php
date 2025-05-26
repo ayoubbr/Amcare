@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             SliderImageSeeder::class,
             PartnerSeeder::class,
+            ExtraSettingSeeder::class,
         ]);
     }
 }

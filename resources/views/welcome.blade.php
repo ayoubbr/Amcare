@@ -412,58 +412,87 @@
             </div>
         </section>
 
+
         <section class="funfact-style-three pl_100 pr_100 pb_40 pt_40">
             <div class="pattern-layer"
-                style="background-image: url('{{ asset('assets/images/shape/shape-8.png') }}');"></div>
+                style="background-image: url('{{ Vite::asset('resources/assets/images/shape/shape-8.png') }}');">
+            </div>
             <div class="auto-container">
                 <div class="inner-container">
                     <div class="row clearfix">
-                        <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
-                            <div class="funfact-block-three">
-                                <div class="inner-box">
-                                    <div class="icon-box"><i class="icon-36"></i></div>
-                                    <div class="inner">
-                                        <div class="count-outer">
-                                            <span class="odometer" data-count="300">00</span><span
-                                                class="symble">+</span>
+                        @if (isset($extraSettings) && $extraSettings->count() > 0)
+                            @foreach ($extraSettings as $stat)
+                                <div
+                                    class="col-lg-{{ 12 / (3) }} col-md-6 col-sm-12 funfact-block">
+                                    {{-- Adjust column class dynamically --}}
+                                    <div class="funfact-block-three">
+                                        <div class="inner-box">
+                                            @if ($stat->icon_class)
+                                                <div class="icon-box"><i class="{{ $stat->icon_class }}"></i></div>
+                                            @endif
+                                            <div class="inner">
+                                                <div class="count-outer">
+                                                    <span class="odometer" data-count="{{ $stat->value }}">00</span>
+                                                    @if ($stat->value_suffix)
+                                                        <span class="symble">{{ $stat->value_suffix }}</span>
+                                                    @endif
+                                                </div>
+                                                <p>{{ $stat->label }}</p>
+                                            </div>
                                         </div>
-                                        <p>Personnel de première ligne</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            {{-- Fallback static content if no extraSettings are found
+                            <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
+                                <div class="funfact-block-three">
+                                    <div class="inner-box">
+                                        <div class="icon-box"><i class="icon-36"></i></div>
+                                        <div class="inner">
+                                            <div class="count-outer">
+                                                <span class="odometer" data-count="300">00</span><span
+                                                    class="symble">+</span>
+                                            </div>
+                                            <p>Personnel de première ligne</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
-                            <div class="funfact-block-three">
-                                <div class="inner-box">
-                                    <div class="icon-box"><i class="icon-37"></i></div>
-                                    <div class="inner">
-                                        <div class="count-outer">
-                                            <span class="odometer" data-count="100">00</span><span
-                                                class="symble">+</span>
+                            <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
+                                <div class="funfact-block-three">
+                                    <div class="inner-box">
+                                        <div class="icon-box"><i class="icon-37"></i></div>
+                                        <div class="inner">
+                                            <div class="count-outer">
+                                                <span class="odometer" data-count="100">00</span><span
+                                                    class="symble">+</span>
+                                            </div>
+                                            <p>Véhicules spécialisés</p>
                                         </div>
-                                        <p>Véhicules spécialisés</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
-                            <div class="funfact-block-three">
-                                <div class="inner-box">
-                                    <div class="icon-box"><i class="icon-38"></i></div>
-                                    <div class="inner">
-                                        <div class="count-outer">
-                                            <span class="odometer" data-count="15">00</span><span
-                                                class="symble">k+</span>
+                            <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
+                                <div class="funfact-block-three">
+                                    <div class="inner-box">
+                                        <div class="icon-box"><i class="icon-38"></i></div>
+                                        <div class="inner">
+                                            <div class="count-outer">
+                                                <span class="odometer" data-count="15">00</span><span
+                                                    class="symble">k+</span>
+                                            </div>
+                                            <p>Patients servis</p>
                                         </div>
-                                        <p>Patients servis</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> --}}
+                        @endif
                     </div>
                 </div>
             </div>
         </section>
+
 
         {{-- Dynamic FAQ Section --}}
         <section class="faq-style-two pt_120 pb_120">
