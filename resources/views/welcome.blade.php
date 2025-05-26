@@ -81,9 +81,23 @@
         <section class="banner-style-three pl_100 pr_100">
             <div class="banner-carousel owl-theme owl-carousel owl-nav-none owl-dots-none">
                 @forelse($sliderImages as $sliderImage)
+                    @php
+                        $imagePath = $sliderImage->image_path;
+                        $imageUrl = null;
+                        $defaultImageUrl = asset('assets/images/sliderImage/sliderImage-1.jpg');
+
+                        if ($imagePath) {
+                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                $imageUrl = asset($imagePath);
+                            } else {
+                                $imageUrl = Storage::url($imagePath);
+                            }
+                        }
+                    @endphp
+                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $sliderImage->title }}"> --}}
+
                     <div class="slide-item p_relative">
-                        <div class="bg-layer"
-                            style="background-image: url({{ $sliderImage->image_path ? Storage::url($sliderImage->image_path) : asset('assets/images/banner/default-banner.jpg') }});">
+                        <div class="bg-layer" style="background-image: url({{ $imageUrl ?? $defaultImageUrl }});">
                         </div>
                         <div class="auto-container">
                             <div class="content-box">
@@ -112,11 +126,24 @@
             <div class="outer-container b_radius pl_0">
                 <div class="brand-carousel owl-carousel owl-theme owl-dots-none owl-nav-none">
                     @forelse($partners as $partner)
+                        @php
+                            $imagePath = $partner->logo_path;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/partner/partner-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $partner->title }}"> --}}
                         <div class="brand-logo-box">
                             <a href="{{ $partner->website_url ?? '#' }}"
                                 {{ $partner->website_url ? 'target="_blank"' : '' }}>
-                                <img src="{{ $partner->logo_path ? Storage::url($partner->logo_path) : asset('assets/images/brand/default-brand.png') }}"
-                                    alt="{{ $partner->name }}">
+                                <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $partner->name }}">
                             </a>
                         </div>
                     @empty
@@ -164,8 +191,7 @@
                                                 expérimentés.</p>
                                         @endif
                                     </div>
-                                    <div class="btn-box"><a href="{{ route('about') }}"
-                                            class="theme-btn btn-one">En
+                                    <div class="btn-box"><a href="{{ route('about') }}" class="theme-btn btn-one">En
                                             savoir plus</a>
                                     </div>
                                     {{-- @if (isset($page) && !empty($page->description) && is_array($page->description))
@@ -193,7 +219,26 @@
                             <div class="image_block_four">
                                 <div class="image-box pl_150 pb_100">
                                     <figure class="image image-1">
-                                        <img src="{{ $page && $page->image ? Storage::url($page->image) : asset('assets/images/resource/about-3.jpg') }}"
+                                        @php
+                                            $imagePath = $page->image;
+                                            $imageUrl = null;
+                                            $defaultImageUrl = asset('assets/images/resource/about-1.jpg');
+
+                                            if ($imagePath) {
+                                                if (
+                                                    Illuminate\Support\Str::startsWith(
+                                                        $imagePath,
+                                                        'assets/seed_images/',
+                                                    )
+                                                ) {
+                                                    $imageUrl = asset($imagePath);
+                                                } else {
+                                                    $imageUrl = Storage::url($imagePath);
+                                                }
+                                            }
+                                        @endphp
+                                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $page->title }}"> --}}
+                                        <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                             alt="{{ $page->title ?? 'À propos de nous' }}">
                                     </figure>
                                     {{-- <figure class="image image-2">

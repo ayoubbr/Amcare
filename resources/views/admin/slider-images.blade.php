@@ -19,16 +19,30 @@
                 </thead>
                 <tbody>
                     @foreach ($sliderImages as $sliderImage)
+                        @php
+                            $imagePath = $sliderImage->image_path;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/sliderImage/sliderImage-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $sliderImage->title }}"> --}}
                         <tr data-entity="slider-images" data-id="{{ $sliderImage->id }}"
-                            data-image-path="{{ $sliderImage->image_path ? Storage::url($sliderImage->image_path) : '' }}"
-                            data-title="{{ $sliderImage->title ?? '' }}" data-subtitle="{{ $sliderImage->subtitle ?? '' }}"
-                            {{-- Assuming subtitle exists --}} data-description="{{ $sliderImage->description ?? '' }}"
-                            {{-- Assuming description exists --}} data-order="{{ $sliderImage->order }}"
+                            data-image-path="{{ $imageUrl ?? $defaultImageUrl }}" data-title="{{ $sliderImage->title ?? '' }}"
+                            data-subtitle="{{ $sliderImage->subtitle ?? '' }}" {{-- Assuming subtitle exists --}}
+                            data-description="{{ $sliderImage->description ?? '' }}" {{-- Assuming description exists --}}
+                            data-order="{{ $sliderImage->order }}"
                             data-is-published="{{ $sliderImage->is_published ? 'true' : 'false' }}">
                             <td>{{ $sliderImage->id }}</td>
                             <td>
                                 @if ($sliderImage->image_path)
-                                    <img src="{{ Storage::url($sliderImage->image_path) }}" alt="Slider Image"
+                                    <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="Slider Image"
                                         style="max-height: 50px;">
                                 @else
                                     N/A

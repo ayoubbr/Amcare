@@ -29,7 +29,7 @@ class AuthController extends Controller
             'access_code' => 'required|string'
         ]);
 
-        $validCode = env('ACCESS_CODE', 'admin_secret_2024');
+        $validCode = env('ACCESS_CODE', 'admin');
 
         if ($request->access_code === $validCode) {
             session(['admin_access_granted' => true]);

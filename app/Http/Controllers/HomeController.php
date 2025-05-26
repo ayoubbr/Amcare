@@ -17,7 +17,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $services = Service::published()->ordered()->take(3)->get();
+        $services = Service::published()->ordered()->take(4)->get();
         $events = Event::published()->take(3)->get();
         $posts = BlogPost::published()->take(3)->get();
         $settings = Setting::first();

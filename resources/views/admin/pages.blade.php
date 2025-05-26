@@ -11,7 +11,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Titre</th>
-                        <th>Slug</th>   
+                        <th>Slug</th>
                         <th>Titre principal</th>
                         <th>Publiée</th>
                         <th>Dernière modification</th>
@@ -20,12 +20,25 @@
                 </thead>
                 <tbody>
                     @forelse ($pages as $page)
+                        @php
+                            $imagePath = $page->image;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/resource/about-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
                         <tr data-entity="pages" data-id="{{ $page->id }}" data-title="{{ $page->title }}"
                             data-slug="{{ $page->slug }}" data-content="{{ $page->content }}"
                             data-main-title="{{ $page->main_title ?? '' }}" data-meta-title="{{ $page->meta_title ?? '' }}"
                             data-meta-description="{{ $page->meta_description ?? '' }}"
                             data-description='@json($page->description ?? [])' {{-- Pass as JSON string --}}
-                            data-image-path="{{ $page->image ? Storage::url($page->image) : '' }}"
+                            data-image-path="{{ $imageUrl ?? $defaultImageUrl }}"
                             data-is-published="{{ $page->is_published ? 'true' : 'false' }}">
                             <td>{{ $page->id }}</td>
                             <td>{{ $page->title }}</td>

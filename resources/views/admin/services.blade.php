@@ -10,7 +10,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Titre</th>
-                        <th>Icône</th>
                         <th>Description Courte</th>
                         <th>Publié</th>
                         <th>Actions</th>
@@ -18,11 +17,23 @@
                 </thead>
                 <tbody>
                     @foreach ($services as $service)
+                        @php
+                            $imagePath = $service->image;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/service/service-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+
                         <tr data-entity="services" data-id="{{ $service->id }}" data-title="{{ $service->title }}"
-                            data-short-description="{{ $service->short_description }}"
-                            data-content="{{ $service->content }}"
-                            data-image="{{ $service->image ? Storage::url($service->image) : '' }}"
-                            data-order="{{ $service->order }}"
+                            data-short-description="{{ $service->short_description }}" data-content="{{ $service->content }}"
+                            data-image="{{ $imageUrl ?? $defaultImageUrl }}" data-order="{{ $service->order }}"
                             data-is-published="{{ $service->is_published ? 'true' : 'false' }}">
                             <td>{{ $service->id }}</td>
                             <td>{{ $service->title }}</td>

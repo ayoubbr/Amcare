@@ -19,15 +19,29 @@
                 </thead>
                 <tbody>
                     @foreach ($partners as $partner)
+                        @php
+                            $imagePath = $partner->logo_path;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/partner/partner-1.jpg');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $partner->title }}"> --}}
                         <tr data-entity="partners" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}"
-                            data-logo-path="{{ $partner->logo_path ? Storage::url($partner->logo_path) : '' }}"
+                            data-logo-path="{{ $imageUrl ?? $defaultImageUrl }}"
                             data-website-url="{{ $partner->website_url ?? '' }}" data-order="{{ $partner->order }}"
                             data-is-published="{{ $partner->is_published ? 'true' : 'false' }}">
                             <td>{{ $partner->id }}</td>
                             <td>{{ $partner->name }}</td>
                             <td>
                                 @if ($partner->logo_path)
-                                    <img src="{{ Storage::url($partner->logo_path) }}" alt="Partner Logo"
+                                    <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="Partner Logo"
                                         style="max-height: 50px;">
                                 @else
                                     N/A

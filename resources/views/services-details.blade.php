@@ -28,6 +28,7 @@
 
     <!-- Module-specific styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/faq.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/service-details.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
@@ -124,10 +125,23 @@
                                 <div class="text-box">
                                     <h2>{{ $service->title }}</h2>
                                     {!! $service->content !!}
+
                                 </div>
                                 <figure class="image-box pt_20">
-                                    <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/default-service-details.jpg') }}"
-                                        alt="{{ $service->title }}">
+                                    @php
+                                        $imagePath = $service->image;
+                                        $imageUrl = null;
+                                        $defaultImageUrl = asset('assets/images/service/service-1.jpg');
+
+                                        if ($imagePath) {
+                                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                                $imageUrl = asset($imagePath);
+                                            } else {
+                                                $imageUrl = Storage::url($imagePath);
+                                            }
+                                        }
+                                    @endphp
+                                    <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $service->title }}">
                                 </figure>
                             </div>
                             <div class="content-two mb_50">
