@@ -2,7 +2,7 @@
 
 .page-title {
   position: relative;
-  padding: 100px 0px 100px 0px;
+  padding: 80px 0px 80px 0px;
   width: 87%;
   margin: auto;
 }
@@ -41,7 +41,7 @@
 .page-title .bread-crumb li {
   position: relative;
   display: inline-block;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 28px;
   color: #fff;
   font-weight: 500;
@@ -70,7 +70,7 @@
 
 .page-title h1 {
   display: block;
-  font-size: 72px;
+  font-size: 52px;
   line-height: 80px;
   color: #fff;
   font-weight: 600;

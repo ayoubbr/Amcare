@@ -36,11 +36,11 @@
                                         href="{{ route('home') }}">Accueil</a>
                                 </li>
                                 <li class="dropdown {{ request()->is('services') ? 'current' : '' }}">
-                                    <a href="{{ url('services') }}">Services</a>
+                                    <a >Services</a>
                                     <ul>
                                         @forelse($services as $service)
                                             <li>
-                                                <a href="{{ route('service', $service->id) }}">
+                                                <a href="{{ route('service', $service->slug) }}">
                                                     {{ $service->title }}
                                                 </a>
                                             </li>
@@ -96,10 +96,10 @@
                     <nav class="main-menu clearfix">
                     </nav>
                 </div>
-                <div class="menu-right-content">
+                {{-- <div class="menu-right-content">
                     <div class="search-toggler"><i class="icon-8"></i></div>
-                    {{-- <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div> --}}
-                </div>
+                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
+                </div> --}}
             </div>
         </div>
     </div>

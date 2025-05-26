@@ -86,7 +86,7 @@
         @include('shared.header')
 
 
-        {{-- <section class="page-title centred">
+        <section class="page-title centred">
             <div class="bg-layer"
                 style="background-image: url('{{ asset('assets/images/background/page-title.jpg') }}');"></div>
             <div class="auto-container">
@@ -99,13 +99,17 @@
                     <h1>Détails de l'événement</h1>
                 </div>
             </div>
-        </section> --}}
-        <section class="event-details pt_60 pb_120">
+        </section>
+        <section class="event-details pt_60 pb_100">
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                         <div class="event-details-content">
-                            <div class="content-one mb_55">
+                            <div class="content-one mb_55 ">
+                                <div class="mb_35">
+                                    <h2>{{ $event->title }}</h2>
+                                    {!! $event->content !!}
+                                </div>
                                 <figure class="image-box">
                                     <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event-details.jpg') }}"
                                         alt="{{ $event->title }}">
@@ -117,8 +121,7 @@
                                         </li>
                                         <li><i class="icon-41"></i><span>{{ $event->location ?? 'N/A' }}</span></li>
                                     </ul>
-                                    <h2>{{ $event->title }}</h2>
-                                    {!! $event->content !!}
+
                                 </div>
                             </div>
 

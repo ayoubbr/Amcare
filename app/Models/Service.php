@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Service extends Model
 {
@@ -13,12 +14,13 @@ class Service extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'short_description',
-        'content', 
+        'content',
         'image',
         'whatsapp_number',
         'order',
-        'is_published'  
+        'is_published'
     ];
 
 
@@ -42,4 +44,11 @@ class Service extends Model
         return $this->belongsToMany(Zone::class);
     }
 
+    public static function createUniqueSlug($title)
+    {
+        $slug = Str::slug($title);
+        $count = Service::where('slug', $slug)->count();
+
+        return $count ? "{$slug}-{$count}" : $slug;
+    }
 }

@@ -31,6 +31,7 @@ class ServiceController extends Controller
     public function store(StoreServiceRequest $request)
     {
         $data = $request->validated();
+        $data['slug'] = Service::createUniqueSlug($data['title']);
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('services', 'public');
             $data['image'] = $path;
@@ -70,6 +71,10 @@ class ServiceController extends Controller
             }
         }
 
+        if ($service->title !== $data['title']) {
+            $data['slug'] = Service::createUniqueSlug($data['title']);
+        }
+
         $service->update($data);
         return redirect()->route('admin.services.index')
             ->with('success', 'Service mis à jour avec succès');
@@ -88,5 +93,4 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.index')
             ->with('success', 'Service supprimé avec succès.');
     }
-
 }

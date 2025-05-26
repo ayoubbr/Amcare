@@ -85,7 +85,7 @@
         </div>
         @include('shared.header')
 
-        {{-- <section class="page-title centred">
+        <section class="page-title centred">
             <div class="bg-layer"
                 style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
             <div class="auto-container">
@@ -97,7 +97,7 @@
                     <h1>Événements</h1>
                 </div>
             </div>
-        </section> --}}
+        </section>
         <section class="event-section pt_60 pb_90 centred p_relative">
             <div class="pattern-layer" style="background-image: url({{ asset('assets/images/shape/shape-8.png') }});">
             </div>

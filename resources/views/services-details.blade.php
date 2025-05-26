@@ -88,20 +88,20 @@
         @include('shared.header')
 
 
-        {{-- <section class="page-title centred">
+        <section class="page-title centred">
             <div class="bg-layer"
                 style="background-image: url('{{ asset('assets/images/background/page-title.jpg') }}');"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
                         <li><a href="/">Accueil</a></li>
-                        <li><a href="{{ route('services') }}">Services</a></li>
+                        <li><a href="#">Services</a></li>
                         <li>{{ $service->title }}</li>
                     </ul>
                     <h1>Détails du service</h1>
                 </div>
             </div>
-        </section> --}}
+        </section>
         <section class="service-details pt_60 pb_120">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -110,8 +110,8 @@
                             <div class="category-widget mb_60">
                                 <ul class="category-list clearfix">
                                     @foreach ($allServices as $sidebarService)
-                                        <li><a href="{{ route('service', $sidebarService->id) }}"
-                                                class="{{ $service->id == $sidebarService->id ? 'current' : '' }}">
+                                        <li><a href="{{ route('service', $sidebarService->slug) }}"
+                                                class="{{ $service->slug == $sidebarService->slug ? 'current' : '' }}">
                                                 {{ $sidebarService->title }}
                                             </a>
                                         </li>
@@ -133,12 +133,18 @@
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-12 col-sm-12 content-column">
-                        <div class="service-details-content">
-
-                            {{-- The "content-two" and "content-three" sections are static in your original file.
-                                 To make them dynamic, you would need additional fields in your Service model
-                                 (e.g., `feature_title_1`, `feature_description_1`, `feature_list`, `benefit_title`, etc.)
-                                 and then populate them here. For now, they remain static. --}}
+                        <div class="service-details-content">   
+                             <div class="content-one mb_50">
+                                
+                                <div class="text-box">
+                                    <h2>{{ $service->title }}</h2>
+                                    {!! $service->content !!}
+                                </div>
+                                <figure class="image-box pt_20">
+                                    <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/default-service-details.jpg') }}"
+                                        alt="{{ $service->title }}">
+                                </figure>
+                            </div>
                             <div class="content-two mb_50">
                                 <div class="inner-box centred">
                                     <div class="row clearfix">
@@ -168,16 +174,7 @@
                                 </div>
                             </div>
 
-                            <div class="content-one mb_50">
-                                <figure class="image-box">
-                                    <img src="{{ $service->image ? Storage::url($service->image) : asset('assets/images/service/default-service-details.jpg') }}"
-                                        alt="{{ $service->title }}">
-                                </figure>
-                                <div class="text-box">
-                                    <h2>{{ $service->title }}</h2>
-                                    {!! $service->content !!} {{-- Render service content with HTML --}}
-                                </div>
-                            </div>
+{{--                            
                             <div class="content-three pb_20">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 text-column">
@@ -201,7 +198,7 @@
                                                 alt=""></figure>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="content-four">
                                 <div class="title-text pb_20">

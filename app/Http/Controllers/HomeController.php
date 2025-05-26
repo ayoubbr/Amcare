@@ -126,18 +126,18 @@ class HomeController extends Controller
         return view('about', compact('page', 'characteristics'));
     }
 
-    public function services()
-    {
-        $services = Service::published()->ordered()->get();
-        $zones = Zone::orderBy('name')->get();
-        $settings = Setting::first();
+    // public function services()
+    // {
+    //     $services = Service::published()->ordered()->get();
+    //     $zones = Zone::orderBy('name')->get();
+    //     $settings = Setting::first();
 
-        return view('services', compact('services', 'zones'));
-    }
+    //     return view('services', compact('services', 'zones'));
+    // }
 
-    public function service($id)
+    public function service($slug)
     {
-        $service = Service::published()->findOrFail($id);
+        $service = Service::published()->where('slug', $slug)->firstOrFail();
         $allServices = Service::published()->ordered()->get();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
         $settings = Setting::first();

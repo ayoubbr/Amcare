@@ -322,7 +322,12 @@
                                                 <li>Avantages supplémentaires</li>
                                             </ul>
                                         </div>
+                                         <div class="btn-box"><a href="{{ route('service', $service->slug) }}"
+                                            class="theme-btn btn-one">En
+                                            savoir plus</a>
                                     </div>
+                                    </div>
+                                    
                                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                                         <div class="image-box pl_110 pb_50">
                                             <figure class="image image-1 image-hov-one">
