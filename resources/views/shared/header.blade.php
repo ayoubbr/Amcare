@@ -19,8 +19,20 @@
             <div class="outer-box">
                 <figure class="logo-box">
                     <a href="{{ route('home') }}">
-                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : asset('assets/images/logo.png') }}"
-                            alt="{{ $settings->site_name ?? 'Amcare' }}">
+                        @php
+                            $imagePath = $settings->logo;
+                            $imageUrl = null;
+                            $defaultImageUrl = asset('assets/images/logo.png');
+
+                            if ($imagePath) {
+                                if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                    $imageUrl = asset($imagePath);
+                                } else {
+                                    $imageUrl = Storage::url($imagePath);
+                                }
+                            }
+                        @endphp
+                        <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $settings->site_name ?? 'Amcare' }}">
                     </a>
                 </figure>
                 <div class="menu-area">
@@ -83,10 +95,6 @@
                         </div>
                     </nav>
                 </div>
-                {{-- <div class="menu-right-content">
-                    <div class="search-toggler"><i class="icon-8"></i></div>
-                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -101,10 +109,6 @@
                     <nav class="main-menu clearfix">
                     </nav>
                 </div>
-                {{-- <div class="menu-right-content">
-                    <div class="search-toggler"><i class="icon-8"></i></div>
-                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
-                </div> --}}
             </div>
         </div>
     </div>

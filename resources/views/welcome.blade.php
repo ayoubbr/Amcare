@@ -385,7 +385,7 @@
 
         <section class="funfact-style-three pl_100 pr_100 pb_40 pt_40">
             <div class="pattern-layer"
-                style="background-image: url('{{ Vite::asset('resources/assets/images/shape/shape-8.png') }}');">
+                style="background-image: url('{{ asset('assets/images/shape/shape-8.png') }}');">
             </div>
             <div class="auto-container">
                 <div class="inner-container">

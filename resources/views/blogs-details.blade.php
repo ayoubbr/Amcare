@@ -256,51 +256,6 @@
                                     @endforeach
                                 </div>
                             </div>
-                            {{-- <div class="sidebar-widget gallery-widget mb_45">
-                                <div class="widget-title mb_25">
-                                    <h3>Galerie de Photos</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="image-list clearfix">
-                                        <li>
-                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-1.jpg') }}"
-                                                    class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-1.jpg') }}" alt=""></a>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-2.jpg') }}"
-                                                    class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-2.jpg') }}" alt=""></a>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-3.jpg') }}"
-                                                    class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-3.jpg') }}" alt=""></a>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-4.jpg') }}"
-                                                    class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-4.jpg') }}" alt=""></a>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-5.jpg') }}"
-                                                    class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-5.jpg') }}" alt=""></a>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure class="image"><a href="{{ asset('assets/images/news/gallery-6.jpg') }}"
-                                                    class="lightbox-image" data-fancybox="gallery"><img
-                                                        src="{{ asset('assets/images/news/gallery-6.jpg') }}" alt=""></a>
-                                            </figure>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

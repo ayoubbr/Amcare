@@ -210,8 +210,20 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ $settings->logo ? Storage::url($settings->logo) : asset('/assets/images/logo.png') }}"
-                alt="{{ $settings->site_name ?? 'Amcare' }}">
+            @php
+                $imagePath = $settings->logo;
+                $imageUrl = null;
+                $defaultImageUrl = asset('assets/images/logo.png');
+
+                if ($imagePath) {
+                    if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                        $imageUrl = asset($imagePath);
+                    } else {
+                        $imageUrl = Storage::url($imagePath);
+                    }
+                }
+            @endphp
+            <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $settings->site_name ?? 'Amcare' }}">
         </div>
 
         <h1>Connexion Administrateur</h1>

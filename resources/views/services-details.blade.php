@@ -107,7 +107,7 @@
                             <div class="contact-widget centred">
                                 <div class="inner-box">
                                     <div class="bg-layer"
-                                        style="background-image: url('{{ asset('assets/real_images/ambulance-team-3.jpg') }}');">
+                                        style="background-image: url('{{ asset('assets/seed_images/ambulance-team-3.jpg') }}');">
                                     </div>
                                     <div class="text-box">
                                         <h4>{{ $service->title }} </h4>
@@ -172,33 +172,6 @@
                                         sécurité des opérations d'ambulance aérienne.</p>
                                 </div>
                             </div>
-
-                            {{--                            
-                            <div class="content-three pb_20">
-                                <div class="row clearfix">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 text-column">
-                                        <div class="text-box">
-                                            <h2>Avantages du service</h2>
-                                            <p>Lorem ipsum est un texte de remplissage couramment utilisé pour démontrer
-                                                la forme visuelle d'un document ou d'une police de caractères sans
-                                                compter sur un contenu significatif.</p>
-                                            <ul class="list-style-one clearfix">
-                                                <li>En id diam nec nisi congue tincidunt</li>
-                                                <li>Sed tristique lorem non tesque</li>
-                                                <li>Les innovations dans ce domaine incluent des améliorations</li>
-                                                <li>De plus, les avancées dans les aéronefs</li>
-                                                <li>Lorem ipsum est un texte de remplissage</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 image-column">
-                                        <figure class="image-box"><img
-                                                src="{{ asset('assets/real_images/ambulance-team-1.jpg') }}"
-                                                alt=""></figure>
-                                    </div>
-                                </div>
-                            </div> --}}
-
                             <div class="content-four">
                                 <div class="title-text pb_20">
                                     <h2>Questions générales</h2>

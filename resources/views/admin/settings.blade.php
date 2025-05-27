@@ -22,10 +22,23 @@
                 </div>
                 <div class="form-group d-flex align-items-center">
                     <label for="siteLogo" class="mb-0 mr-3">Logo</label>
+                    @php
+                        $imagePath = $settings->logo;
+                        $imageUrl = null;
+                        $defaultImageUrl = asset('assets/images/logo.png');
+
+                        if ($imagePath) {
+                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                $imageUrl = asset($imagePath);
+                            } else {
+                                $imageUrl = Storage::url($imagePath);
+                            }
+                        }
+                    @endphp
                     @if ($settings && $settings->logo)
-                        <img src="{{ Storage::url($settings->logo) }}" alt="Logo actuel" class="img-thumbnail mr-3"
+                        <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="Logo actuel" class="img-thumbnail mr-3"
                             style="max-height: 80px;">
-                        <a href="{{ Storage::url($settings->logo) }}" target="_blank" class="btn btn-sm btn-info mr-2">Voir
+                        <a href="{{ $imageUrl ?? $defaultImageUrl }}" target="_blank" class="btn btn-sm btn-info mr-2">Voir
                             actuel</a>
                     @else
                         <span class="text-muted mr-3">Aucun logo actuel</span>

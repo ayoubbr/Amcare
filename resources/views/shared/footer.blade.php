@@ -6,12 +6,6 @@
                     <div class="footer-widget about-widget">
                         <div class="widget-content">
                             <h2>Le service d'ambulance le plus rapide et le plus sécurisé</h2>
-                            {{-- <ul class="social-links">
-                                <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="index.html"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="index.html"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul> --}}
                         </div>
                     </div>
                 </div>
@@ -23,7 +17,7 @@
                         <div class="widget-content">
                             <ul class="links-list clearfix">
                                 <li><a href="{{ url('about') }}">À propos de nous</a></li>
-                                <li><a href="{{ url('services') }}">Services</a></li>
+                                <li><a href="{{ url('zones') }}">Zones de Service</a></li>
                                 <li><a href="{{ url('faqs') }}">FAQ</a></li>
                             </ul>
                         </div>

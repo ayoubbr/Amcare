@@ -12,8 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
-   
-        <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
