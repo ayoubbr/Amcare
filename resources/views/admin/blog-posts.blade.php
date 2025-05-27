@@ -32,17 +32,15 @@
                                 }
                             }
                         @endphp
-                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                         <tr data-entity="blog-posts" data-id="{{ $post->id }}" data-title="{{ $post->title }}"
                             data-slug="{{ $post->slug }}" data-category-id="{{ $post->category_id }}"
                             data-category-name="{{ $post->category->name ?? 'N/A' }}"
                             data-is-published="{{ $post->is_published ? 'true' : 'false' }}"
                             data-published-at="{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('Y-m-d\TH:i') : '' }}"
-                            data-content="{{ $post->content }}"
-                            data-image="{{ $imageUrl ?? $defaultImageUrl }}">
+                            data-content="{{ $post->content }}" data-image="{{ $imageUrl ?? $defaultImageUrl }}">
                             <td>{{ $post->id }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->slug }}</td>
+                            <td>{{ Str::limit($post->title, 30) }}</td>
+                            <td>{{ Str::limit($post->slug, 40) }}</td>
                             <td>{{ $post->category->name ?? 'N/A' }}</td>
                             <td>{{ $post->is_published ? 'Oui' : 'Non' }}</td>
                             <td>{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d/m/Y') : 'N/A' }}
@@ -60,7 +58,7 @@
             <h4>Ajouter/Modifier Article de Blog</h4>
             <form action="{{ route('admin.blog-posts.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="blogPostId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="blogPostId">
                 <div class="form-group">
                     <label for="blogPostTitle">Titre</label>
                     <input type="text" class="form-control" name="title" id="blogPostTitle"

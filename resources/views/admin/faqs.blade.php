@@ -19,8 +19,8 @@
                         <tr data-entity="faqs" data-id="{{ $faq->id }}" data-question="{{ $faq->question }}"
                             data-answer="{{ $faq->answer }}">
                             <td>{{ $faq->id }}</td>
-                            <td>{{ Str::limit($faq->question, 50) }}</td>
-                            <td>{{ Str::limit($faq->answer, 70) }}</td>
+                            <td>{{ Str::limit($faq->question, 30) }}</td>
+                            <td>{{ Str::limit($faq->answer, 50) }}</td>
                             <td class="action-buttons">
                                 <button class="btn btn-edit">Modifier</button>
                                 <button class="btn btn-delete">Supprimer</button>
