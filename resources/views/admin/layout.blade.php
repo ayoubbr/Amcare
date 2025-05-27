@@ -646,7 +646,8 @@
                             modalTitle.textContent = 'Modifier la Page';
                             actionRoute = `/admin/pages/${data.id}`; // Ensure this route is defined for PUT/PATCH
                             currentImageHTML = data.imagePath ?
-                                `<div class="mb-2">Image actuelle: <img src="${data.imagePath}" alt="Current Image" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image">Retirer l'image</button></div>` :
+                                `<div class="mb-2">Image actuelle: <img src="${data.imagePath}" alt="Current Image" class="current-image-preview"> 
+                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
 
                             formHtml = `
@@ -728,12 +729,12 @@
                                 });
                             }
                             break;
-                            // ... cases for other entities like 'blog', 'categories', etc.
                         case 'blog-posts':
                             modalTitle.textContent = 'Modifier l\'Article de Blog';
                             actionRoute = `/admin/blog-posts/${data.id}`;
                             currentImageHTML = data.image ?
-                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_blog">Retirer l'image</button></div>` :
+                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> 
+                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_blog">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
@@ -797,7 +798,8 @@
                             modalTitle.textContent = 'Modifier l\'Événement';
                             actionRoute = `/admin/events/${data.id}`;
                             currentImageHTML = data.image ?
-                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_event">Retirer l'image</button></div>` :
+                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> 
+                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_event">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
@@ -859,7 +861,8 @@
                             modalTitle.textContent = 'Modifier le Service';
                             actionRoute = `/admin/services/${data.id}`;
                             currentImageHTML = data.image ?
-                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_service">Retirer l'image</button></div>` :
+                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> 
+                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_service">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
@@ -903,8 +906,13 @@
                             }
                             break;
                         case 'zones':
+
                             modalTitle.textContent = 'Modifier la Zone';
                             actionRoute = `/admin/zones/${data.id}`;
+                            currentImageHTML = data.image ?
+                                `<div class="mb-2">Image actuelle: <img src="${data.image}" alt="Current Image" class="current-image-preview"> 
+                                <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_zone">Retirer l'image</button></div>` :
+                                '<p class="text-muted">Aucune image actuelle.</p>';
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
                                 <div class="form-group">
@@ -919,18 +927,35 @@
                                     <label for="modalZoneDescription">Description</label>
                                     <textarea class="form-control" name="description" id="modalZoneDescription" rows="3">${data.description || ''}</textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label for="modalZoneImage">Image</label>
+                                    ${currentImageHTML}
+                                    <input type="file" class="form-control" name="image" id="modalZoneImage">
+                                    <input type="hidden" name="remove_image_zone" id="modalZoneRemoveImageFlag" value="0">
+                                </div>
                                 <input type="hidden" name="is_active" value="0">
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" name="is_active" id="modalZoneIsActive" value="1" ${data.isActive === 'true' ? 'checked' : ''}>
                                     <label class="form-check-label" for="modalZoneIsActive">Active</label>
                                 </div>`;
                             modalForm.insertAdjacentHTML('beforeend', formHtml);
+                            const removeZoneImageBtn = modalForm.querySelector(
+                                '.remove-image-btn[data-field="image_zone"]');
+                            if (removeZoneImageBtn) {
+                                removeZoneImageBtn.addEventListener('click', function() {
+                                    document.getElementById('modalZoneRemoveImageFlag').value = '1';
+                                    this.parentElement.innerHTML =
+                                        '<p class="text-success">L\'image sera retirée lors de la sauvegarde.</p>';
+                                });
+                            }
+
                             break;
                         case 'slider-images':
                             modalTitle.textContent = 'Modifier l\'Image du Slider';
                             actionRoute = `/admin/slider-images/${data.id}`;
                             currentImageHTML = data.imagePath ?
-                                `<div class="mb-2">Image actuelle: <img src="${data.imagePath}" alt="Current Image" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_slider">Retirer l'image</button></div>` :
+                                `<div class="mb-2">Image actuelle: <img src="${data.imagePath}" alt="Current Image" class="current-image-preview"> 
+                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image_slider">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">
@@ -968,7 +993,8 @@
                             modalTitle.textContent = 'Modifier le Partenaire';
                             actionRoute = `/admin/partners/${data.id}`;
                             currentImageHTML = data.logoPath ?
-                                `<div class="mb-2">Logo actuel: <img src="${data.logoPath}" alt="Current Logo" class="current-image-preview"> <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="logo_partner">Retirer le logo</button></div>` :
+                                `<div class="mb-2">Logo actuel: <img src="${data.logoPath}" alt="Current Logo" class="current-image-preview"> 
+                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="logo_partner">Retirer le logo</button></div>` :
                                 '<p class="text-muted">Aucun logo actuel.</p>';
                             formHtml = `
                                 <input type="hidden" name="id" value="${data.id || ''}">

@@ -36,7 +36,7 @@
                                         href="{{ route('home') }}">Accueil</a>
                                 </li>
                                 <li class="dropdown {{ request()->is('services') ? 'current' : '' }}">
-                                    <a >Services</a>
+                                    <a>Services</a>
                                     <ul>
                                         @forelse($services as $service)
                                             <li>
@@ -49,6 +49,11 @@
                                                 <p>Aucun service pour le moment.</p>
                                             </div>
                                         @endforelse
+                                        <li>
+                                            <a href="{{ route('zones') }}">
+                                                Zones de service
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown {{ request()->is('events') ? 'current' : '' }}"><a
@@ -89,8 +94,8 @@
     <div class="sticky-header">
         <div class="auto-container">
             <div class="outer-box">
-                <figure class="logo-box"><a href="index.html"><img
-                            src="{{ asset('assets/images/logo.png') }}" alt=""></a>
+                <figure class="logo-box"><a href="index.html"><img src="{{ asset('assets/images/logo.png') }}"
+                            alt=""></a>
                 </figure>
                 <div class="menu-area">
                     <nav class="main-menu clearfix">
@@ -109,8 +114,8 @@
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
     <nav class="menu-box">
-        <div class="nav-logo"><a href="/"><img src="{{ asset('assets/images/logo-2.png') }}"
-                    alt="" title=""></a>
+        <div class="nav-logo"><a href="/"><img src="{{ asset('assets/images/logo-2.png') }}" alt=""
+                    title=""></a>
         </div>
         <div class="menu-outer">
         </div>
@@ -145,8 +150,8 @@
 <div id="search-popup" class="search-popup">
     <div class="popup-inner">
         <div class="upper-box">
-            <figure class="logo-box"><a href="index.html"><img
-                        src="{{ asset('assets/images/logo-2.png') }}" alt=""></a>
+            <figure class="logo-box"><a href="index.html"><img src="{{ asset('assets/images/logo-2.png') }}"
+                        alt=""></a>
             </figure>
             <div class="close-search"><span class="fas fa-times"></span></div>
         </div>

@@ -32,7 +32,6 @@
                                 }
                             }
                         @endphp
-                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                         <tr data-entity="events" data-id="{{ $event->id }}" data-title="{{ $event->title }}"
                             data-slug="{{ $event->slug }}"
                             data-event-date="{{ $event->event_date ? \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i') : '' }}"
@@ -41,7 +40,7 @@
                             data-content="{{ $event->content }}" data-image="{{ $imageUrl ?? $defaultImageUrl }}">
                             <td>{{ $event->id }}</td>
                             <td>{{ $event->title }}</td>
-                            <td>{{ $event->slug }}</td>
+                            <td><img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}" width="100px"></td>
                             <td>{{ $event->event_date ? \Carbon\Carbon::parse($event->event_date)->format('Y-m-d H:i') : 'N/A' }}
                             </td>
                             <td>{{ $event->location ?? 'N/A' }}</td>

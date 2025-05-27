@@ -7,6 +7,7 @@ use App\Http\Requests\StoreZoneRequest;
 use App\Http\Requests\UpdateZoneRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ZoneController extends Controller
 {
@@ -27,6 +28,10 @@ class ZoneController extends Controller
     public function store(StoreZoneRequest $request)
     {
         $validate = $request->validated();
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('zones', 'public');
+            $validate['image'] = $path;
+        }
         Zone::create($validate);
 
         return redirect()->route('admin.zones.index')
@@ -38,7 +43,17 @@ class ZoneController extends Controller
      */
     public function update(UpdateZoneRequest $request, Zone $zone)
     {
-        $zone->update($request->validated());
+        $data = $request->validated();
+        if ($request->hasFile('image')) {
+            if ($zone->image) {
+                Storage::disk('public')->delete($zone->image);
+            }
+            $path = $request->file('image')->store('zones', 'public');
+            $data['image'] = $path;
+        }
+
+        $zone->update($data);
+
         return redirect()->route('admin.zones.index')
             ->with('success', 'Zone mise à jour avec succès.');
     }

@@ -23,7 +23,7 @@ Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 
-// Route::get('services', [HomeController::class, 'services'])->name('services');
+Route::get('zones', [HomeController::class, 'zones'])->name('zones');
 Route::get('services/{slug}', [HomeController::class, 'service'])->name('service');
 
 Route::get('about', [HomeController::class, 'about'])->name('about');

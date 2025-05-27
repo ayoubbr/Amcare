@@ -25,6 +25,7 @@ class UpdateZoneRequest extends FormRequest
             'name' => 'required|string|max:255',
             'code' => 'nullable|string|max:50',
             'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg, png, jpg, gif|max:2048',
             'is_active' => 'boolean',
         ];
     }

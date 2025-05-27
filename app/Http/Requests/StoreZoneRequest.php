@@ -24,6 +24,7 @@ class StoreZoneRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'code' => 'nullable|string|max:50',
+            'image' => 'nullable|image|mimes:jpeg, png, jpg, gif|max:2048',
             'description' => 'nullable|string',
             'is_active' => 'boolean',
         ];

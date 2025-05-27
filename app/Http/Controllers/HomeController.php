@@ -25,7 +25,7 @@ class HomeController extends Controller
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
         $sliderImages = SliderImage::published()->ordered()->get();
         $partners = Partner::published()->ordered()->get();
-        $extraSettings = ExtraSetting::orderBy('order', 'asc')->get(); 
+        $extraSettings = ExtraSetting::orderBy('order', 'asc')->get();
 
         $page = Page::published()->where('slug', 'a-propos')->first();
         if ($page) {
@@ -79,24 +79,6 @@ class HomeController extends Controller
         return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
     }
 
-    // public function category($slug)
-    // {
-    //     $category = Category::where('slug', $slug)->firstOrFail();
-
-    //     $posts = BlogPost::published()
-    //         ->where('category_id', $category->id)
-    //         ->orderBy('published_at', 'desc')
-    //         ->paginate(9);
-
-    //     $categories = Category::orderBy('name')->get();
-
-    //     $latestPosts = BlogPost::published()
-    //         ->orderBy('published_at', 'desc')
-    //         ->take(3)
-    //         ->get();
-
-    //     return view('front.category', compact('category', 'posts', 'categories', 'latestPosts'));
-    // }
 
     public function page($slug)
     {
@@ -128,14 +110,13 @@ class HomeController extends Controller
         return view('about', compact('page', 'characteristics'));
     }
 
-    // public function services()
-    // {
-    //     $services = Service::published()->ordered()->get();
-    //     $zones = Zone::orderBy('name')->get();
-    //     $settings = Setting::first();
+    public function zones()
+    {
+        $zones = Zone::orderBy('name', 'asc')->get();
+        $settings = Setting::first();
 
-    //     return view('services', compact('services', 'zones'));
-    // }
+        return view('zones', compact('zones', 'settings'));
+    }
 
     public function service($slug)
     {

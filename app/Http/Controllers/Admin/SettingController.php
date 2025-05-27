@@ -1,42 +1,43 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Setting;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth; 
-use Illuminate\Support\Facades\Hash; 
-use Illuminate\Validation\Rule; 
-use Illuminate\Validation\Rules\Password; 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 
 class SettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * (Site Settings Page)
-     */
+
     public function index()
     {
-        // $categories is not used in settings.blade.php provided, can be removed if not needed elsewhere by the layout
-        $categories = \App\Models\Category::orderBy('name')->get(); // Assuming Category model exists
+        $categories = Category::orderBy('name')->get();
         $settings = Setting::first();
         if (!$settings) {
-            // Create a default settings record if none exists to avoid errors on first load
             $settings = Setting::create([
-                'site_name' => 'Amcare', // Default site name
-                // Add other default fields here if necessary
+                'site_name' => 'Ambulance Team',
+                'email' => 'Ambulance.team@yahoo.com',
+                'logo' => 'settings/logo.png',
+                'phones' => json_encode(['WhatsApp Business' => '+212637222220', 'WhatsApp' => '+212661241832']),
+                'footer_text' => '© 2025 Ambulance Team. All rights reserved.',
+                'address' => 'Marrakech Marrakech-Safe, Maroc',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
 
         return view('admin.settings',  compact('categories', 'settings'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * (Site Settings Update)
-     */
+   
     public function update(Request $request)
     {
         $validatedData = $request->validate([
@@ -71,7 +72,7 @@ class SettingController extends Controller
                 }
             }
         }
-        $settings->phones = $phones; 
+        $settings->phones = $phones;
 
         $settings->site_name = $validatedData['site_name'];
         $settings->email = $validatedData['email'] ?? $settings->email;
@@ -84,9 +85,8 @@ class SettingController extends Controller
             ->with('success', 'Paramètres du site mis à jour avec succès.');
     }
 
-    /**
-     * Update the authenticated admin's profile.
-     */
+   
+    
     public function updateAdminProfile(Request $request)
     {
         $user = Auth::user();
@@ -99,7 +99,7 @@ class SettingController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
-            'current_password' => ['nullable', 'string'], 
+            'current_password' => ['nullable', 'string'],
             'new_password' => ['nullable', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
         ];
 
