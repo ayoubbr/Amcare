@@ -114,7 +114,6 @@
                                             }
                                         }
                                     @endphp
-                                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                     <div class="col-lg-6 col-md-6 col-sm-12 news-block">
                                         <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms"
                                             data-wow-duration="1500ms">
@@ -124,12 +123,11 @@
                                                 </div>
                                                 <span class="post-date"><i
                                                         class="icon-29"></i>{{ \Carbon\Carbon::parse($post->published_at)->format('d M, Y') }}</span>
-                                                <h4><a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a>
+                                                <h4><a
+                                                        href="{{ route('post', $post->slug) }}">{{ Str::limit(strip_tags($post->title), 60) }}</a>
                                                 </h4>
                                                 <ul class="post-info">
-                                                    <li><i class="icon-30"></i><a href="#">Admin</a></li>
-                                                    {{-- Assuming comments are not dynamic yet, keeping static or removing --}}
-                                                    {{-- <li><i class="icon-31"></i><span>0 Commentaire</span></li> --}}
+                                                    <li><i class="icon-30"></i><a>Admin</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -168,8 +166,7 @@
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
                                         @foreach ($categories as $category)
-                                            <li><a
-                                                    href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a>
+                                            <li><a>{{ $category->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -199,7 +196,6 @@
                                                 }
                                             }
                                         @endphp
-                                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                         <div class="post">
                                             <figure class="post-thumb"><a
                                                     href="{{ route('post', $latestPost->slug) }}"><img

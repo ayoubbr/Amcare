@@ -46,16 +46,16 @@ class ExtraSettingSeeder extends Seeder
             ]
         );
 
-        // Add a fourth one for variety, if needed for layout or future use
-        ExtraSetting::updateOrCreate(
-            ['key' => 'successful_interventions'],
-            [
-                'label' => 'Interventions réussies',
-                'value' => '98',
-                'icon_class' => 'icon-like', // Example, you might need to add this icon class
-                'value_suffix' => '%',
-                'order' => 4,
-            ]
-        );
+        // // Add a fourth one for variety, if needed for layout or future use
+        // ExtraSetting::updateOrCreate(
+        //     ['key' => 'successful_interventions'],
+        //     [
+        //         'label' => 'Interventions réussies',
+        //         'value' => '98',
+        //         'icon_class' => 'icon-like', // Example, you might need to add this icon class
+        //         'value_suffix' => '%',
+        //         'order' => 4,
+        //     ]
+        // );
     }
 }

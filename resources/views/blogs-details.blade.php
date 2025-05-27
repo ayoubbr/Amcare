@@ -100,8 +100,25 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <figure class="image">
-                                            <img src="{{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog-details.jpg') }}"
-                                                alt="{{ $post->title }}">
+                                            @php
+                                                $imagePath = $post->image;
+                                                $imageUrl = null;
+                                                $defaultImageUrl = asset('assets/images/news/news-16.jpg');
+
+                                                if ($imagePath) {
+                                                    if (
+                                                        Illuminate\Support\Str::startsWith(
+                                                            $imagePath,
+                                                            'assets/seed_images/',
+                                                        )
+                                                    ) {
+                                                        $imageUrl = asset($imagePath);
+                                                    } else {
+                                                        $imageUrl = Storage::url($imagePath);
+                                                    }
+                                                }
+                                            @endphp
+                                            <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $post->title }}">
                                         </figure>
                                     </div>
                                     <div class="lower-content">
@@ -132,8 +149,26 @@
                                             <div class="col-lg-4 col-md-6 col-sm-12 news-block">
                                                 <div class="news-block-two">
                                                     <div class="inner-box">
+                                                        @php
+                                                            $imagePath = $relatedPost->image;
+                                                            $imageUrl = null;
+                                                            $defaultImageUrl = asset('assets/images/news/news-16.jpg');
+
+                                                            if ($imagePath) {
+                                                                if (
+                                                                    Illuminate\Support\Str::startsWith(
+                                                                        $imagePath,
+                                                                        'assets/seed_images/',
+                                                                    )
+                                                                ) {
+                                                                    $imageUrl = asset($imagePath);
+                                                                } else {
+                                                                    $imageUrl = Storage::url($imagePath);
+                                                                }
+                                                            }
+                                                        @endphp
                                                         <div class="bg-layer"
-                                                            style="background-image: url({{ $relatedPost->image ? Storage::url($relatedPost->image) : asset('assets/images/news/default-related-blog.jpg') }});">
+                                                            style="background-image: url({{ $imageUrl ?? $defaultImageUrl }});">
                                                         </div>
                                                         <span class="post-date"><i
                                                                 class="icon-29"></i>{{ \Carbon\Carbon::parse($relatedPost->published_at)->format('d M, Y') }}</span>
@@ -175,8 +210,7 @@
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
                                         @foreach ($categories as $category)
-                                            <li><a
-                                                    href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a>
+                                            <li><a>{{ $category->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -188,10 +222,28 @@
                                 </div>
                                 <div class="post-inner">
                                     @foreach ($latestPosts as $latestPost)
+                                        @php
+                                            $imagePath = $latestPost->image;
+                                            $imageUrl = null;
+                                            $defaultImageUrl = asset('assets/images/news/news-16.jpg');
+
+                                            if ($imagePath) {
+                                                if (
+                                                    Illuminate\Support\Str::startsWith(
+                                                        $imagePath,
+                                                        'assets/seed_images/',
+                                                    )
+                                                ) {
+                                                    $imageUrl = asset($imagePath);
+                                                } else {
+                                                    $imageUrl = Storage::url($imagePath);
+                                                }
+                                            }
+                                        @endphp
                                         <div class="post">
                                             <figure class="post-thumb"><a
                                                     href="{{ route('post', $latestPost->slug) }}"><img
-                                                        src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
+                                                        src="{{ $imageUrl ?? $defaultImageUrl }}"
                                                         alt=""></a></figure>
                                             <article>
                                                 <h5><a
