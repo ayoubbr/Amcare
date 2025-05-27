@@ -11,7 +11,6 @@ use App\Models\Page;
 use App\Models\Service;
 use App\Models\Zone;
 use App\Models\Partner;
-use App\Models\Setting;
 use App\Models\SliderImage;
 
 class HomeController extends Controller
@@ -21,11 +20,10 @@ class HomeController extends Controller
         $services = Service::published()->ordered()->take(4)->get();
         $events = Event::published()->take(3)->get();
         $posts = BlogPost::published()->take(3)->get();
-        $settings = Setting::first();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
         $sliderImages = SliderImage::published()->ordered()->get();
         $partners = Partner::published()->ordered()->get();
-        $extraSettings = ExtraSetting::orderBy('order', 'asc')->get();
+        $extraSettings = ExtraSetting::where('key', 'frontline_staff')->orWhere('key', 'specialized_vehicles')->orWhere('key', 'patients_served')->orderBy('order', 'asc')->get();
 
         $page = Page::published()->where('slug', 'a-propos')->first();
         if ($page) {
@@ -33,7 +31,7 @@ class HomeController extends Controller
             $metaDescription = $page->description ?? '';
         }
 
-        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page', 'extraSettings'));
+        return view('welcome', compact('services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page', 'extraSettings'));
     }
 
     public function blog()
@@ -48,7 +46,6 @@ class HomeController extends Controller
             ->orderBy('published_at', 'desc')
             ->take(3)
             ->get();
-        $settings = Setting::first();
 
         return view('blogs', compact('posts', 'categories', 'latestPosts'));
     }
@@ -74,34 +71,18 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        $settings = Setting::first();
-
         return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
-    }
-
-
-    public function page($slug)
-    {
-        $page = Page::published()->where('slug', $slug)->firstOrFail();
-
-        $metaTitle = $page->meta_title ?? $page->title;
-        $metaDescription = $page->description ?? '';
-        $settings = Setting::first();
-
-        return view('front.page', compact('page', 'metaTitle', 'description'));
-    }
+    }   
 
     public function about()
     {
         $page = Page::published()->where('slug', 'a-propos')->where('is_published', true)->first();
-        $settings = Setting::first();
 
         $transport = Page::published()->where('slug', 'transport-securise')->where('is_published', true)->first();
         $demande = Page::published()->where('slug', 'service-sur-demande')->where('is_published', true)->first();
         $urgence = Page::published()->where('slug', 'transport-durgence')->where('is_published', true)->first();
 
         $characteristics = [$transport, $demande, $urgence];
-        $settings = Setting::first();
 
         if (!$page) {
             abort(404, 'Page not found');
@@ -113,9 +94,8 @@ class HomeController extends Controller
     public function zones()
     {
         $zones = Zone::orderBy('name', 'asc')->get();
-        $settings = Setting::first();
 
-        return view('zones', compact('zones', 'settings'));
+        return view('zones', compact('zones'));
     }
 
     public function service($slug)
@@ -123,7 +103,6 @@ class HomeController extends Controller
         $service = Service::published()->where('slug', $slug)->firstOrFail();
         $allServices = Service::published()->ordered()->get();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
-        $settings = Setting::first();
 
         return view('services-details', compact('service', 'allServices', 'faqs'));
     }
@@ -133,7 +112,6 @@ class HomeController extends Controller
         $events = Event::published()
             ->orderBy('event_date', 'asc')
             ->paginate(2);
-        $settings = Setting::first();
 
         return view('events', compact('events'));
     }
@@ -155,23 +133,19 @@ class HomeController extends Controller
             ->orderBy('event_date', 'asc')
             ->get();
 
-        $settings = Setting::first();
-
         return view('events-details', compact('event', 'relatedEvents', 'allEvents'));
     }
 
     public function faqs()
     {
-        $faqs = Faq::orderBy('created_at', 'asc')
-            ->paginate(5);
-        $settings = Setting::first();
+        $faqs = Faq::orderBy('created_at', 'asc')->paginate(5);
+        $expYears = ExtraSetting::where('key', 'annees_experience')->first();
 
-        return view('faqs', compact('faqs'));
+        return view('faqs', compact('faqs', 'expYears'));
     }
 
     public function contact()
     {
-        $settings = Setting::first();
-        return view('contact', compact('settings'));
+        return view('contact');
     }
 }

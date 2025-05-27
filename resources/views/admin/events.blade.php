@@ -58,7 +58,7 @@
             <h4>Ajouter/Modifier Événement</h4>
             <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="eventId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="eventId">
                 <div class="form-group">
                     <label for="eventTitle">Titre de l'événement</label>
                     <input type="text" class="form-control" name="title" id="eventTitle" placeholder="Entrez le titre"

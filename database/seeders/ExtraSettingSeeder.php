@@ -18,7 +18,7 @@ class ExtraSettingSeeder extends Seeder
             [
                 'label' => 'Personnel de première ligne',
                 'value' => '300',
-                'icon_class' => 'icon-36', // Corresponds to your existing HTML
+                'icon_class' => 'icon-36',
                 'value_suffix' => '+',
                 'order' => 1,
             ]
@@ -29,7 +29,7 @@ class ExtraSettingSeeder extends Seeder
             [
                 'label' => 'Véhicules spécialisés',
                 'value' => '100',
-                'icon_class' => 'icon-37', // Corresponds to your existing HTML
+                'icon_class' => 'icon-37',
                 'value_suffix' => '+',
                 'order' => 2,
             ]
@@ -40,22 +40,21 @@ class ExtraSettingSeeder extends Seeder
             [
                 'label' => 'Patients servis',
                 'value' => '15',
-                'icon_class' => 'icon-38', // Corresponds to your existing HTML
+                'icon_class' => 'icon-38',
                 'value_suffix' => 'k+',
                 'order' => 3,
             ]
         );
 
-        // // Add a fourth one for variety, if needed for layout or future use
-        // ExtraSetting::updateOrCreate(
-        //     ['key' => 'successful_interventions'],
-        //     [
-        //         'label' => 'Interventions réussies',
-        //         'value' => '98',
-        //         'icon_class' => 'icon-like', // Example, you might need to add this icon class
-        //         'value_suffix' => '%',
-        //         'order' => 4,
-        //     ]
-        // );
+        ExtraSetting::updateOrCreate(
+            ['key' => 'annees_experience'],
+            [
+                'label' => 'd\'expérience dans le service financier',
+                'value' => '25',
+                'icon_class' => '', 
+                'value_suffix' => '',
+                'order' => 4,
+            ]
+        );
     }
 }

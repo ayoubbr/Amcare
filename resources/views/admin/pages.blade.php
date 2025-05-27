@@ -1,10 +1,8 @@
 @extends('admin.layout')
 @section('title', 'Pages')
 @section('content')
-    {{-- Pages Section --}}
     <section id="pages" class="admin-section">
         <h3>Gestion des Pages</h3>
-        {{-- No "Add New" button as per request --}}
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>

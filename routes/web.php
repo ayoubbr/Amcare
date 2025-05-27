@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\ExtraSettingController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PartnerController;
@@ -62,6 +63,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', CategoryController::class);
 
     Route::resource('blog-posts', BlogPostController::class);
+
+    Route::get('/extra-settings', [ExtraSettingController::class, 'index'])->name('extra-settings.index');
+    Route::put('/extra-settings/{extraSetting}', [ExtraSettingController::class, 'update'])->name('extra-settings.update');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/logout-get', [AuthController::class, 'logout'])->name('logout.get');

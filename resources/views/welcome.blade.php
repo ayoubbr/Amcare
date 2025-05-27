@@ -94,14 +94,11 @@
                             }
                         }
                     @endphp
-                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $sliderImage->title }}"> --}}
-
                     <div class="slide-item p_relative">
                         <div class="bg-layer" style="background-image: url({{ $imageUrl ?? $defaultImageUrl }});">
                         </div>
                         <div class="auto-container">
                             <div class="content-box">
-                                {{-- <span class="upper-text">{{ $sliderImage->subtitle ?? 'Disponible 24/7' }}</span> --}}
                                 <h2>{{ $sliderImage->title }}</h2>
                             </div>
                         </div>
@@ -112,7 +109,6 @@
                         </div>
                         <div class="auto-container">
                             <div class="content-box">
-                                {{-- <span class="upper-text">Disponible 24/7</span> --}}
                                 <h2>Meilleurs <span>Services</span> d'Ambulance</h2>
                             </div>
                         </div>
@@ -139,7 +135,6 @@
                                 }
                             }
                         @endphp
-                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $partner->title }}"> --}}
                         <div class="brand-logo-box">
                             <a href="{{ $partner->website_url ?? '#' }}"
                                 {{ $partner->website_url ? 'target="_blank"' : '' }}>
@@ -147,21 +142,20 @@
                             </a>
                         </div>
                     @empty
-                        {{-- Default static partners if no dynamic partners are found --}}
-                        <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ asset('assets/images/brand/brand-1.png') }}" alt=""></a>
+                        <div class="brand-logo-box"><a><img src="{{ asset('assets/images/brand/brand-1.png') }}"
+                                    alt=""></a>
                         </div>
-                        <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ asset('assets/images/brand/brand-2.png') }}" alt=""></a>
+                        <div class="brand-logo-box"><a><img src="{{ asset('assets/images/brand/brand-2.png') }}"
+                                    alt=""></a>
                         </div>
-                        <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ asset('assets/images/brand/brand-3.png') }}" alt=""></a>
+                        <div class="brand-logo-box"><a><img src="{{ asset('assets/images/brand/brand-3.png') }}"
+                                    alt=""></a>
                         </div>
-                        <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ asset('assets/images/brand/brand-4.png') }}" alt=""></a>
+                        <div class="brand-logo-box"><a><img src="{{ asset('assets/images/brand/brand-4.png') }}"
+                                    alt=""></a>
                         </div>
-                        <div class="brand-logo-box"><a href="index.html"><img
-                                    src="{{ asset('assets/images/brand/brand-5.png') }}" alt=""></a>
+                        <div class="brand-logo-box"><a><img src="{{ asset('assets/images/brand/brand-5.png') }}"
+                                    alt=""></a>
                         </div>
                     @endforelse
                 </div>
@@ -194,24 +188,6 @@
                                     <div class="btn-box"><a href="{{ route('about') }}" class="theme-btn btn-one">En
                                             savoir plus</a>
                                     </div>
-                                    {{-- @if (isset($page) && !empty($page->description) && is_array($page->description))
-                                        <ul class="list-style-one mb_30 clearfix">
-                                            @foreach ($page->description as $item)
-                                                <li>{{ $item }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                         Fallback static list if dynamic data is not available 
-                                        <ul class="list-style-one mb_30 clearfix">
-                                            <li>Les équipes inclusives prennent en compte un plus large éventail de
-                                                points
-                                                de vue</li>
-                                            <li>Démontrer un engagement envers la diversité et l'inclusion améliore
-                                            </li>
-                                            <li>Adopter la diversité est conforme aux normes légales et éthiques
-                                            </li>
-                                        </ul>
-                                    @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -237,14 +213,9 @@
                                                 }
                                             }
                                         @endphp
-                                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $page->title }}"> --}}
                                         <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                             alt="{{ $page->title ?? 'À propos de nous' }}">
                                     </figure>
-                                    {{-- <figure class="image image-2">
-                                        <img src="{{ asset('assets/real_images/sahara-1-copy.jpg') }}"
-                                            alt="Image décorative">
-                                    </figure> --}}
                                 </div>
                             </div>
                         </div>
@@ -366,7 +337,6 @@
                                     }
                                 }
                             @endphp
-                            {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $service->title }}"> --}}
                             <div class="tab {{ $index === 0 ? 'active-tab' : '' }}" id="tab-{{ $service->id }}">
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
@@ -422,9 +392,7 @@
                     <div class="row clearfix">
                         @if (isset($extraSettings) && $extraSettings->count() > 0)
                             @foreach ($extraSettings as $stat)
-                                <div
-                                    class="col-lg-{{ 12 / (3) }} col-md-6 col-sm-12 funfact-block">
-                                    {{-- Adjust column class dynamically --}}
+                                <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
                                     <div class="funfact-block-three">
                                         <div class="inner-box">
                                             @if ($stat->icon_class)
@@ -444,7 +412,7 @@
                                 </div>
                             @endforeach
                         @else
-                            {{-- Fallback static content if no extraSettings are found
+                            {{-- Fallback static content if no extraSettings are found --}}
                             <div class="col-lg-4 col-md-6 col-sm-12 funfact-block">
                                 <div class="funfact-block-three">
                                     <div class="inner-box">
@@ -486,7 +454,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -523,6 +491,8 @@
                                 @else
                                     <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
                                 @endif
+                                <a href="{{ route('faqs') }}" class="theme-btn btn-one">En
+                                    savoir plus</a>
                             </div>
                         </div>
                     </div>

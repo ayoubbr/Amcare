@@ -102,12 +102,11 @@
                                         <div class="experience-box">
                                             <div class="year-box">
                                                 <div class="inner">
-                                                    <h2>25</h2>
+                                                    <h2>{{ $expYears['value'] }}</h2>
                                                     <h5>Ans</h5>
                                                 </div>
                                             </div>
-                                            <h4>d'expérience dans le service financier</h4>
-                                            {{-- This text can be made dynamic if needed via settings or a page section --}}
+                                            <h4>{{ $expYears['label'] }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -116,21 +115,18 @@
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                         <div class="content_block_two">
-                            <div class="content-box ml_60"> {{-- Consider if ml_60 is always needed or responsive --}}
+                            <div class="content-box ml_60">
                                 <div class="sec-title mb_25">
                                     <span class="sub-title mb_12">FAQ Générales</span>
                                     <h2>Toutes vos questions à la réalité.</h2>
-                                    {{-- This title can also be made dynamic if needed --}}
                                 </div>
                                 @if (isset($faqs) && $faqs->count() > 0)
                                     <ul class="accordion-box">
                                         @foreach ($faqs as $index => $faq)
                                             <li class="accordion block {{ $index == 0 ? 'active-block' : '' }}">
-                                                {{-- The first item is often open by default --}}
                                                 <div class="acc-btn {{ $index == 0 ? 'active' : '' }}">
                                                     <h4>{{ $faq->question }}</h4>
                                                     <div class="icon-box"><i class="icon-16"></i></div>
-                                                    {{-- Ensure this icon class exists and provides +/ - behavior or adjust JS --}}
                                                 </div>
                                                 <div class="acc-content {{ $index == 0 ? 'current' : '' }}">
                                                     <div class="text">

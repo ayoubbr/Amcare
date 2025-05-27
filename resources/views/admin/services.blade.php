@@ -52,7 +52,7 @@
             <h4>Ajouter/Modifier Service</h4>
             <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="serviceId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="serviceId">
                 <div class="form-group">
                     <label for="serviceTitle">Titre</label>
                     <input type="text" class="form-control" name="title" id="serviceTitle"

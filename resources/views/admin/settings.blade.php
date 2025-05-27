@@ -1,7 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Paramètres') {{-- Changed title slightly for brevity --}}
+@section('title', 'Paramètres')
 @section('content')
-    {{-- Existing Site Settings Section --}}
     <section id="site-settings" class="admin-section mb-5">
         <h3>Paramètres du Site</h3>
         <div class="setting-form-container mt-4">
@@ -10,7 +9,6 @@
             <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-
                 <div class="form-group">
                     <label for="siteName">Nom du Site</label>
                     <input type="text" class="form-control" name="site_name" id="siteName"
@@ -84,23 +82,18 @@
 
     <hr class="my-5">
 
-    {{-- New Admin Profile Section --}}
     <section id="admin-profile-settings" class="admin-section">
         <h3>Gérer Mon Profil</h3>
         <div class="setting-form-container mt-4">
             <h4>Informations Personnelles et Sécurité</h4>
             <form action="{{ route('admin.profile.update') }}" method="POST">
                 @csrf
-                @method('PUT') {{-- Using PUT for update is conventional --}}
-
-                {{-- Display Current Admin Email --}}
+                @method('PUT')
                 <div class="form-group">
                     <label for="adminCurrentEmail">Email Actuel</label>
                     <input type="email" class="form-control" id="adminCurrentEmail" value="{{ auth()->user()->email }}"
                         readonly>
                 </div>
-
-                {{-- Change Email --}}
                 <div class="form-group">
                     <label for="adminNewEmail">Nouvel Email (Optionnel)</label>
                     <input type="email" class="form-control @error('new_email') is-invalid @enderror" name="new_email"
@@ -114,7 +107,6 @@
 
                 <hr class="my-4">
 
-                {{-- Change Password --}}
                 <h5 class="mb-3">Changer le Mot de Passe</h5>
                 <div class="form-group">
                     <label for="adminCurrentPassword">Mot de Passe Actuel (Obligatoire pour changer email ou mot de
@@ -148,43 +140,3 @@
         </div>
     </section>
 @endsection
-
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneContainer = document.getElementById('phone-numbers-container');
-            const addPhoneButton = document.getElementById('add-phone-button');
-
-            if (addPhoneButton) {
-                addPhoneButton.addEventListener('click', function() {
-                    addPhoneNumberField('');
-                });
-            }
-
-            function addPhoneNumberField(key = '', value = '') {
-                const div = document.createElement('div');
-                div.classList.add('phone-input-group');
-                div.innerHTML = `
-                <input type="text" class="form-control" name="phone_keys[]" placeholder="Clé (ex: Support)" value="${key}" style="width: 40%;">
-                <input type="text" class="form-control" name="phone_values[]" placeholder="Numéro (ex: +1234567890)" value="${value}" style="width: 40%;">
-                <button type="button" class="btn btn-danger btn-remove-phone" style="width: 20%;">Supprimer</button>
-            `;
-                if (phoneContainer) {
-                    phoneContainer.appendChild(div);
-                    div.querySelector('.btn-remove-phone').addEventListener('click', function() {
-                        this.closest('.phone-input-group').remove();
-                    });
-                }
-            }
-
-            // Initialize existing phone number removal buttons
-            if (phoneContainer) {
-                phoneContainer.querySelectorAll('.btn-remove-phone').forEach(button => {
-                    button.addEventListener('click', function() {
-                        this.closest('.phone-input-group').remove();
-                    });
-                });
-            }
-        });
-    </script>
-@endpush

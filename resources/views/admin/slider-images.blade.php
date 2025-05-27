@@ -32,11 +32,8 @@
                                 }
                             }
                         @endphp
-                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $sliderImage->title }}"> --}}
                         <tr data-entity="slider-images" data-id="{{ $sliderImage->id }}"
                             data-image-path="{{ $imageUrl ?? $defaultImageUrl }}" data-title="{{ $sliderImage->title ?? '' }}"
-                            data-subtitle="{{ $sliderImage->subtitle ?? '' }}" {{-- Assuming subtitle exists --}}
-                            data-description="{{ $sliderImage->description ?? '' }}" {{-- Assuming description exists --}}
                             data-order="{{ $sliderImage->order }}"
                             data-is-published="{{ $sliderImage->is_published ? 'true' : 'false' }}">
                             <td>{{ $sliderImage->id }}</td>
@@ -64,7 +61,7 @@
             <h4>Ajouter/Modifier Image de Slider</h4>
             <form action="{{ route('admin.slider-images.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="sliderImageId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="sliderImageId">
                 <div class="form-group">
                     <label for="sliderImageFile">Fichier Image</label>
                     <input type="file" class="form-control" name="image_path" id="sliderImageFile">

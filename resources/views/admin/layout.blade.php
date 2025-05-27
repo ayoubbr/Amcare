@@ -34,21 +34,14 @@
     <style>
         .modal {
             display: none;
-            /* Hidden by default */
             position: fixed;
-            /* Stay in place */
             z-index: 1000;
-            /* Sit on top */
             left: 0;
             top: 0;
             width: 100%;
-            /* Full width */
             height: 100%;
-            /* Full height */
             overflow: auto;
-            /* Enable scroll if needed */
             background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
             justify-content: center;
             align-items: center;
         }
@@ -60,7 +53,6 @@
             border: 1px solid #888;
             width: 80%;
             max-width: 700px;
-            /* Increased width for page content */
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
@@ -250,7 +242,6 @@
             border-color: var(--theme-color);
             outline: none;
             box-shadow: 0 0 0 0.2rem rgba(var(--theme-color-rgb), .25);
-            /* Make sure --theme-color-rgb is defined or use a static color */
         }
 
         #settings .btn-primary,
@@ -270,7 +261,6 @@
 
         #settings .btn-primary:hover {
             background-color: #a5130d;
-            /* Darker shade of theme-color */
         }
 
         #settings .btn-secondary {
@@ -338,7 +328,6 @@
                 <h2>Tableau de Bord Admin</h2>
                 <nav>
                     <ul>
-                        {{-- Reordered for better flow --}}
                         <li><a href="{{ url('admin/settings') }}"
                                 class="{{ request()->is('admin/settings') ? 'active' : '' }}">Paramètres du Site</a>
                         </li>
@@ -357,6 +346,10 @@
                                 class="{{ request()->is('admin/zones') ? 'active' : '' }}">Zones</a></li>
                         <li><a href="{{ url('admin/events') }}"
                                 class="{{ request()->is('admin/events') ? 'active' : '' }}">Événements</a></li>
+                        <li><a href="{{ route('admin.extra-settings.index') }}"
+                                class="{{ request()->routeIs('admin.extra-settings.index') ? 'active' : '' }}">Paramètres
+                                Supp.</a>
+                        </li>
                         <li><a href="{{ url('admin/categories') }}"
                                 class="{{ request()->is('admin/categories') ? 'active' : '' }}">Catégories</a></li>
                         <li><a href="{{ url('admin/blog-posts') }}"
@@ -376,21 +369,28 @@
             </aside>
 
             <main class="admin-content">
-
-                <section class="page-title">
-                    <h1>Gestion du Contenu</h1>
+                <section class="page-title mb-4">
+                    <h1>@yield('title', 'Gestion du Contenu')</h1>
                 </section>
 
-
                 @if (session('success'))
-                    <div class="alert alert-success" onclick="this.style.display='none'">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert"
+                        onclick="this.style.display='none'">
                         {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 
-                @if (session('errors'))
-                    <div class="alert alert-danger" onclick="this.style.display='none'">
-                        {{ session('errors') }}
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Oups !</strong> Quelques erreurs se sont produites :<br><br>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                 @endif
 
@@ -407,7 +407,6 @@
                     <span class="close-button">&times;</span>
                 </div>
                 <div class="modal-body">
-                    {{-- Form will be injected here by JavaScript --}}
                     <form id="modalForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
@@ -441,7 +440,6 @@
         </div>
 
         @include('shared.js')
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize TinyMCE if the textarea exists
@@ -464,74 +462,6 @@
                         tinymce.remove(selector);
                     }
                 }
-
-
-                // Initial display setup: Show settings by default, hide others
-                // const allSections = document.querySelectorAll('.admin-content .admin-section');
-                // allSections.forEach(s => s.style.display = 'none'); // Hide all first
-
-                // const defaultSectionId = '#settings'; // Default section
-                // const defaultSection = document.querySelector(defaultSectionId);
-                // if (defaultSection) {
-                //     defaultSection.style.display = 'block';
-                // }
-                // Activate the corresponding nav link
-                // const defaultNavLink = document.querySelector(`.admin-sidebar nav ul li a[href="${defaultSectionId}"]`);
-                // if (defaultNavLink) {
-                //     document.querySelectorAll('.admin-sidebar nav ul li a').forEach(nav => nav.classList.remove(
-                //         'active'));
-                //     defaultNavLink.classList.add('active');
-                // }
-
-
-                // const navLinks = document.querySelectorAll('.admin-sidebar nav ul li a');
-                // const sections = document.querySelectorAll('.admin-content .admin-section');
-
-                // navLinks.forEach(link => {
-                //     link.addEventListener('click', function(e) {
-                //         e.preventDefault();
-                //         navLinks.forEach(nav => nav.classList.remove('active'));
-                //         this.classList.add('active');
-                //         sections.forEach(section => section.style.display = 'none');
-                //         const targetId = this.getAttribute('href');
-                //         const targetSection = document.querySelector(targetId);
-                //         if (targetSection) {
-                //             targetSection.style.display = 'block';
-                //         }
-
-                //         // Special handling for settings if needed (e.g., re-init dynamic fields)
-                //         if (targetId === '#settings') {
-                //             const phonesContainer = document.getElementById('phone-numbers-container');
-                //             // Clear existing before re-populating to avoid duplicates if re-clicked
-                //             phonesContainer.innerHTML = '';
-                //             const settingsData = {!! json_encode($settings ?? ['phones' => []]) !!};
-                //             const phonesData = settingsData.phones || {};
-                //             if (Object.keys(phonesData).length > 0 && phonesContainer.children
-                //                 .length === 0) {
-                //                 for (const key in phonesData) {
-                //                     if (Object.hasOwnProperty.call(phonesData, key)) {
-                //                         addPhoneNumberField('phone-numbers-container', key, phonesData[
-                //                             key]);
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     });
-                // });
-
-                // // If settings is the default visible tab, ensure phone numbers are populated
-                // if (defaultSectionId === '#settings') {
-                //     const phonesContainer = document.getElementById('phone-numbers-container');
-                //     if (phonesContainer.children.length === 0) { // Only populate if empty
-                //         const settingsData = {!! json_encode($settings ?? ['phones' => []]) !!};
-                //         const phonesData = settingsData.phones || {};
-                //         for (const key in phonesData) {
-                //             if (Object.hasOwnProperty.call(phonesData, key)) {
-                //                 addPhoneNumberField('phone-numbers-container', key, phonesData[key]);
-                //             }
-                //         }
-                //     }
-                // }
 
 
                 document.querySelectorAll('.admin-section .btn-add-new').forEach(button => {
@@ -646,8 +576,9 @@
                             modalTitle.textContent = 'Modifier la Page';
                             actionRoute = `/admin/pages/${data.id}`; // Ensure this route is defined for PUT/PATCH
                             currentImageHTML = data.imagePath ?
-                                `<div class="mb-2">Image actuelle: <img src="${data.imagePath}" alt="Current Image" class="current-image-preview"> 
-                                    <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image">Retirer l'image</button></div>` :
+                                `<div class="mb-2">Image actuelle: <img src="${data.imagePath}" alt="Current Image" class="current-image-preview" 
+                                    style="background: #c5c5d1;"> 
+                                <button type="button" class="btn btn-xs btn-warning remove-image-btn" data-field="image">Retirer l'image</button></div>` :
                                 '<p class="text-muted">Aucune image actuelle.</p>';
 
                             formHtml = `

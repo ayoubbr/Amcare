@@ -34,7 +34,7 @@
             <h4>Ajouter/Modifier FAQ</h4>
             <form action="{{ route('admin.faqs.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="id" id="faqId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="faqId">
                 <div class="form-group">
                     <label for="faqQuestion">Question</label>
                     <input type="text" class="form-control" name="question" id="faqQuestion"

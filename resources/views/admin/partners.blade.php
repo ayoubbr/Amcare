@@ -32,7 +32,6 @@
                                 }
                             }
                         @endphp
-                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $partner->title }}"> --}}
                         <tr data-entity="partners" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}"
                             data-logo-path="{{ $imageUrl ?? $defaultImageUrl }}"
                             data-website-url="{{ $partner->website_url ?? '' }}" data-order="{{ $partner->order }}"
@@ -65,7 +64,7 @@
             <h4>Ajouter/Modifier Partenaire</h4>
             <form action="{{ route('admin.partners.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="partnerId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="partnerId">
                 <div class="form-group">
                     <label for="partnerName">Nom du Partenaire</label>
                     <input type="text" class="form-control" name="name" id="partnerName"

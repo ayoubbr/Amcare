@@ -35,7 +35,7 @@
             <h4>Ajouter/Modifier Catégorie</h4>
             <form action="{{ route('admin.categories.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="id" id="categoryId"> {{-- For updates --}}
+                <input type="hidden" name="id" id="categoryId"> 
                 <div class="form-group">
                     <label for="categoryName">Nom</label>
                     <input type="text" class="form-control" name="name" id="categoryName"
