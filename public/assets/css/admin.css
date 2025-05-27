@@ -1,0 +1,316 @@
+/* admin.css */
+
+/* Import existing styles for consistency */
+@import 'tailwindcss';
+/* Assuming Tailwind is used as per app.css */
+/* @import 'bootstrap.css'; */
+/* @import 'color.css'; */
+/* @import 'style.css'; */
+/* @import 'responsive.css'; */
+
+/* Admin Dashboard Specific Styles */
+
+body {
+    background-color: var(--bs-gray-100);
+    /* Light gray background for the dashboard */
+    font-family: var(--text-font);
+    color: var(--text-color);
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+    /* Ensure full height */
+}
+
+/* Sidebar Styles */
+.admin-sidebar {
+    width: 300px;
+    background-color: var(--bs-dark-blue);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    /* height: 100vh; */
+    overflow-y: auto;
+}
+
+.admin-sidebar h2 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.admin-sidebar ul li a {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.admin-sidebar ul li a:hover,
+.admin-sidebar ul li a.active {
+    background-color: var(--theme-color);
+    /* Active/hover color from theme */
+    color: #fff;
+}
+
+/* Main Content Area Styles */
+.admin-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #f8f9fa;
+    /* Lighter background for content */
+}
+
+.admin-content .page-title {
+    width: 100%;
+}
+
+.admin-content .page-title {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.admin-content .page-title h1 {
+    color: var(--title-color);
+    font-size: 2.2rem;
+    margin-bottom: 0;
+}
+
+.admin-section {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.admin-section h3 {
+    color: var(--title-color);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+/* Table Styles (leveraging Bootstrap) */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    vertical-align: top;
+    border-color: #e9ecef;
+    /* Lighter border for tables */
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #e9ecef;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #e9ecef;
+    background-color: var(--bs-gray-200);
+    color: var(--title-color);
+}
+
+.table tbody tr:hover {
+    background-color: #f2f2f2;
+    /* Light hover effect */
+}
+
+/* Action Buttons in Tables */
+.table .action-buttons .btn {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin-right: 5px;
+    border-radius: 4px;
+}
+
+.table .action-buttons .btn-edit {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border-color: var(--secondary-color);
+}
+
+.table .action-buttons .btn-edit:hover {
+    background-color: #081e9b;
+    /* Darken secondary color */
+    border-color: #081e9b;
+}
+
+.table .action-buttons .btn-delete {
+    background-color: var(--theme-color);
+    color: #fff;
+    border-color: var(--theme-color);
+}
+
+.table .action-buttons .btn-delete:hover {
+    background-color: #a5130d;
+    /* Darken theme color */
+    border-color: #a5130d;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 0.5rem;
+    padding-top: 12px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    /* box-shadow: 0 0 0 0.25rem rgba(11, 37, 182, 0.25); */
+    /* Using secondary color for focus */
+    outline: 0;
+}
+
+textarea.form-control {
+    min-height: 120px;
+}
+
+.form-section h4{
+    margin-bottom: 15px;
+}
+
+.btn-add-new {
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-new:hover {
+    background-color: #081e9b;
+    /* Darken secondary color */
+}
+
+
+.logout-item {
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+  }
+  
+  .logout-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #a5130d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: left;
+  }
+  
+  .logout-button:hover {
+    background-color: #7d0f0a;
+  }
+  
+  .logout-button i {
+    margin-right: 10px;
+    font-size: 16px;
+  }  
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .admin-wrapper {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding-bottom: 0;
+    }
+
+    .admin-sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .admin-sidebar ul li {
+        margin: 5px 10px;
+    }
+
+    .admin-sidebar h2 {
+        margin-bottom: 15px;
+    }
+
+    .admin-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .admin-content {
+        padding: 15px;
+    }
+
+    .admin-content .page-title h1 {
+        font-size: 1.8rem;
+    }
+
+    .admin-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .table .action-buttons .btn {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+    }
+}
