@@ -163,7 +163,7 @@ class HomeController extends Controller
     public function faqs()
     {
         $faqs = Faq::orderBy('created_at', 'asc')
-            ->get();
+            ->paginate(5);
         $settings = Setting::first();
 
         return view('faqs', compact('faqs'));

@@ -61,7 +61,7 @@
         @include('shared.header', ['settings' => $settings ?? null])
 
         <section class="page-title centred">
-            <div class="bg-layer blue-mask"
+            <div class="bg-layer"
                 style="background-image: url({{ asset('assets/images/background/page-title-3.jpg') }});">
             </div>
             <div class="auto-container">
@@ -147,8 +147,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="pagination-wrapper pt_30">
+                    {{ $faqs->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </section>
+
 
         {{-- Include footer (ensure $settings is passed if footer needs it) --}}
         @include('shared.footer', ['settings' => $settings ?? null])

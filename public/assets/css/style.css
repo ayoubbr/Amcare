@@ -1631,3 +1631,9 @@
  .support-style-two .inner-container {
    border-bottom: 1px solid #E5E5E5;
  }
+
+ .pagination li a:hover {
+   background-color: #0B25B6 !important;
+   color: white !important;
+   border-color: #0B25B6 !important;
+ }
