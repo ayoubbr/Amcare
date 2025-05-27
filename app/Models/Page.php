@@ -15,11 +15,13 @@ class Page extends Model
     protected $fillable = [
         'title',
         'slug',
-        'content', 
+        'content',
+        'main_title',
         'meta_title',
+        'meta_description', 
         'description',
         'image',
-        'is_published'
+        'is_published',
     ];
 
     protected $casts = [
@@ -34,12 +36,15 @@ class Page extends Model
     }
 
 
-    public static function createUniqueSlug($title)
+    public static function createUniqueSlug($title, $id = 0)
     {
         $slug = Str::slug($title);
-        $count = self::where('slug', $slug)->count();
-
-        return $count ? "{$slug}-{$count}" : $slug;
+        $originalSlug = $slug;
+        $count = 1;
+        while (static::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+        return $slug;
     }
 
     public function preview(Page $page)
@@ -52,9 +57,8 @@ class Page extends Model
     {
         $page->is_published = !$page->is_published;
         $page->save();
-        
+
         return redirect()->route('admin.pages.index')
             ->with('success', $page->is_published ? 'Page publiée avec succès.' : 'Page dépubliée avec succès.');
     }
-    
 }

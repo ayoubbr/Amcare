@@ -19,7 +19,7 @@
             <div class="outer-box">
                 <figure class="logo-box">
                     <a href="{{ route('home') }}">
-                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : Vite::asset('resources/assets/images/logo.png') }}"
+                        <img src="{{ $settings->logo ? Storage::url($settings->logo) : asset('assets/images/logo.png') }}"
                             alt="{{ $settings->site_name ?? 'Amcare' }}">
                     </a>
                 </figure>
@@ -36,11 +36,11 @@
                                         href="{{ route('home') }}">Accueil</a>
                                 </li>
                                 <li class="dropdown {{ request()->is('services') ? 'current' : '' }}">
-                                    <a href="{{ url('services') }}">Services</a>
+                                    <a>Services</a>
                                     <ul>
                                         @forelse($services as $service)
                                             <li>
-                                                <a href="{{ route('service', $service->id) }}">
+                                                <a href="{{ route('service', $service->slug) }}">
                                                     {{ $service->title }}
                                                 </a>
                                             </li>
@@ -49,6 +49,11 @@
                                                 <p>Aucun service pour le moment.</p>
                                             </div>
                                         @endforelse
+                                        <li>
+                                            <a href="{{ route('zones') }}">
+                                                Zones de service
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown {{ request()->is('events') ? 'current' : '' }}"><a
@@ -67,18 +72,21 @@
                                 <li class="{{ request()->is('blog') ? 'current' : '' }}">
                                     <a href="{{ url('blog') }}">Blog</a>
                                 </li>
-                                <li class="{{ request()->is('about') ? 'current' : '' }}"><a
-                                        href="{{ url('about') }}">À propos</a></li>
+                                @if ($pages->count() > 0)
+                                    <li class="{{ request()->is('about') ? 'current' : '' }}">
+                                        <a href="{{ url('about') }}">À propos</a>
+                                    </li>
+                                @endif
                                 <li class="{{ request()->is('contact') ? 'current' : '' }}"><a
                                         href="{{ url('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
                 </div>
-                <div class="menu-right-content">
+                {{-- <div class="menu-right-content">
                     <div class="search-toggler"><i class="icon-8"></i></div>
-                    {{-- <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div> --}}
-                </div>
+                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -86,17 +94,17 @@
     <div class="sticky-header">
         <div class="auto-container">
             <div class="outer-box">
-                <figure class="logo-box"><a href="index.html"><img
-                            src="{{ Vite::asset('resources/assets/images/logo.png') }}" alt=""></a>
+                <figure class="logo-box"><a href="index.html"><img src="{{ asset('assets/images/logo.png') }}"
+                            alt=""></a>
                 </figure>
                 <div class="menu-area">
                     <nav class="main-menu clearfix">
                     </nav>
                 </div>
-                <div class="menu-right-content">
+                {{-- <div class="menu-right-content">
                     <div class="search-toggler"><i class="icon-8"></i></div>
-                    {{-- <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div> --}}
-                </div>
+                    <div class="btn-box"><a href="index.html" class="theme-btn btn-one">Get a Quote</a></div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -106,8 +114,8 @@
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
     <nav class="menu-box">
-        <div class="nav-logo"><a href="/"><img src="{{ Vite::asset('resources/assets/images/logo-2.png') }}"
-                    alt="" title=""></a>
+        <div class="nav-logo"><a href="/"><img src="{{ asset('assets/images/logo-2.png') }}" alt=""
+                    title=""></a>
         </div>
         <div class="menu-outer">
         </div>
@@ -142,8 +150,8 @@
 <div id="search-popup" class="search-popup">
     <div class="popup-inner">
         <div class="upper-box">
-            <figure class="logo-box"><a href="index.html"><img
-                        src="{{ Vite::asset('resources/assets/images/logo-2.png') }}" alt=""></a>
+            <figure class="logo-box"><a href="index.html"><img src="{{ asset('assets/images/logo-2.png') }}"
+                        alt=""></a>
             </figure>
             <div class="close-search"><span class="fas fa-times"></span></div>
         </div>

@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\ExtraSettingController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PartnerController;
@@ -24,8 +24,8 @@ Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 
-Route::get('services', [HomeController::class, 'services'])->name('services');
-Route::get('services/{id}', [HomeController::class, 'service'])->name('service');
+Route::get('zones', [HomeController::class, 'zones'])->name('zones');
+Route::get('services/{slug}', [HomeController::class, 'service'])->name('service');
 
 Route::get('about', [HomeController::class, 'about'])->name('about');
 Route::get('contact', [HomeController::class, 'contact'])->name('contact');
@@ -37,39 +37,39 @@ Route::get('/admin-login', [AuthController::class, 'loginForm'])->name('admin.lo
 Route::post('/admin-login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-require __DIR__ . '/auth.php';
+    Route::get('/', [SettingController::class, 'index'])->name('settings.index');
 
-Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+    Route::put('/profile/update', [SettingController::class, 'updateAdminProfile'])->name('profile.update');
 
-    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('slider-images', SliderImageController::class);
 
-    Route::resource('categories', CategoryController::class);
-
-    Route::resource('blog', BlogPostController::class);
-    Route::patch('blog/{post}/toggle-publish', [BlogPostController::class, 'togglePublish'])->name('blog.toggle-publish');
-    Route::get('blog/{post}/preview', [BlogPostController::class, 'preview'])->name('blog.preview');
-
-    Route::resource('events', EventController::class);
-    Route::patch('events/{event}/toggle-publish', [EventController::class, 'togglePublish'])->name('events.toggle-publish');
-
-    Route::resource('services', ServiceController::class);
-
-    Route::resource('zone', ZoneController::class);
+    Route::resource('partners', PartnerController::class);
 
     Route::resource('faqs', FaqController::class);
 
-    Route::resource('slider-images', SliderImageController::class); // New route for slider images
-    Route::resource('partners', PartnerController::class); // New route for partners
+    Route::resource('services', ServiceController::class);
 
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'update'])->name('settings.store');
+    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+    Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
 
-    Route::get('/pages', [PageController::class, 'index'])->name('pageSection');
-    Route::get('/pages/{page}', [PageController::class, 'show'])->name('pageSection');
-    Route::put('/pages/{id}', [PageController::class, 'update'])->name('pageSection');
+    Route::resource('zones', ZoneController::class);
+
+    Route::resource('events', EventController::class);
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('blog-posts', BlogPostController::class);
+
+    Route::get('/extra-settings', [ExtraSettingController::class, 'index'])->name('extra-settings.index');
+    Route::put('/extra-settings/{extraSetting}', [ExtraSettingController::class, 'update'])->name('extra-settings.update');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout-get', [AuthController::class, 'logout'])->name('logout.get');
 });
-
 
 
 Route::get('not-found', function () {

@@ -6,46 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Blog - Amcare</title>
+    <title>Blog - {{ $settings->site_name ?? 'Amcare' }}</title>
 
-    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
         rel="stylesheet">
 
-    @vite('resources/css/font-awesome-all.css')
-    @vite('resources/css/owl.css')
-    @vite('resources/css/flaticon.css')
-    @vite('resources/css/bootstrap.css')
-    @vite('resources/css/jquery.fancybox.min.css')
-    @vite('resources/css/animate.css')
-    @vite('resources/css/nice-select.css')
-    @vite('resources/css/odometer.css')
-    @vite('resources/css/elpath.css')
-    @vite('resources/css/color.css')
-    @vite('resources/css/rtl.css')
-    @vite('resources/css/style.css')
-    @vite('resources/css/module-css/header.css')
-    @vite('resources/css/module-css/banner.css')
-    @vite('resources/css/module-css/brand.css')
-    @vite('resources/css/module-css/about.css')
-    @vite('resources/css/module-css/chooseus.css')
-    @vite('resources/css/module-css/service.css')
-    @vite('resources/css/module-css/feature.css')
-    @vite('resources/css/module-css/funfact.css')
-    @vite('resources/css/module-css/testimonial.css')
-    @vite('resources/css/module-css/faq.css')
-    @vite('resources/css/module-css/team.css')
-    @vite('resources/css/module-css/event.css')
-    @vite('resources/css/module-css/process.css')
-    @vite('resources/css/module-css/news.css')
-    @vite('resources/css/module-css/cta.css')
-    @vite('resources/css/module-css/footer.css')
-    @vite('resources/css/module-css/page-title.css')
-    @vite('resources/css/module-css/blog-sidebar.css')
-    @vite('resources/css/module-css/subscribe.css')
-    @vite('resources/css/responsive.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elpath.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/rtl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <!-- Module CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/banner.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/news.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/cta.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/blog-sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/subscribe.css') }}">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
 
 
 </head>
@@ -87,8 +81,9 @@
         </div>
         @include('shared.header')
 
-        {{-- <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url({{ asset('assets/images/background/page-title-4.jpg') }});"></div>
+        <section class="page-title centred">
+            <div class="bg-layer"
+                style="background-image: url({{ asset('assets/images/background/page-title-4.jpg') }});"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -98,34 +93,49 @@
                     <h1>Blog</h1>
                 </div>
             </div>
-        </section> --}}
-        <section class="sidebar-page-container pt_120 pb_120">
+        </section>
+        <section class="sidebar-page-container pt_60 pb_60">
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                         <div class="blog-grid-content p_relative">
                             <div class="row clearfix">
                                 @forelse($posts as $post)
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms"
-                                        data-wow-duration="1500ms">
-                                        <div class="inner-box">
-                                            <div class="bg-layer"
-                                                style="background-image: url({{ $post->image ? Storage::url($post->image) : asset('assets/images/news/default-blog.jpg') }});"></div>
-                                            <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($post->published_at)->format('d M, Y') }}</span>
-                                            <h4><a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a></h4>
-                                            <ul class="post-info">
-                                                <li><i class="icon-30"></i><a href="#">Admin</a></li>
-                                                {{-- Assuming comments are not dynamic yet, keeping static or removing --}}
-                                                <li><i class="icon-31"></i><span>0 Commentaire</span></li>
-                                            </ul>
+                                    @php
+                                        $imagePath = $post->image;
+                                        $imageUrl = null;
+                                        $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                        if ($imagePath) {
+                                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                                $imageUrl = asset($imagePath);
+                                            } else {
+                                                $imageUrl = Storage::url($imagePath);
+                                            }
+                                        }
+                                    @endphp
+                                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
+                                        <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms"
+                                            data-wow-duration="1500ms">
+                                            <div class="inner-box">
+                                                <div class="bg-layer"
+                                                    style="background-image: url({{ $imageUrl ?? $defaultImageUrl }});">
+                                                </div>
+                                                <span class="post-date"><i
+                                                        class="icon-29"></i>{{ \Carbon\Carbon::parse($post->published_at)->format('d M, Y') }}</span>
+                                                <h4><a
+                                                        href="{{ route('post', $post->slug) }}">{{ Str::limit(strip_tags($post->title), 60) }}</a>
+                                                </h4>
+                                                <ul class="post-info">
+                                                    <li><i class="icon-30"></i><a>Admin</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 @empty
-                                <div class="col-lg-12">
-                                    <p>Aucun article de blog trouvé pour le moment.</p>
-                                </div>
+                                    <div class="col-lg-12">
+                                        <p>Aucun article de blog trouvé pour le moment.</p>
+                                    </div>
                                 @endforelse
                             </div>
                             <div class="pagination-wrapper pt_30">
@@ -135,7 +145,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                         <div class="blog-sidebar ml_30">
-                            <div class="sidebar-widget search-widget mb_55">
+                            {{-- <div class="sidebar-widget search-widget mb_55">
                                 <div class="widget-title mb_25">
                                     <h3>Rechercher</h3>
                                 </div>
@@ -148,15 +158,16 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="sidebar-widget category-widget mb_45">
                                 <div class="widget-title mb_20">
                                     <h3>Catégories</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="cagegory-list clearfix">
-                                        @foreach($categories as $category)
-                                            <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                        @foreach ($categories as $category)
+                                            <li><a>{{ $category->name }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -166,20 +177,42 @@
                                     <h3>Dernières Nouvelles</h3>
                                 </div>
                                 <div class="post-inner">
-                                    @foreach($latestPosts as $latestPost)
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="{{ route('post', $latestPost->slug) }}"><img
-                                                    src="{{ $latestPost->image ? Storage::url($latestPost->image) : asset('assets/images/news/post-default.jpg') }}"
-                                                    alt=""></a></figure>
-                                        <article>
-                                            <h5><a href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a></h5>
-                                            <span class="post-date"><i class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
-                                        </article>
-                                    </div>
+                                    @foreach ($latestPosts as $latestPost)
+                                        @php
+                                            $imagePath = $latestPost->image;
+                                            $imageUrl = null;
+                                            $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                            if ($imagePath) {
+                                                if (
+                                                    Illuminate\Support\Str::startsWith(
+                                                        $imagePath,
+                                                        'assets/seed_images/',
+                                                    )
+                                                ) {
+                                                    $imageUrl = asset($imagePath);
+                                                } else {
+                                                    $imageUrl = Storage::url($imagePath);
+                                                }
+                                            }
+                                        @endphp
+                                        <div class="post">
+                                            <figure class="post-thumb"><a
+                                                    href="{{ route('post', $latestPost->slug) }}"><img
+                                                        src="{{ $imageUrl ?? $defaultImageUrl }}" alt=""></a>
+                                            </figure>
+                                            <article>
+                                                <h5><a
+                                                        href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a>
+                                                </h5>
+                                                <span class="post-date"><i
+                                                        class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
+                                            </article>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="sidebar-widget gallery-widget mb_45">
+                            {{-- <div class="sidebar-widget gallery-widget mb_45">
                                 <div class="widget-title mb_25">
                                     <h3>Galerie de Photos</h3>
                                 </div>
@@ -223,7 +256,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -236,4 +269,6 @@
 
     @include('shared.js')
 
-</body></html>
+</body>
+
+</html>

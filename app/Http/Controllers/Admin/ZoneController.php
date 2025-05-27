@@ -6,6 +6,8 @@ use App\Models\Zone;
 use App\Http\Requests\StoreZoneRequest;
 use App\Http\Requests\UpdateZoneRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ZoneController extends Controller
 {
@@ -15,15 +17,9 @@ class ZoneController extends Controller
     public function index()
     {
         $zones = Zone::all();
-        return view('admin.zones.index', compact('zones'));
-    }
+        $categories = Category::orderBy('name')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.zones.create');
+        return view('admin.zones', compact('zones', 'categories'));
     }
 
     /**
@@ -32,26 +28,14 @@ class ZoneController extends Controller
     public function store(StoreZoneRequest $request)
     {
         $validate = $request->validated();
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('zones', 'public');
+            $validate['image'] = $path;
+        }
         Zone::create($validate);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.zones.index')
             ->with('success', 'Zone créée avec succès.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Zone $zone)
-    {
-        return view('');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Zone $zone)
-    {
-        return view('admin.zones.edit', compact('zone'));
     }
 
     /**
@@ -59,8 +43,18 @@ class ZoneController extends Controller
      */
     public function update(UpdateZoneRequest $request, Zone $zone)
     {
-        $zone->update($request->validated());
-        return redirect()->route('admin.dashboard')
+        $data = $request->validated();
+        if ($request->hasFile('image')) {
+            if ($zone->image) {
+                Storage::disk('public')->delete($zone->image);
+            }
+            $path = $request->file('image')->store('zones', 'public');
+            $data['image'] = $path;
+        }
+
+        $zone->update($data);
+
+        return redirect()->route('admin.zones.index')
             ->with('success', 'Zone mise à jour avec succès.');
     }
 
@@ -71,7 +65,7 @@ class ZoneController extends Controller
     {
         $zone->delete();
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.zones.index')
             ->with('success', 'Zone supprimée avec succès.');
     }
 }

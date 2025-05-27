@@ -23,11 +23,15 @@ class UpdatePageRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_published' => 'boolean',
+            'main_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:600',
+            'description' => 'nullable|array',
+            'description.*' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg,webp|max:2048',
+            'is_published' => 'nullable|boolean',
+            'remove_image' => 'nullable|in:0,1',
         ];
     }
 }

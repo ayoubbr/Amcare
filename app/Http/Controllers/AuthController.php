@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -28,7 +29,7 @@ class AuthController extends Controller
             'access_code' => 'required|string'
         ]);
 
-        $validCode = env('ACCESS_CODE', 'admin_secret_2024');
+        $validCode = env('ACCESS_CODE', 'admin');
 
         if ($request->access_code === $validCode) {
             session(['admin_access_granted' => true]);
@@ -42,33 +43,35 @@ class AuthController extends Controller
     public function loginForm()
     {
         if (!session('admin_access_granted')) {
-            return redirect()->route('auth.access');
+            return redirect()->route('admin.access');
         }
-        return view('auth.adminLogin');
+
+        $settings = Setting::first();
+        return view('auth.adminLogin', compact('settings'));
     }
 
     public function login(LoginRequest $request)
     {
-        $reqst= $request->validated();
+        $reqst = $request->validated();
         $email = $request->email;
         $remember = $request->filled('remember');
-        
+
         if (Auth::check()) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
-        
+
         $user = User::where('email', $email)->first();
         if (Auth::attempt($reqst, $remember)) {
             Auth::login($user, $remember);
             $request->session()->regenerate();
             session()->forget('admin_access_granted');
             $user->update(['last_login_at' => now()]);
-            return redirect()->route('admin.dashboard')
+            return redirect()->route('admin.settings.index')
                 ->with('success', 'Connexion réussie. Bienvenue dans votre espace d\'administration.');
         }
-        
+
         return back()
             ->withInput($request->only('email', 'remember'))
             ->withErrors([
@@ -83,10 +86,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('admin.access')
             ->with('success', 'Vous avez été déconnecté avec succès.');
-    }
-
-    public function dashboard()
-    {
-        return view('admin.dashboard');
     }
 }

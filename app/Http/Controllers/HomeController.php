@@ -5,34 +5,40 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\ExtraSetting;
 use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Zone;
 use App\Models\Partner;
-use App\Models\Setting;
 use App\Models\SliderImage;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $services = Service::published()->ordered()->take(3)->get();
+        $services = Service::published()->ordered()->take(4)->get();
         $events = Event::published()->take(3)->get();
         $posts = BlogPost::published()->take(3)->get();
-        $settings = Setting::first();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
         $sliderImages = SliderImage::published()->ordered()->get();
         $partners = Partner::published()->ordered()->get();
+        $extraSettings = ExtraSetting::where('key', 'frontline_staff')->orWhere('key', 'specialized_vehicles')->orWhere('key', 'patients_served')->orderBy('order', 'asc')->get();
 
-        return view('welcome', compact('settings', 'services', 'events', 'posts', 'faqs', 'sliderImages', 'partners'));
+        $page = Page::published()->where('slug', 'a-propos')->first();
+        if ($page) {
+            $metaTitle = $page->meta_title ?? $page->title;
+            $metaDescription = $page->description ?? '';
+        }
+
+        return view('welcome', compact('services', 'events', 'posts', 'faqs', 'sliderImages', 'partners', 'page', 'extraSettings'));
     }
 
     public function blog()
     {
         $posts = BlogPost::published()
             ->with('category')
-            ->paginate(1);
+            ->paginate(4);
 
         $categories = Category::orderBy('name')->get();
 
@@ -50,6 +56,7 @@ class HomeController extends Controller
             ->where('slug', $slug)
             ->with('category')
             ->firstOrFail();
+
         $relatedPosts = BlogPost::published()
             ->where('id', '!=', $post->id)
             ->where('category_id', $post->category_id)
@@ -65,58 +72,35 @@ class HomeController extends Controller
             ->get();
 
         return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
-    }
-
-
-    public function category($slug)
-    {
-        $category = Category::where('slug', $slug)->firstOrFail();
-
-        $posts = BlogPost::published()
-            ->where('category_id', $category->id)
-            ->orderBy('published_at', 'desc')
-            ->paginate(9);
-
-        $categories = Category::orderBy('name')->get();
-
-        $latestPosts = BlogPost::published()
-            ->orderBy('published_at', 'desc')
-            ->take(3)
-            ->get();
-
-        return view('front.category', compact('category', 'posts', 'categories', 'latestPosts'));
-    }
-
-
-
-    public function page($slug)
-    {
-        $page = Page::published()->where('slug', $slug)->firstOrFail();
-
-        $metaTitle = $page->meta_title ?? $page->title;
-        $metaDescription = $page->description ?? '';
-
-        return view('front.page', compact('page', 'metaTitle', 'description'));
-    }
+    }   
 
     public function about()
     {
-        $page = Page::published()->where('slug', 'about-us')->first();
-        return view('about', compact('page'));
+        $page = Page::published()->where('slug', 'a-propos')->where('is_published', true)->first();
+
+        $transport = Page::published()->where('slug', 'transport-securise')->where('is_published', true)->first();
+        $demande = Page::published()->where('slug', 'service-sur-demande')->where('is_published', true)->first();
+        $urgence = Page::published()->where('slug', 'transport-durgence')->where('is_published', true)->first();
+
+        $characteristics = [$transport, $demande, $urgence];
+
+        if (!$page) {
+            abort(404, 'Page not found');
+        }
+
+        return view('about', compact('page', 'characteristics'));
     }
 
-    public function services()
+    public function zones()
     {
-        $services = Service::published()->ordered()->get();
-        $zones = Zone::orderBy('name')->get();
+        $zones = Zone::orderBy('name', 'asc')->get();
 
-        return view('services', compact('services', 'zones'));
+        return view('zones', compact('zones'));
     }
 
-
-    public function service($id)
+    public function service($slug)
     {
-        $service = Service::published()->findOrFail($id);
+        $service = Service::published()->where('slug', $slug)->firstOrFail();
         $allServices = Service::published()->ordered()->get();
         $faqs = Faq::orderBy('created_at', 'asc')->take(5)->get();
 
@@ -125,18 +109,11 @@ class HomeController extends Controller
 
     public function events()
     {
-        $upcomingEvents = Event::published()
-            ->where('event_date', '>=', now())
+        $events = Event::published()
             ->orderBy('event_date', 'asc')
-            ->get();
+            ->paginate(2);
 
-        $pastEvents = Event::published()
-            ->where('event_date', '<', now())
-            ->orderBy('event_date', 'desc')
-            ->take(5)
-            ->get();
-
-        return view('events', compact('upcomingEvents', 'pastEvents'));
+        return view('events', compact('events'));
     }
 
     public function event($slug)
@@ -161,15 +138,14 @@ class HomeController extends Controller
 
     public function faqs()
     {
-        $faqs = Faq::orderBy('created_at', 'asc')
-            ->get();
+        $faqs = Faq::orderBy('created_at', 'asc')->paginate(5);
+        $expYears = ExtraSetting::where('key', 'annees_experience')->first();
 
-        return view('faqs', compact('faqs'));
+        return view('faqs', compact('faqs', 'expYears'));
     }
 
     public function contact()
     {
-        $settings = Setting::first();
-        return view('contact', compact('settings'));
+        return view('contact');
     }
 }

@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('icon')->nullable();
+            $table->string('slug')->unique();
             $table->text('short_description');
             $table->longText('content');
             $table->string('image')->nullable();
-            $table->string('whatsapp_number')->nullable();
             $table->integer('order')->default(0);
             $table->boolean('is_published')->default(false);
             $table->timestamps();

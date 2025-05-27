@@ -13,58 +13,64 @@ class PageSeeder extends Seeder
      */
     public function run(): void
     {
-        $slides = [
-            [
-                'logo' => '<img src="https://cdn-icons-png.freepik.com/256/15228/15228159.png?uid=R120847014&ga=GA1.1.1306162642.1747995481&semt=ais_hybrid" width="40" alt="Ambulance Icon">',
+        if (!Page::where('slug', 'a-propos')->exists()) {
+            Page::create([
+                'title' => 'A Propos',
+                'slug' => 'a-propos',
+                'main_title' => 'L\'excellence dans les services médicaux d\'urgence',
+                'content' => 'Chez Ambulance team, nous sommes fiers d\'offrir l\'excellence en matière de services médicaux d\'urgence. Notre équipe de professionnels hautement qualifiés et expérimentés',
+                'meta_title' => 'À Propos de Amcare - Services Médicaux d\'Urgence',
+                'meta_description' => 'Découvrez Amcare, votre partenaire de confiance pour des services médicaux d\'urgence rapides et fiables. Apprenez-en plus sur notre mission et notre équipe.',
+                'description' => json_encode([
+                    'Les équipes inclusives prennent en compte un plus large éventail de points de vue',
+                    'Démontrer un engagement envers la diversité et l\'inclusion améliore',
+                    'Adopter la diversité est conforme aux normes légales et éthiques'
+                ]),
+                'image' => 'assets/seed_images/sahara-1.jpg',
+                'is_published' => true,
+            ]);
+        }
+
+        if (!Page::where('slug', 'transport-securise')->exists()) {
+            Page::create([
                 'title' => 'Transport sécurisé',
-                'description' => 'Les services de transport sécurisé d`\Ambulance Team jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.'
-            ],
-            [
-                'logo' => '<img src="https://cdn-icons-png.freepik.com/256/13641/13641122.png?uid=R120847014&ga=GA1.1.1306162642.1747995481&semt=ais_hybrid" width="40" alt="Urgence Icon">',
+                'slug' => 'transport-securise',
+                'main_title' => '',
+                'content' => '<p>Les services de transport sécurisé d\'Amcare jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.</p>',
+                'meta_title' => '',
+                'meta_description' => '',
+                'description' => json_encode([]),
+                'image' => 'assets/seed_images/ambulance.png',
+                'is_published' => true,
+            ]);
+        }
+
+        if (!Page::where('slug', 'service-sur-demande')->exists()) {
+            Page::create([
                 'title' => 'Service sur demande',
-                'description' => 'Les services de transport sécurisé d`\Ambulance Team jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.'
-            ],
-            [
-                'logo' => '<img src="https://cdn-icons-png.freepik.com/256/10190/10190889.png?uid=R120847014&ga=GA1.1.1306162642.1747995481&semt=ais_hybrid" width="40" alt="Transport Icon">',
+                'slug' => 'service-sur-demande',
+                'main_title' => '',
+                'content' => '<p>Les services de transport sécurisé d\'Amcare jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.</p>',
+                'meta_title' => '',
+                'meta_description' => '',
+                'description' => json_encode([]),
+                'image' => 'assets/seed_images/phone-call.png',
+                'is_published' => true,
+            ]);
+        }
+
+        if (!Page::where('slug', 'transport-durgence')->exists()) {
+            Page::create([
                 'title' => 'Transport d\'urgence',
-                'description' => 'Les services de transport sécurisé d\'Ambulance Team jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.'
-            ],
-        ];
-
-
-        $questions = [
-            [
-                'question' => 'C\'est quoi l\'urgance?',
-                'reponse' => 'C\'est avoir une situation compliquée',
-            ],
-            [
-                'question' => 'Comment sauver la vie de quelqu\'un?',
-                'reponse' => 'Par nous appelée dans les numéros qui existe dans les services',
-            ],
-            [
-                'question' => 'Où est-t-il votre local?',
-                'reponse' => 'A Marrakech',
-            ],
-        ];
-    
-        Page::create([
-            'title' => 'About',
-            'slug' => 'about',
-            'content' => '<h1>Qui sommes-nous</h1>',
-            'meta_title' => 'About - Ambulance Team',
-            'description' => json_encode($slides),
-            'image' => '<div> Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/lakonicon" title="lakonicon"> lakonicon </a> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>',
-            'is_published' => true,
-        ]);
-
-        Page::create([
-            'title' => 'FAQ',
-            'slug' => 'faq',
-            'content' => '<h1>Questions/Réponses</h1>',
-            'meta_title' => 'FAQ - Ambulance Team',
-            'description' => json_encode($questions),
-            'image' => '<div> Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/lakonicon" title="lakonicon"> lakonicon </a> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>',
-            'is_published' => true,
-        ]);
+                'slug' => 'transport-durgence',
+                'main_title' => '',
+                'content' => '<p>Les services de transport sécurisé d\'Amcare jouent un rôle essentiel dans le système de santé, en fournissant un transport sûr et fiable.</p>',
+                'meta_title' => '',
+                'meta_description' => '',
+                'description' => json_encode([]),
+                'image' => 'assets/seed_images/light-emergency-on.png',
+                'is_published' => true,
+            ]);
+        }
     }
 }

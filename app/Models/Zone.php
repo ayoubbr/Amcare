@@ -14,6 +14,7 @@ class Zone extends Model
     protected $fillable = [
         'name',
         'code',
+        'image',
         'description',
         'is_active',
     ];

@@ -6,46 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{{ $event->title }} - Amcare</title>
+    <title>{{ $event->title }} - {{ $settings->site_name ?? 'Amcare' }}</title>
 
-    <link rel="icon" href="{{ Vite::asset('resources/assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
-    @vite('resources/css/font-awesome-all.css')
-    @vite('resources/css/owl.css')
-    @vite('resources/css/flaticon.css')
-    @vite('resources/css/bootstrap.css')
-    @vite('resources/css/jquery.fancybox.min.css')
-    @vite('resources/css/animate.css')
-    @vite('resources/css/nice-select.css')
-    @vite('resources/css/odometer.css')
-    @vite('resources/css/elpath.css')
-    @vite('resources/css/color.css')
-    @vite('resources/css/rtl.css')
-    @vite('resources/css/style.css')
-    @vite('resources/css/module-css/header.css')
-    @vite('resources/css/module-css/banner.css')
-    @vite('resources/css/module-css/brand.css')
-    @vite('resources/css/module-css/about.css')
-    @vite('resources/css/module-css/chooseus.css')
-    @vite('resources/css/module-css/service.css')
-    @vite('resources/css/module-css/feature.css')
-    @vite('resources/css/module-css/funfact.css')
-    @vite('resources/css/module-css/testimonial.css')
-    @vite('resources/css/module-css/faq.css')
-    @vite('resources/css/module-css/team.css')
-    @vite('resources/css/module-css/event.css')
-    @vite('resources/css/module-css/process.css')
-    @vite('resources/css/module-css/news.css')
-    @vite('resources/css/module-css/cta.css')
-    @vite('resources/css/module-css/footer.css')
-    @vite('resources/css/responsive.css')
-    @vite('resources/css/module-css/page-title.css')
-    @vite('resources/css/module-css/subscribe.css')
-    @vite('resources/css/module-css/event-details.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elpath.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/rtl.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <!-- Module CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/banner.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/event.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/module-css/event-details.css') }}">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
 
 </head>
 
@@ -101,75 +92,89 @@
                 </div>
             </div>
         </section>
-        <section class="event-details pt_120 pb_120">
+        <section class="event-details pt_60 pb_60">
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                         <div class="event-details-content">
-                            <div class="content-one mb_55">
+                            <div class="content-one mb_55 ">
+                                <div class="mb_35">
+                                    <h2>{{ $event->title }}</h2>
+                                    {!! $event->content !!}
+                                </div>
                                 <figure class="image-box">
-                                    <img src="{{ $event->image ? Storage::url($event->image) : asset('assets/images/resource/default-event-details.jpg') }}" alt="{{ $event->title }}">
+                                    @php
+                                        $imagePath = $event->image;
+                                        $imageUrl = null;
+                                        $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                        if ($imagePath) {
+                                            if (Illuminate\Support\Str::startsWith($imagePath, 'assets/seed_images/')) {
+                                                $imageUrl = asset($imagePath);
+                                            } else {
+                                                $imageUrl = Storage::url($imagePath);
+                                            }
+                                        }
+                                    @endphp
+                                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
+                                    <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}">
                                 </figure>
                                 <div class="text-box">
                                     <ul class="post-info">
-                                        <li><i class="icon-29"></i><span>{{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}</span></li>
+                                        <li><i
+                                                class="icon-29"></i><span>{{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}</span>
+                                        </li>
                                         <li><i class="icon-41"></i><span>{{ $event->location ?? 'N/A' }}</span></li>
                                     </ul>
-                                    <h2>{{ $event->title }}</h2>
-                                    {!! $event->content !!} {{-- Render event content with HTML --}}
+
                                 </div>
                             </div>
-                            {{-- This section seems to be hardcoded with a video and specific text.
-                                If you want this dynamic, you'd need fields in your Event model for video URL,
-                                a second content block, and list items. For now, it remains static.
-                            <div class="content-two">
-                                <div class="video-content">
-                                    <div class="bg-layer"
-                                        style="background-image: url('{{ asset('assets/images/resource/event-4.jpg') }}');">
-                                    </div>
-                                    <div class="video-btn">
-                                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&t=28s"
-                                            class="lightbox-image" data-caption=""><i class="icon-49"></i><span
-                                                class="border-animation"></span><span
-                                                class="border-animation border-1"></span><span
-                                                class="border-animation border-2"></span><span
-                                                class="border-animation border-3"></span></a>
-                                    </div>
-                                </div>
-                                <div class="text-box">
-                                    <h3>Ce que nous faisons en cas d'urgence</h3>
-                                    <p>En cas d'urgence, il est essentiel de rester calme et d'agir rapidement pour assurer la sécurité et fournir de l'aide. Tout d'abord, évaluez la situation pour déterminer la nature de l'urgence et tout danger immédiat. Si nécessaire, appelez les services d'urgence, en leur fournissant des informations claires et concises sur l'emplacement et la nature de l'urgence.</p>
-                                    <ul class="list-item">
-                                        <li><strong>Évaluer la situation :</strong> Évaluez rapidement la scène pour comprendre la nature de l'urgence</li>
-                                        <li><strong>Appeler à l'aide :</strong> Contactez immédiatement les services d'urgence. Composez le numéro d'urgence local</li>
-                                        <li><strong>Fournir les premiers secours :</strong> Si vous êtes formé, administrez les premiers secours de base aux personnes dans le besoin.</li>
-                                        <li><strong>Actions post-urgence :</strong> Une fois le danger immédiat passé, assurez-vous que toutes les personnes impliquées reçoivent</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            --}}
-                            
+
                             {{-- Related Events Section (if you want to add it to the main content area) --}}
-                            @if($relatedEvents->isNotEmpty())
-                            <div class="content-one mt_50">
-                                <h3>Événements Similaires</h3>
-                                <div class="row clearfix">
-                                    @foreach($relatedEvents as $relatedEvent)
-                                    <div class="col-lg-6 col-md-6 col-sm-12 event-block">
-                                        <div class="event-block-one">
-                                            <div class="inner-box">
-                                                <h3><a href="{{ route('event', $relatedEvent->slug) }}">{{ $relatedEvent->title }}</a></h3>
-                                                <p>{{ Str::limit($relatedEvent->content, 80) }}</p>
-                                                <div class="btn-box"><a href="{{ route('event', $relatedEvent->slug) }}" class="theme-btn btn-one">En savoir plus</a></div>
-                                                <figure class="image-box">
-                                                    <img src="{{ $relatedEvent->image ? Storage::url($relatedEvent->image) : asset('assets/images/resource/default-event.jpg') }}" alt="{{ $relatedEvent->title }}">
-                                                </figure>
+                            @if ($relatedEvents->isNotEmpty())
+                                <div class="content-one mt_50">
+                                    <h3>Événements Similaires</h3>
+                                    <div class="row clearfix">
+                                        @foreach ($relatedEvents as $relatedEvent)
+                                            @php
+                                                $imagePath = $relatedEvent->image;
+                                                $imageUrl = null;
+                                                $defaultImageUrl = asset('assets/images/resource/event-1.jpg');
+
+                                                if ($imagePath) {
+                                                    if (
+                                                        Illuminate\Support\Str::startsWith(
+                                                            $imagePath,
+                                                            'assets/seed_images/',
+                                                        )
+                                                    ) {
+                                                        $imageUrl = asset($imagePath);
+                                                    } else {
+                                                        $imageUrl = Storage::url($imagePath);
+                                                    }
+                                                }
+                                            @endphp
+                                            {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
+                                            <div class="col-lg-6 col-md-6 col-sm-12 event-block">
+                                                <div class="event-block-one">
+                                                    <div class="inner-box">
+                                                        <h3><a
+                                                                href="{{ route('event', $relatedEvent->slug) }}">{{ Str::limit($relatedEvent->title, 40) }}</a>
+                                                        </h3>
+                                                        <p>{!! Str::limit($relatedEvent->content, 80) !!}</p>
+                                                        <div class="btn-box"><a
+                                                                href="{{ route('event', $relatedEvent->slug) }}"
+                                                                class="theme-btn btn-one">En savoir plus</a></div>
+                                                        <figure class="image-box">
+                                                            <img src="{{ $imageUrl ?? $defaultImageUrl }}"
+                                                                alt="{{ $relatedEvent->title }}">
+                                                        </figure>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
-                            </div>
                             @endif
 
                         </div>
@@ -182,12 +187,12 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="category-list clearfix">
-                                        @foreach($allEvents as $sidebarEvent)
-                                        <li><a href="{{ route('event', $sidebarEvent->slug) }}"
-                                                class="{{ $event->id == $sidebarEvent->id ? 'current' : '' }}">
-                                                {{ $sidebarEvent->title }}
-                                            </a>
-                                        </li>
+                                        @foreach ($allEvents as $sidebarEvent)
+                                            <li><a href="{{ route('event', $sidebarEvent->slug) }}"
+                                                    class="{{ $event->id == $sidebarEvent->id ? 'current' : '' }}">
+                                                    {{ $sidebarEvent->title }}
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -198,13 +203,20 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="info-list clearfix">
-                                        <li><span>Date :</span> {{ \Carbon\Carbon::parse($event->event_date)->format('d M Y') }}</li>
-                                        <li><span>Heure :</span> {{ \Carbon\Carbon::parse($event->event_date)->format('H:i') }}</li>
+                                        <li><span>Date :</span>
+                                            {{ \Carbon\Carbon::parse($event->event_date)->format('d M Y') }}</li>
+                                        <li><span>Heure :</span>
+                                            {{ \Carbon\Carbon::parse($event->event_date)->format('H:i') }}</li>
                                         <li><span>Lieu :</span> {{ $event->location ?? 'N/A' }}</li>
                                         <li><span>E-mail : </span><a
-                                                href="mailto:info@example.com">info@example.com</a></li> {{-- Static email, replace if dynamic --}}
-                                        <li><span>Téléphone :</span><a href="tel:123456789">+(123) 456-789</a></li> {{-- Static phone, replace if dynamic --}}
-                                        <li><span>Site web :</span> <a href="{{ url('/') }}">https://amcare.com</a></li> {{-- Static website, replace if dynamic --}}
+                                                href="mailto:{{ $settings->email }}">{{ $settings->email }}</a>
+                                        </li>
+                                        <li><span>Téléphone :</span><a
+                                                href="tel:{{ $settings->phones['WhatsApp'] }}">{{ $settings->phones['WhatsApp'] }}</a>
+                                        </li>
+                                        <li><span>Site web :</span> <a
+                                                href="{{ url('/') }}">https://{{ $settings->site_name }}</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -220,4 +232,6 @@
 
     @include('shared.js')
 
-</body></html>
+</body>
+
+</html>

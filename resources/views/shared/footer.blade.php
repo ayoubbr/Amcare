@@ -49,7 +49,7 @@
                             <figure class="image-box mb_25"><img
                                     src="{{ asset('assets/images/resource/ambulance-3.png') }}" alt=""></figure>
                             <h3><a
-                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? '+91 (234) 5432' }}</a>
+                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? 'no whatsapp number' }}</a>
                             </h3>
                         </div>
                     </div>
