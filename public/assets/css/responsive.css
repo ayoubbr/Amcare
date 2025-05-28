@@ -189,6 +189,11 @@
     /* Adjust width relative to new left position, or use a percentage like 90% */
   }
 
+  .parallax-bg {
+    left: 0;
+    width: 100%;
+  }
+
   .event-details {
     padding-left: 70px;
     padding-right: 70px;
@@ -235,12 +240,12 @@
     /* Adjust height */
   }
 
-   .event-details {
+  .event-details {
     padding-left: 40px !important;
     padding-right: 40px !important;
   }
 
- 
+
 }
 
 @media only screen and (max-width: 499px) {
@@ -256,7 +261,8 @@
     /* Optionally hide or simplify on very small screens if performance or layout is an issue */
     /* display: none; */
   }
-   .event-details {
+
+  .event-details {
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
