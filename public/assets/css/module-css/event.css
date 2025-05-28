@@ -74,7 +74,6 @@
 }
 
 .event-block-one .inner-box .image-box img {
-  /* width: 100%; */
   transition: all 500ms ease;
   height: 498px;
   object-fit: contain;
@@ -122,6 +121,10 @@
   }
 }
 
-@media only screen and (max-width: 599px) {}
+@media only screen and (max-width: 599px) {
+  .event-block-one .inner-box .image-box img {
+    height: 300px;
+  }
+}
 
 @media only screen and (max-width: 499px) {}
