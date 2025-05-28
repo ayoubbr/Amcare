@@ -1,26 +1,25 @@
-
 /** service-details **/
 
-.service-details{
+.service-details {
   position: relative;
 }
 
-.service-sidebar{
+.service-sidebar {
   position: relative;
   display: block;
 }
 
-.service-sidebar .category-widget .category-list li{
+.service-sidebar .category-widget .category-list li {
   position: relative;
   display: block;
   margin-bottom: 10px;
 }
 
-.service-sidebar .category-widget .category-list li:last-child{
+.service-sidebar .category-widget .category-list li:last-child {
   margin-bottom: 0px;
 }
 
-.service-sidebar .category-widget .category-list li a{
+.service-sidebar .category-widget .category-list li a {
   position: relative;
   display: block;
   overflow: hidden;
@@ -40,11 +39,11 @@
 }
 
 .service-sidebar .category-widget .category-list li a:hover,
-.service-sidebar .category-widget .category-list li a.current{
+.service-sidebar .category-widget .category-list li a.current {
   color: #fff;
 }
 
-.service-sidebar .category-widget .category-list li a:before{
+.service-sidebar .category-widget .category-list li a:before {
   position: absolute;
   content: '';
   width: 0%;
@@ -56,11 +55,11 @@
 }
 
 .service-sidebar .category-widget .category-list li a:hover:before,
-.service-sidebar .category-widget .category-list li a.current:before{
+.service-sidebar .category-widget .category-list li a.current:before {
   width: 100%;
 }
 
-.service-sidebar .contact-widget .inner-box{
+.service-sidebar .contact-widget .inner-box {
   position: relative;
   display: block;
   overflow: hidden;
@@ -70,7 +69,7 @@
   border-width: 5px;
 }
 
-.service-sidebar .contact-widget .inner-box .bg-layer{
+.service-sidebar .contact-widget .inner-box .bg-layer {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -81,7 +80,7 @@
   background-position: center;
 }
 
-.service-sidebar .contact-widget .inner-box .bg-layer:before{
+.service-sidebar .contact-widget .inner-box .bg-layer:before {
   position: absolute;
   content: '';
   width: 100%;
@@ -91,7 +90,7 @@
   background: linear-gradient(0deg, #CE1810 0%, rgba(206, 24, 16, 0) 41.75%);
 }
 
-.service-sidebar .contact-widget .inner-box h4{
+.service-sidebar .contact-widget .inner-box h4 {
   display: block;
   font-size: 20px;
   line-height: 30px;
@@ -100,7 +99,7 @@
   margin-bottom: 6px;
 }
 
-.service-sidebar .contact-widget .inner-box a{
+.service-sidebar .contact-widget .inner-box a {
   position: relative;
   display: inline-block;
   font-size: 32px;
@@ -109,49 +108,49 @@
   font-weight: 800;
 }
 
-.service-sidebar .contact-widget .inner-box a:hover{
+.service-sidebar .contact-widget .inner-box a:hover {
   text-decoration: underline;
 }
 
-.service-details-content{
+.service-details-content {
   position: relative;
   display: block;
 }
 
-.service-details-content h2{
+.service-details-content h2 {
   font-size: 32px;
   line-height: 40px;
   font-weight: 600;
   margin-bottom: 16px;
 }
 
-.service-details-content .content-one .image-box{
+.service-details-content .content-one .image-box {
   position: relative;
   display: block;
   border-radius: 6px;
   margin-bottom: 33px;
 }
 
-.service-details-content .content-one .image-box img{
+.service-details-content .content-one .image-box img {
   width: 100%;
   border-radius: 6px;
 }
 
-.service-details-content .content-one h2{
+.service-details-content .content-one h2 {
   font-size: 36px;
   line-height: 42px;
   margin-bottom: 18px;
 }
 
-.service-details-content p{
+.service-details-content p {
   margin-bottom: 26px;
 }
 
-.service-details-content p:last-child{
+.service-details-content p:last-child {
   margin-bottom: 0px;
 }
 
-.service-details-content .content-two .single-item{
+.service-details-content .content-two .single-item {
   position: relative;
   display: block;
   background: #fff;
@@ -163,33 +162,33 @@
   margin-bottom: 30px;
 }
 
-.service-details-content .content-two .single-column:nth-child(2) .single-item{
+.service-details-content .content-two .single-column:nth-child(2) .single-item {
   border-color: var(--secondary-color) !important;
 }
 
-.service-details-content .content-two .single-item h3{
+.service-details-content .content-two .single-item h3 {
   font-size: 24px;
   line-height: 30px;
   margin-bottom: 20px;
 }
 
-.service-details-content .content-two .single-item p{
+.service-details-content .content-two .single-item p {
   line-height: 28px;
 }
 
-.service-details-content .content-three .image-box{
+.service-details-content .content-three .image-box {
   position: relative;
   display: block;
   border-radius: 8px;
   margin-bottom: 30px;
 }
 
-.service-details-content .content-three .image-box img{
+.service-details-content .content-three .image-box img {
   width: 100%;
   border-radius: 8px;
 }
 
-.service-details-content .content-three .text-box{
+.service-details-content .content-three .text-box {
   position: relative;
   display: block;
   margin-bottom: 30px;
@@ -198,83 +197,48 @@
 
 /** rtl-css **/
 
-.rtl .service-sidebar{
+.rtl .service-sidebar {
   margin-right: 0px;
   margin-left: 30px;
 }
 
 /** responsive-css **/
 
-@media only screen and (max-width: 1200px){
-
+@media only screen and (max-width: 1400px) {
+  .service-details {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
 }
 
-@media only screen and (max-width: 991px){
-  .service-sidebar{
+@media only screen and (max-width: 1200px) {
+  .service-details {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .service-sidebar {
     margin-right: 0px;
     margin-bottom: 40px;
   }
 
-  .rtl .service-sidebar{
+  .rtl .service-sidebar {
     margin-left: 0px;
   }
 }
 
-@media only screen and (max-width: 767px){
-  .service-details{
+@media only screen and (max-width: 767px) {
+  .service-details {
     padding: 70px 0px;
   }
 }
 
-@media only screen and (max-width: 599px){
+@media only screen and (max-width: 599px) {}
 
-}
-
-@media only screen and (max-width: 499px){
-  .service-sidebar .contact-widget .inner-box a{
+@media only screen and (max-width: 499px) {
+  .service-sidebar .contact-widget .inner-box a {
     font-size: 24px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
