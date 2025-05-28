@@ -43,41 +43,8 @@
 <body>
 
     <div class="boxed_wrapper ltr">
-
-
-        <div class="loader-wrap">
-            <div class="preloader">
-                <div id="handle-preloader" class="handle-preloader">
-                    <div class="animation-preloader">
-                        <div class="spinner"></div>
-                        <div class="txt-loading">
-                            <span data-text-preloader="a" class="letters-loading">
-                                a
-                            </span>
-                            <span data-text-preloader="m" class="letters-loading">
-                                m
-                            </span>
-                            <span data-text-preloader="c" class="letters-loading">
-                                c
-                            </span>
-                            <span data-text-preloader="a" class="letters-loading">
-                                a
-                            </span>
-                            <span data-text-preloader="r" class="letters-loading">
-                                r
-                            </span>
-                            <span data-text-preloader="e" class="letters-loading">
-                                e
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Dynamic Header Inclusion --}}
         @include('shared.header')
 
-        {{-- Dynamic Main Slider --}}
         <section class="banner-style-three pl_100 pr_100">
             <div class="banner-carousel owl-theme owl-carousel owl-nav-none owl-dots-none">
                 @forelse($sliderImages as $sliderImage)

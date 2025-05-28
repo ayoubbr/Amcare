@@ -313,9 +313,12 @@
                         <div class="txt-loading">
                             <span data-text-preloader="a" class="letters-loading">a</span>
                             <span data-text-preloader="m" class="letters-loading">m</span>
-                            <span data-text-preloader="c" class="letters-loading">c</span>
+                            <span data-text-preloader="b" class="letters-loading">b</span>
+                            <span data-text-preloader="u" class="letters-loading">u</span>
+                            <span data-text-preloader="l" class="letters-loading">l</span>
                             <span data-text-preloader="a" class="letters-loading">a</span>
-                            <span data-text-preloader="r" class="letters-loading">r</span>
+                            <span data-text-preloader="n" class="letters-loading">n</span>
+                            <span data-text-preloader="c" class="letters-loading">c</span>
                             <span data-text-preloader="e" class="letters-loading">e</span>
                         </div>
                     </div>
@@ -377,7 +380,8 @@
                     <div class="alert alert-success alert-dismissible fade show" role="alert"
                         onclick="this.style.display='none'">
                         {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                 @endif
 

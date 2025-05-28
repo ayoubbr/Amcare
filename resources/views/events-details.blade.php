@@ -44,39 +44,7 @@
 <body>
 
     <div class="boxed_wrapper ltr">
-
-
-        <div class="loader-wrap">
-            <div class="preloader">
-                <div id="handle-preloader" class="handle-preloader">
-                    <div class="animation-preloader">
-                        <div class="spinner"></div>
-                        <div class="txt-loading">
-                            <span data-text-preloader="a" class="letters-loading">
-                                a
-                            </span>
-                            <span data-text-preloader="m" class="letters-loading">
-                                m
-                            </span>
-                            <span data-text-preloader="c" class="letters-loading">
-                                c
-                            </span>
-                            <span data-text-preloader="a" class="letters-loading">
-                                a
-                            </span>
-                            <span data-text-preloader="r" class="letters-loading">
-                                r
-                            </span>
-                            <span data-text-preloader="e" class="letters-loading">
-                                e
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         @include('shared.header')
-
 
         <section class="page-title centred">
             <div class="bg-layer"
@@ -213,9 +181,6 @@
                                         </li>
                                         <li><span>Téléphone :</span><a
                                                 href="tel:{{ $settings->phones['WhatsApp'] }}">{{ $settings->phones['WhatsApp'] }}</a>
-                                        </li>
-                                        <li><span>Site web :</span> <a
-                                                href="{{ url('/') }}">https://{{ $settings->site_name }}</a>
                                         </li>
                                     </ul>
                                 </div>

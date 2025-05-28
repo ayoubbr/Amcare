@@ -34,31 +34,10 @@
 </head>
 
 
-<body class="ltr"> {{-- Added ltr for consistency, adjust if needed --}}
+<body class="ltr">
 
     <div class="boxed_wrapper">
-
-
-        <div class="loader-wrap">
-            <div class="preloader">
-                <div id="handle-preloader" class="handle-preloader">
-                    <div class="animation-preloader">
-                        <div class="spinner"></div>
-                        <div class="txt-loading">
-                            <span data-text-preloader="a" class="letters-loading">a</span>
-                            <span data-text-preloader="m" class="letters-loading">m</span>
-                            <span data-text-preloader="c" class="letters-loading">c</span>
-                            <span data-text-preloader="a" class="letters-loading">a</span>
-                            <span data-text-preloader="r" class="letters-loading">r</span>
-                            <span data-text-preloader="e" class="letters-loading">e</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Include header (ensure $settings is passed if header needs it) --}}
-        @include('shared.header', ['settings' => $settings ?? null])
+        @include('shared.header')
 
         <section class="page-title centred">
             <div class="bg-layer"
@@ -150,49 +129,11 @@
         </section>
 
 
-        {{-- Include footer (ensure $settings is passed if footer needs it) --}}
-        @include('shared.footer', ['settings' => $settings ?? null])
+        @include('shared.footer')
 
     </div>
 
     @include('shared.js')
-    {{-- Ensure your shared.js or a script here handles the accordion functionality.
-         The accordion JS from welcome.blade.php was similar.
-         If it's not global, you might need to add it here or ensure it's in shared.js.
-    --}}
-    <script>
-        // Basic Accordion Functionality (if not already in shared.js)
-        document.addEventListener('DOMContentLoaded', function() {
-            const accordionButtons = document.querySelectorAll('.accordion-box .acc-btn');
-            accordionButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const parentBlock = this.closest('.accordion.block');
-                    const accContent = parentBlock.querySelector('.acc-content');
-                    const isActive = parentBlock.classList.contains('active-block');
-
-                    // Close all other open accordions in the same box
-                    document.querySelectorAll('.accordion-box .accordion.block').forEach(block => {
-                        if (block !== parentBlock) {
-                            block.classList.remove('active-block');
-                            block.querySelector('.acc-btn').classList.remove('active');
-                            block.querySelector('.acc-content').style.display = 'none';
-                        }
-                    });
-
-                    // Toggle current accordion
-                    if (isActive) {
-                        parentBlock.classList.remove('active-block');
-                        this.classList.remove('active');
-                        accContent.style.display = 'none';
-                    } else {
-                        parentBlock.classList.add('active-block');
-                        this.classList.add('active');
-                        accContent.style.display = 'block';
-                    }
-                });
-            });
-        });
-    </script>
 
 </body>
 

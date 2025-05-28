@@ -530,7 +530,7 @@
 }
 
 .mobile-menu .nav-logo img{
-  max-width: 160px;
+  /* max-width: 160px; */
 }
 
 .menu-area .mobile-nav-toggler .icon-bar{
@@ -1140,29 +1140,3 @@ div#mCSB_1_container{
     padding: 0px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

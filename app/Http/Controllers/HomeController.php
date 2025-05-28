@@ -72,7 +72,7 @@ class HomeController extends Controller
             ->get();
 
         return view('blogs-details', compact('post', 'relatedPosts', 'categories', 'latestPosts'));
-    }   
+    }
 
     public function about()
     {
@@ -93,7 +93,7 @@ class HomeController extends Controller
 
     public function zones()
     {
-        $zones = Zone::orderBy('name', 'asc')->get();
+        $zones = Zone::where('is_active', true)->orderBy('name', 'asc')->get();
 
         return view('zones', compact('zones'));
     }

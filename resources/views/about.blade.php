@@ -48,24 +48,6 @@
 
     <div class="boxed_wrapper ltr">
 
-        <div class="loader-wrap">
-            <div class="preloader">
-                <div id="handle-preloader" class="handle-preloader">
-                    <div class="animation-preloader">
-                        <div class="spinner"></div>
-                        <div class="txt-loading">
-                            <span data-text-preloader="a" class="letters-loading">a</span>
-                            <span data-text-preloader="m" class="letters-loading">m</span>
-                            <span data-text-preloader="c" class="letters-loading">c</span>
-                            <span data-text-preloader="a" class="letters-loading">a</span>
-                            <span data-text-preloader="r" class="letters-loading">r</span>
-                            <span data-text-preloader="e" class="letters-loading">e</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         @include('shared.header')
 
         <section class="page-title centred">
@@ -149,7 +131,6 @@
             </div>
         </section>
 
-        {{-- "Why Choose Us" section - This could be static or managed as a separate content block/model if it needs to be dynamic --}}
         <section class="chooseus-section centred pt_120 pb_90">
             <div class="bg-layer parallax-bg" data-parallax='{"y": 100}'
                 style="background-image: url({{ asset('assets/images/background/chooseus-bg.jpg') }});">
@@ -164,7 +145,6 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
                             <div class="chooseus-block-one">
                                 <div class="inner-box">
-                                    {{-- <div class="icon-box"> --}}
                                     <div class="choose-img-box">
                                         @php
                                             $imagePath = $item->image;
@@ -184,10 +164,8 @@
                                                 }
                                             }
                                         @endphp
-                                        {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                         <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="">
                                     </div>
-                                    {{-- </div> --}}
                                     <h3><a href="#">{{ $item->title }}</a></h3>
                                     {!! $item->content !!}
                                 </div>
@@ -195,27 +173,6 @@
                         </div>
                     @empty
                     @endforelse
-
-                    {{-- <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
-                        <div class="chooseus-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-13"></i></div>
-                                <h3><a href="#">Service sur demande</a></h3>
-                                <p>Les services de transport sécurisé d'Amcare jouent un rôle essentiel dans le système
-                                    de santé, en fournissant un transport sûr et fiable.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
-                        <div class="chooseus-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-14"></i></div>
-                                <h3><a href="#">Transport d'urgence</a></h3>
-                                <p>Les services de transport sécurisé d'Amcare jouent un rôle essentiel dans le système
-                                    de santé, en fournissant un transport sûr et fiable.</p>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </section>
