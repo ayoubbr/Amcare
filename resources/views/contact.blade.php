@@ -62,7 +62,7 @@
             <div class="auto-container">
                 <div class="inner-container pt_60 pb_60">
                     <div class="sec-title mb_50">
-                        <span class="sub-title mb_12">Nous contacter</span>
+                        {{-- <span class="sub-title mb_12">Nous contacter</span> --}}
                         <h2>Informations de contact</h2>
                     </div>
                     {{-- Dynamic Phone Numbers Section --}}

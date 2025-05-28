@@ -84,7 +84,6 @@
                                             }
                                         }
                                     @endphp
-                                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                     <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}">
                                 </figure>
                                 <div class="text-box">
@@ -98,7 +97,6 @@
                                 </div>
                             </div>
 
-                            {{-- Related Events Section (if you want to add it to the main content area) --}}
                             @if ($relatedEvents->isNotEmpty())
                                 <div class="content-one mt_50">
                                     <h3>Événements Similaires</h3>
@@ -122,7 +120,6 @@
                                                     }
                                                 }
                                             @endphp
-                                            {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                             <div class="col-lg-6 col-md-6 col-sm-12 event-block">
                                                 <div class="event-block-one">
                                                     <div class="inner-box">
@@ -133,8 +130,8 @@
                                                         <div class="btn-box"><a
                                                                 href="{{ route('event', $relatedEvent->slug) }}"
                                                                 class="theme-btn btn-one">En savoir plus</a></div>
-                                                        <figure class="image-box">
-                                                            <img src="{{ $imageUrl ?? $defaultImageUrl }}"
+                                                        <figure class="image-box similar-event">
+                                                            <img class="similar-event" src="{{ $imageUrl ?? $defaultImageUrl }}"
                                                                 alt="{{ $relatedEvent->title }}">
                                                         </figure>
                                                     </div>
@@ -144,7 +141,6 @@
                                     </div>
                                 </div>
                             @endif
-
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
@@ -193,7 +189,6 @@
         @include('shared.footer')
 
     </div>
-
 
     @include('shared.js')
 

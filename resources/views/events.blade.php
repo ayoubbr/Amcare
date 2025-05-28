@@ -64,7 +64,7 @@
             </div>
             <div class="auto-container">
                 <div class="sec-title mb_50">
-                    <span class="sub-title mb_12">Événements</span>
+                    {{-- <span class="sub-title mb_12">Événements</span> --}}
                     <h2>Assurer la sécurité des spectateurs</h2>
                 </div>
                 <div class="row clearfix">
