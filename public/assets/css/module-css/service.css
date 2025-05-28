@@ -113,7 +113,7 @@
 .service-section .image-box {
   position: relative;
   display: block;
-  padding-left: 110px;
+  margin-top: 20px;
 }
 
 .service-section .image-box .image {

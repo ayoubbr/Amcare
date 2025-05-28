@@ -326,7 +326,7 @@
                                     </div>
 
                                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                                        <div class="image-box pl_110 pb_50">
+                                        <div class="image-box">
                                             <figure class="image image-1 image-hov-one">
                                                 <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                                     alt="{{ $service->title }}">
