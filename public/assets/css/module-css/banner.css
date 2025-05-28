@@ -288,6 +288,8 @@
 
 .banner-style-three {
   position: relative;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .banner-style-three .slide-item {
@@ -611,14 +613,15 @@
 }
 
 /** responsive-css **/
+@media only screen and (max-width: 1300px) {
+  .banner-style-three {
+    padding: 0px;
+  }
+}
 
 @media only screen and (max-width: 1200px) {
   .banner-carousel .content-box {
     padding-left: 50px;
-  }
-
-  .banner-style-three {
-    padding: 0px;
   }
 
   .banner-style-three .banner-carousel .content-box {

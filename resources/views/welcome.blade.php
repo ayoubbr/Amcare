@@ -45,7 +45,7 @@
     <div class="boxed_wrapper ltr">
         @include('shared.header')
 
-        <section class="banner-style-three pl_100 pr_100">
+        <section class="banner-style-three">
             <div class="banner-carousel owl-theme owl-carousel owl-nav-none owl-dots-none">
                 @forelse($sliderImages as $sliderImage)
                     @php
@@ -85,7 +85,7 @@
         </section>
 
         {{-- Dynamic Partners Slider --}}
-        <section class="brand-style-two pl_100 pr_100">
+        <section class="brand-style-two">
             <div class="outer-container b_radius pl_0">
                 <div class="brand-carousel owl-carousel owl-theme owl-dots-none owl-nav-none">
                     @forelse($partners as $partner)

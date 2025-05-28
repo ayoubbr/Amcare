@@ -1,11 +1,10 @@
-
 /** brand-section **/
 
-.brand-section{
+.brand-section {
   position: relative;
 }
 
-.brand-section .brand-logo-box{
+.brand-section .brand-logo-box {
   position: relative;
   display: block;
   background: #fff;
@@ -13,23 +12,23 @@
   box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
 }
 
-.brand-section .brand-logo-box img{
+.brand-section .brand-logo-box img {
   position: relative;
   max-width: 242px;
   width: 100%;
   margin: 0 auto;
 }
 
-.brand-section .owl-carousel .owl-stage-outer{
+.brand-section .owl-carousel .owl-stage-outer {
   overflow: visible;
 }
 
-.brand-section .owl-carousel .owl-stage-outer .owl-item{
+.brand-section .owl-carousel .owl-stage-outer .owl-item {
   opacity: 0;
   visibility: hidden;
 }
 
-.brand-section .owl-carousel .owl-stage-outer .owl-item.active{
+.brand-section .owl-carousel .owl-stage-outer .owl-item.active {
   opacity: 1;
   visibility: visible;
 }
@@ -37,16 +36,18 @@
 
 /** brand-style-two **/
 
-.brand-style-two{
+.brand-style-two {
   position: relative;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
-.brand-style-two .outer-container{
+.brand-style-two .outer-container {
   padding-left: 320px;
   box-shadow: 0px 4px 80px 0px rgba(255, 0, 0, 0.06);
 }
 
-.brand-style-two .outer-container .title-text{
+.brand-style-two .outer-container .title-text {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -58,7 +59,7 @@
   justify-content: center;
 }
 
-.brand-style-two .outer-container .title-text h2{
+.brand-style-two .outer-container .title-text h2 {
   font-size: 48px;
   line-height: 50px;
   color: #fff;
@@ -66,14 +67,14 @@
   font-style: italic;
 }
 
-.brand-style-two .brand-logo-box{
+.brand-style-two .brand-logo-box {
   position: relative;
   display: block;
   padding: 30px 0px;
   border-right: 1px solid #EDEDED;
 }
 
-.brand-style-two .brand-logo-box img{
+.brand-style-two .brand-logo-box img {
   position: relative;
   display: block;
   width: auto;
@@ -82,11 +83,11 @@
   height: 140px;
 }
 
-.brand-style-two .outer-container.pl_0{
+.brand-style-two .outer-container.pl_0 {
   padding-left: 0px;
 }
 
-.brand-style-two .outer-container.b_radius{
+.brand-style-two .outer-container.b_radius {
   border-radius: 0px 0px 20px 20px;
   overflow: hidden;
   box-shadow: 0px 4px 80px 0px rgba(0, 0, 0, 0.06);
@@ -99,81 +100,32 @@
 
 /** responsive-css **/
 
-@media only screen and (max-width: 1200px){
-  .brand-style-two{
+@media only screen and (max-width: 1300px) {
+  .brand-style-two {
     padding-left: 0px;
     padding-right: 0px;
   }
 }
 
-@media only screen and (max-width: 991px){
+@media only screen and (max-width: 991px) {}
 
-}
-
-@media only screen and (max-width: 767px){
-  .brand-style-two .outer-container .title-text{
+@media only screen and (max-width: 767px) {
+  .brand-style-two .outer-container .title-text {
     position: relative;
     width: 100%;
     padding: 30px 15px;
     text-align: center;
   }
 
-  .brand-style-two .outer-container{
+  .brand-style-two .outer-container {
     padding-left: 0px;
   }
 
-  .brand-section.pb_120{
+  .brand-section.pb_120 {
     padding-bottom: 70px;
   }
 }
 
-@media only screen and (max-width: 599px){
+@media only screen and (max-width: 599px) {}
 
-}
-
-@media only screen and (max-width: 499px){
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media only screen and (max-width: 499px) {}
