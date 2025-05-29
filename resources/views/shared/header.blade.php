@@ -69,7 +69,7 @@
                                  <li class="{{ request()->is('/') ? 'current' : '' }}"><a
                                          href="{{ route('home') }}">Accueil</a>
                                  </li>
-                                 <li class="dropdown {{ request()->is('services') ? 'current' : '' }}">
+                                 <li class="dropdown {{ request()->is('services/zones') ? 'current' : '' }}">
                                      <a href="{{ route('zones') }}">Services</a>
                                      <ul>
                                          @forelse($services as $service)
