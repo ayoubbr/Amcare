@@ -36,19 +36,13 @@
 
     <!-- Responsive -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
         @include('shared.header')
-
         <section class="page-title centred">
-            <div class="bg-layer"
-                style="background-image: url('{{ asset('assets/images/background/page-title.jpg') }}');"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -96,7 +90,6 @@
 
                                 </div>
                             </div>
-
                             @if ($relatedEvents->isNotEmpty())
                                 <div class="content-one mt_50">
                                     <h3>Événements Similaires</h3>
@@ -131,7 +124,8 @@
                                                                 href="{{ route('event', $relatedEvent->slug) }}"
                                                                 class="theme-btn btn-one">En savoir plus</a></div>
                                                         <figure class="image-box similar-event">
-                                                            <img class="similar-event" src="{{ $imageUrl ?? $defaultImageUrl }}"
+                                                            <img class="similar-event"
+                                                                src="{{ $imageUrl ?? $defaultImageUrl }}"
                                                                 alt="{{ $relatedEvent->title }}">
                                                         </figure>
                                                     </div>
@@ -172,12 +166,36 @@
                                         <li><span>Heure :</span>
                                             {{ \Carbon\Carbon::parse($event->event_date)->format('H:i') }}</li>
                                         <li><span>Lieu :</span> {{ $event->location ?? 'N/A' }}</li>
-                                        <li><span>E-mail : </span><a
-                                                href="mailto:{{ $settings->email }}">{{ $settings->email }}</a>
+                                        <li>
+                                            <span style="width: auto">E-mail : </span>
+                                            <a
+                                                href="mailto:{{ $settings->email }}">{{ strtolower($settings->email) }}</a>
                                         </li>
-                                        <li><span>Téléphone :</span><a
-                                                href="tel:{{ $settings->phones['WhatsApp'] }}">{{ $settings->phones['WhatsApp'] }}</a>
-                                        </li>
+                                        @if ($settings && $settings->phones && is_array($settings->phones) && count($settings->phones) > 0)
+                                            @php
+                                                $firstPhoneNumber = $settings->phones[0]['value'] ?? null;
+
+                                                $rawPhone = preg_replace(
+                                                    '/[^0-9+]/',
+                                                    '',
+                                                    $firstPhoneNumber ?? '+212661241832',
+                                                );
+
+                                                if (str_starts_with($rawPhone, '+')) {
+                                                    $prefix = '+';
+                                                    $digits = substr($rawPhone, 1);
+                                                } else {
+                                                    $prefix = '';
+                                                    $digits = $rawPhone;
+                                                }
+
+                                                $formattedDigits = trim(implode(' ', str_split($digits, 3)));
+                                                $displayPhone = $prefix . $formattedDigits;
+                                            @endphp
+                                            <li><span>Téléphone : </span>
+                                                <a href="tel:{{ $rawPhone }}">{{ $displayPhone }}</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -187,11 +205,8 @@
             </div>
         </section>
         @include('shared.footer')
-
     </div>
-
     @include('shared.js')
-
 </body>
 
 </html>

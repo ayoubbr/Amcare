@@ -30,18 +30,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/page-title.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/faq.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
 </head>
 
-
 <body class="ltr">
-
     <div class="boxed_wrapper">
         @include('shared.header')
 
         <section class="page-title centred">
-            <div class="bg-layer"
-                style="background-image: url({{ asset('assets/images/background/page-title-3.jpg') }});">
+            <div class="bg-layer">
             </div>
             <div class="auto-container">
                 <div class="content-box">
@@ -54,7 +50,7 @@
             </div>
         </section>
 
-        <section class="faq-section pt_120 pb_120 z_1">
+        <section class="faq-section pt_60 pb_80 z_1">
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-6 col-md-12 col-sm-12 image-column">
@@ -132,9 +128,7 @@
         @include('shared.footer')
 
     </div>
-
     @include('shared.js')
-
 </body>
 
 </html>

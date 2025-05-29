@@ -39,19 +39,13 @@
 
     <!-- Responsive -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
-
         @include('shared.header')
-
         <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url(assets/images/background/page-title-4.jpg);"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -62,7 +56,7 @@
                 </div>
             </div>
         </section>
-        <section class="about-style-three pt_120 pb_120">
+        <section class="about-style-three pt_60 pb_100">
             <div class="auto-container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
@@ -116,7 +110,6 @@
                                             }
                                         }
                                     @endphp
-                                    {{-- <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}"> --}}
                                     <img src="{{ $imageUrl ?? $defaultImageUrl }}"
                                         alt="{{ $page->title ?? 'À propos de nous' }}">
                                 </figure>
@@ -130,7 +123,6 @@
                 </div>
             </div>
         </section>
-
         <section class="chooseus-section centred pt_120 pb_90">
             <div class="bg-layer parallax-bg" data-parallax='{"y": 100}'
                 style="background-image: url({{ asset('assets/images/background/chooseus-bg.jpg') }});">
@@ -176,13 +168,9 @@
                 </div>
             </div>
         </section>
-
         @include('shared.footer')
-
     </div>
-
     @include('shared.js')
-
 </body>
 
 </html>

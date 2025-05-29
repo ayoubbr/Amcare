@@ -36,12 +36,9 @@
     <link href="{{ asset('assets/css/module-css/process.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/module-css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
         @include('shared.header')
 
@@ -84,7 +81,6 @@
             </div>
         </section>
 
-        {{-- Dynamic Partners Slider --}}
         <section class="brand-style-two">
             <div class="outer-container b_radius pl_0">
                 <div class="brand-carousel owl-carousel owl-theme owl-dots-none owl-nav-none">
@@ -191,7 +187,6 @@
             </section>
         @endif
 
-
         <section class="processing-style-two pl_100 pr_100 centred">
             <div class="auto-container">
                 <div class="inner-container pt_90 pb_90">
@@ -241,21 +236,38 @@
             </div>
         </section>
 
-        {{-- Dynamic Phone Numbers Section --}}
         @php
             $phoneCount = count($settings->phones);
-            $colLg = $phoneCount > 0 ? floor(12 / $phoneCount) : 12;
-            $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12; // max 2 columns for md
+            $colLg = $phoneCount > 0 ? floor(12 / min($phoneCount, 3)) : 12;
+            $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12; 
         @endphp
         <section class="support-style-two centred pl_100 pr_100 pb_90">
             <div class="auto-container">
-                <div class="row clearfix">
-                    @forelse($settings->phones as $key => $phone)
+                <div class="row clearfix contact-row">
+                    @forelse($settings->phones as $phoneObject)
                         <div class="col-lg-{{ $colLg }} col-md-{{ $colMd }} col-sm-12 single-column">
                             <div class="single-item">
-                                <h5>{{ $key }}:</h5>
+                                <h5>{{ $phoneObject['key'] }}:</h5> 
                                 <h2>
-                                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a>
+                                    @php
+                                        $rawPhone = preg_replace(
+                                            '/[^0-9+]/',
+                                            '',
+                                            $phoneObject['value'] ?? '+212661241832',
+                                        );
+
+                                        if (str_starts_with($rawPhone, '+')) {
+                                            $prefix = '+';
+                                            $digits = substr($rawPhone, 1);
+                                        } else {
+                                            $prefix = '';
+                                            $digits = $rawPhone;
+                                        }
+
+                                        $formattedDigits = trim(implode(' ', str_split($digits, 3)));
+                                        $displayPhone = $prefix . $formattedDigits;
+                                    @endphp
+                                    <a href="tel:{{ $rawPhone }}">{{ $displayPhone }}</a>
                                 </h2>
                             </div>
                         </div>
@@ -268,7 +280,6 @@
             </div>
         </section>
 
-        {{-- Dynamic Services Section --}}
         <section class="service-section pt_60">
             <div class="auto-container">
                 <div class="sec-title mb_50 centred">
@@ -349,7 +360,6 @@
             </div>
         </section>
 
-
         <section class="funfact-style-three pl_100 pr_100 pb_40 pt_40">
             <div class="pattern-layer"
                 style="background-image: url('{{ asset('assets/images/shape/shape-8.png') }}');">
@@ -428,8 +438,6 @@
             </div>
         </section>
 
-
-        {{-- Dynamic FAQ Section --}}
         <section class="faq-style-two pt_120 pb_120">
             <div class="bg-layer parallax-bg" data-parallax='{"y": 100}'
                 style="background-image: url('{{ asset('assets/images/background/faq-bg.jpg') }}');"></div>
@@ -447,13 +455,25 @@
                                     <h2>Appelez-nous</h2>
                                 </div>
                                 {{-- Display first phone number from settings if available --}}
-                                @if ($settings && $settings->phones && count($settings->phones) > 0)
+                                @if ($settings && $settings->phones && is_array($settings->phones) && count($settings->phones) > 0)
                                     @php
-                                        $firstPhoneKey = array_key_first($settings->phones);
-                                        $firstPhoneNumber = $settings->phones[$firstPhoneKey];
+                                        $firstPhoneNumber = $settings->phones[0]['value'] ?? null;
                                     @endphp
-                                    <h3><a
-                                            href="tel:{{ preg_replace('/[^0-9+]/', '', $firstPhoneNumber) }}">{{ $firstPhoneNumber }}</a>
+                                    @php
+                                        $rawPhone = preg_replace('/[^0-9+]/', '', $firstPhoneNumber ?? '+212661241832');
+
+                                        if (str_starts_with($rawPhone, '+')) {
+                                            $prefix = '+';
+                                            $digits = substr($rawPhone, 1);
+                                        } else {
+                                            $prefix = '';
+                                            $digits = $rawPhone;
+                                        }
+
+                                        $formattedDigits = trim(implode(' ', str_split($digits, 3)));
+                                        $displayPhone = $prefix . $formattedDigits;
+                                    @endphp
+                                    <h3><a href="tel:{{ $rawPhone }}">{{ $displayPhone }}</a>
                                     </h3>
                                 @else
                                     <h3><a href="tel:12463330089">+ 1 (246) 333-0089</a></h3>
@@ -501,14 +521,13 @@
                 </div>
             </div>
         </section>
-
-        {{-- Dynamic Footer Inclusion --}}
+        
         @include('shared.footer')
-
+    
     </div>
-
+    
     @include('shared.js')
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Tab switching logic for Services section (copied from services.blade.php)
@@ -555,7 +574,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

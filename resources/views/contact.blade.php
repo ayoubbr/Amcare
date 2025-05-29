@@ -35,19 +35,13 @@
 
     <!-- Responsive -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
         @include('shared.header')
-
-
         <section class="page-title centred">
-            <div class="bg-layer" style="background-image: url(assets/images/background/page-title-4.jpg);"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -62,26 +56,41 @@
             <div class="auto-container">
                 <div class="inner-container pt_60 pb_60">
                     <div class="sec-title mb_50">
-                        {{-- <span class="sub-title mb_12">Nous contacter</span> --}}
                         <h2>Informations de contact</h2>
                     </div>
-                    {{-- Dynamic Phone Numbers Section --}}
                     @php
                         $phoneCount = count($settings->phones);
-                        $colLg = $phoneCount > 0 ? floor(12 / $phoneCount) : 12;
-                        $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12; // max 2 columns for md
+                        $colLg = $phoneCount > 0 ? floor(12 / min($phoneCount, 3)) : 12;
+                        $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12;
                     @endphp
-                    <section class="support-style-two centred pl_100 pr_100">
+                    <section class="support-style-two centred pl_60 pr_60">
                         <div class="auto-container">
-                            <div class="row clearfix">
-                                @forelse($settings->phones as $key => $phone)
+                            <div class="row clearfix contact-row">
+                                @forelse($settings->phones as $phoneObject)
+                                    @php
+                                        $rawPhone = preg_replace(
+                                            '/[^0-9+]/',
+                                            '',
+                                            $phoneObject['value'] ?? '+212661241832',
+                                        );
+
+                                        if (str_starts_with($rawPhone, '+')) {
+                                            $prefix = '+';
+                                            $digits = substr($rawPhone, 1);
+                                        } else {
+                                            $prefix = '';
+                                            $digits = $rawPhone;
+                                        }
+
+                                        $formattedDigits = trim(implode(' ', str_split($digits, 3)));
+                                        $displayPhone = $prefix . $formattedDigits;
+                                    @endphp
                                     <div
                                         class="col-lg-{{ $colLg }} col-md-{{ $colMd }} col-sm-12 single-column">
                                         <div class="single-item">
-                                            <h5>{{ $key }}:</h5>
+                                            <h5>{{ ucfirst($phoneObject['key']) }}:</h5>
                                             <h2>
-                                                <a
-                                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a>
+                                                <a href="tel:{{ $rawPhone }}">{{ $displayPhone }}</a>
                                             </h2>
                                         </div>
                                     </div>
@@ -96,14 +105,9 @@
                 </div>
             </div>
         </section>
-
         @include('shared.footer')
-
     </div>
-
-
     @include('shared.js')
-
 </body>
 
 </html>

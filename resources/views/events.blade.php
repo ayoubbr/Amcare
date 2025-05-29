@@ -36,19 +36,13 @@
 
     <!-- Responsive -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
         @include('shared.header')
-
         <section class="page-title centred">
-            <div class="bg-layer"
-                style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -64,7 +58,6 @@
             </div>
             <div class="auto-container">
                 <div class="sec-title mb_50">
-                    {{-- <span class="sub-title mb_12">Événements</span> --}}
                     <h2>Assurer la sécurité des spectateurs</h2>
                 </div>
                 <div class="row clearfix">
@@ -93,8 +86,7 @@
                                             savoir plus</a>
                                     </div>
                                     <figure class="image-box">
-                                        <img src="{{ $imageUrl ?? $defaultImageUrl }}"
-                                            alt="{{ $event->title }}">
+                                        <img src="{{ $imageUrl ?? $defaultImageUrl }}" alt="{{ $event->title }}">
                                     </figure>
                                 </div>
                             </div>
@@ -111,12 +103,8 @@
             </div>
         </section>
         @include('shared.footer')
-
     </div>
-
-
     @include('shared.js')
-
 </body>
 
 </html>

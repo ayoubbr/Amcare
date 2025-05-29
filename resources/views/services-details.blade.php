@@ -33,19 +33,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/service-details.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/module-css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
         @include('shared.header')
-
-
         <section class="page-title centred">
-            <div class="bg-layer"
-                style="background-image: url('{{ asset('assets/images/background/page-title.jpg') }}');"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -80,8 +74,42 @@
                                     </div>
                                     <div class="text-box">
                                         <h4>{{ $service->title }} </h4>
-                                        <a
-                                            href="tel:{{ $settings->phones['urgence'] ?? $settings->phones['WhatsApp'] }}">{{ $settings->phones['urgence'] ?? $settings->phones['WhatsApp'] }}</a>
+                                        @if ($settings && $settings->phones && is_array($settings->phones) && count($settings->phones) > 0)
+                                            @php
+                                                $targetPhoneNumber = null;
+
+                                                foreach ($settings->phones as $phoneObject) {
+                                                    if (($phoneObject['key'] ?? null) === 'urgence') {
+                                                        $targetPhoneNumber = $phoneObject['value'];
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (is_null($targetPhoneNumber)) {
+                                                    $targetPhoneNumber = $settings->phones[0]['value'] ?? null;
+                                                }
+
+                                                $rawPhone = preg_replace(
+                                                    '/[^0-9+]/',
+                                                    '',
+                                                    $targetPhoneNumber ?? '+212661241832',
+                                                );
+
+                                                if (str_starts_with($rawPhone, '+')) {
+                                                    $prefix = '+';
+                                                    $digits = substr($rawPhone, 1);
+                                                } else {
+                                                    $prefix = '';
+                                                    $digits = $rawPhone;
+                                                }
+
+                                                $formattedDigits = trim(implode(' ', str_split($digits, 3)));
+                                                $displayPhone = $prefix . $formattedDigits;
+                                            @endphp
+                                            <li><span>Téléphone :</span><a
+                                                    href="tel:{{ $rawPhone }}">{{ $displayPhone }}</a>
+                                            </li>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -90,11 +118,9 @@
                     <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                         <div class="service-details-content">
                             <div class="content-one mb_50">
-
                                 <div class="text-box">
                                     <h2>{{ $service->title }}</h2>
                                     {!! $service->content !!}
-
                                 </div>
                                 <figure class="image-box pt_20">
                                     @php
@@ -171,12 +197,8 @@
             </div>
         </section>
         @include('shared.footer')
-
     </div>
-
-
     @include('shared.js')
-
 </body>
 
 </html>

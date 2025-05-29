@@ -36,19 +36,13 @@
 
     <!-- Responsive -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
-
 </head>
 
-
 <body>
-
     <div class="boxed_wrapper ltr">
         @include('shared.header')
-
         <section class="page-title centred">
-            <div class="bg-layer"
-                style="background-image: url('{{ asset('assets/images/background/page-title-4.jpg') }}');"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
@@ -60,7 +54,7 @@
                 </div>
             </div>
         </section>
-        <section class="sidebar-page-container pt_120 pb_60">
+        <section class="sidebar-page-container pt_60 pb_60">
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
@@ -93,23 +87,14 @@
                                     <div class="lower-content">
                                         <ul class="post-info">
                                             <li><span>{{ $post->category->name ?? 'Non catégorisé' }}</span></li>
-                                            <li>{{ \Carbon\Carbon::parse($post->published_at)->format('d M Y') }}</li>
                                         </ul>
                                         <h2>{{ $post->title }}</h2>
                                         <div class="text-box">
-                                            {!! $post->content !!} {{-- Use {!! !!} to render HTML content --}}
-
-                                            {{-- If you have a quote in your blog post, you can extract it or add a specific field for it --}}
-                                            {{-- <blockquote>
-                                                <div class="icon-box"><i class="icon-52"></i></div>
-                                                <p>"Some inspirational quote related to the blog post."</p>
-                                                <h6>Author of the quote</h6>
-                                            </blockquote> --}}
+                                            {!! $post->content !!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- Related Posts Section --}}
                             @if ($relatedPosts->isNotEmpty())
                                 <div class="content-one">
                                     <h3>Articles Similaires</h3>
@@ -139,15 +124,9 @@
                                                         <div class="bg-layer"
                                                             style="background-image: url({{ $imageUrl ?? $defaultImageUrl }});">
                                                         </div>
-                                                        <span class="post-date"><i
-                                                                class="icon-29"></i>{{ \Carbon\Carbon::parse($relatedPost->published_at)->format('d M, Y') }}</span>
                                                         <h4><a
                                                                 href="{{ route('post', $relatedPost->slug) }}">{{ $relatedPost->title }}</a>
                                                         </h4>
-                                                        <ul class="post-info">
-                                                            <li><i class="icon-30"></i><a href="#">Admin</a>
-                                                            </li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,19 +138,6 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                         <div class="blog-sidebar ml_30">
-                            {{-- <div class="sidebar-widget search-widget mb_55">
-                                <div class="widget-title mb_25">
-                                    <h3>Rechercher</h3>
-                                </div>
-                                <div class="search-form">
-                                    <form action="{{ route('blog') }}" method="get" class="default-form">
-                                        <div class="form-group">
-                                            <input type="search" name="search" placeholder="Rechercher..." required>
-                                            <button type="submit"><i class="icon-8"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> --}}
                             <div class="sidebar-widget category-widget mb_45">
                                 <div class="widget-title mb_20">
                                     <h3>Catégories</h3>
@@ -212,14 +178,12 @@
                                         <div class="post">
                                             <figure class="post-thumb"><a
                                                     href="{{ route('post', $latestPost->slug) }}"><img
-                                                        src="{{ $imageUrl ?? $defaultImageUrl }}"
-                                                        alt=""></a></figure>
+                                                        src="{{ $imageUrl ?? $defaultImageUrl }}" alt=""></a>
+                                            </figure>
                                             <article>
                                                 <h5><a
                                                         href="{{ route('post', $latestPost->slug) }}">{{ $latestPost->title }}</a>
                                                 </h5>
-                                                <span class="post-date"><i
-                                                        class="icon-29"></i>{{ \Carbon\Carbon::parse($latestPost->published_at)->format('d M Y') }}</span>
                                             </article>
                                         </div>
                                     @endforeach
@@ -231,13 +195,8 @@
             </div>
         </section>
         @include('shared.footer')
-
-
     </div>
-
-
     @include('shared.js')
-
 </body>
 
 </html>

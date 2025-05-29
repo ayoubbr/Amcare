@@ -10,14 +10,11 @@ class Setting extends Model
     /** @use HasFactory<\Database\Factories\SettingFactory> */
     use HasFactory;
 
-
-
     protected $fillable = [
         'site_name',
         'phones',
         'email',
         'logo',
-        'footer_text',
         'address',
     ];
 

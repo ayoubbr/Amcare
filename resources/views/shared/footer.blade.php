@@ -17,7 +17,7 @@
                         <div class="widget-content">
                             <ul class="links-list clearfix">
                                 <li><a href="{{ url('about') }}">À propos de nous</a></li>
-                                <li><a href="{{ url('zones') }}">Zones de Service</a></li>
+                                <li><a href="{{ route('zones') }}">Zones de Service</a></li>
                                 <li><a href="{{ url('faqs') }}">FAQ</a></li>
                             </ul>
                         </div>
@@ -42,8 +42,28 @@
                         <div class="widget-content">
                             <figure class="image-box mb_25"><img
                                     src="{{ asset('assets/images/resource/ambulance-3.png') }}" alt=""></figure>
-                            <h3><a
-                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phones['WhatsApp'] ?? '') }}">{{ $settings->phones['WhatsApp'] ?? 'no whatsapp number' }}</a>
+                            <h3>
+                                @if ($settings && $settings->phones && is_array($settings->phones) && count($settings->phones) > 0)
+                                    @php
+                                        $firstPhoneNumber = $settings->phones[0]['value'] ?? null;
+                                    @endphp
+                                    @php
+                                        $rawPhone = preg_replace('/[^0-9+]/', '', $firstPhoneNumber ?? '+212661241832');
+
+                                        if (str_starts_with($rawPhone, '+')) {
+                                            $prefix = '+';
+                                            $digits = substr($rawPhone, 1);
+                                        } else {
+                                            $prefix = '';
+                                            $digits = $rawPhone;
+                                        }
+
+                                        $formattedDigits = trim(implode(' ', str_split($digits, 3)));
+                                        $displayPhone = $prefix . $formattedDigits;
+                                    @endphp
+                                    <h3><a href="tel:{{ $rawPhone }}">{{ $displayPhone }}</a>
+                                    </h3>
+                                @endif
                             </h3>
                         </div>
                     </div>
@@ -55,7 +75,9 @@
         <div class="auto-container">
             <div class="bottom-inner">
                 <div class="copyright">
-                    <p>{{ $settings->footer_text }}</p>
+                    <p>
+                        <a href="https://www.eureka-digital.ma/">© 2025 Eureka Digital. All rights reserved.</a>
+                    </p>
                 </div>
                 <div class="location-box">
                     <p><i class="icon-17"></i>{{ $settings->address }}</p>

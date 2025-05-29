@@ -26,8 +26,10 @@ class SettingController extends Controller
                 'site_name' => 'Ambulance Team',
                 'email' => 'Ambulance.team@yahoo.com',
                 'logo' => 'settings/logo.png',
-                'phones' => json_encode(['WhatsApp Business' => '+212637222220', 'WhatsApp' => '+212661241832']),
-                'footer_text' => '© 2025 Ambulance Team. All rights reserved.',
+                'phones' => [
+                    ['key' => 'WhatsApp Business', 'value' => '+212637222220'],
+                    ['key' => 'WhatsApp', 'value' => '+212661241832']
+                ],
                 'address' => 'Marrakech Marrakech-Safe, Maroc',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -37,14 +39,13 @@ class SettingController extends Controller
         return view('admin.settings',  compact('categories', 'settings'));
     }
 
-   
+
     public function update(Request $request)
     {
         $validatedData = $request->validate([
             'site_name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'footer_text' => 'nullable|string',
             'address' => 'nullable|string',
             'phone_keys.*' => 'nullable|string|max:50',
             'phone_values.*' => 'nullable|string|max:255',
@@ -67,8 +68,12 @@ class SettingController extends Controller
 
             foreach ($phoneKeys as $index => $key) {
                 $value = $phoneValues[$index] ?? null;
+
                 if (!empty($key) && !empty($value)) {
-                    $phones[$key] = $value;
+                    $phones[] = [
+                        'key' => $key,
+                        'value' => $value
+                    ];
                 }
             }
         }
@@ -76,7 +81,6 @@ class SettingController extends Controller
 
         $settings->site_name = $validatedData['site_name'];
         $settings->email = $validatedData['email'] ?? $settings->email;
-        $settings->footer_text = $validatedData['footer_text'] ?? $settings->footer_text;
         $settings->address = $validatedData['address'] ?? $settings->address;
 
         $settings->save();
@@ -85,8 +89,8 @@ class SettingController extends Controller
             ->with('success', 'Paramètres du site mis à jour avec succès.');
     }
 
-   
-    
+
+
     public function updateAdminProfile(Request $request)
     {
         $user = Auth::user();

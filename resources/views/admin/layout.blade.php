@@ -521,38 +521,6 @@
                     });
                 });
 
-
-                document.querySelectorAll('.btn-remove-phone').forEach(div => {
-                    div.addEventListener('click', function() {
-                        div.closest('.phone-input-group').remove();
-                    });
-                });
-
-
-                function addPhoneNumberField(containerId, key = '', value = '') {
-                    const container = document.getElementById(containerId);
-                    const div = document.createElement('div');
-                    div.classList.add('phone-input-group');
-                    div.innerHTML = `
-                        <input type="text" class="form-control" name="phone_keys[]" placeholder="Clé (ex: Support)" value="${key}" style="width: 40%;">
-                        <input type="text" class="form-control" name="phone_values[]" placeholder="Numéro (ex: +1234567890)" value="${value}" style="width: 40%;">
-                        <button type="button" class="btn btn-danger btn-remove-phone" style="width: 20%;">Supprimer</button>
-                    `;
-                    container.appendChild(div);
-
-                    div.querySelector('.btn-remove-phone').addEventListener('click', function() {
-                        console.log('dddd');
-
-                        div.remove();
-                    });
-                }
-                if (document.getElementById('add-phone-button')) {
-                    document.getElementById('add-phone-button').addEventListener('click', function() {
-                        addPhoneNumberField('phone-numbers-container');
-                    });
-                }
-
-
                 const editModal = document.getElementById('editModal');
                 const closeEditModalButton = editModal.querySelector('.close-button');
                 const modalCancelButton = document.getElementById('modalCancel');

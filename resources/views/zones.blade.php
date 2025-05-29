@@ -36,23 +36,19 @@
 
 <body>
     <div class="boxed_wrapper">
-
         @include('shared.header')
-
         <section class="page-title centred">
-            <div class="bg-layer"
-                style="background-image: url({{ asset('assets/images/background/page-title.jpg') }});"></div>
+            <div class="bg-layer"></div>
             <div class="auto-container">
                 <div class="content-box">
-                    <h1>Nos Zones de Service</h1>
                     <ul class="bread-crumb clearfix">
                         <li><a href="{{ url('/') }}">Accueil</a></li>
                         <li>Zones de service</li>
                     </ul>
+                    <h1>Nos Zones de Service</h1>
                 </div>
             </div>
         </section>
-
         <section class="sevice-area centred pt_120 pb_90">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-14.png);"></div>
             <div class="auto-container">
@@ -87,11 +83,8 @@
             </div>
         </section>
         @include('shared.footer')
-
     </div>
-
     @include('shared.js')
-
 </body>
 
 </html>

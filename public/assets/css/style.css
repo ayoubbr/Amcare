@@ -1465,7 +1465,7 @@
  .support-style-two .single-item h2 {
    position: relative;
    display: block;
-   font-size: 32px;
+   font-size: 28px;
    line-height: 40px;
    font-weight: 800;
  }
@@ -1473,6 +1473,11 @@
  .support-style-two .single-item h2 a {
    display: inline-block;
    color: var(--title-color);
+ }
+
+ .contact-row {
+   display: flex;
+   justify-content: center;
  }
 
  .support-style-two .single-item h2 a:hover {}
