@@ -221,7 +221,7 @@
    top: 0;
    width: 100%;
    z-index: 9999999;
-   background: var(--secondary-color);
+   background: var(--theme-color);
  }
 
  .handle-preloader .animation-preloader {
