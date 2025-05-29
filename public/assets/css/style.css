@@ -1642,7 +1642,11 @@
  }
 
  .pagination li a:hover {
-   background-color: #0B25B6 !important;
+   background-color: var(--theme-color) !important;
    color: white !important;
-   border-color: #0B25B6 !important;
+   border-color: var(--theme-color) !important;
+ }
+
+ .footer-bottom .bottom-inner p a {
+   color: var(--text-color) !important;
  }

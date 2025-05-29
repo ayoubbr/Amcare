@@ -151,51 +151,40 @@
 }
 
 @media only screen and (max-width: 1199px) {
-
-  /* Adjust for smaller desktops and large tablets */
   .faq-style-two .auto-container {
     width: 85%;
   }
 }
 
 @media only screen and (max-width: 991px) {
-
-  /* Adjust for tablets */
   .faq-style-two .auto-container {
     width: 90%;
   }
 
-  /* Space below the top content box when columns stack */
+  .content-box {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .faq-style-two .content-column .content-box {
-    /* .content-box is within .content-column */
     margin-bottom: 40px;
-    /* This rule already exists in faq.css but ensure it applies correctly */
   }
 
-  @media only screen and (max-width: 767px) {
+}
 
-    /* Adjust for mobile phones */
-    .faq-style-two .auto-container {
-      width: 95%;
-      /* Uses most of the screen, relying on .auto-container's padding for spacing */
-    }
-
-    /* Section padding adjustment is already present in faq.css: */
-    /* .faq-style-two { padding: 70px 0px; } */
-    /* */
-  }
-
-  @media only screen and (max-width: 499px) {
-
-    /* Adjust for smaller mobile phones */
-    .faq-style-two .auto-container {
-      width: 100%;
-      /* Full width, allowing .auto-container's padding to manage side spacing */
-      /* .auto-container has padding:0px 15px; */
-    }
+@media only screen and (max-width: 767px) {
+  .faq-style-two .auto-container {
+    width: 95%;
   }
 }
 
+@media only screen and (max-width: 499px) {
+  .faq-style-two .auto-container {
+    width: 100%;
+  }
+}
 
 
 .faq-style-two .bg-layer:before {
@@ -240,7 +229,7 @@
   color: #fff;
 }
 
-.faq-style-two .content-box .support-box h3 a:hover {}
+/* .faq-style-two .content-box .support-box h3 a:hover {} */
 
 .faq-style-two .content-box .support-box .text-box h4 {
   font-size: 20px;

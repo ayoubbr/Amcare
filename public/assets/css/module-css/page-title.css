@@ -53,7 +53,9 @@
   color: #fff;
 }
 
-.page-title .bread-crumb li a:hover {}
+.page-title .bread-crumb li a:hover {
+  color: #d8cdce;
+}
 
 .page-title .bread-crumb li:before {
   position: absolute;

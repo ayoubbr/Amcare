@@ -67,12 +67,12 @@
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 single-image">
                                         <figure class="image image-hov-one mt_100"><img
-                                                src="{{ asset('assets/images/resource/faq-1.jpg') }}"
-                                                alt="FAQ Image 1"></figure>
+                                                src="{{ asset('assets/seed_images/jeep-1.jpg') }}" alt="FAQ Image 1">
+                                        </figure>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 single-image">
                                         <figure class="image image-hov-two mb_30"><img
-                                                src="{{ asset('assets/images/resource/faq-2.jpg') }}"
+                                                src="{{ asset('assets/seed_images/ambulance-team-1.jpg') }}"
                                                 alt="FAQ Image 2"></figure>
                                         <div class="experience-box">
                                             <div class="year-box">
