@@ -96,7 +96,7 @@
                                 @endforelse
                             </div>
                             <div class="pagination-wrapper pt_30">
-                                {{ $posts->links('pagination::bootstrap-5') }}
+                                {{ $posts->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>
