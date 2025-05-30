@@ -52,7 +52,7 @@
         <section class="sevice-area centred pt_120 pb_90">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-14.png);"></div>
             <div class="auto-container">
-                <div class="row clearfix">
+                <div class="row clearfix contact-row">
                     @forelse($zones as $zone)
                         @php
                             $imagePath = $zone->image;

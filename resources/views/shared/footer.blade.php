@@ -17,7 +17,7 @@
                         <div class="widget-content">
                             <ul class="links-list clearfix">
                                 <li><a href="{{ url('about') }}">À propos de nous</a></li>
-                                <li><a href="{{ route('zones') }}">Zones de Service</a></li>
+                                <li><a href="{{ route('zones') }}">Zones de service</a></li>
                                 <li><a href="{{ url('faqs') }}">FAQ</a></li>
                             </ul>
                         </div>

@@ -96,7 +96,7 @@
                                         @forelse($services as $service)
                                             <li>
                                                 <a href="{{ route('service', $service->slug) }}">
-                                                    {{ $service->title }}
+                                                    {{ mb_ucfirst(mb_strtolower($service->title)) }}
                                                 </a>
                                             </li>
                                         @empty
@@ -115,7 +115,8 @@
                                         href="{{ url('events') }}">Événements</a>
                                     <ul>
                                         @forelse($events as $event)
-                                            <li><a href="{{ route('event', $event->slug) }}">{{ $event->title }}</a>
+                                            <li><a
+                                                    href="{{ route('event', $event->slug) }}">{{ mb_ucfirst(mb_strtolower($event->title)) }}</a>
                                             </li>
                                         @empty
                                             <div class="col-lg-12">
@@ -141,13 +142,12 @@
             </div>
         </div>
     </div>
-
     <div class="sticky-header">
         <div class="auto-container">
             <div class="outer-box">
                 <figure class="logo-box"><a href="/"><img class="logo"
                             src="{{ $imageUrl ?? $defaultImageUrl }}"
-                            alt="{{ $settings->site_name ?? 'Amcare' }}"></a>
+                            alt="{{ $settings->site_name ?? 'Ambulance Team' }}"></a>
                 </figure>
                 <div class="menu-area">
                     <nav class="main-menu clearfix">
@@ -163,7 +163,7 @@
     <div class="close-btn"><i class="fas fa-times"></i></div>
     <nav class="menu-box">
         <div class="nav-logo"><a href="/"><img class="logo" src="{{ $imageUrl ?? $defaultImageUrl }}"
-                    alt="{{ $settings->site_name ?? 'Amcare' }}"></a>
+                    alt="{{ $settings->site_name ?? 'Ambulance Team' }}"></a>
         </div>
         <div class="menu-outer">
         </div>
@@ -185,29 +185,4 @@
     <a href="tel:{{ $rawPhone }}">
         <i class="fab fa-whatsapp"></i>
     </a>
-</div>
-
-<div id="search-popup" class="search-popup">
-    <div class="popup-inner">
-        <div class="upper-box">
-            <figure class="logo-box"><a href="index.html"><img src="{{ asset('assets/images/logo-2.png') }}"
-                        alt=""></a>
-            </figure>
-            <div class="close-search"><span class="fas fa-times"></span></div>
-        </div>
-        <div class="overlay-layer"></div>
-        <div class="auto-container">
-            <div class="search-form">
-                <form method="post" action="https://azim.hostlin.com/Amcare/index.html">
-                    <div class="form-group">
-                        <fieldset>
-                            <input type="search" class="form-control" name="search-input" value=""
-                                placeholder="Tapez votre mot-clé et appuyez" required>
-                            <button type="submit"><i class="icon-8"></i></button>
-                        </fieldset>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>

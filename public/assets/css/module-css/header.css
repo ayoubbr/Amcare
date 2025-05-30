@@ -144,7 +144,6 @@
   line-height: 20px;
   color: #fff;
   font-weight: 600;
-  text-transform: uppercase;
   padding-left: 24px;
 }
 
@@ -164,7 +163,6 @@
   display: inline-block;
   color: #fff;
   font-weight: 400;
-  text-transform: none;
 }
 
 .header-top .info-list li a:hover {
@@ -192,7 +190,6 @@
   line-height: 20px;
   font-weight: 600;
   color: #fff;
-  text-transform: uppercase;
 }
 
 .header-top .right-column .social-links li a {
@@ -278,7 +275,6 @@
   opacity: 1;
   color: var(--title-color);
   z-index: 1;
-  text-transform: capitalize;
   -webkit-transition: all 500ms ease;
   -moz-transition: all 500ms ease;
   -ms-transition: all 500ms ease;
@@ -346,7 +342,6 @@
   line-height: 24px;
   font-weight: 500;
   font-size: 15px;
-  text-transform: capitalize;
   font-family: var(--text-font);
   color: var(--title-color);
   text-align: left;
@@ -438,7 +433,6 @@
   line-height: 24px;
   font-weight: 500;
   font-size: 15px;
-  text-transform: capitalize;
   font-family: var(--text-font);
   color: var(--title-color);
   text-align: left;
@@ -702,7 +696,7 @@
 .mobile-menu .navigation li ul li>a {
   font-size: 16px;
   margin-left: 20px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .mobile-menu .navigation li ul li>a:hover,

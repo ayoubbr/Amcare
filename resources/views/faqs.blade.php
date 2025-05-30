@@ -35,7 +35,6 @@
 <body class="ltr">
     <div class="boxed_wrapper">
         @include('shared.header')
-
         <section class="page-title centred">
             <div class="bg-layer">
             </div>
@@ -119,14 +118,11 @@
                     </div>
                 </div>
                 <div class="pagination-wrapper pt_30">
-                    {{ $faqs->links('pagination::bootstrap-5') }}
+                    {{ $faqs->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </section>
-
-
         @include('shared.footer')
-
     </div>
     @include('shared.js')
 </body>

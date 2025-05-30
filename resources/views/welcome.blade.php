@@ -137,15 +137,13 @@
                                         <h2 class="about-h2">
                                             {{ $page->main_title ?? 'Excellence dans les services médicaux d\'urgence' }}
                                         </h2>
-                                        @if (isset($page) && $page->content)
+                                        @if (isset($page) && $page->meta_description)
                                             {!! $page->meta_description !!}
                                         @else
-                                            <p>Chez Amcare, nous sommes fiers d'offrir l'excellence dans les
-                                                services
-                                                médicaux d'urgence. Notre équipe de professionnels hautement
-                                                qualifiés
-                                                et
-                                                expérimentés.</p>
+                                            <p>Chez Ambulance Team, nous sommes fiers d'offrir l'excellence dans les
+                                                services médicaux d'urgence. Notre équipe de professionnels hautement
+                                                qualifiés et expérimentés.
+                                            </p>
                                         @endif
                                     </div>
                                     <div class="btn-box"><a href="{{ route('about') }}" class="theme-btn btn-one">En
@@ -239,7 +237,7 @@
         @php
             $phoneCount = count($settings->phones);
             $colLg = $phoneCount > 0 ? floor(12 / min($phoneCount, 3)) : 12;
-            $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12; 
+            $colMd = $phoneCount > 1 ? floor(12 / min($phoneCount, 2)) : 12;
         @endphp
         <section class="support-style-two centred pl_100 pr_100 pb_90">
             <div class="auto-container">
@@ -247,7 +245,7 @@
                     @forelse($settings->phones as $phoneObject)
                         <div class="col-lg-{{ $colLg }} col-md-{{ $colMd }} col-sm-12 single-column">
                             <div class="single-item">
-                                <h5>{{ $phoneObject['key'] }}:</h5> 
+                                <h5>{{ $phoneObject['key'] }}:</h5>
                                 <h2>
                                     @php
                                         $rawPhone = preg_replace(
@@ -521,13 +519,13 @@
                 </div>
             </div>
         </section>
-        
+
         @include('shared.footer')
-    
+
     </div>
-    
+
     @include('shared.js')
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Tab switching logic for Services section (copied from services.blade.php)
