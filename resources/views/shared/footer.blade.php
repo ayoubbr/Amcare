@@ -79,9 +79,6 @@
                         <a href="https://www.eureka-digital.ma/">© 2025 Eureka Digital. All rights reserved.</a>
                     </p>
                 </div>
-                <div class="location-box">
-                    <p><i class="icon-17"></i>{{ $settings->address }}</p>
-                </div>
             </div>
         </div>
     </div>
