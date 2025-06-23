@@ -111,30 +111,32 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown {{ request()->is('events') ? 'current' : '' }}"><a
-                                        href="{{ url('events') }}">Événements</a>
-                                    <ul>
-                                        @forelse($events as $event)
-                                            <li><a
-                                                    href="{{ route('event', $event->slug) }}">{{ mb_ucfirst(mb_strtolower($event->title)) }}</a>
-                                            </li>
-                                        @empty
-                                            <div class="col-lg-12">
-                                                <p>Aucun événement pour le moment.</p>
-                                            </div>
-                                        @endforelse
-                                    </ul>
-                                </li>
+                                @if (count($events) > 0)
+                                    <li class="dropdown {{ request()->is('events') ? 'current' : '' }}"><a
+                                            href="{{ route('events') }}">Événements</a>
+                                        <ul>
+                                            @forelse($events as $event)
+                                                <li><a
+                                                        href="{{ route('event', $event->slug) }}">{{ mb_ucfirst(mb_strtolower($event->title)) }}</a>
+                                                </li>
+                                            @empty
+                                                <div class="col-lg-12">
+                                                    <p>Aucun événement pour le moment.</p>
+                                                </div>
+                                            @endforelse
+                                        </ul>
+                                    </li>
+                                @endif
                                 <li class="{{ request()->is('blog') ? 'current' : '' }}">
-                                    <a href="{{ url('blog') }}">Blog</a>
+                                    <a href="{{ route('blog') }}">Blog</a>
                                 </li>
                                 @if ($pages->count() > 0)
                                     <li class="{{ request()->is('about') ? 'current' : '' }}">
-                                        <a href="{{ url('about') }}">À propos</a>
+                                        <a href="{{ route('about') }}">À propos</a>
                                     </li>
                                 @endif
                                 <li class="{{ request()->is('contact') ? 'current' : '' }}"><a
-                                        href="{{ url('contact') }}">Contact</a></li>
+                                        href="{{ route('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>

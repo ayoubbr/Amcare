@@ -17,19 +17,40 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
-Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
-Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
+// Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+// Route::get('/blog/{slug}', [HomeController::class, 'post'])->name('post');
+// Route::get('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
 
-Route::get('/events', [HomeController::class, 'events'])->name('events');
-Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
+// Route::get('/events', [HomeController::class, 'events'])->name('events');
+// Route::get('/events/{slug}', [HomeController::class, 'event'])->name('event');
 
-Route::get('services/zones', [HomeController::class, 'zones'])->name('zones');
-Route::get('services/{slug}', [HomeController::class, 'service'])->name('service');
+// Route::get('services/zones', [HomeController::class, 'zones'])->name('zones');
+// Route::get('services/{slug}', [HomeController::class, 'service'])->name('service');
 
-Route::get('about', [HomeController::class, 'about'])->name('about');
-Route::get('contact', [HomeController::class, 'contact'])->name('contact');
-Route::get('faqs', [HomeController::class, 'faqs'])->name('faqs');
+// Route::get('about', [HomeController::class, 'about'])->name('about');
+// Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+// Route::get('faqs', [HomeController::class, 'faqs'])->name('faqs');
+
+
+
+// Route::html()('/', [HomeController::class, 'index'])->name('home');
+
+Route::html()('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::html()('/blog/{slug}', [HomeController::class, 'post'])->name('post');
+Route::html()('/blog/category/{slug}', [HomeController::class, 'category'])->name('blog.category');
+
+Route::html()('/events', [HomeController::class, 'events'])->name('events');
+Route::html()('/events/{slug}', [HomeController::class, 'event'])->name('event');
+
+Route::html()('/services/zones', [HomeController::class, 'zones'])->name('zones');
+Route::html()('/services/{slug}', [HomeController::class, 'service'])->name('service');
+
+
+Route::html()('/about', [HomeController::class, 'about'])->name('about');
+Route::html()('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::html()('/faqs', [HomeController::class, 'faqs'])->name('faqs');
+
+
 
 Route::get('/admin-access', [AuthController::class, 'accessForm'])->name('admin.access');
 Route::post('/admin-access', [AuthController::class, 'verifyAccessCode'])->name('admin.verify.access');

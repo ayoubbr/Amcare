@@ -42,7 +42,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb clearfix">
-                        <li><a href="{{ url('/') }}">Accueil</a></li>
+                        <li><a href="{{ route('home') }}">Accueil</a></li>
                         <li>Zones de service</li>
                     </ul>
                     <h1>Nos Zones de Service</h1>

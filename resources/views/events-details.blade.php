@@ -46,7 +46,7 @@
             <div class="auto-container">
                 <div class="content-box">
                     <ul class="bread-crumb">
-                        <li><a href="/">Accueil</a></li>
+                        <li><a href="{{route('home')}}">Accueil</a></li>
                         <li><a href="{{ route('events') }}">Événements</a></li>
                         <li>{{ $event->title }}</li>
                     </ul>

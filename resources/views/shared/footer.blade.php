@@ -16,9 +16,9 @@
                         </div>
                         <div class="widget-content">
                             <ul class="links-list clearfix">
-                                <li><a href="{{ url('about') }}">À propos de nous</a></li>
+                                <li><a href="{{ route('about') }}">À propos de nous</a></li>
                                 <li><a href="{{ route('zones') }}">Zones de service</a></li>
-                                <li><a href="{{ url('faqs') }}">FAQ</a></li>
+                                <li><a href="{{ route('faqs') }}">FAQ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -30,9 +30,11 @@
                         </div>
                         <div class="widget-content">
                             <ul class="links-list clearfix">
-                                <li><a href="{{ url('events') }}">Événements</a></li>
-                                <li><a href="{{ url('contact') }}">Contactez-nous</a></li>
-                                <li><a href="{{ url('blog') }}">Blog</a></li>
+                                @if (count($events) > 0 )
+                                <li><a href="{{ route('events') }}">Événements</a></li>
+                                @endif
+                                <li><a href="{{ route('contact') }}">Contactez-nous</a></li>
+                                <li><a href="{{ route('blog') }}">Blog</a></li>
                             </ul>
                         </div>
                     </div>
